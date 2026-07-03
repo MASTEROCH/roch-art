@@ -79,7 +79,7 @@ body{
 @keyframes drift2{to{transform:translate(-9vmax,11vmax) scale(.9)}}
 @keyframes drift3{to{transform:translate(8vmax,-10vmax) scale(1.1)}}
 .pcl{position:absolute;bottom:-3vh;border-radius:50%;background:var(--lime);
-  opacity:0;animation:rise linear infinite;box-shadow:0 0 8px rgba(212,255,79,.8)}
+  opacity:0;animation:rise linear infinite}
 @keyframes rise{
   0%{transform:translateY(0) translateX(0);opacity:0}
   8%{opacity:var(--po,.5)}85%{opacity:var(--po,.5)}
@@ -130,17 +130,21 @@ p.lead b{color:var(--text);font-weight:700}
   box-shadow:0 0 8px rgba(212,255,79,.8)}
 
 /* ============ HEADER ============ */
-header{padding:16px 0 0;position:sticky;top:10px;z-index:50}
+header{padding:16px 0 0;position:sticky;top:8px;z-index:50;transition:top .35s var(--ease)}
+header.hide{top:2px}
 /* unified blur scrim behind both HUD panels — kills UI-layer clutter */
-header::before{content:'';position:absolute;left:-20px;right:-20px;top:-16px;bottom:-14px;z-index:-1;
-  -webkit-backdrop-filter:blur(16px) saturate(120%);backdrop-filter:blur(16px) saturate(120%);
-  -webkit-mask:linear-gradient(180deg,#000 78%,transparent);mask:linear-gradient(180deg,#000 78%,transparent);
+header::before{content:'';position:absolute;left:-14px;right:-14px;top:-10px;bottom:-8px;z-index:-1;
+  -webkit-backdrop-filter:blur(14px) saturate(120%);backdrop-filter:blur(14px) saturate(120%);
+  -webkit-mask:linear-gradient(180deg,#000 80%,transparent);mask:linear-gradient(180deg,#000 80%,transparent);
   pointer-events:none}
 .nav{display:flex;justify-content:space-between;align-items:center;
   padding:10px 10px 10px 18px;border-radius:99px;
-  background:rgba(9,13,11,.9);
-  transition:opacity .4s var(--ease), transform .4s var(--ease)}
-header.hide .nav{opacity:0;transform:translateY(-12px);pointer-events:none}
+  background:rgba(9,13,11,.9);overflow:hidden;max-height:72px;
+  transition:opacity .35s var(--ease), transform .35s var(--ease),
+    max-height .4s var(--ease), padding .4s var(--ease), margin .4s var(--ease), border-width .4s var(--ease)}
+/* при скролле строка лого+слоты схлопывается — HUD поднимается в самый верх */
+header.hide .nav{opacity:0;transform:translateY(-10px);pointer-events:none;
+  max-height:0;padding-top:0;padding-bottom:0;border-width:0}
 .hud-nav{margin-top:8px;border-radius:22px;padding:6px;display:flex;gap:2px;
   background:rgba(9,13,11,.94);-webkit-backdrop-filter:blur(20px) saturate(150%);backdrop-filter:blur(20px) saturate(150%);
   border:1px solid rgba(255,255,255,.14);
@@ -288,7 +292,7 @@ h1 .w i{animation-delay:var(--wd)}
 .morph-knob::before,.morph-knob::after{content:'';width:0;height:0;border-top:5px solid transparent;border-bottom:5px solid transparent}
 .morph-knob::before{border-right:6px solid rgba(255,255,255,.75)}
 .morph-knob::after{border-left:6px solid rgba(255,255,255,.75)}
-.morph-stage.hint{animation:splitHint 2.8s ease-in-out infinite}
+.morph-stage.hint{animation:splitHint 2.8s ease-in-out 3}
 @keyframes splitHint{0%,100%{--split:50%}25%{--split:41%}75%{--split:59%}}
 /* top bar: label centered, side tags */
 .morph-topbar{position:absolute;top:0;left:0;right:0;height:52px;z-index:6;
@@ -526,6 +530,27 @@ h1 .w i{animation-delay:var(--wd)}
 .check-result{margin-top:16px;text-align:center}
 .cr-txt{font-size:15px;font-weight:600;color:var(--text2);margin-bottom:16px;transition:color .3s}
 .cr-txt b{color:var(--lime)}
+
+/* ============ LIGHTBOX ============ */
+.lb{position:fixed;inset:0;z-index:140;background:rgba(3,5,4,.9);
+  -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+  opacity:0;pointer-events:none;transition:opacity .3s var(--ease)}
+.lb.open{opacity:1;pointer-events:auto}
+.lb-track{display:flex;height:100%;overflow-x:auto;overflow-y:hidden;
+  scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
+  scrollbar-width:none}
+.lb-track::-webkit-scrollbar{display:none}
+.lb-slide{flex:0 0 100%;height:100%;display:flex;align-items:center;justify-content:center;
+  scroll-snap-align:center;scroll-snap-stop:always;
+  padding:56px 14px calc(30px + env(safe-area-inset-bottom))}
+.lb-slide img{max-width:100%;max-height:100%;object-fit:contain;border-radius:22px;
+  border:1px solid rgba(255,255,255,.14);
+  box-shadow:0 30px 80px rgba(0,0,0,.7)}
+.lb-close{z-index:141}
+.lb .lb-close{position:absolute;top:calc(14px + env(safe-area-inset-top));right:16px}
+.lb-count{position:absolute;top:calc(22px + env(safe-area-inset-top));left:50%;transform:translateX(-50%);
+  font-size:12px;font-weight:800;letter-spacing:.08em;color:var(--text2);
+  font-variant-numeric:tabular-nums;pointer-events:none}
 
 /* ============ MASCOT (порт с roch-audit.com, 1:1) ============ */
 .mfab{position:fixed;right:14px;z-index:55;bottom:calc(96px + env(safe-area-inset-bottom));
@@ -963,6 +988,9 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
 .cov{position:relative;display:block;overflow:hidden}
 .proj .cover{width:100%;aspect-ratio:16/10;object-fit:cover;display:block;
   transition:transform .6s var(--spring)}
+.cov .cover-b{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  opacity:0;transition:opacity .7s var(--ease);pointer-events:none}
+.cov .cover-b.show{opacity:1}
 .proj:active .cover{transform:scale(1.06)}
 .cov::after{content:'';position:absolute;left:0;right:0;bottom:0;height:46%;pointer-events:none;
   background:linear-gradient(180deg, transparent, rgba(10,14,11,.72))}
@@ -1023,16 +1051,17 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
   border-radius:99px;padding:2px 8px;white-space:nowrap}
 .live-badge .ld{width:6px;height:6px;border-radius:50%;background:#FF5252;
   box-shadow:0 0 8px rgba(255,82,82,.9);animation:pulse 1.6s infinite}
-/* мета-пруф: сайт как кейс */
-.meta-proof{display:flex;gap:13px;align-items:center;padding:16px 18px}
-.mp-ic{flex:0 0 42px;height:42px;border-radius:14px;font-size:20px;
-  display:flex;align-items:center;justify-content:center;
-  background:var(--lime-soft);border:1px solid rgba(212,255,79,.3);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.2)}
+/* мета-пруф: сайт как кейс — золотой */
+.meta-proof{display:flex;gap:13px;align-items:center;padding:16px 18px;
+  background:linear-gradient(150deg, rgba(255,214,107,.14), rgba(255,214,107,.03) 60%), rgba(30,25,12,.72);
+  border-color:rgba(255,214,107,.4);
+  box-shadow:var(--shadow), 0 0 44px -10px rgba(245,165,36,.35), inset 0 1px 0 rgba(255,236,180,.3)}
+.mp-ic-img{flex:0 0 52px;width:52px;height:52px;pointer-events:none;
+  filter:drop-shadow(0 4px 14px rgba(245,165,36,.45))}
 .meta-proof p{font-size:14px;font-weight:500;color:var(--text2);line-height:1.5}
-.meta-proof p b{color:var(--text)}
-.meta-proof .mp-time{color:var(--lime);font-variant-numeric:tabular-nums;
-  text-shadow:0 0 14px rgba(212,255,79,.4)}
+.meta-proof p b{color:#FFE49A}
+.meta-proof .mp-time{color:#FFD66B;font-variant-numeric:tabular-nums;
+  text-shadow:0 0 14px rgba(255,214,107,.5)}
 /* контакты в футере */
 .contacts{display:flex;justify-content:center;gap:9px;margin:4px 0 20px;flex-wrap:wrap}
 .c-chip{display:inline-flex;align-items:center;gap:8px;padding:10px 15px;border-radius:99px;text-decoration:none;
@@ -1063,9 +1092,9 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
 }
 
 /* ============ MOTION ============ */
-.reveal{opacity:0;transform:translateY(30px) scale(.97);filter:blur(3px);
-  transition:opacity .7s var(--ease), transform .7s var(--ease), filter .7s var(--ease)}
-.reveal.in{opacity:1;transform:none;filter:none}
+.reveal{opacity:0;transform:translateY(30px) scale(.97);
+  transition:opacity .7s var(--ease), transform .7s var(--ease)}
+.reveal.in{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
   .reveal,.boot{opacity:1;transform:none}
@@ -1647,7 +1676,7 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
   <div class="sec-head reveal">
     <div class="sec-num">05</div>
     <div class="eyebrow">Как это работает</div>
-    <h2>От «привет» до результата<img class="sec-icon" src="assets/bff.webp" alt="" aria-hidden="true" loading="lazy" decoding="async"></h2>
+    <h2>От «привет» до результата<img class="sec-icon" style="top:46px" src="assets/winner.webp" alt="" aria-hidden="true" loading="lazy" decoding="async"></h2>
   </div>
   <div class="steps">
     <div class="step reveal"><div class="num">1</div>
@@ -1655,7 +1684,7 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
     <div class="step reveal"><div class="num">2</div>
       <div><h3>Разбор за 15 минут</h3><p>Смотрю продукт, честно говорю, что не так и какой пакет решит задачу.</p></div></div>
     <div class="step reveal"><div class="num">3</div>
-      <div><h3>Предоплата 50% — старт</h3><p>Слот забронирован. Через 24 часа у тебя стиль, дальше — по уровню.</p></div></div>
+      <div><h3>Предоплата 50% — старт</h3><p>Слот забронирован. Через 24 часа у тебя стиль, дальше — авторский надзор.</p></div></div>
     <div class="step reveal"><div class="num">4</div>
       <div><h3>Результат + итерация</h3><p>Правки внутри пакета. Финал — код и ассеты, готовые к деплою.</p></div></div>
   </div>
@@ -1705,7 +1734,7 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
 <!-- ============ META-PROOF ============ -->
 <section style="padding-top:0">
   <div class="meta-proof glass reveal">
-    <div class="mp-ic">⚡</div>
+    <img class="mp-ic-img" src="assets/star.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
     <p>Этот сайт — сам себе кейс: <b>собран за 24 часа</b>. Ты на нём уже <b class="mp-time" id="dwell">0:00</b> и всё ещё читаешь — <b>так и работает упаковка.</b></p>
   </div>
 </section>
@@ -1791,6 +1820,13 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
       <a class="btn sec" id="pjTg" href="#" target="_blank" rel="noopener">Хочу так же</a>
     </div>
   </div>
+</div>
+
+<!-- ============ LIGHTBOX (скрины на весь экран, свайпы) ============ -->
+<div class="lb" id="lb" aria-hidden="true">
+  <button class="m-close lb-close" id="lbClose" type="button" aria-label="Закрыть">✕</button>
+  <div class="lb-count" id="lbCount">1 / 1</div>
+  <div class="lb-track" id="lbTrack"></div>
 </div>
 
 <!-- ============ MASCOT FAB + CHAT ============ -->
@@ -2024,23 +2060,23 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
     {name:'CityHUB', c:'#7c5cff', icon:'assets/covers/cityhub.jpg',
      s:'Городской гид «куда пойти сейчас» + консьерж',
      d:'Городской гид для Батуми: «куда пойти прямо сейчас», консьерж-сервис, лояльность для локального бизнеса, два мира — гость и бизнес. 3 языка.',
-     tags:['City-гид','B2B','i18n'], shots:['cityhub-2.jpg','cityhub-4.jpg','cityhub-5.jpg','cityhub-6.jpg'], url:''},
+     tags:['City-гид','B2B','i18n'], shots:['cityhub-2.jpg','cityhub-7.jpg','cityhub-8.jpg','cityhub-9.jpg'], url:''},
     {name:'Self-Fix', c:'#8b5cf6', icon:'assets/covers/selfix.jpg',
      s:'Big Five тест личности с вирусной механикой',
      d:'Тест личности Big Five в Telegram: глубокий профиль, подарки-приглашения, PvP-сравнения и слой «клоны общаются с клонами». Виральность заложена в механику.',
-     tags:['Психология','Виральность','TMA'], shots:['selfix-7.jpg','selfix-app.jpg'], url:''},
+     tags:['Психология','Виральность','TMA'], shots:['selfix-7.jpg'], url:''},
     {name:'Nardum', c:'#FFB547', icon:'assets/covers/nardum.jpg',
      s:'Длинные нарды: PvP, школа, ИИ-наставник',
      d:'Длинные нарды в Telegram: движок правил, 3D-кости, школа обучения, ИИ-наставник на Claude и платежи Stars. Турнирная модель со спонсорскими призами.',
-     tags:['Игра','PvP','Stars/TON'], shots:['nardum-5.jpg','nardum-8.jpg','nardum-2.jpg'], url:'https://t.me/nardum_game_bot'},
+     tags:['Игра','PvP','Stars/TON'], shots:['nardum-5.jpg','nardum-7.jpg','nardum-12.jpg','nardum-11.jpg','nardum-8.jpg','nardum-2.jpg'], url:'https://t.me/nardum_game_bot'},
     {name:'CargoBob', c:'#ff7a18', icon:'assets/covers/cargobob.jpg',
      s:'Мост последних 500 метров в бензоочереди',
      d:'P2P-сервис для топливных очередей: водитель держит место, раннер приносит нужное. Радар близости, QR-рукопожатие, роли водитель/раннер с разными акцентами.',
-     tags:['Логистика','P2P','TMA'], shots:['cargobob-2.jpg','cargobob-1.jpg'], url:''},
+     tags:['Логистика','P2P','TMA'], shots:['cargobob-1.jpg','cargobob-3.jpg','cargobob-4.jpg','cargobob-7.jpg','cargobob-8.jpg'], url:''},
     {name:'Crooked Cook', c:'#FF6B6B', icon:'assets/covers/crooked.jpg',
      s:'Merge-аркада для кафе: рекорд → скидка',
      d:'B2B-аркада для кафе Батуми: QR на столе, гость играет в merge, ставит рекорд — получает скидку. Игра как канал возврата гостей.',
-     tags:['Игра','B2B','HoReCa'], shots:['crooked-2.jpg','crooked-6.jpg','crooked-app.jpg'], url:''},
+     tags:['Игра','B2B','HoReCa'], shots:['crooked-2.jpg','crooked-8.jpg','crooked-1.jpg'], url:''},
     {name:'Realty Forum', c:'#e0483d', icon:'assets/covers/realty.jpg', feat:true,
      s:'Ивент-платформа форума недвижимости',
      d:'Платформа форума Realty Batumi 2026: программа, спикеры, QR-нетворкинг в один тап, AI-инструменты подбора партнёров и калькуляторы инвестора.',
@@ -2048,11 +2084,11 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
     {name:'AllTrustMe', c:'#3d8bff', icon:'assets/covers/alltrust.jpg',
      s:'Крипто-обменник: синее liquid glass',
      d:'Крипто-обменник для Грузии в Telegram: курсы, заявки, розыгрыш с золотым премиум-слоем. Синее liquid glass поверх чёрного с летающими орбами.',
-     tags:['Crypto','Web3','TMA'], shots:['alltrust-4.jpg','alltrust-6.jpg','alltrust-7.jpg','alltrust-8.jpg'], url:'https://masteroch.github.io/alltrustme'},
+     tags:['Crypto','Web3','TMA'], shots:['alltrust-4.jpg','alltrust-6.jpg','alltrust-7.jpg','alltrust-8.jpg','alltrust-10.jpg'], url:'https://masteroch.github.io/alltrustme'},
     {name:'ANZH Skin', c:'#3e9ba0', icon:'assets/covers/anzh.jpg',
      s:'Бьюти-квиз по уходу за кожей + магазин',
      d:'Косметологический продукт: квиз подбирает уход по типу кожи, магазин закрывает потребность. Тёплый teal+gold на глубоком тёмном.',
-     tags:['Beauty','Quiz','E-com'], shots:['anzh-1.jpg','anzh-2.jpg','anzh-3.jpg','anzh-9.jpg'], url:'https://anzh.store'},
+     tags:['Beauty','Quiz','E-com'], shots:['anzh-1.jpg','anzh-2.jpg','anzh-3.jpg','anzh-8.jpg'], url:'https://anzh.store'},
     {name:'Batumi Neon', c:'#FF006E', icon:'assets/covers/neon.jpg', feat:true,
      s:'CarRent: премиум-аренда авто с неон-витриной',
      d:'Аренда авто в Батуми: неоновая витрина с Porsche-вайбом, перки Street King, бронь с таймером обратного отсчёта. Дорогой продукт — дорогая подача.',
@@ -2060,7 +2096,8 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
     {name:'Dropper', c:'#00E0C7', icon:'assets/covers/dropper.jpg',
      s:'Автономные роботы-доставщики для Батуми',
      d:'Роботы-доставщики последней мили: маршруты по набережной, приложение вызова и трекинга, юнит-экономика под сезонный поток.',
-     tags:['Роботы','Доставка','Hardware'], shots:['dropper-2.jpg','dropper-4.jpg'], url:''},
+     tags:['Роботы','Доставка','Hardware'], shots:['dropper-6.jpg','dropper-8.jpg','dropper-7.jpg','dropper-2.jpg','dropper-10.jpg','dropper-11.jpg'], url:''},
+    /* СКРЫТО пока (вернуть = раскомментировать):
     {name:'KING Fit', c:'#F5A524', icon:'assets/covers/kingfit.jpg',
      s:'Фитнес с игровой прогрессией',
      d:'Фитнес-продукт с геймдев-ДНК: тренировки как квесты, стрики, уровни и лиги. Спорт, в который хочется возвращаться.',
@@ -2069,10 +2106,11 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
      s:'Тёплый продукт для двоих',
      d:'Пространство для пар: общие моменты, сюрпризы и цели. Мягкая механика вовлечения без соцсетевого шума.',
      tags:['Lifestyle','TMA'], shots:[], url:''},
+    */
     {name:'Vodokanal', c:'#04a0e6', icon:'assets/covers/vodokanal.jpg',
      s:'ЖКХ-сервис: светлое aqua-glass для 60+',
      d:'White-label TMA для водоканалов: показания, аварии, оплата, маскот «Капелька». Светлое aqua-glass, крупная типографика — дизайн для аудитории 60+.',
-     tags:['ЖКХ','White-label','TMA'], shots:['vodokanal-app.jpg','vodokanal-3.jpg','vodokanal-4.jpg'], url:''}
+     tags:['ЖКХ','White-label','TMA'], shots:['vodokanal-1.jpg','vodokanal-3.jpg','vodokanal-5.jpg','vodokanal-7.jpg','vodokanal-8.jpg'], url:''}
     /* СКРЫТО пока (вернуть = раскомментировать):
     {name:'Datum', c:'#7C3AFF', icon:'assets/covers/datum.jpg', feat:true,
      s:'Telegram-игра: империя данных',
@@ -2093,6 +2131,7 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
     var pjTg = document.getElementById('pjTg');
     if(!grid || !back) return;
 
+    var carousels = [];
     PROJECTS.forEach(function(p, idx){
       var b = document.createElement('button');
       b.type = 'button';
@@ -2100,9 +2139,11 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
       b.style.setProperty('--pc', p.c || '#D4FF4F');
       var num = (idx + 1 < 10 ? '0' : '') + (idx + 1);
       var tags = p.tags.slice(0, 2).map(function(t){ return '<span class="ctag">' + t + '</span>'; }).join('');
+      var firstShot = p.shots.length ? 'assets/cases/' + p.shots[0] : p.icon;
       b.innerHTML =
         '<span class="cov">' +
-          '<img class="cover" src="' + p.icon + '" alt="" loading="lazy" decoding="async">' +
+          '<img class="cover" src="' + firstShot + '" alt="" loading="lazy" decoding="async">' +
+          '<img class="cover-b" alt="" aria-hidden="true">' +
           '<span class="cov-n">' + num + '</span>' +
           '<span class="cov-go"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></span>' +
         '</span>' +
@@ -2111,7 +2152,51 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
         '<span class="proj-tags">' + tags + '</span></span>';
       b.addEventListener('click', function(){ openProj(p); });
       grid.appendChild(b);
+      /* карусель превью: обложка + скрины по кругу */
+      if(p.shots.length > 1 && !reduced){
+        carousels.push({
+          el: b.querySelector('.cover'),
+          elB: b.querySelector('.cover-b'),
+          srcs: p.shots.map(function(f){ return 'assets/cases/' + f; }),
+          i: 0,
+          offset: idx % 4 /* волна: карточки листаются не хором */
+        });
+      }
     });
+
+    /* один общий такт на все карусели; вне вьюпорта карточка не листается */
+    if('IntersectionObserver' in window){
+      var covObs = new IntersectionObserver(function(entries){
+        entries.forEach(function(en){
+          for(var q = 0; q < carousels.length; q++){
+            if(carousels[q].el.closest('.proj') === en.target){ carousels[q].vis = en.isIntersecting; }
+          }
+        });
+      }, {rootMargin:'80px 0px'});
+      carousels.forEach(function(c){ covObs.observe(c.el.closest('.proj')); });
+    } else {
+      carousels.forEach(function(c){ c.vis = true; });
+    }
+    var tick = 0;
+    setInterval(function(){
+      tick++;
+      carousels.forEach(function(c){
+        if(!c.vis) return;
+        if((tick + c.offset) % 4 !== 0) return; /* каждая карточка — раз в ~3.2с со сдвигом фазы */
+        c.i = (c.i + 1) % c.srcs.length;
+        var next = c.srcs[c.i];
+        var pre = new Image();
+        pre.onload = function(){
+          c.elB.src = next;
+          c.elB.classList.add('show');
+          setTimeout(function(){
+            c.el.src = next;
+            c.elB.classList.remove('show');
+          }, 720);
+        };
+        pre.src = next;
+      });
+    }, 800);
 
     function openProj(p){
       track('project_view', p.name);
@@ -2120,9 +2205,14 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
       pjTags.innerHTML = p.tags.map(function(t){ return '<span class="ctag">' + t + '</span>'; }).join('');
       pjDesc.textContent = p.d;
       if(p.shots.length){
-        pjShots.innerHTML = p.shots.map(function(f){
-          return '<img src="assets/cases/' + f + '" loading="lazy" decoding="async" alt="' + p.name + '">';
+        pjShots.innerHTML = p.shots.map(function(f, k){
+          return '<img src="assets/cases/' + f + '" loading="lazy" decoding="async" alt="' + p.name + '" data-lb="' + k + '" style="cursor:zoom-in">';
         }).join('');
+        Array.prototype.forEach.call(pjShots.querySelectorAll('img'), function(im){
+          im.addEventListener('click', function(){
+            openLb(p.shots.map(function(f){ return 'assets/cases/' + f; }), parseInt(im.getAttribute('data-lb'), 10) || 0);
+          });
+        });
       } else {
         pjShots.innerHTML = '<div class="ph-empty"><i>✦</i>Скриншоты<br>на подходе</div><div class="ph-empty"><i>◈</i>Спроси у ROCH bot<br>про этот проект</div>';
       }
@@ -2140,6 +2230,51 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
     back.addEventListener('click', function(e){ if(e.target === back) closeProj(); });
     document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeProj(); });
   })();
+
+  /* ===== LIGHTBOX: фуллскрин-просмотр скринов, свайпы = нативный snap ===== */
+  var lb = document.getElementById('lb');
+  var lbTrack = document.getElementById('lbTrack');
+  var lbCount = document.getElementById('lbCount');
+  function openLb(srcs, startIdx){
+    lbTrack.innerHTML = srcs.map(function(src){
+      return '<div class="lb-slide"><img src="' + src + '" alt=""></div>';
+    }).join('');
+    lb.classList.add('open');
+    lb.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    var w = lbTrack.clientWidth;
+    lbTrack.scrollLeft = w * (startIdx || 0);
+    updateLbCount(srcs.length);
+  }
+  function updateLbCount(total){
+    var w = lbTrack.clientWidth || 1;
+    var idx = Math.round(lbTrack.scrollLeft / w) + 1;
+    lbCount.textContent = Math.min(idx, total) + ' / ' + total;
+  }
+  function closeLb(){
+    lb.classList.remove('open');
+    lb.setAttribute('aria-hidden', 'true');
+    /* body-скролл вернёт открытый под лайтбоксом шит проекта */
+    document.body.style.overflow = 'hidden';
+  }
+  var lbTick = false;
+  lbTrack.addEventListener('scroll', function(){
+    if(lbTick) return; lbTick = true;
+    requestAnimationFrame(function(){
+      updateLbCount(lbTrack.children.length);
+      lbTick = false;
+    });
+  }, {passive:true});
+  document.getElementById('lbClose').addEventListener('click', closeLb);
+  lb.addEventListener('click', function(e){
+    if(e.target === lb || e.target.classList.contains('lb-slide')) closeLb();
+  });
+  document.addEventListener('keydown', function(e){
+    if(!lb.classList.contains('open')) return;
+    if(e.key === 'Escape') closeLb();
+    if(e.key === 'ArrowRight') lbTrack.scrollBy({left: lbTrack.clientWidth, behavior:'smooth'});
+    if(e.key === 'ArrowLeft') lbTrack.scrollBy({left: -lbTrack.clientWidth, behavior:'smooth'});
+  });
 
   /* ===== MASCOT — порт с roch-audit.com (спрайты + чат + баблы) ===== */
   var VIBE_API = 'https://roch-audit.com/api/vibe-chat';
@@ -2433,7 +2568,7 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
   /* ===== Particles ===== */
   if(!reduced){
     var bgC = document.querySelector('.bg');
-    for(var i = 0; i < 18; i++){
+    for(var i = 0; i < 10; i++){
       var p = document.createElement('span');
       p.className = 'pcl';
       var size = 2 + Math.random() * 3;
