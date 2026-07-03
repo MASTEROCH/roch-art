@@ -953,14 +953,30 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
 .yt .cap span{font-size:12px;font-weight:600;color:var(--text2)}
 .yt.playing .poster,.yt.playing .scrim,.yt.playing .play,.yt.playing .cap{display:none}
 .yt iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-/* портфолио: единая компактная сетка 2×N */
-.proj-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+/* портфолио: единая компактная сетка 2×N + ambient-свет бренда */
+.proj-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .proj{display:flex;flex-direction:column;align-items:stretch;padding:0;cursor:pointer;text-align:left;
   color:var(--text);font-family:var(--font);border-radius:22px;overflow:hidden;
-  transition:transform .3s var(--spring)}
-.proj:active{transform:scale(.98)}
-.proj .cover{width:100%;aspect-ratio:16/10;object-fit:cover;display:block}
-.proj-body{flex:1;min-width:0;padding:9px 12px 11px}
+  box-shadow:var(--shadow), 0 10px 30px -14px var(--pc, rgba(212,255,79,.6)), inset 0 1px 0 rgba(255,255,255,.18);
+  transition:transform .3s var(--spring), box-shadow .35s var(--ease)}
+.proj:active{transform:scale(.97)}
+.cov{position:relative;display:block;overflow:hidden}
+.proj .cover{width:100%;aspect-ratio:16/10;object-fit:cover;display:block;
+  transition:transform .6s var(--spring)}
+.proj:active .cover{transform:scale(1.06)}
+.cov::after{content:'';position:absolute;left:0;right:0;bottom:0;height:46%;pointer-events:none;
+  background:linear-gradient(180deg, transparent, rgba(10,14,11,.72))}
+.cov-n{position:absolute;left:9px;bottom:7px;z-index:2;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10px;font-weight:700;
+  letter-spacing:.08em;color:rgba(255,255,255,.75);
+  text-shadow:0 1px 6px rgba(0,0,0,.6)}
+.cov-go{position:absolute;right:7px;top:7px;z-index:2;width:24px;height:24px;border-radius:9px;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(8,12,9,.55);border:1px solid rgba(255,255,255,.22);
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.25)}
+.cov-go svg{width:12px;height:12px;stroke:#fff;fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.proj-body{flex:1;min-width:0;padding:10px 12px 12px}
 .proj-t{font-size:13.5px;font-weight:800;letter-spacing:-.02em}
 .proj-s{font-size:11px;font-weight:500;color:var(--text2);margin-top:2px;line-height:1.35;
   display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
@@ -1033,6 +1049,9 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
   .btn:hover{transform:translateY(-2px)}
   .btn.sec:hover,.pre-btn:hover{border-color:rgba(212,255,79,.45);background:rgba(212,255,79,.08)}
   .about-link:hover{transform:translateY(-3px)}
+  .proj:hover{transform:translateY(-4px);
+    box-shadow:var(--shadow), 0 18px 44px -12px var(--pc, rgba(212,255,79,.7)), inset 0 1px 0 rgba(255,255,255,.22)}
+  .proj:hover .cover{transform:scale(1.05)}
   .case,.svc,.price{transition:transform .35s var(--spring)}
   .c-chip:hover{color:var(--lime);border-color:rgba(212,255,79,.4);transform:translateY(-2px)}
   .hud-link:hover{color:var(--text)}
@@ -1998,64 +2017,64 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
      Добавить проект: объект ниже. Скриншоты: jpg в assets/cases/ + имя файла в shots.
      Ссылка на живой продукт: поле url. */
   var PROJECTS = [
-    {name:'Dine', icon:'assets/covers/dine.jpg', feat:true,
+    {name:'Dine', c:'#9fdc3f', icon:'assets/covers/dine.jpg', feat:true,
      s:'Лояльность ресторана: меню, баллы, лиги гостей',
      d:'Ресторанная система лояльности в Telegram: меню и заказ, баллы за визиты, лиги гостей (бронза → золото), награды и купоны. Гость возвращается — ресторан растит средний чек.',
      tags:['HoReCa','Лояльность','TMA'], shots:['dine-1.jpg','dine-2.jpg','dine-3.jpg'], url:''},
-    {name:'CityHUB', icon:'assets/covers/cityhub.jpg',
+    {name:'CityHUB', c:'#7c5cff', icon:'assets/covers/cityhub.jpg',
      s:'Городской гид «куда пойти сейчас» + консьерж',
      d:'Городской гид для Батуми: «куда пойти прямо сейчас», консьерж-сервис, лояльность для локального бизнеса, два мира — гость и бизнес. 3 языка.',
-     tags:['City-гид','B2B','i18n'], shots:[], url:''},
-    {name:'Self-Fix', icon:'assets/covers/selfix.jpg',
+     tags:['City-гид','B2B','i18n'], shots:['cityhub-2.jpg','cityhub-4.jpg','cityhub-5.jpg','cityhub-6.jpg'], url:''},
+    {name:'Self-Fix', c:'#8b5cf6', icon:'assets/covers/selfix.jpg',
      s:'Big Five тест личности с вирусной механикой',
      d:'Тест личности Big Five в Telegram: глубокий профиль, подарки-приглашения, PvP-сравнения и слой «клоны общаются с клонами». Виральность заложена в механику.',
-     tags:['Психология','Виральность','TMA'], shots:[], url:''},
-    {name:'Nardum', icon:'assets/covers/nardum.jpg',
+     tags:['Психология','Виральность','TMA'], shots:['selfix-7.jpg','selfix-app.jpg'], url:''},
+    {name:'Nardum', c:'#FFB547', icon:'assets/covers/nardum.jpg',
      s:'Длинные нарды: PvP, школа, ИИ-наставник',
      d:'Длинные нарды в Telegram: движок правил, 3D-кости, школа обучения, ИИ-наставник на Claude и платежи Stars. Турнирная модель со спонсорскими призами.',
-     tags:['Игра','PvP','Stars/TON'], shots:[], url:'https://t.me/nardum_game_bot'},
-    {name:'CargoBob', icon:'assets/covers/cargobob.jpg',
+     tags:['Игра','PvP','Stars/TON'], shots:['nardum-5.jpg','nardum-8.jpg','nardum-2.jpg'], url:'https://t.me/nardum_game_bot'},
+    {name:'CargoBob', c:'#ff7a18', icon:'assets/covers/cargobob.jpg',
      s:'Мост последних 500 метров в бензоочереди',
      d:'P2P-сервис для топливных очередей: водитель держит место, раннер приносит нужное. Радар близости, QR-рукопожатие, роли водитель/раннер с разными акцентами.',
-     tags:['Логистика','P2P','TMA'], shots:[], url:''},
-    {name:'Crooked Cook', icon:'assets/covers/crooked.jpg',
+     tags:['Логистика','P2P','TMA'], shots:['cargobob-2.jpg','cargobob-1.jpg'], url:''},
+    {name:'Crooked Cook', c:'#FF6B6B', icon:'assets/covers/crooked.jpg',
      s:'Merge-аркада для кафе: рекорд → скидка',
      d:'B2B-аркада для кафе Батуми: QR на столе, гость играет в merge, ставит рекорд — получает скидку. Игра как канал возврата гостей.',
-     tags:['Игра','B2B','HoReCa'], shots:[], url:''},
-    {name:'Realty Forum', icon:'assets/covers/realty.jpg', feat:true,
+     tags:['Игра','B2B','HoReCa'], shots:['crooked-2.jpg','crooked-6.jpg','crooked-app.jpg'], url:''},
+    {name:'Realty Forum', c:'#e0483d', icon:'assets/covers/realty.jpg', feat:true,
      s:'Ивент-платформа форума недвижимости',
      d:'Платформа форума Realty Batumi 2026: программа, спикеры, QR-нетворкинг в один тап, AI-инструменты подбора партнёров и калькуляторы инвестора.',
      tags:['Ивент','Нетворкинг','AI'], shots:['realty-1.jpg','realty-2.jpg'], url:''},
-    {name:'AllTrustMe', icon:'assets/covers/alltrust.jpg',
+    {name:'AllTrustMe', c:'#3d8bff', icon:'assets/covers/alltrust.jpg',
      s:'Крипто-обменник: синее liquid glass',
      d:'Крипто-обменник для Грузии в Telegram: курсы, заявки, розыгрыш с золотым премиум-слоем. Синее liquid glass поверх чёрного с летающими орбами.',
-     tags:['Crypto','Web3','TMA'], shots:[], url:'https://masteroch.github.io/alltrustme'},
-    {name:'ANZH Skin', icon:'assets/covers/anzh.jpg',
+     tags:['Crypto','Web3','TMA'], shots:['alltrust-4.jpg','alltrust-6.jpg','alltrust-7.jpg','alltrust-8.jpg'], url:'https://masteroch.github.io/alltrustme'},
+    {name:'ANZH Skin', c:'#3e9ba0', icon:'assets/covers/anzh.jpg',
      s:'Бьюти-квиз по уходу за кожей + магазин',
      d:'Косметологический продукт: квиз подбирает уход по типу кожи, магазин закрывает потребность. Тёплый teal+gold на глубоком тёмном.',
-     tags:['Beauty','Quiz','E-com'], shots:[], url:'https://anzh.store'},
-    {name:'Batumi Neon', icon:'assets/covers/neon.jpg', feat:true,
+     tags:['Beauty','Quiz','E-com'], shots:['anzh-1.jpg','anzh-2.jpg','anzh-3.jpg','anzh-9.jpg'], url:'https://anzh.store'},
+    {name:'Batumi Neon', c:'#FF006E', icon:'assets/covers/neon.jpg', feat:true,
      s:'CarRent: премиум-аренда авто с неон-витриной',
      d:'Аренда авто в Батуми: неоновая витрина с Porsche-вайбом, перки Street King, бронь с таймером обратного отсчёта. Дорогой продукт — дорогая подача.',
      tags:['Авто','Аренда','Premium'], shots:['neon-1.jpg','neon-2.jpg'], url:''},
-    {name:'Dropper', icon:'assets/covers/dropper.jpg',
+    {name:'Dropper', c:'#00E0C7', icon:'assets/covers/dropper.jpg',
      s:'Автономные роботы-доставщики для Батуми',
      d:'Роботы-доставщики последней мили: маршруты по набережной, приложение вызова и трекинга, юнит-экономика под сезонный поток.',
-     tags:['Роботы','Доставка','Hardware'], shots:[], url:''},
-    {name:'KING Fit', icon:'assets/covers/kingfit.jpg',
+     tags:['Роботы','Доставка','Hardware'], shots:['dropper-2.jpg','dropper-4.jpg'], url:''},
+    {name:'KING Fit', c:'#F5A524', icon:'assets/covers/kingfit.jpg',
      s:'Фитнес с игровой прогрессией',
      d:'Фитнес-продукт с геймдев-ДНК: тренировки как квесты, стрики, уровни и лиги. Спорт, в который хочется возвращаться.',
      tags:['Фитнес','Геймификация'], shots:[], url:''},
-    {name:'LoveBoard', icon:'assets/covers/loveboard.jpg',
+    {name:'LoveBoard', c:'#ff5d8f', icon:'assets/covers/loveboard.jpg',
      s:'Тёплый продукт для двоих',
      d:'Пространство для пар: общие моменты, сюрпризы и цели. Мягкая механика вовлечения без соцсетевого шума.',
      tags:['Lifestyle','TMA'], shots:[], url:''},
-    {name:'Vodokanal', icon:'assets/covers/vodokanal.jpg',
+    {name:'Vodokanal', c:'#04a0e6', icon:'assets/covers/vodokanal.jpg',
      s:'ЖКХ-сервис: светлое aqua-glass для 60+',
      d:'White-label TMA для водоканалов: показания, аварии, оплата, маскот «Капелька». Светлое aqua-glass, крупная типографика — дизайн для аудитории 60+.',
-     tags:['ЖКХ','White-label','TMA'], shots:[], url:''}
+     tags:['ЖКХ','White-label','TMA'], shots:['vodokanal-app.jpg','vodokanal-3.jpg','vodokanal-4.jpg'], url:''}
     /* СКРЫТО пока (вернуть = раскомментировать):
-    {name:'Datum', icon:'assets/covers/datum.jpg', feat:true,
+    {name:'Datum', c:'#7C3AFF', icon:'assets/covers/datum.jpg', feat:true,
      s:'Telegram-игра: империя данных',
      d:'Datum Empire — стратегическая Telegram-игра: строишь империю, качаешь Battle Pass, соревнуешься с друзьями. Флагманский игровой проект.',
      tags:['Игра','Telegram','MVP'], shots:[], url:''}
@@ -2074,13 +2093,19 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
     var pjTg = document.getElementById('pjTg');
     if(!grid || !back) return;
 
-    PROJECTS.forEach(function(p){
+    PROJECTS.forEach(function(p, idx){
       var b = document.createElement('button');
       b.type = 'button';
       b.className = 'proj glass';
+      b.style.setProperty('--pc', p.c || '#D4FF4F');
+      var num = (idx + 1 < 10 ? '0' : '') + (idx + 1);
       var tags = p.tags.slice(0, 2).map(function(t){ return '<span class="ctag">' + t + '</span>'; }).join('');
       b.innerHTML =
-        '<img class="cover" src="' + p.icon + '" alt="" loading="lazy" decoding="async">' +
+        '<span class="cov">' +
+          '<img class="cover" src="' + p.icon + '" alt="" loading="lazy" decoding="async">' +
+          '<span class="cov-n">' + num + '</span>' +
+          '<span class="cov-go"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></span>' +
+        '</span>' +
         '<span class="proj-body"><span class="proj-t">' + p.name + '</span>' +
         '<span class="proj-s" style="display:-webkit-box">' + p.s + '</span>' +
         '<span class="proj-tags">' + tags + '</span></span>';
@@ -2526,6 +2551,8 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
   function onScroll(){
     var y = window.scrollY;
     if(!reduced) orbsC.style.transform = 'translate3d(0,' + (y * -0.08).toFixed(1) + 'px,0)';
+    /* лого+слоты видны только у самого верха */
+    if(y > 60) hdr.classList.add('hide'); else hdr.classList.remove('hide');
     /* cta bar appears after hero */
     if(y > 420) ctaBar.classList.add('show'); else ctaBar.classList.remove('show');
     /* XP-бар прокрутки */
