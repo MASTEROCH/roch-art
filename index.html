@@ -172,11 +172,15 @@ header.hide .hud-nav{
 /* ============ HERO ============ */
 .hero{padding:44px 0 8px}
 .hero h1{margin-bottom:18px;perspective:900px;position:relative}
-.h-money{position:absolute;right:-8px;bottom:-38px;width:clamp(88px,24vw,124px);pointer-events:none;z-index:2;
+.h-money{position:absolute;right:-4px;bottom:-26px;width:clamp(64px,17.5vw,90px);pointer-events:none;z-index:2;
   opacity:0;transform:scale(.4) rotate(-10deg);
   filter:drop-shadow(0 10px 24px rgba(0,0,0,.45));
   animation:moneyPop .6s var(--spring) 2.05s forwards}
 @keyframes moneyPop{to{opacity:1;transform:none}}
+/* стикеры секций: единая позиция — правый верхний угол .sec-head (зона ghost-цифры) */
+.sec-icon{position:absolute;right:-2px;top:-14px;width:clamp(64px,17.5vw,90px);
+  pointer-events:none;z-index:1;
+  filter:drop-shadow(0 8px 20px rgba(0,0,0,.4))}
 h1 .w{display:inline-block;overflow:visible;vertical-align:bottom}
 h1 .w i{display:inline-block;font-style:normal;
   transform:translateY(120%) rotateX(-72deg) scale(.9);filter:blur(10px);opacity:0;
@@ -597,6 +601,8 @@ h1 .w i{animation-delay:var(--wd)}
 .chat-cool b{color:var(--lime);font-variant-numeric:tabular-nums}
 .msg.me{align-self:flex-end;color:#0B1409;font-weight:600;border-radius:16px 16px 4px 16px;
   background:var(--lime);box-shadow:0 6px 16px rgba(212,255,79,.25), inset 0 1px 0 rgba(255,255,255,.5)}
+.msg-think{display:flex;align-items:center;gap:10px;padding:8px 14px}
+.ai-think{width:52px;height:52px;display:block;pointer-events:none}
 .tdots{display:inline-flex;gap:4px;padding:3px 0}
 .tdots i{width:6px;height:6px;border-radius:50%;background:var(--text3);animation:tb 1.2s infinite}
 .tdots i:nth-child(2){animation-delay:.15s}.tdots i:nth-child(3){animation-delay:.3s}
@@ -921,9 +927,8 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
 .bio-head{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:4px 8px 10px}
 .bio-t{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--text3)}
 .bio-ext{font-size:12px;font-weight:700;color:var(--lime);text-decoration:none;white-space:nowrap}
-.bio-scroll{height:64vh;overflow-y:auto;border-radius:22px;background:#0A0F0C;
-  -webkit-overflow-scrolling:touch}
-.bio-frame{width:100%;height:4200px;border:0;display:block}
+.bio-scroll{height:64vh;overflow:hidden;border-radius:22px;background:#0A0F0C}
+.bio-frame{width:100%;height:100%;border:0;display:block}
 /* видео-фасад: шоурил */
 .yt{display:block;position:relative;margin-top:14px;overflow:hidden;cursor:pointer;
   aspect-ratio:16/9;width:100%;padding:0}
@@ -1396,7 +1401,7 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
   <div class="sec-head reveal">
     <div class="sec-num">01</div>
     <div class="eyebrow">Что я делаю</div>
-    <h2>Три слоя <span class="grad">апгрейда</span></h2>
+    <h2>Три слоя <span class="grad">апгрейда</span><img class="sec-icon" src="assets/fix.webp" alt="" aria-hidden="true" loading="lazy" decoding="async"></h2>
     <p class="lead">Сделаю красиво — и это красиво будет продавать: конвертить, удерживать и заставлять шерить.</p>
   </div>
 
@@ -1433,7 +1438,7 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
   <div class="sec-head reveal">
     <div class="sec-num">02</div>
     <div class="eyebrow">Обо мне</div>
-    <h2>Кто это <span class="grad">делает</span></h2>
+    <h2>Кто это <span class="grad">делает</span><img class="sec-icon" src="assets/wtf.webp" alt="" aria-hidden="true" loading="lazy" decoding="async"></h2>
   </div>
 
   <div class="author glass reveal">
@@ -1465,7 +1470,7 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
       <span class="bio-t">bio.roch-art.com · CV + портфолио</span>
       <a class="bio-ext" href="https://bio.roch-art.com/about-me" target="_blank" rel="noopener">В новой вкладке ↗</a>
     </div>
-    <div class="bio-scroll"><iframe class="bio-frame" id="bioFrame" scrolling="no" data-src="https://bio.roch-art.com/about-me" title="Обо мне — bio.roch-art.com"></iframe></div>
+    <div class="bio-scroll"><iframe class="bio-frame" id="bioFrame" data-src="https://bio.roch-art.com/about-me" title="Обо мне — bio.roch-art.com"></iframe></div>
   </div>
 
   <div class="yt glass reveal" id="yt" role="button" tabindex="0" aria-label="Смотреть шоурил — геймдев-портфолио">
@@ -1494,7 +1499,7 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
   <div class="sec-head reveal">
     <div class="sec-num">03</div>
     <div class="eyebrow">Портфолио</div>
-    <h2>Живые продукты,<br>не картинки в Figma</h2>
+    <h2>Живые продукты,<br>не картинки в Figma<img class="sec-icon" src="assets/loot.webp" alt="" aria-hidden="true" loading="lazy" decoding="async"></h2>
   </div>
 
   <!-- App Store-грид: карточки рендерятся из массива PROJECTS в скрипте. Скриншот проекта = jpg в assets/cases/ + имя в shots:[] -->
@@ -1508,7 +1513,7 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
   <div class="sec-head reveal">
     <div class="sec-num">04</div>
     <div class="eyebrow">Выбери сложность</div>
-    <h2>Фикс-прайс.<br><span class="grad">Без сюрпризов</span></h2>
+    <h2>Фикс-прайс.<br><span class="grad">Без сюрпризов</span><img class="sec-icon" src="assets/go.webp" alt="" aria-hidden="true" loading="lazy" decoding="async"></h2>
   </div>
 
   <div class="price glass reveal tilt">
@@ -1527,8 +1532,8 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
   <div class="price glass reveal tilt feat">
     <div class="badge gold">Чаще всего берут</div>
     <div class="p-diff">Уровень 2 · вся упаковка</div>
-    <div class="p-row"><h3>Full Build</h3><div class="p-price">$1 499</div></div>
-    <div class="p-time">3–4 дня · <span class="p-pre">предоплата $750</span></div>
+    <div class="p-row"><h3>Full Build</h3><div class="p-price">$2 499</div></div>
+    <div class="p-time">3–4 дня · <span class="p-pre">предоплата $1 250</span></div>
     <ul class="p-list">
       <li><b>Всё из Уровня 1</b> — стиль уже найден и утверждён</li>
       <li><b>UI-система + все ключевые экраны</b> продукта</li>
@@ -1536,20 +1541,20 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
       <li>1 вирусная или гейм-механика под твой продукт</li>
       <li>Ассеты для шеринга: OG, сторис, превью</li>
     </ul>
-    <button class="pre-btn" type="button" data-pre="Full Build" data-price="$1 499" data-sku="vibe-full"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Предзаказ</button>
+    <button class="pre-btn" type="button" data-pre="Full Build" data-price="$2 499" data-sku="vibe-full"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Предзаказ</button>
   </div>
 
   <div class="price glass reveal tilt">
     <div class="p-diff">Уровень 3 · продукт как игра</div>
-    <div class="p-row"><h3>Game Layer</h3><div class="p-price">$2 999</div></div>
-    <div class="p-time">7–10 дней · <span class="p-pre">предоплата $1 500</span></div>
+    <div class="p-row"><h3>Game Layer</h3><div class="p-price">$4 999</div></div>
+    <div class="p-time">7–10 дней · <span class="p-pre">предоплата $2 500</span></div>
     <ul class="p-list">
       <li><b>Всё из Уровней 1–2</b> — стиль, система, аудит, механика</li>
       <li><b>Полная геймификация:</b> XP, стрики, лиги, рефералки</li>
       <li>Retention-петля: причина вернуться завтра</li>
       <li>Авторский надзор 2 недели после запуска</li>
     </ul>
-    <button class="pre-btn" type="button" data-pre="Game Layer" data-price="$2 999" data-sku="vibe-game"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Предзаказ</button>
+    <button class="pre-btn" type="button" data-pre="Game Layer" data-price="$4 999" data-sku="vibe-game"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Предзаказ</button>
   </div>
 
   <!-- ОТКЛЮЧЕНО до готовности продукта (раскомментировать когда Wibe Design упакован):
@@ -1607,7 +1612,7 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
   <div class="sec-head reveal">
     <div class="sec-num">05</div>
     <div class="eyebrow">Как это работает</div>
-    <h2>От «привет» до результата</h2>
+    <h2>От «привет» до результата<img class="sec-icon" style="top:56px" src="assets/bff.webp" alt="" aria-hidden="true" loading="lazy" decoding="async"></h2>
   </div>
   <div class="steps">
     <div class="step reveal"><div class="num">1</div>
@@ -1626,7 +1631,7 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
   <div class="sec-head reveal">
     <div class="sec-num">06</div>
     <div class="eyebrow">Проверь себя</div>
-    <h2>Тебе это <span class="grad">нужно?</span></h2>
+    <h2>Тебе это <span class="grad">нужно?</span><img class="sec-icon" src="assets/buff.webp" alt="" aria-hidden="true" loading="lazy" decoding="async"></h2>
     <p class="lead">Отметь, что про тебя. Даже один пункт — уже повод написать.</p>
   </div>
 
@@ -2012,11 +2017,13 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
     {name:'Vodokanal', icon:'assets/covers/vodokanal.jpg',
      s:'ЖКХ-сервис: светлое aqua-glass для 60+',
      d:'White-label TMA для водоканалов: показания, аварии, оплата, маскот «Капелька». Светлое aqua-glass, крупная типографика — дизайн для аудитории 60+.',
-     tags:['ЖКХ','White-label','TMA'], shots:[], url:''},
+     tags:['ЖКХ','White-label','TMA'], shots:[], url:''}
+    /* СКРЫТО пока (вернуть = раскомментировать):
     {name:'Datum', icon:'assets/covers/datum.jpg', feat:true,
      s:'Telegram-игра: империя данных',
      d:'Datum Empire — стратегическая Telegram-игра: строишь империю, качаешь Battle Pass, соревнуешься с друзьями. Флагманский игровой проект.',
      tags:['Игра','Telegram','MVP'], shots:[], url:''}
+    */
   ];
 
   (function(){
@@ -2227,8 +2234,8 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
   function botTyping(on){
     if(on){
       typingEl = document.createElement('div');
-      typingEl.className = 'msg bot';
-      typingEl.innerHTML = '<span class="tdots"><i></i><i></i><i></i></span>';
+      typingEl.className = 'msg bot msg-think';
+      typingEl.innerHTML = '<img class="ai-think" src="assets/ai-think.webp" alt="" aria-hidden="true"><span class="tdots"><i></i><i></i><i></i></span>';
       chatLog.appendChild(typingEl);
       chatLog.scrollTop = chatLog.scrollHeight;
     } else if(typingEl){
@@ -2405,12 +2412,14 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
     track('preorder_open', name);
     var p = halfPrice(price);
     preName.textContent = name;
-    prePrice.textContent = p.full; /* полная цена — главная */
     if(isFull){
+      prePrice.textContent = p.full;
       preSub.innerHTML = 'Разовая оплата — <b>' + p.full + '</b>. Файлы и доступ сразу после оплаты.';
       preTg.href = tgLink('Привет! Покупаю «' + name + '» (' + p.full + '). Вот чек:');
     } else {
-      preSub.innerHTML = 'Предоплата <b>50%</b> фиксирует слот. К оплате сейчас — <b>' + p.half + '</b>, остальное после сдачи.';
+      /* крупно — что платить СЕЙЧАС (50%), мелко — полная цена */
+      prePrice.textContent = p.half;
+      preSub.innerHTML = 'К оплате сейчас — предоплата <b>50%</b>, она фиксирует слот. Полная цена — <b>' + p.full + '</b>, остальное после сдачи.';
       preTg.href = tgLink('Привет! Хочу предзаказ пакета «' + name + '» (' + p.full + '). Вношу предоплату 50% — ' + p.half + '. Вот чек:');
     }
     preBack.classList.add('open');
@@ -2592,7 +2601,7 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
     if(!yt) return;
     var YT_ID = 'uFlb1IN30FM';
     var poster = yt.querySelector('.poster');
-    poster.src = 'assets/showreel-poster.jpg';
+    poster.src = 'assets/showreel-poster.jpg?v=2';
     function playYt(){
       if(yt.classList.contains('playing')) return;
       yt.classList.add('playing');
