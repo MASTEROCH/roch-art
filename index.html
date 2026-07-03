@@ -15,11 +15,11 @@
 <meta property="og:site_name" content="ROCH">
 <meta property="og:title" content="ROCH — дизайн-упаковка продукта: бренд, сайт, приложение">
 <meta property="og:description" content="Дизайн, аудит, геймификация. 10+ лет геймдева · 700M+ установок. Рабочий фикс, а не презентация.">
-<meta property="og:image" content="https://roch-art.com/assets/og-cover.jpg?v=1">
+<meta property="og:image" content="https://roch-art.com/assets/og-cover.jpg?v=2">
 <meta property="og:locale" content="ru_RU">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@broch">
-<meta name="twitter:image" content="https://roch-art.com/assets/og-cover.jpg?v=1">
+<meta name="twitter:image" content="https://roch-art.com/assets/og-cover.jpg?v=2">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1021,7 +1021,7 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
 .proj-shots{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:10px 2px 6px;
   scrollbar-width:none;-webkit-overflow-scrolling:touch}
 .proj-shots::-webkit-scrollbar{display:none}
-.proj-shots img{flex:0 0 148px;width:148px;border-radius:18px;scroll-snap-align:start;
+.proj-shots img{flex:0 0 200px;width:200px;border-radius:18px;scroll-snap-align:start;
   border:1px solid rgba(255,255,255,.14);box-shadow:0 12px 28px rgba(0,0,0,.5)}
 .ph-empty{flex:0 0 148px;min-height:250px;border-radius:18px;border:1.5px dashed rgba(255,255,255,.18);
   display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
@@ -2205,12 +2205,14 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
       pjTags.innerHTML = p.tags.map(function(t){ return '<span class="ctag">' + t + '</span>'; }).join('');
       pjDesc.textContent = p.d;
       if(p.shots.length){
-        pjShots.innerHTML = p.shots.map(function(f, k){
-          return '<img src="assets/cases/' + f + '" loading="lazy" decoding="async" alt="' + p.name + '" data-lb="' + k + '" style="cursor:zoom-in">';
+        /* в шите — промо-версии (App Store креативы), в карусели карточек — сырые скрины */
+        var pf = p.shots.map(function(f){ return 'assets/cases/p-' + f; });
+        pjShots.innerHTML = pf.map(function(src, k){
+          return '<img src="' + src + '" loading="lazy" decoding="async" alt="' + p.name + '" data-lb="' + k + '" style="cursor:zoom-in">';
         }).join('');
         Array.prototype.forEach.call(pjShots.querySelectorAll('img'), function(im){
           im.addEventListener('click', function(){
-            openLb(p.shots.map(function(f){ return 'assets/cases/' + f; }), parseInt(im.getAttribute('data-lb'), 10) || 0);
+            openLb(pf, parseInt(im.getAttribute('data-lb'), 10) || 0);
           });
         });
       } else {
