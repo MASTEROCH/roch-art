@@ -180,7 +180,10 @@ header.hide .hud-nav{
 /* стикеры секций: единая позиция — правый верхний угол .sec-head (зона ghost-цифры) */
 .sec-icon{position:absolute;right:-2px;top:-14px;width:clamp(64px,17.5vw,90px);
   pointer-events:none;z-index:1;
-  filter:drop-shadow(0 8px 20px rgba(0,0,0,.4))}
+  filter:drop-shadow(0 8px 20px rgba(0,0,0,.4));
+  opacity:0;transform:scale(.4) rotate(-8deg);
+  transition:opacity .5s var(--spring) .55s, transform .6s var(--spring) .55s}
+.reveal.in .sec-icon{opacity:1;transform:none}
 h1 .w{display:inline-block;overflow:visible;vertical-align:bottom}
 h1 .w i{display:inline-block;font-style:normal;
   transform:translateY(120%) rotateX(-72deg) scale(.9);filter:blur(10px);opacity:0;
@@ -916,8 +919,10 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
 .cta-row .btn{flex:1.5;font-size:15px;padding:15px 16px;min-height:54px}
 .cta-row .btn.sec{flex:1;font-size:14px}
 .boot.d5{animation-delay:1.95s}
-/* about: крупный аватар */
-.author .ava{flex:0 0 100px;height:100px;font-size:38px}
+/* about: аватар высотой с текстовый блок */
+.author{gap:15px;align-items:stretch}
+.author .ava{flex:0 0 108px;height:auto;min-height:108px;font-size:36px}
+.author h3{font-size:16px}
 /* bio-expand: встроенный превью bio.roch-art.com */
 .pre-btn svg{transition:transform .4s var(--spring)}
 .pre-btn[aria-expanded="true"] svg{transform:rotate(180deg)}
@@ -1002,6 +1007,16 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
   border-radius:99px;padding:2px 8px;white-space:nowrap}
 .live-badge .ld{width:6px;height:6px;border-radius:50%;background:#FF5252;
   box-shadow:0 0 8px rgba(255,82,82,.9);animation:pulse 1.6s infinite}
+/* мета-пруф: сайт как кейс */
+.meta-proof{display:flex;gap:13px;align-items:center;padding:16px 18px}
+.mp-ic{flex:0 0 42px;height:42px;border-radius:14px;font-size:20px;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--lime-soft);border:1px solid rgba(212,255,79,.3);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.2)}
+.meta-proof p{font-size:14px;font-weight:500;color:var(--text2);line-height:1.5}
+.meta-proof p b{color:var(--text)}
+.meta-proof .mp-time{color:var(--lime);font-variant-numeric:tabular-nums;
+  text-shadow:0 0 14px rgba(212,255,79,.4)}
 /* контакты в футере */
 .contacts{display:flex;justify-content:center;gap:9px;margin:4px 0 20px;flex-wrap:wrap}
 .c-chip{display:inline-flex;align-items:center;gap:8px;padding:10px 15px;border-radius:99px;text-decoration:none;
@@ -1039,6 +1054,7 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
   .h-caret{display:none}
   .hl::before{transform:rotate(-1.2deg)}
   .h-money{opacity:1;transform:none}
+  .sec-icon{opacity:1;transform:none}
   .cta-bar{transform:none}
   html{scroll-behavior:auto}
 }
@@ -1612,7 +1628,7 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
   <div class="sec-head reveal">
     <div class="sec-num">05</div>
     <div class="eyebrow">Как это работает</div>
-    <h2>От «привет» до результата<img class="sec-icon" style="top:56px" src="assets/bff.webp" alt="" aria-hidden="true" loading="lazy" decoding="async"></h2>
+    <h2>От «привет» до результата<img class="sec-icon" src="assets/bff.webp" alt="" aria-hidden="true" loading="lazy" decoding="async"></h2>
   </div>
   <div class="steps">
     <div class="step reveal"><div class="num">1</div>
@@ -1664,6 +1680,14 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
   <div class="zero glass reveal">
     <h3>Нет продукта? <span class="lime">Ещё лучше.</span></h3>
     <p>Идея без единой строчки кода — идеальная точка старта. Соберём концепт, структуру и дизайн <b>до того</b>, как ты навайбкодишь то, что придётся переделывать.</p>
+  </div>
+</section>
+
+<!-- ============ META-PROOF ============ -->
+<section style="padding-top:0">
+  <div class="meta-proof glass reveal">
+    <div class="mp-ic">⚡</div>
+    <p>Этот сайт — сам себе кейс: <b>собран за 24 часа</b>. Ты на нём уже <b class="mp-time" id="dwell">0:00</b> и всё ещё читаешь — <b>так и работает упаковка.</b></p>
   </div>
 </section>
 
@@ -1917,6 +1941,18 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
     }
     requestAnimationFrame(tick);
   }
+
+  /* ===== Таймер пребывания (мета-пруф «сайт как кейс») ===== */
+  (function(){
+    var el = document.getElementById('dwell');
+    if(!el) return;
+    var t0 = Date.now();
+    setInterval(function(){
+      var sec = Math.floor((Date.now() - t0) / 1000);
+      var m = Math.floor(sec / 60), ss = sec % 60;
+      el.textContent = m + ':' + (ss < 10 ? '0' : '') + ss;
+    }, 1000);
+  })();
 
   /* ===== Аналитика-биконы + live-слоты (через roch-audit API) ===== */
   var API_BASE = 'https://roch-audit.com';
