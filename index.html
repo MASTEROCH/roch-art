@@ -138,14 +138,14 @@ p.lead b{color:var(--text);font-weight:700}
 header{padding:16px 0 0;position:sticky;top:8px;z-index:50;transition:top .35s var(--ease)}
 header.hide{top:2px}
 /* unified blur scrim behind both HUD panels — kills UI-layer clutter */
-header::before{content:'';position:absolute;left:-14px;right:-14px;top:-10px;bottom:-8px;z-index:-1;
+header::before{content:'';position:absolute;left:50%;width:100vw;margin-left:-50vw;top:-10px;bottom:-8px;z-index:-1;
   -webkit-backdrop-filter:blur(14px) saturate(120%);backdrop-filter:blur(14px) saturate(120%);
   -webkit-mask:linear-gradient(180deg,#000 80%,transparent);mask:linear-gradient(180deg,#000 80%,transparent);
   pointer-events:none}
 /* непрозрачная подложка НАД шапкой: якорится к самой шапке (не к вьюпорту),
    поэтому глушит контент над HUD в любом браузере — Safari, TG-webview, чёлка, гуляющий url-бар.
    У самого верха страницы выключена, чтобы не глушить фоновое свечение hero. */
-header::after{content:'';position:absolute;left:-14px;right:-14px;top:-180px;bottom:-4px;z-index:-2;
+header::after{content:'';position:absolute;left:50%;width:100vw;margin-left:-50vw;top:-180px;bottom:-4px;z-index:-2;
   pointer-events:none;opacity:0;transition:opacity .3s var(--ease);
   background:linear-gradient(180deg,
     #050706 0%, #050706 calc(100% - 74px),
