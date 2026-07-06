@@ -587,7 +587,10 @@ h1 .w i{animation-delay:var(--wd)}
   -webkit-tap-highlight-color:transparent;
   animation:mLev 4.4s ease-in-out infinite;
   filter:drop-shadow(0 14px 28px rgba(0,0,0,.5));
-  transition:transform .3s var(--spring)}
+  opacity:0;visibility:hidden;pointer-events:none;
+  transition:transform .3s var(--spring), opacity .5s ease, visibility .5s}
+/* появляется только после первого скролла (класс вешает JS) */
+.mfab.reveal{opacity:1;visibility:visible;pointer-events:auto}
 .mfab:active{transform:scale(.92)}
 @keyframes mLev{0%,100%{transform:translateY(0)}30%{transform:translateY(-6px)}55%{transform:translateY(0)}75%{transform:translateY(-3px)}}
 .mfab .halo{position:absolute;inset:-12%;border-radius:50%;pointer-events:none;
@@ -1243,10 +1246,10 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
     </span>
     <img class="h-money" src="assets/money.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
   </h1>
-  <p class="lead boot d2">Код у тебя уже есть. Я добавлю то, за что платят: доверие с первого экрана. <b>Кидай скрин в ROCH — разберу по 3 слоям и нарисую готовый фикс.</b> Рабочий фикс, а не презентация.</p>
+  <p class="lead boot d2">Код у тебя уже есть. Я добавлю то, за что платят: доверие с первого экрана. <b>Кидай скрин в ROCH — разберу весь проект по 3 слоям и нарисую готовый фикс.</b> Рабочий фикс, а не презентация.</p>
 
   <div class="hero-cta boot d3">
-    <a class="btn offer-cta" href="https://t.me/roch_ai_bot" target="_blank" rel="noopener"><span class="oc-emo">🧠</span><span class="oc-txt">Разобрать экран бесплатно</span><span class="oc-arr">→</span></a>
+    <a class="btn offer-cta" href="https://t.me/roch_ai_bot" target="_blank" rel="noopener"><span class="oc-emo">🧠</span><span class="oc-txt">Разобрать проект бесплатно</span><span class="oc-arr">→</span></a>
   </div>
 
   <div class="stats boot d4">
@@ -1656,20 +1659,20 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
   <div class="sec-head reveal">
     <div class="sec-num">04</div>
     <div class="eyebrow">Бесплатно</div>
-    <h2>Разбери свой экран<br><span class="grad">бесплатно</span><img class="sec-icon" src="assets/go.webp" alt="" aria-hidden="true" loading="lazy" decoding="async"></h2>
+    <h2>Разбери свой проект<br><span class="grad">бесплатно</span><img class="sec-icon" src="assets/go.webp" alt="" aria-hidden="true" loading="lazy" decoding="async"></h2>
   </div>
 
   <!-- Главный free-оффер → бот @roch_ai_bot -->
   <div class="price glass reveal tilt dexter offer">
     <div class="badge gold">Первые 5 разборов — бесплатно</div>
     <div class="p-diff">ROCH AI · в Telegram</div>
-    <p class="offer-lead">ROCH разберёт твой экран <b>по 3 слоям</b> и нарисует <b>готовый фикс кодом</b>. Кидаешь скрин — получаешь разбор. Без брифов, без Figma, без ожидания.</p>
+    <p class="offer-lead">ROCH разберёт твой проект <b>по 3 слоям</b> и нарисует <b>готовый фикс кодом</b>. Не отдельный экран — продукт целиком: структура, флоу, доверие. Кидаешь скрин — получаешь разбор. Без брифов, без Figma, без ожидания.</p>
     <ul class="p-list">
-      <li><b>3 слоя разбора:</b> что не так, почему и как чинить</li>
+      <li><b>3 слоя разбора:</b> что не так, почему и как чинить — по всему продукту</li>
       <li>Готовый фикс — кодом, а не «советом»</li>
       <li>Работает прямо в Telegram, за секунды</li>
     </ul>
-    <a class="btn offer-cta" href="https://t.me/roch_ai_bot" target="_blank" rel="noopener"><span class="oc-emo">🧠</span><span class="oc-txt">Разобрать экран бесплатно</span><span class="oc-arr">→</span></a>
+    <a class="btn offer-cta" href="https://t.me/roch_ai_bot" target="_blank" rel="noopener"><span class="oc-emo">🧠</span><span class="oc-txt">Разобрать проект бесплатно</span><span class="oc-arr">→</span></a>
     <p class="offer-note">Жмёшь <b>Start</b> в боте → открывается ROCH AI. Первые 5 разборов бесплатно.</p>
   </div>
 
@@ -1809,9 +1812,9 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
 <section class="final">
   <div class="sec-head reveal" style="margin-bottom:0">
     <div class="eyebrow" style="justify-content:center">Остался один шаг</div>
-    <h2>Кинь скрин —<br><span class="grad">получи разбор бесплатно</span></h2>
-    <p>ROCH разберёт твой экран по 3 слоям и нарисует готовый фикс. Первые 5 разборов — бесплатно.</p>
-    <a class="btn offer-cta" href="https://t.me/roch_ai_bot" target="_blank" rel="noopener"><span class="oc-emo">🧠</span><span class="oc-txt">Разобрать экран бесплатно</span><span class="oc-arr">→</span></a>
+    <h2>Кинь скрин —<br><span class="grad">разберу весь проект бесплатно</span></h2>
+    <p>ROCH разберёт твой проект по 3 слоям и нарисует готовый фикс. Не один экран — продукт целиком. Первые 5 разборов — бесплатно.</p>
+    <a class="btn offer-cta" href="https://t.me/roch_ai_bot" target="_blank" rel="noopener"><span class="oc-emo">🧠</span><span class="oc-txt">Разобрать проект бесплатно</span><span class="oc-arr">→</span></a>
   </div>
 </section>
 
@@ -1891,7 +1894,7 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
 
 <!-- ============ FLOATING TAB BAR ============ -->
 <div class="cta-bar" id="ctaBar">
-  <div class="info"><small>ROCH AI · разбор экрана</small><b>Бесплатно</b></div>
+  <div class="info"><small>ROCH AI · разбор проекта</small><b>Бесплатно</b></div>
   <a class="btn" id="barCta" href="https://t.me/roch_ai_bot" target="_blank" rel="noopener"><span class="oc-txt">Разобрать бесплатно</span><span class="oc-arr">→</span></a>
 </div>
 
@@ -1939,6 +1942,19 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
   var LANG='ru'; try{ LANG=localStorage.getItem('roch_lang')||'ru'; }catch(e){} if(LANG!=='en') LANG='ru';
   (function(sup){ for(var _k in sup){ I18N_EN[_k]=sup[_k]; } })({"Тапни меня — покажу, как это работает 👋": "Tap me — I'll show you how it works 👋", "Первые 5 разборов в ROCH AI — бесплатно 😉": "First 5 breakdowns in ROCH AI — free 😉"});
   (function(sup){ for(var _k in sup){ I18N_EN[_k]=sup[_k]; } })({"Разобрать экран бесплатно": "Break down your screen — free"});
+  /* репозиционирование: «разбор экрана» → «разбор проекта» */
+  (function(sup){ for(var _k in sup){ I18N_EN[_k]=sup[_k]; } })({
+    "Кидай скрин в ROCH — разберу весь проект по 3 слоям и нарисую готовый фикс.": "Drop a screen into ROCH — I'll break the whole project down in 3 layers and draw a ready fix.",
+    "Разобрать проект бесплатно": "Break down my project — free",
+    "Разбери свой проект": "Break down your project",
+    "ROCH разберёт твой проект": "ROCH breaks down your project",
+    ". Не отдельный экран — продукт целиком: структура, флоу, доверие. Кидаешь скрин — получаешь разбор. Без брифов, без Figma, без ожидания.": ". Not a single screen — the whole product: structure, flow, trust. Drop a screen — get the breakdown. No briefs, no Figma, no waiting.",
+    "что не так, почему и как чинить — по всему продукту": "what's wrong, why, and how to fix it — across the whole product",
+    "разберу весь проект бесплатно": "I break down your whole project — free",
+    "ROCH разберёт твой проект по 3 слоям и нарисует готовый фикс. Не один экран — продукт целиком. Первые 5 разборов — бесплатно.": "ROCH breaks down your project in 3 layers and draws a ready fix. Not one screen — the whole product. First 5 breakdowns — free.",
+    "ROCH AI · разбор проекта": "ROCH AI · project breakdown",
+    "Йо! Я ROCH AI — напарник Ромы 🤖 Кидай скрин — разберу весь проект по 3 слоям и нарисую фикс. Или спроси что угодно.": "Yo! I'm ROCH AI — Roma's copilot 🤖 Drop a screen — I'll break the whole project down in 3 layers and draw a fix. Or ask me anything."
+  });
   function t(ru){ return (LANG==='en' && I18N_EN[ru]!==undefined) ? I18N_EN[ru] : ru; }
   
   
@@ -2444,8 +2460,18 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
     setEmo(EMO_MAP[state] || 'idle', state === 'cheer' ? 4200 : 2400);
     if(phrase) say(phrase);
   }
-  /* проактивные реплики */
-  setTimeout(function(){ setEmo('wink', 1600); say('Тапни меня — покажу, как это работает 👋', 3200); }, 2600);
+  /* маскот появляется не сразу — только когда пользователь начинает скроллить */
+  var mfabEl = document.getElementById('mfab');
+  var mRevealed = false;
+  function revealMascot(){
+    if(mRevealed) return; mRevealed = true;
+    if(mfabEl) mfabEl.classList.add('reveal');
+    /* первая проактивная реплика — уже после появления */
+    setTimeout(function(){ setEmo('wink', 1600); say('Тапни меня — покажу, как это работает 👋', 3200); }, 650);
+  }
+  window.addEventListener('scroll', function(){
+    if((window.pageYOffset || document.documentElement.scrollTop || 0) > 60) revealMascot();
+  }, {passive:true});
   if('IntersectionObserver' in window){
     var priceSaid = false;
     var priceObs = new IntersectionObserver(function(entries){
@@ -2567,7 +2593,7 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
       chatGreeted = true;
       setEmo('fun', 2200);
       setTimeout(function(){
-        addMsg('bot', t('Йо! Я ROCH AI — напарник Ромы 🤖 Кидай скрин — разберу по 3 слоям и нарисую фикс. Или спроси что угодно.'));
+        addMsg('bot', t('Йо! Я ROCH AI — напарник Ромы 🤖 Кидай скрин — разберу весь проект по 3 слоям и нарисую фикс. Или спроси что угодно.'));
         if(quotaLeft() <= 0) showCooldown();
       }, 350);
     }
