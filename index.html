@@ -714,7 +714,7 @@ h1 .w i{animation-delay:var(--wd)}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;width:100%;
   min-height:57px;padding:16px 26px;border:none;border-radius:99px;cursor:pointer;
   font-family:var(--font);font-size:16px;font-weight:800;letter-spacing:-.01em;text-decoration:none;
-  background:var(--lime);color:#0B1409;position:relative;overflow:hidden;
+  white-space:nowrap;background:var(--lime);color:#0B1409;position:relative;overflow:hidden;
   box-shadow:0 14px 34px rgba(212,255,79,.35), inset 0 1.5px 0 rgba(255,255,255,.65), inset 0 -2px 6px rgba(0,90,40,.25);
   transition:transform .3s var(--spring);
   animation:breathe 3.2s ease-in-out infinite}
@@ -725,6 +725,22 @@ h1 .w i{animation-delay:var(--wd)}
 @keyframes breathe{0%,100%{box-shadow:0 14px 34px rgba(212,255,79,.32), inset 0 1.5px 0 rgba(255,255,255,.65), inset 0 -2px 6px rgba(0,90,40,.25)}
   50%{box-shadow:0 16px 48px rgba(212,255,79,.58), inset 0 1.5px 0 rgba(255,255,255,.65), inset 0 -2px 6px rgba(0,90,40,.25)}}
 .btn:active{transform:scale(.955)}
+/* CTA-текст: одна строка всегда; длинный текст = бегущая строка (ping-pong), не перенос */
+.oc-emo,.oc-arr{flex:0 0 auto;line-height:1}
+.oc-emo{font-size:18px}
+.oc-arr{font-weight:800;font-size:17px}
+.oc-txt{flex:0 1 auto;min-width:0;overflow:hidden;white-space:nowrap;display:inline-block;vertical-align:middle}
+.oc-txt .mqi{display:inline-block;will-change:transform}
+.oc-txt.mq .mqi{animation:mqPing var(--mqd,6s) ease-in-out infinite}
+@keyframes mqPing{0%,12%{transform:translateX(0)}50%,64%{transform:translateX(var(--mqx,0))}100%{transform:translateX(0)}}
+.offer-cta{min-height:56px;font-size:15.5px;gap:9px}
+/* free-оффер карта */
+.price.offer .offer-lead{font-size:14.5px;font-weight:500;color:var(--text2);line-height:1.5;margin:2px 0 6px}
+.price.offer .offer-lead b{color:var(--text);font-weight:700}
+.price.offer .offer-note{font-size:12.5px;font-weight:500;color:var(--text3);margin-top:12px;text-align:center;line-height:1.45}
+.price.offer .offer-note b{color:var(--lime)}
+.hero-cta{margin-top:22px}
+.manual-cta{margin-top:14px}
 
 /* ============ ZERO ============ */
 .zero{padding:23px 20px}
@@ -1227,7 +1243,11 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
     </span>
     <img class="h-money" src="assets/money.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
   </h1>
-  <p class="lead boot d2">Код у тебя уже есть. Я добавлю то, за что платят: доверие с первого экрана. <b>Стиль — за 24 часа, вся упаковка — за 3–4 дня.</b> Рабочий фикс, а не презентация.</p>
+  <p class="lead boot d2">Код у тебя уже есть. Я добавлю то, за что платят: доверие с первого экрана. <b>Кидай скрин в ROCH — разберу по 3 слоям и нарисую готовый фикс.</b> Рабочий фикс, а не презентация.</p>
+
+  <div class="hero-cta boot d3">
+    <a class="btn offer-cta" href="https://t.me/roch_ai_bot" target="_blank" rel="noopener"><span class="oc-emo">🧠</span><span class="oc-txt">Разобрать экран бесплатно</span><span class="oc-arr">→</span></a>
+  </div>
 
   <div class="stats boot d4">
     <div class="stat glass"><div class="n" data-count="700" data-suffix="M+">0</div><div class="l">установок</div></div>
@@ -1635,88 +1655,67 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
 <section id="pricing">
   <div class="sec-head reveal">
     <div class="sec-num">04</div>
-    <div class="eyebrow">Начни бесплатно</div>
-    <h2>Дизайн, которому<br><span class="grad">доверяют</span><img class="sec-icon" src="assets/go.webp" alt="" aria-hidden="true" loading="lazy" decoding="async"></h2>
+    <div class="eyebrow">Бесплатно</div>
+    <h2>Разбери свой экран<br><span class="grad">бесплатно</span><img class="sec-icon" src="assets/go.webp" alt="" aria-hidden="true" loading="lazy" decoding="async"></h2>
   </div>
 
-  <!-- Level 0 · ROCH — ведущая карта: автоматизация + бесплатный вход -->
-  <div class="price glass reveal tilt dexter">
-    <div class="badge gold">Первый аудит бесплатно</div>
-    <div class="p-diff">Level 0 · ИИ-напарник</div>
-    <div class="p-row"><h3>ROCH AI</h3><div class="p-price">$99<small>/мес</small></div></div>
-    <div class="p-time">Топовый дизайн без Ромы в переписке</div>
+  <!-- Главный free-оффер → бот @roch_ai_bot -->
+  <div class="price glass reveal tilt dexter offer">
+    <div class="badge gold">Первые 5 разборов — бесплатно</div>
+    <div class="p-diff">ROCH AI · в Telegram</div>
+    <p class="offer-lead">ROCH разберёт твой экран <b>по 3 слоям</b> и нарисует <b>готовый фикс кодом</b>. Кидаешь скрин — получаешь разбор. Без брифов, без Figma, без ожидания.</p>
     <ul class="p-list">
-      <li><b>Аудит интерфейса за секунды,</b> не за неделю</li>
-      <li>Живой рендер-фикс: готовый экран, а не «совет»</li>
-      <li>Генеративный UI в браузере: без Figma и брифов</li>
-      <li>Обучен на 10 годах Ромы и 700M+ установок</li>
+      <li><b>3 слоя разбора:</b> что не так, почему и как чинить</li>
+      <li>Готовый фикс — кодом, а не «советом»</li>
+      <li>Работает прямо в Telegram, за секунды</li>
     </ul>
-    <button class="btn dexter-try" type="button" id="dexTry"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h7l-1 8 10-12h-7z"/></svg>Попробовать бесплатно</button>
-    <button class="pre-btn" type="button" data-pre="ROCH AI" data-price="$99" data-full="1" data-sku="vibe-dexter"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Взять ROCH AI — $99/мес</button>
-  </div>
-
-  <!-- Level 4 · ROCH + Авторский надзор -->
-  <div class="price glass reveal tilt">
-    <div class="p-diff">Level 4 · ИИ + рука Ромы</div>
-    <div class="p-row"><h3>ROCH AI + Надзор</h3><div class="p-price">$999<small>/мес</small></div></div>
-    <div class="p-time">ИИ крутит итерации — Рома ставит планку</div>
-    <ul class="p-list">
-      <li><b>Безлимит ROCH AI</b> 24/7</li>
-      <li>Еженедельный ручной разбор от Ромы</li>
-      <li>Доводка ключевых экранов вручную</li>
-      <li>Прямой канал в Telegram</li>
-    </ul>
-    <button class="pre-btn" type="button" data-pre="ROCH AI + Надзор" data-price="$999" data-full="1" data-sku="vibe-supervision"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Хочу надзор</button>
+    <a class="btn offer-cta" href="https://t.me/roch_ai_bot" target="_blank" rel="noopener"><span class="oc-emo">🧠</span><span class="oc-txt">Разобрать экран бесплатно</span><span class="oc-arr">→</span></a>
+    <p class="offer-note">Жмёшь <b>Start</b> в боте → открывается ROCH AI. Первые 5 разборов бесплатно.</p>
   </div>
 
   <!-- Ручные тарифы (личное участие Ромы) — свёрнуты под спойлер -->
-  <button class="pre-btn manual-toggle" type="button" id="manualToggle" aria-expanded="false" aria-controls="manualTiers"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>Нужен лично Рома, под ключ? — от $500</button>
+  <button class="pre-btn manual-toggle" type="button" id="manualToggle" aria-expanded="false" aria-controls="manualTiers"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>Нужна ручная упаковка под ключ?</button>
   <div class="manual-tiers" id="manualTiers">
 
   <div class="price glass reveal tilt">
     <div class="p-diff">Уровень 1 · фундамент</div>
-    <div class="p-row"><h3>Style Core</h3><div class="p-price">$500</div></div>
-    <div class="p-time">24 часа · <span class="p-pre">предоплата $250</span></div>
+    <div class="p-row"><h3>Style Core</h3></div>
+    <div class="p-time">Стиль + концепт главного экрана</div>
     <ul class="p-list">
       <li><b>Поиск стиля:</b> визуальное направление, которое продаёт</li>
       <li>Концепт ключевого экрана в найденном стиле</li>
       <li>Экспресс-аудит: топ-5 дыр, куда утекают юзеры</li>
-      <li>Фундамент Уровня 2 — ничего не выбрасывается</li>
     </ul>
-    <button class="pre-btn" type="button" data-pre="Style Core" data-price="$500" data-sku="vibe-style"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Предзаказ</button>
   </div>
 
   <div class="price glass reveal tilt feat">
-    <div class="badge gold">Чаще всего берут</div>
     <div class="p-diff">Уровень 2 · вся упаковка</div>
-    <div class="p-row"><h3>Full Build</h3><div class="p-price">$2 500</div></div>
-    <div class="p-time">3–4 дня · <span class="p-pre">предоплата $1 250</span></div>
+    <div class="p-row"><h3>Full Build</h3></div>
+    <div class="p-time">UI-система + все ключевые экраны</div>
     <ul class="p-list">
       <li><b>Всё из Уровня 1</b> — стиль уже найден и утверждён</li>
       <li><b>UI-система + все ключевые экраны</b> продукта</li>
       <li>Полный продуктовый аудит с картой фиксов по приоритету</li>
       <li>1 вирусная или гейм-механика под твой продукт</li>
-      <li>Ассеты для шеринга: OG, сторис, превью</li>
     </ul>
-    <button class="pre-btn" type="button" data-pre="Full Build" data-price="$2 500" data-sku="vibe-full"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Предзаказ</button>
   </div>
 
   <div class="price glass reveal tilt">
     <div class="p-diff">Уровень 3 · продукт как игра</div>
-    <div class="p-row"><h3>Game Layer</h3><div class="p-price">$5 000</div></div>
-    <div class="p-time">7–10 дней · <span class="p-pre">предоплата $2 500</span></div>
+    <div class="p-row"><h3>Game Layer</h3></div>
+    <div class="p-time">Полная геймификация продукта</div>
     <ul class="p-list">
       <li><b>Всё из Уровней 1–2</b> — стиль, система, аудит, механика</li>
       <li><b>Полная геймификация:</b> XP, стрики, лиги, рефералки</li>
       <li>Retention-петля: причина вернуться завтра</li>
-      <li>Авторский надзор 2 недели после запуска</li>
     </ul>
-    <button class="pre-btn" type="button" data-pre="Game Layer" data-price="$5 000" data-sku="vibe-game"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Предзаказ</button>
   </div>
+
+  <a class="btn sec manual-cta js-tg" href="#" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M21.9 4.6L18.8 19c-.2 1-0.8 1.2-1.7.8l-4.6-3.4-2.2 2.1c-.2.2-.5.5-.9.5l.3-4.7L18.3 6.6c.4-.3-.1-.5-.6-.2L7.2 13.1l-4.5-1.4c-1-.3-1-1 .2-1.5L20.6 3.1c.8-.3 1.5.2 1.3 1.5z"/></svg>Обсудим в Telegram</a>
 
   </div><!-- /manual-tiers -->
 
-  <p class="note">ROCH AI доступен всегда, без очереди. Личное участие Ромы — по договорённости, предоплата 50% фиксирует старт.</p>
+  <p class="note">ROCH AI — бесплатно в Telegram, без очереди. Упаковку под ключ обсуждаем лично.</p>
 </section>
 
 <!-- ============ PROCESS ============ -->
@@ -1810,12 +1809,9 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
 <section class="final">
   <div class="sec-head reveal" style="margin-bottom:0">
     <div class="eyebrow" style="justify-content:center">Остался один шаг</div>
-    <h2>Покажи продукт —<br><span class="grad">получи план за 15 минут</span></h2>
-    <p>Честно скажу, что чинить, что не трогать и сколько это стоит. Дальше решаешь сам.</p>
-    <a class="btn js-tg" href="#" target="_blank" rel="noopener">
-      <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M21.9 4.6L18.8 19c-.2 1-0.8 1.2-1.7.8l-4.6-3.4-2.2 2.1c-.2.2-.5.5-.9.5l.3-4.7L18.3 6.6c.4-.3-.1-.5-.6-.2L7.2 13.1l-4.5-1.4c-1-.3-1-1 .2-1.5L20.6 3.1c.8-.3 1.5.2 1.3 1.5z"/></svg>
-      Написать в Telegram
-    </a>
+    <h2>Кинь скрин —<br><span class="grad">получи разбор бесплатно</span></h2>
+    <p>ROCH разберёт твой экран по 3 слоям и нарисует готовый фикс. Первые 5 разборов — бесплатно.</p>
+    <a class="btn offer-cta" href="https://t.me/roch_ai_bot" target="_blank" rel="noopener"><span class="oc-emo">🧠</span><span class="oc-txt">Разобрать экран бесплатно</span><span class="oc-arr">→</span></a>
   </div>
 </section>
 
@@ -1830,78 +1826,6 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
 </footer>
 </div>
 
-<!-- ============ PREORDER MODAL ============ -->
-<div class="modal-back" id="preBack">
-  <div class="modal" role="dialog" aria-modal="true" aria-label="Предзаказ">
-    <button class="m-close" id="preClose" type="button" aria-label="Закрыть">✕</button>
-    <div class="grab"></div>
-    <div class="m-head"><h3 id="preName">Предзаказ</h3><span class="mp" id="prePrice">$499</span></div>
-    <p class="m-sub" id="preSub">Предоплата <b>50%</b> фиксирует старт. К оплате сейчас — <b id="preHalf">$250</b>, остальное после сдачи.</p>
-
-    <div class="pay-opt">
-      <div class="ph"><div class="pic">₮</div><h4>USDT · крипта</h4><span class="tag">Мгновенно</span></div>
-      <div class="pay-row"><span class="pk">Сеть</span><span class="pv">TRC-20 (Tron)</span></div>
-      <div class="pay-row">
-        <span class="pk">Кошелёк</span>
-        <span class="pv" id="wallet">TJ3pu1tmmJici14vKaj88p8AWN1gmC9VvN</span>
-        <button class="copy-btn" type="button" data-copy="wallet" aria-label="Копировать">
-          <svg viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
-        </button>
-      </div>
-    </div>
-
-    <div class="pay-opt">
-      <div class="ph"><div class="pic">🏦</div><h4>Банк · ИП Грузия</h4><span class="tag">USD</span></div>
-      <div class="pay-row"><span class="pk">Банк</span><span class="pv">JSC TBC Bank, Tbilisi · SWIFT TBCBGE22</span></div>
-      <div class="pay-row">
-        <span class="pk">IBAN</span>
-        <span class="pv" id="iban">GE92 TB74 5293 6110 1000 09</span>
-        <button class="copy-btn" type="button" data-copy="iban" aria-label="Копировать">
-          <svg viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
-        </button>
-      </div>
-      <div class="pay-row"><span class="pk">Получатель</span><span class="pv">Individual Entrepreneur Raman Charniauski</span></div>
-    </div>
-
-    <a class="btn m-tg" id="preTg" href="#" target="_blank" rel="noopener">
-      <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M21.9 4.6L18.8 19c-.2 1-0.8 1.2-1.7.8l-4.6-3.4-2.2 2.1c-.2.2-.5.5-.9.5l.3-4.7L18.3 6.6c.4-.3-.1-.5-.6-.2L7.2 13.1l-4.5-1.4c-1-.3-1-1 .2-1.5L20.6 3.1c.8-.3 1.5.2 1.3 1.5z"/></svg>
-      Оплатил — написать в Telegram
-    </a>
-  </div>
-</div>
-
-<!-- ============ ROCH ONBOARDING ============ -->
-<div class="modal-back" id="dexBack">
-  <div class="modal dex-modal" role="dialog" aria-modal="true" aria-label="Знакомство с ROCH">
-    <button class="m-close" id="dexCloseBtn" type="button" aria-label="Закрыть">✕</button>
-    <div class="grab"></div>
-    <div class="dex-hero"><svg viewBox="0 0 24 24"><path d="M13 2L3 14h7l-1 8 10-12h-7z"/></svg></div>
-
-    <div class="dex-step on" data-step="1">
-      <div class="dex-eyebrow">ИИ-напарник</div>
-      <div class="dex-h">Привет. Я ROCH AI.</div>
-      <p class="dex-p">Меня обучили на 10 годах работы Ромы в геймдеве и продуктах на <b>700M+ установок</b>. Проще: во мне зашит вкус человека, чьи интерфейсы видели сотни миллионов.</p>
-    </div>
-    <div class="dex-step" data-step="2">
-      <div class="dex-eyebrow">Твоя боль</div>
-      <div class="dex-h">Код работает. А юзеры не платят.</div>
-      <p class="dex-p">В 9 из 10 случаев причина одна: продукт <b>выглядит как прототип</b>, и ему не верят за 3 секунды. Я чиню именно это.</p>
-    </div>
-    <div class="dex-step" data-step="3">
-      <div class="dex-eyebrow">Как пользоваться</div>
-      <div class="dex-h">Кидай скрин — лови фикс.</div>
-      <p class="dex-p">За секунды покажу, где утекают юзеры, и <b>тут же перерисую косяк</b> — готовый экран, а не абстрактный совет. Не зашло — крути дальше, генерю варианты, пока не щёлкнет.</p>
-    </div>
-    <div class="dex-step" data-step="4">
-      <div class="dex-eyebrow">Первый аудит — бесплатно</div>
-      <div class="dex-h">Погнали.</div>
-      <p class="dex-p">Кидай первый скрин — посмотрим, что не так с твоим экраном. Без карты, без обязательств.</p>
-    </div>
-
-    <div class="dex-dots" id="dexDots"></div>
-    <button class="btn" id="dexNext" type="button">Дальше</button>
-  </div>
-</div>
 
 <!-- ============ PROJECT SHEET ============ -->
 <div class="modal-back" id="projBack">
@@ -1967,8 +1891,8 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
 
 <!-- ============ FLOATING TAB BAR ============ -->
 <div class="cta-bar" id="ctaBar">
-  <div class="info"><small>ROCH AI · первый аудит</small><b>Бесплатно</b></div>
-  <a class="btn" id="barCta" href="#" target="_blank" rel="noopener">Написать в Telegram</a>
+  <div class="info"><small>ROCH AI · разбор экрана</small><b>Бесплатно</b></div>
+  <a class="btn" id="barCta" href="https://t.me/roch_ai_bot" target="_blank" rel="noopener"><span class="oc-txt">Разобрать бесплатно</span><span class="oc-arr">→</span></a>
 </div>
 
 <script>
@@ -1982,8 +1906,8 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
   function tgLink(msg){
     return 'https://t.me/' + TG_USER + '?text=' + encodeURIComponent(msg);
   }
-  /* все TG-ссылки (.js-tg + #barCta) получают единый deeplink */
-  var tgEls = document.querySelectorAll('.js-tg, #barCta');
+  /* TG-ссылки на личный чат Ромы (.js-tg) — единый deeplink; бот-CTA ведут прямо в @roch_ai_bot (href в разметке) */
+  var tgEls = document.querySelectorAll('.js-tg');
   Array.prototype.forEach.call(tgEls, function(a){ a.href = tgLink(TG_MSG_DEFAULT); });
 
   /* кнопки-якоря */
@@ -2011,7 +1935,10 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
     "Кажется, я оффлайн 🙈 Напиши Роме напрямую — @broch, он живой и отвечает быстро.": "Looks like I'm offline 🙈 Ping Roma directly — @broch, he's real and replies fast.",
     "Лимит на сегодня исчерпан": "Daily limit reached"
   });
+  (function(sup){ for(var _k in sup){ I18N_EN[_k]=sup[_k]; } })({"Кидай скрин в ROCH — разберу по 3 слоям и нарисую готовый фикс.": "Drop a screen into ROCH — I'll break it down in 3 layers and draw a ready fix.", "Разобрать экран бесплатно": "Break down my screen — free", "Разбери свой экран": "Break down your screen", "бесплатно": "free", "Первые 5 разборов — бесплатно": "First 5 breakdowns — free", "ROCH AI · в Telegram": "ROCH AI · in Telegram", "ROCH разберёт твой экран": "ROCH breaks down your screen", "по 3 слоям": "in 3 layers", "и нарисует": "and draws a", "готовый фикс кодом": "ready fix in code", ". Кидаешь скрин — получаешь разбор. Без брифов, без Figma, без ожидания.": ". Drop a screen — get the breakdown. No briefs, no Figma, no waiting.", "3 слоя разбора:": "3 layers of breakdown:", "что не так, почему и как чинить": "what's wrong, why, and how to fix it", "Готовый фикс — кодом, а не «советом»": "A ready fix — in code, not «advice»", "Работает прямо в Telegram, за секунды": "Works right in Telegram, in seconds", "Жмёшь": "Hit", "в боте → открывается ROCH AI. Первые 5 разборов бесплатно.": "in the bot → ROCH AI opens. First 5 breakdowns free.", "Нужна ручная упаковка под ключ?": "Need full done-for-you packaging?", "Стиль + концепт главного экрана": "Style + main-screen concept", "Полная геймификация продукта": "Full product gamification", "Обсудим в Telegram": "Let's talk in Telegram", "ROCH AI — бесплатно в Telegram, без очереди. Упаковку под ключ обсуждаем лично.": "ROCH AI — free in Telegram, no queue. Done-for-you packaging we discuss personally.", "Кинь скрин —": "Drop a screen —", "получи разбор бесплатно": "get your breakdown free", "ROCH разберёт твой экран по 3 слоям и нарисует готовый фикс. Первые 5 разборов — бесплатно.": "ROCH breaks down your screen in 3 layers and draws a ready fix. First 5 breakdowns — free.", "ROCH AI · разбор экрана": "ROCH AI · screen breakdown", "Разобрать бесплатно": "Break it down — free", "Йо! Я ROCH AI — напарник Ромы 🤖 Кидай скрин — разберу по 3 слоям и нарисую фикс. Или спроси что угодно.": "Yo! I'm ROCH AI — Roma's copilot 🤖 Drop a screen — I'll break it down in 3 layers and draw a fix. Or ask me anything."});
   var LANG='ru'; try{ LANG=localStorage.getItem('roch_lang')||'ru'; }catch(e){} if(LANG!=='en') LANG='ru';
+  (function(sup){ for(var _k in sup){ I18N_EN[_k]=sup[_k]; } })({"Тапни меня — покажу, как это работает 👋": "Tap me — I'll show you how it works 👋", "Первые 5 разборов в ROCH AI — бесплатно 😉": "First 5 breakdowns in ROCH AI — free 😉"});
+  (function(sup){ for(var _k in sup){ I18N_EN[_k]=sup[_k]; } })({"Разобрать экран бесплатно": "Break down your screen — free"});
   function t(ru){ return (LANG==='en' && I18N_EN[ru]!==undefined) ? I18N_EN[ru] : ru; }
   
   
@@ -2518,14 +2445,14 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
     if(phrase) say(phrase);
   }
   /* проактивные реплики */
-  setTimeout(function(){ setEmo('wink', 1600); say('Тапни меня — расскажу, что почём 👋', 3200); }, 2600);
+  setTimeout(function(){ setEmo('wink', 1600); say('Тапни меня — покажу, как это работает 👋', 3200); }, 2600);
   if('IntersectionObserver' in window){
     var priceSaid = false;
     var priceObs = new IntersectionObserver(function(entries){
       entries.forEach(function(en){
         if(en.isIntersecting && !priceSaid){
           priceSaid = true;
-          setEmo('fun', 2600); say('Первый аудит в ROCH AI — бесплатно 😉', 3000);
+          setEmo('fun', 2600); say('Первые 5 разборов в ROCH AI — бесплатно 😉', 3000);
           priceObs.disconnect();
         }
       });
@@ -2640,7 +2567,7 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
       chatGreeted = true;
       setEmo('fun', 2200);
       setTimeout(function(){
-        addMsg('bot', t('Йо! Я ROCH AI — напарник Ромы 🤖 Кидай скрин или спрашивай про аудит, цены и сроки. Отвечаю честно.'));
+        addMsg('bot', t('Йо! Я ROCH AI — напарник Ромы 🤖 Кидай скрин — разберу по 3 слоям и нарисую фикс. Или спроси что угодно.'));
         if(quotaLeft() <= 0) showCooldown();
       }, 350);
     }
@@ -2798,6 +2725,7 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
   var preSub = document.getElementById('preSub');
   var curSku = '';
   function openPre(name, price, isFull){
+    if(!preBack) return;
     track('preorder_open', name);
     var p = halfPrice(price);
     preName.textContent = name;
@@ -2815,21 +2743,23 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
     document.body.style.overflow = 'hidden';
   }
   function closePre(){
+    if(!preBack) return;
     preBack.classList.remove('open');
     document.body.style.overflow = '';
   }
-  document.querySelectorAll('.pre-btn[data-pre]').forEach(function(b){
-    b.addEventListener('click', function(){
-      var isFull = b.getAttribute('data-full') === '1';
-      var base = b.getAttribute('data-sku') || '';
-      curSku = isFull ? base : (base ? base + '-pre' : '');
-      openPre(b.getAttribute('data-pre'), b.getAttribute('data-price'), isFull);
+  if(preBack){
+    document.querySelectorAll('.pre-btn[data-pre]').forEach(function(b){
+      b.addEventListener('click', function(){
+        var isFull = b.getAttribute('data-full') === '1';
+        var base = b.getAttribute('data-sku') || '';
+        curSku = isFull ? base : (base ? base + '-pre' : '');
+        openPre(b.getAttribute('data-pre'), b.getAttribute('data-price'), isFull);
+      });
     });
-  });
-
-  document.getElementById('preClose').addEventListener('click', closePre);
-  if(location.hash === '#pay'){ curSku = 'vibe-style-pre'; openPre('Style Core', '$500', false); }
-  preBack.addEventListener('click', function(e){ if(e.target === preBack) closePre(); });
+    var _preClose = document.getElementById('preClose');
+    if(_preClose) _preClose.addEventListener('click', closePre);
+    preBack.addEventListener('click', function(e){ if(e.target === preBack) closePre(); });
+  }
 
   /* спойлер ручных тарифов (Level 1–3) */
   var manualToggle = document.getElementById('manualToggle');
@@ -3194,6 +3124,7 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
     localizeTree(document.body); localizeHero();
     var op=document.querySelector('.modal-back.open'); if(op) localizeTree(op);
     updateLangUI();
+    setupBtnMarquee();
     if(typeof track==='function') track('project_view', 'lang_'+LANG);
   }
   var _lt=document.getElementById('langTog');
@@ -3201,6 +3132,28 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
   document.documentElement.setAttribute('lang', LANG);
   updateLangUI();
   if(LANG==='en'){ localizeTree(document.body); localizeHero(); }
+
+  /* CTA-текст: одна строка всегда; не влезает — бегущая строка (ping-pong), не перенос */
+  function setupBtnMarquee(){
+    var txs = document.querySelectorAll('.oc-txt');
+    Array.prototype.forEach.call(txs, function(tx){
+      var inner = tx.querySelector('.mqi');
+      if(!inner){ inner = document.createElement('span'); inner.className = 'mqi';
+        while(tx.firstChild){ inner.appendChild(tx.firstChild); } tx.appendChild(inner); }
+      tx.classList.remove('mq'); tx.style.removeProperty('--mqx'); tx.style.removeProperty('--mqd');
+      if(reduced) return;
+      var over = inner.scrollWidth - tx.clientWidth;
+      if(over > 4){
+        tx.style.setProperty('--mqx', (-(over + 10)) + 'px');
+        tx.style.setProperty('--mqd', (Math.max(3.5, (over + 10) / 24 + 2.5)) + 's');
+        tx.classList.add('mq');
+      }
+    });
+  }
+  setupBtnMarquee();
+  var _mqT;
+  window.addEventListener('resize', function(){ clearTimeout(_mqT); _mqT = setTimeout(setupBtnMarquee, 200); });
+  if(document.fonts && document.fonts.ready){ document.fonts.ready.then(setupBtnMarquee); }
 
 })();
 </script>
