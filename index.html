@@ -135,6 +135,14 @@ p.lead b{color:var(--text);font-weight:700}
   background:linear-gradient(0deg, rgba(5,7,6,.96) 34%, rgba(5,7,6,.55) 72%, transparent)}
 
 /* ============ HEADER ============ */
+.nav-right{display:flex;align-items:center;gap:8px;flex:0 0 auto}
+.lang-tog{display:flex;align-items:center;gap:2px;padding:4px;border-radius:99px;
+  border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05);cursor:pointer;
+  -webkit-tap-highlight-color:transparent;flex:0 0 auto}
+.lang-tog .lt-o{font-size:11px;font-weight:800;letter-spacing:.03em;padding:3px 8px;border-radius:99px;
+  color:var(--text3);line-height:1;transition:color .3s var(--ease), background .3s var(--ease)}
+.lang-tog .lt-o.on{background:var(--lime);color:#0B1409}
+.lang-tog:active{transform:scale(.95)}
 header{padding:16px 0 0;position:sticky;top:8px;z-index:50;transition:top .35s var(--ease)}
 header.hide{top:2px}
 /* unified blur scrim behind both HUD panels — kills UI-layer clutter */
@@ -897,6 +905,39 @@ h1 .w i{animation-delay:var(--wd)}
 .extra-p small{font-size:12px;font-weight:600;color:var(--text3)}
 a.pre-btn{text-decoration:none}
 .note{font-size:13px;font-weight:500;color:var(--text3);margin-top:16px}
+/* ROCH — ведущая карта */
+.price.dexter{border-color:rgba(212,255,79,.42);
+  box-shadow:0 0 0 1px rgba(212,255,79,.22), 0 26px 64px -26px rgba(212,255,79,.4), var(--shadow)}
+.price.dexter .p-diff{color:var(--lime)}
+.p-price small{font-size:13px;font-weight:600;color:var(--text3);letter-spacing:0;margin-left:1px}
+.btn.dexter-try{margin-top:18px;width:100%;min-height:50px}
+.btn.dexter-try + .pre-btn{margin-top:10px}
+.btn.dexter-try svg{width:18px;height:18px;fill:none;stroke:#0B1409}
+/* спойлер ручных тарифов */
+.manual-toggle{margin-top:20px;justify-content:center}
+.manual-toggle svg{transition:transform .4s var(--spring)}
+.manual-toggle[aria-expanded="true"] svg{transform:rotate(180deg)}
+.manual-tiers{max-height:0;overflow:hidden;opacity:.0;
+  transition:max-height .55s var(--ease), opacity .4s var(--ease)}
+.manual-tiers.open{max-height:2600px;opacity:1}
+/* Dexter-онбординг */
+.dex-modal{max-width:460px;text-align:center}
+.dex-hero{width:72px;height:72px;margin:6px auto 4px;border-radius:22px;
+  display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(120% 120% at 50% 0%, rgba(212,255,79,.28), rgba(212,255,79,.06));
+  border:1px solid rgba(212,255,79,.32);box-shadow:inset 0 1px 0 rgba(255,255,255,.2), 0 0 34px -8px rgba(212,255,79,.5)}
+.dex-hero svg{width:34px;height:34px;fill:none;stroke:var(--lime);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.dex-eyebrow{font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--lime);margin-top:12px}
+.dex-step{display:none}
+.dex-step.on{display:block;animation:dexFade .45s var(--ease)}
+@keyframes dexFade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.dex-h{font-size:22px;font-weight:800;letter-spacing:-.02em;margin-top:8px;line-height:1.2}
+.dex-p{font-size:15px;font-weight:500;color:var(--text2);line-height:1.55;margin-top:12px}
+.dex-p b{color:var(--text);font-weight:700}
+.dex-dots{display:flex;gap:7px;justify-content:center;margin:20px 0 16px}
+.dex-dot{width:7px;height:7px;border-radius:99px;background:rgba(255,255,255,.2);transition:all .35s var(--ease)}
+.dex-dot.on{width:22px;background:var(--lime);box-shadow:0 0 10px rgba(212,255,79,.6)}
+.dex-modal .btn{width:100%;min-height:50px}
 
 /* ============ STEPS ============ */
 .steps{margin-top:22px}
@@ -1148,7 +1189,10 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
 <header id="hdr">
   <div class="nav glass">
     <img class="logo-img" src="" id="logoHeader" alt="ROCH">
-    <div class="pill-status" id="slotsPill"><span class="dot"></span><span id="slotsTxt">5 слотов на неделе</span></div>
+    <div class="nav-right">
+      <div class="pill-status" id="slotsPill"><span class="dot"></span><span id="slotsTxt">5 слотов на неделе</span></div>
+      <button class="lang-tog" id="langTog" type="button" aria-label="Язык / Language"><span class="lt-o" data-lang="ru">RU</span><span class="lt-o" data-lang="en">EN</span></button>
+    </div>
   </div>
   <nav class="hud-nav" id="hudNav" aria-label="Навигация">
     <button type="button" class="hud-link" data-sec="services">
@@ -1185,14 +1229,6 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
     <img class="h-money" src="assets/money.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
   </h1>
   <p class="lead boot d2">Код у тебя уже есть. Я добавлю то, за что платят: доверие с первого экрана. <b>Стиль — за 24 часа, вся упаковка — за 3–4 дня.</b> Рабочий фикс, а не презентация.</p>
-
-  <div class="cta-row boot d3">
-    <a class="btn js-tg" href="#" target="_blank" rel="noopener">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M21.9 4.6L18.8 19c-.2 1-0.8 1.2-1.7.8l-4.6-3.4-2.2 2.1c-.2.2-.5.5-.9.5l.3-4.7L18.3 6.6c.4-.3-.1-.5-.6-.2L7.2 13.1l-4.5-1.4c-1-.3-1-1 .2-1.5L20.6 3.1c.8-.3 1.5.2 1.3 1.5z"/></svg>
-      Обсудить проект
-    </a>
-    <button class="btn sec" type="button" data-goto="cases">Смотреть работы</button>
-  </div>
 
   <div class="stats boot d4">
     <div class="stat glass"><div class="n" data-count="700" data-suffix="M+">0</div><div class="l">установок</div></div>
@@ -1451,7 +1487,7 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
             </div>
             <div class="notif">
               <div class="notif-ava lime">А</div>
-              <div class="notif-body"><div class="notif-t">Анна · оплатила заказ</div><div class="notif-s">+$1 190 · Full Pack</div></div>
+              <div class="notif-body"><div class="notif-t">Анна · подключила ROCH AI</div><div class="notif-s">$99/мес · безлимит</div></div>
               <div class="notif-dot"></div>
             </div>
             <div class="notif">
@@ -1600,13 +1636,47 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
 <section id="pricing">
   <div class="sec-head reveal">
     <div class="sec-num">04</div>
-    <div class="eyebrow">Выбери сложность</div>
-    <h2>Фикс-прайс.<br><span class="grad">Без сюрпризов</span><img class="sec-icon" src="assets/go.webp" alt="" aria-hidden="true" loading="lazy" decoding="async"></h2>
+    <div class="eyebrow">Начни бесплатно</div>
+    <h2>Дизайн, которому<br><span class="grad">доверяют</span><img class="sec-icon" src="assets/go.webp" alt="" aria-hidden="true" loading="lazy" decoding="async"></h2>
   </div>
+
+  <!-- Level 0 · ROCH — ведущая карта: автоматизация + бесплатный вход -->
+  <div class="price glass reveal tilt dexter">
+    <div class="badge gold">Первый аудит бесплатно</div>
+    <div class="p-diff">Level 0 · ИИ-напарник</div>
+    <div class="p-row"><h3>ROCH AI</h3><div class="p-price">$99<small>/мес</small></div></div>
+    <div class="p-time">Топовый дизайн без Ромы в переписке</div>
+    <ul class="p-list">
+      <li><b>Аудит интерфейса за секунды,</b> не за неделю</li>
+      <li>Живой рендер-фикс: готовый экран, а не «совет»</li>
+      <li>Генеративный UI в браузере: без Figma и брифов</li>
+      <li>Обучен на 10 годах Ромы и 700M+ установок</li>
+    </ul>
+    <button class="btn dexter-try" type="button" id="dexTry"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h7l-1 8 10-12h-7z"/></svg>Попробовать бесплатно</button>
+    <button class="pre-btn" type="button" data-pre="ROCH AI" data-price="$99" data-full="1" data-sku="vibe-dexter"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Взять ROCH AI — $99/мес</button>
+  </div>
+
+  <!-- Level 4 · ROCH + Авторский надзор -->
+  <div class="price glass reveal tilt">
+    <div class="p-diff">Level 4 · ИИ + рука Ромы</div>
+    <div class="p-row"><h3>ROCH AI + Надзор</h3><div class="p-price">$999<small>/мес</small></div></div>
+    <div class="p-time">ИИ крутит итерации — Рома ставит планку</div>
+    <ul class="p-list">
+      <li><b>Безлимит ROCH AI</b> 24/7</li>
+      <li>Еженедельный ручной разбор от Ромы</li>
+      <li>Доводка ключевых экранов вручную</li>
+      <li>Прямой канал в Telegram</li>
+    </ul>
+    <button class="pre-btn" type="button" data-pre="ROCH AI + Надзор" data-price="$999" data-full="1" data-sku="vibe-supervision"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Хочу надзор</button>
+  </div>
+
+  <!-- Ручные тарифы (личное участие Ромы) — свёрнуты под спойлер -->
+  <button class="pre-btn manual-toggle" type="button" id="manualToggle" aria-expanded="false" aria-controls="manualTiers"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>Нужен лично Рома, под ключ? — от $500</button>
+  <div class="manual-tiers" id="manualTiers">
 
   <div class="price glass reveal tilt">
     <div class="p-diff">Уровень 1 · фундамент</div>
-    <div class="p-row"><h3>Style Core</h3><div class="p-price">$499</div></div>
+    <div class="p-row"><h3>Style Core</h3><div class="p-price">$500</div></div>
     <div class="p-time">24 часа · <span class="p-pre">предоплата $250</span></div>
     <ul class="p-list">
       <li><b>Поиск стиля:</b> визуальное направление, которое продаёт</li>
@@ -1614,13 +1684,13 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
       <li>Экспресс-аудит: топ-5 дыр, куда утекают юзеры</li>
       <li>Фундамент Уровня 2 — ничего не выбрасывается</li>
     </ul>
-    <button class="pre-btn" type="button" data-pre="Style Core" data-price="$499" data-sku="vibe-style"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Предзаказ</button>
+    <button class="pre-btn" type="button" data-pre="Style Core" data-price="$500" data-sku="vibe-style"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Предзаказ</button>
   </div>
 
   <div class="price glass reveal tilt feat">
     <div class="badge gold">Чаще всего берут</div>
     <div class="p-diff">Уровень 2 · вся упаковка</div>
-    <div class="p-row"><h3>Full Build</h3><div class="p-price">$2 499</div></div>
+    <div class="p-row"><h3>Full Build</h3><div class="p-price">$2 500</div></div>
     <div class="p-time">3–4 дня · <span class="p-pre">предоплата $1 250</span></div>
     <ul class="p-list">
       <li><b>Всё из Уровня 1</b> — стиль уже найден и утверждён</li>
@@ -1629,12 +1699,12 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
       <li>1 вирусная или гейм-механика под твой продукт</li>
       <li>Ассеты для шеринга: OG, сторис, превью</li>
     </ul>
-    <button class="pre-btn" type="button" data-pre="Full Build" data-price="$2 499" data-sku="vibe-full"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Предзаказ</button>
+    <button class="pre-btn" type="button" data-pre="Full Build" data-price="$2 500" data-sku="vibe-full"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Предзаказ</button>
   </div>
 
   <div class="price glass reveal tilt">
     <div class="p-diff">Уровень 3 · продукт как игра</div>
-    <div class="p-row"><h3>Game Layer</h3><div class="p-price">$4 999</div></div>
+    <div class="p-row"><h3>Game Layer</h3><div class="p-price">$5 000</div></div>
     <div class="p-time">7–10 дней · <span class="p-pre">предоплата $2 500</span></div>
     <ul class="p-list">
       <li><b>Всё из Уровней 1–2</b> — стиль, система, аудит, механика</li>
@@ -1642,38 +1712,12 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
       <li>Retention-петля: причина вернуться завтра</li>
       <li>Авторский надзор 2 недели после запуска</li>
     </ul>
-    <button class="pre-btn" type="button" data-pre="Game Layer" data-price="$4 999" data-sku="vibe-game"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Предзаказ</button>
+    <button class="pre-btn" type="button" data-pre="Game Layer" data-price="$5 000" data-sku="vibe-game"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Предзаказ</button>
   </div>
 
-  <!-- ОТКЛЮЧЕНО до готовности продукта (раскомментировать когда Wibe Design упакован):
-  <div class="extra glass reveal">
-    <div class="extra-row">
-      <div class="extra-ic">🦄</div>
-      <div class="extra-body">
-        <div class="extra-t">Wibe Design · Dexter</div>
-        <div class="extra-s">Цифровой продукт: методология вайбдизайна, промпт-библиотека, чек-листы 10/10. Упакуй сам.</div>
-      </div>
-      <div class="extra-p">$100</div>
-    </div>
-    <button class="pre-btn" type="button" data-pre="Wibe Design · Dexter" data-price="$100" data-full="1" data-sku="vibe-dexter"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Купить</button>
-  </div>
-  -->
+  </div><!-- /manual-tiers -->
 
-  <!-- ОТКЛЮЧЕНО пока (раскомментировать когда придёт время):
-  <div class="extra glass reveal">
-    <div class="extra-row">
-      <div class="extra-ic">🛡</div>
-      <div class="extra-body">
-        <div class="extra-t">Авторский надзор</div>
-        <div class="extra-s">Продукт живёт и растёт под моим присмотром. Только для тех, с кем уже работаю или работал.</div>
-      </div>
-      <div class="extra-p">$1 000<small>/мес</small></div>
-    </div>
-    <a class="pre-btn js-tg" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Обсудить</a>
-  </div>
-  -->
-
-  <p class="note">Договорились на ивенте — предоплата 50% фиксирует слот на эту неделю. Слотов пять.</p>
+  <p class="note">Личное участие Ромы — по 5 слотов в неделю, предоплата 50% фиксирует слот. ROCH AI доступен всегда, без очереди.</p>
 </section>
 
 <!-- ============ PROCESS ============ -->
@@ -1704,13 +1748,13 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
   </div>
   <div class="steps">
     <div class="step reveal"><div class="num">1</div>
-      <div><h3>Пишешь в Telegram</h3><p>Ссылка на продукт или описание идеи. Голосовым — тоже ок.</p></div></div>
+      <div><h3>Кидаешь скрин в ROCH AI</h3><p>Открываешь ROCH AI и кидаешь любой экран продукта. Бесплатно, без карты и брифов.</p></div></div>
     <div class="step reveal"><div class="num">2</div>
-      <div><h3>Разбор за 15 минут</h3><p>Смотрю продукт, честно говорю, что не так и какой пакет решит задачу.</p></div></div>
+      <div><h3>Мгновенный аудит + фикс</h3><p>ROCH AI за секунды показывает, где утекают юзеры, и тут же перерисовывает косяк — готовый экран.</p></div></div>
     <div class="step reveal"><div class="num">3</div>
-      <div><h3>Предоплата 50% — старт</h3><p>Слот забронирован. Через 24 часа у тебя стиль, дальше — авторский надзор.</p></div></div>
+      <div><h3>Крутишь варианты сам</h3><p>Не зашло — генеришь дальше, пока не щёлкнет. Нужен безлимит — <b>$99/мес</b>.</p></div></div>
     <div class="step reveal"><div class="num">4</div>
-      <div><h3>Результат + итерация</h3><p>Правки внутри пакета. Финал — код и ассеты, готовые к деплою.</p></div></div>
+      <div><h3>Нужен лично Рома?</h3><p>Если очень нужен я сам — подключаюсь от <b>$500</b>. Но большинству хватает ROCH AI.</p></div></div>
   </div>
 </section>
 
@@ -1781,7 +1825,6 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
   <div class="contacts">
     <a class="c-chip js-tg" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M21.5 4.5l-3 14.2c-.2 1-.8 1.2-1.6.8l-4.6-3.4-2.2 2.1c-.2.2-.5.4-.9.4l.3-4.6L19.7 6c.4-.3-.1-.5-.6-.2L7.4 12.7 3 11.3c-1-.3-1-1 .2-1.4L20.2 3c.8-.3 1.5.2 1.3 1.5z"/></svg>@broch</a>
     <a class="c-chip" href="mailto:rc@roch-art.com"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M3 8l9 6 9-6"/></svg>rc@roch-art.com</a>
-    <a class="c-chip" href="tel:+995511229176"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>+995 511 22 91 76</a>
     <a class="c-chip" href="https://www.linkedin.com/in/roman-chernyavsky-1b97a1aa/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><path d="M8 11v5.5"/><path d="M8 7.8v.01"/><path d="M12 16.5V11m0 2.2a2.6 2.6 0 0 1 5.2 0v3.3"/></svg>LinkedIn</a>
   </div>
   <p>Product design · Audit · Gamification — Roman Chernyavsky · roch-audit.com</p>
@@ -1825,6 +1868,39 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
       <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M21.9 4.6L18.8 19c-.2 1-0.8 1.2-1.7.8l-4.6-3.4-2.2 2.1c-.2.2-.5.5-.9.5l.3-4.7L18.3 6.6c.4-.3-.1-.5-.6-.2L7.2 13.1l-4.5-1.4c-1-.3-1-1 .2-1.5L20.6 3.1c.8-.3 1.5.2 1.3 1.5z"/></svg>
       Оплатил — написать в Telegram
     </a>
+  </div>
+</div>
+
+<!-- ============ ROCH ONBOARDING ============ -->
+<div class="modal-back" id="dexBack">
+  <div class="modal dex-modal" role="dialog" aria-modal="true" aria-label="Знакомство с ROCH">
+    <button class="m-close" id="dexCloseBtn" type="button" aria-label="Закрыть">✕</button>
+    <div class="grab"></div>
+    <div class="dex-hero"><svg viewBox="0 0 24 24"><path d="M13 2L3 14h7l-1 8 10-12h-7z"/></svg></div>
+
+    <div class="dex-step on" data-step="1">
+      <div class="dex-eyebrow">ИИ-напарник</div>
+      <div class="dex-h">Привет. Я ROCH AI.</div>
+      <p class="dex-p">Меня обучили на 10 годах работы Ромы в геймдеве и продуктах на <b>700M+ установок</b>. Проще: во мне зашит вкус человека, чьи интерфейсы видели сотни миллионов.</p>
+    </div>
+    <div class="dex-step" data-step="2">
+      <div class="dex-eyebrow">Твоя боль</div>
+      <div class="dex-h">Код работает. А юзеры не платят.</div>
+      <p class="dex-p">В 9 из 10 случаев причина одна: продукт <b>выглядит как прототип</b>, и ему не верят за 3 секунды. Я чиню именно это.</p>
+    </div>
+    <div class="dex-step" data-step="3">
+      <div class="dex-eyebrow">Как пользоваться</div>
+      <div class="dex-h">Кидай скрин — лови фикс.</div>
+      <p class="dex-p">За секунды покажу, где утекают юзеры, и <b>тут же перерисую косяк</b> — готовый экран, а не абстрактный совет. Не зашло — крути дальше, генерю варианты, пока не щёлкнет.</p>
+    </div>
+    <div class="dex-step" data-step="4">
+      <div class="dex-eyebrow">Первый аудит — бесплатно</div>
+      <div class="dex-h">Погнали.</div>
+      <p class="dex-p">Кидай первый скрин — посмотрим, что не так с твоим экраном. Без карты, без обязательств.</p>
+    </div>
+
+    <div class="dex-dots" id="dexDots"></div>
+    <button class="btn" id="dexNext" type="button">Дальше</button>
   </div>
 </div>
 
@@ -1873,12 +1949,12 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
         <img src="assets/mascot/Mascot_Back.png" alt="">
         <img class="cface" id="chatFace" src="assets/mascot/idle/01.png" alt="">
       </span>
-      <div><h3>ROCH bot</h3><div class="chat-sub">про упаковку, цены и сроки · честно</div></div>
+      <div><h3>ROCH AI</h3><div class="chat-sub">ИИ-напарник · аудит, цены, сроки · честно</div></div>
     </div>
     <div class="chat-log" id="chatLog"></div>
     <div class="chat-sugg" id="chatSugg">
-      <button class="sugg" type="button">Сколько стоит?</button>
-      <button class="sugg" type="button">Что входит в $499?</button>
+      <button class="sugg" type="button">Что такое ROCH AI?</button>
+      <button class="sugg" type="button">Первый аудит бесплатный?</button>
       <button class="sugg" type="button">У меня только идея</button>
     </div>
     <div class="chat-in">
@@ -1892,7 +1968,7 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
 
 <!-- ============ FLOATING TAB BAR ============ -->
 <div class="cta-bar" id="ctaBar">
-  <div class="info"><small>Старт от</small><b>$499 · 24ч</b></div>
+  <div class="info"><small>ROCH AI · первый аудит</small><b>Бесплатно</b></div>
   <a class="btn" id="barCta" href="#" target="_blank" rel="noopener">Написать в Telegram</a>
 </div>
 
@@ -1926,6 +2002,20 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
   if(lh) lh.src = cssVar('--logo-hud');
   if(lf) lf.src = cssVar('--logo-foot');
 
+  /* ===== i18n RU/EN — словарь и t() (рано, до типизатора/маскота) ===== */
+  var I18N_EN={"5 слотов на неделе":"5 slots this week","Услуги":"Services","Обо мне":"About","Кейсы":"Cases","Тарифы":"Pricing","Тест":"Quiz","Ты навайбкодил.":"You vibecoded it.","Код у тебя уже есть. Я добавлю то, за что платят: доверие с первого экрана.":"You've got the code. I add what people pay for: trust from the first screen.","Стиль — за 24 часа, вся упаковка — за 3–4 дня.":"Style in 24 hours, full package in 3–4 days.","Рабочий фикс, а не презентация.":"A working fix, not a slide deck.","Обсудить проект":"Talk about your project","Смотреть работы":"See the work","700M+":"700M+","установок":"installs","лет в геймдеве":"years in gamedev","ч":"h","до результата":"to results","✕ Твой вайбкод":"✕ Your vibecode","✦ После ROCH":"✦ After ROCH","Экран статистики":"Stats screen","До":"Before","После":"After","🏃 Fitness Tracker App":"🏃 Fitness Tracker App","Welcome back, user! Here is your daily statistics:":"Welcome back, user! Here is your daily statistics:","steps walked today (goal: 15000)":"steps walked today (goal: 15000)","Start":"Start","Stats":"Stats","Settings":"Settings","FIT":"FIT","PULSE":"PULSE","шагов ·":"steps ·","цель почти закрыта":"goal almost hit","дней стрик":"day streak","Ур. 7":"Lvl 7","720 XP":"720 XP","ккал":"kcal","Начать тренировку":"Start workout","Choose your plan":"Choose your plan","Select a subscription below:":"Select a subscription below:","Free — $0/mo":"Free — $0/mo","Pro — $9.99/mo":"Pro — $9.99/mo","Business — $29.99/mo":"Business — $29.99/mo","* prices without VAT. Cancel anytime.":"* prices without VAT. Cancel anytime.","Subscribe now":"Subscribe now","Тариф":"Plan","−20% год":"−20% yearly","Free":"Free","Выбор большинства":"Most popular","Pro":"Pro","/мес":"/mo","Всё нужное · без лимитов · приоритет":"Everything you need · no limits · priority","Business":"Business","Оформить Pro":"Get Pro","Login":"Login","Please enter your credentials:":"Please enter your credentials:","Email:":"Email:","Password:":"Password:","Remember me":"Remember me","Log in":"Log in","С возвращением":"Welcome back","Войди, чтобы продолжить":"Sign in to continue","Email":"Email","roman@roch.art":"roman@roch.art","Пароль":"Password","Войти":"Sign in","Войти через Apple · Google":"Sign in with Apple · Google","Success!":"Success!","Your payment was processed successfully. Transaction ID: 8827341-AA. Thank you for your purchase. You will receive an email confirmation shortly.":"Your payment was processed successfully. Transaction ID: 8827341-AA. Thank you for your purchase. You will receive an email confirmation shortly.","OK":"OK","Go back":"Go back","Оплачено 🎉":"Paid 🎉","Pro-доступ активен. Всё готово к работе.":"Pro access is live. You're all set.","Pro · год":"Pro · yearly","Сумма":"Total","Открыть приложение":"Open app","User Profile":"User Profile","Name: John Doe":"Name: John Doe","Email: john.doe@mail.com":"Email: john.doe@mail.com","Status: active":"Status: active","Plan: free":"Plan: free","Joined: 2024-01-15":"Joined: 2024-01-15","Edit":"Edit","Logout":"Logout","Иван Дорн":"Ivan Dorn","✦ PRO · с 2024":"✦ PRO · since 2024","проектов":"projects","рейтинг":"rating","Топ 2%":"Top 2%","в нише":"in niche","Редактировать":"Edit","Welcome!":"Welcome!","Step 1 of 3":"Step 1 of 3","Thanks for installing our app. To get started, please complete your profile and enable notifications. This will help us provide you with a better experience.":"Thanks for installing our app. To get started, please complete your profile and enable notifications. This will help us provide you with a better experience.","I agree to terms":"I agree to terms","Skip":"Skip","Next":"Next","Погнали за 30 секунд":"Let's go in 30 seconds","Три шага — и продукт готов к запуску. Без воды.":"Three steps and your product is launch-ready. No fluff.","Профиль":"Profile","Первый проект":"First project","Готово":"Done","Начать":"Start","Notification":"Notification","You have 1 new message.":"You have 1 new message.","Click here to view it. If you don't want to receive these notifications, go to settings and disable them.":"Click here to view it. If you don't want to receive these notifications, go to settings and disable them.","View":"View","Dismiss":"Dismiss","Входящие":"Inbox","3 новых":"3 new","А":"A","Анна · подключила ROCH AI":"Anna · went ROCH AI","$99/мес · безлимит":"$99/mo · unlimited","М":"M","Макс · новый лид":"Max · new lead","Хочет Game Layer":"Wants Game Layer","D":"D","Deploy успешен":"Deploy succeeded","roch-audit.com · live":"roch-audit.com · live","Открыть все":"Open all","Тяни разделитель ↔ Один и тот же экран,":"Drag the slider ↔ Same screen,","разный уровень доверия.":"different level of trust.","⚠ Do not ship ugly":"⚠ Do not ship ugly","Дизайн-упаковка":"Design packaging","Бренд":"Brand","Сайт":"Website","Приложение":"App","Презентация":"Deck","Геймификация":"Gamification","700M+ установок":"700M+ installs","Что я делаю":"What I do","Три слоя":"Three layers","апгрейда":"of upgrade","Сделаю красиво — и это красиво будет продавать: конвертить, удерживать и заставлять шерить.":"I make it look good — and that good looks sell: convert, retain, and get people sharing.","Layer 01 · Visual":"Layer 01 · Visual","Из дефолтного вайбкода — в продукт с лицом.":"From default vibecode to a product with a face.","Бренд, сайт, приложение, презентация":"Brand, site, app, deck","— единый стиль, которому верят. Стиль за 24 часа, не за месяц.":"— one style people believe. Style in 24 hours, not a month.","Продуктовый аудит":"Product audit","Layer 02 · Product":"Layer 02 · Product","Найду, где продукт теряет юзеров: онбординг, воронка, первый «ага-момент».":"I find where your product loses users: onboarding, funnel, the first aha-moment.","Рабочий фикс, а не слайды":"A working fix, not slides","— чини сам или отдай мне.":"— fix it yourself or hand it to me.","Layer 03 · Retention":"Layer 03 · Retention","Встраиваю в продукт игровую петлю: стрики и XP за ключевые действия, уровни, награды за возврат, реферальные дуэли.":"I build a game loop into your product: streaks and XP for key actions, levels, comeback rewards, referral duels.","Юзер получает причину открыть продукт завтра — retention растёт без бюджета на рекламу.":"Users get a reason to open your product tomorrow — retention grows with zero ad budget.","Кто это":"Who","делает":"does it","R":"R","Роман Чернявский · ROCH":"Roman Chernyavsky · ROCH","10+ лет дизайна в геймдеве — продукты с":"10+ years of gamedev design — products with",". Теперь упаковываю чужие продукты так же, как свои.":". Now I package other people's products like they're my own.","Подробнее обо мне":"More about me","bio.roch-art.com · CV + портфолио":"bio.roch-art.com · CV + portfolio","В новой вкладке ↗":"New tab ↗","Шоурил · геймдев в движении":"Showreel · gamedev in motion","2 минуты вместо тысячи слов — прямо здесь":"2 minutes beats a thousand words — right here","Геймдев-портфолио":"Gamedev portfolio","YouTube · полная версия":"YouTube · full version","LinkedIn":"LinkedIn","Профиль и рекомендации":"Profile and recommendations","Портфолио":"Portfolio","Живые продукты,":"Live products,","не картинки в Figma":"not Figma mockups","Dine":"Dine","Лояльность ресторана: меню, баллы, лиги гостей":"Restaurant loyalty: menu, points, guest leagues","HoReCa":"HoReCa","Лояльность":"Loyalty","CityHUB":"CityHUB","Городской гид «куда пойти сейчас» + консьерж":"City guide \"where to go now\" + concierge","City-гид":"City guide","B2B":"B2B","Self-Fix":"Self-Fix","Big Five тест личности с вирусной механикой":"Big Five personality test with viral mechanics","Психология":"Psychology","Виральность":"Virality","Nardum":"Nardum","Длинные нарды: PvP, школа, ИИ-наставник":"Long backgammon: PvP, school, AI coach","Игра":"Game","PvP":"PvP","CargoBob":"CargoBob","Мост последних 500 метров в бензоочереди":"Bridging the last 500 meters of the gas queue","Логистика":"Logistics","P2P":"P2P","Crooked Cook":"Crooked Cook","Merge-аркада для кафе: рекорд → скидка":"Merge arcade for cafes: high score → discount","Realty Forum":"Realty Forum","Ивент-платформа форума недвижимости":"Event platform for a real-estate forum","Ивент":"Event","Нетворкинг":"Networking","AllTrustMe":"AllTrustMe","Крипто-обменник: синее liquid glass":"Crypto exchange: blue liquid glass","Crypto":"Crypto","Web3":"Web3","ANZH Skin":"ANZH Skin","Бьюти-квиз по уходу за кожей + магазин":"Beauty quiz for skincare + shop","Beauty":"Beauty","Quiz":"Quiz","Batumi Neon":"Batumi Neon","CarRent: премиум-аренда авто с неон-витриной":"CarRent: premium car rental with a neon showroom","Авто":"Auto","Аренда":"Rental","Dropper":"Dropper","Автономные роботы-доставщики для Батуми":"Autonomous delivery robots for Batumi","Роботы":"Robots","Доставка":"Delivery","AppHub Studio":"AppHub Studio","Таплинк-хаб студии Telegram-приложений":"Taplink hub for a Telegram app studio","Студия":"Studio","AI":"AI","EBIT Expo":"EBIT Expo","Гид крипто-экспо: карта, спикеры, QR-нетворкинг":"Crypto-expo guide: map, speakers, QR networking","Korob-ka":"Korob-ka","AI-прораб: калькуляторы стройматериалов":"AI foreman: building-materials calculators","Стройка":"Construction","Vodokanal":"Vodokanal","ЖКХ-сервис: светлое aqua-glass для 60+":"Utilities service: light aqua-glass for 60+","ЖКХ":"Utilities","White-label":"White-label","Datum":"Datum","Telegram-игра: Battle Pass, спины, империя":"Telegram game: Battle Pass, spins, empire","Battle Pass":"Battle Pass","Тапни проект — внутри детали и экраны. Ссылки на живые продукты появляются по мере релизов.":"Tap a project — details and screens inside. Links to live products go up as they ship.","Начни бесплатно":"Start free","Дизайн, которому":"Design people","доверяют":"trust","Первый аудит бесплатно":"First audit free","Level 0 · ИИ-напарник":"Level 0 · AI copilot","ROCH AI":"ROCH AI","Топовый дизайн без Ромы в переписке":"Top-tier design without Roma in your DMs","Аудит интерфейса за секунды,":"UI audit in seconds,","не за неделю":"not a week","Живой рендер-фикс: готовый экран, а не «совет»":"Live render fix: a finished screen, not \"advice\"","Генеративный UI в браузере: без Figma и брифов":"Generative UI in your browser: no Figma, no briefs","Обучен на 10 годах Ромы и 700M+ установок":"Trained on Roma's 10 years and 700M+ installs","Попробовать бесплатно":"Try it free","Взять ROCH AI — $99/мес":"Get ROCH AI — $99/mo","Level 4 · ИИ + рука Ромы":"Level 4 · AI + Roma's hand","ROCH AI + Надзор":"ROCH AI + Oversight","ИИ крутит итерации — Рома ставит планку":"AI runs the iterations — Roma sets the bar","Безлимит ROCH AI":"Unlimited ROCH AI","Еженедельный ручной разбор от Ромы":"Weekly hands-on review from Roma","Доводка ключевых экранов вручную":"Key screens polished by hand","Прямой канал в Telegram":"Direct line on Telegram","Хочу надзор":"I want oversight","Нужен лично Рома, под ключ? — от $500":"Need Roma himself, done for you? — from $500","Уровень 1 · фундамент":"Level 1 · foundation","Style Core":"Style Core","24 часа ·":"24 hours ·","предоплата $250":"$250 deposit","Поиск стиля:":"Style discovery:","визуальное направление, которое продаёт":"a visual direction that sells","Концепт ключевого экрана в найденном стиле":"Key-screen concept in the chosen style","Экспресс-аудит: топ-5 дыр, куда утекают юзеры":"Express audit: top 5 leaks where users drop off","Фундамент Уровня 2 — ничего не выбрасывается":"The foundation for Level 2 — nothing gets thrown away","Предзаказ":"Pre-order","Чаще всего берут":"Most popular","Уровень 2 · вся упаковка":"Level 2 · full package","Full Build":"Full Build","3–4 дня ·":"3–4 days ·","предоплата $1 250":"$1 250 deposit","Всё из Уровня 1":"Everything from Level 1","— стиль уже найден и утверждён":"— style already found and approved","UI-система + все ключевые экраны":"UI system + all key screens","продукта":"of the product","Полный продуктовый аудит с картой фиксов по приоритету":"Full product audit with a prioritized fix map","1 вирусная или гейм-механика под твой продукт":"1 viral or game mechanic built for your product","Ассеты для шеринга: OG, сторис, превью":"Sharing assets: OG, stories, previews","Уровень 3 · продукт как игра":"Level 3 · product as a game","Game Layer":"Game Layer","7–10 дней ·":"7–10 days ·","предоплата $2 500":"$2 500 deposit","Всё из Уровней 1–2":"Everything from Levels 1–2","— стиль, система, аудит, механика":"— style, system, audit, mechanic","Полная геймификация:":"Full gamification:","XP, стрики, лиги, рефералки":"XP, streaks, leagues, referrals","Retention-петля: причина вернуться завтра":"Retention loop: a reason to come back tomorrow","Авторский надзор 2 недели после запуска":"Author oversight for 2 weeks after launch","Личное участие Ромы — по 5 слотов в неделю, предоплата 50% фиксирует слот. ROCH AI доступен всегда, без очереди.":"Roma works hands-on — 5 slots a week, a 50% deposit locks your slot. ROCH AI is always on, no waiting.","Как это работает":"How it works","От «привет» до результата":"From \"hi\" to results","Кидаешь скрин в ROCH AI":"Drop a screenshot into ROCH AI","Открываешь ROCH AI и кидаешь любой экран продукта. Бесплатно, без карты и брифов.":"Open ROCH AI and drop in any screen of your product. Free, no card, no briefs.","Мгновенный аудит + фикс":"Instant audit + fix","ROCH AI за секунды показывает, где утекают юзеры, и тут же перерисовывает косяк — готовый экран.":"In seconds ROCH AI shows where users leak, then redraws the flaw right there — a finished screen.","Крутишь варианты сам":"Spin variants yourself","Не зашло — генеришь дальше, пока не щёлкнет. Нужен безлимит —":"Not feeling it? Keep generating until it clicks. Want unlimited —","$99/мес":"$99/mo","Нужен лично Рома?":"Need Roma himself?","Если очень нужен я сам — подключаюсь от":"If you really need me on it — I step in from",". Но большинству хватает ROCH AI.":". But ROCH AI is enough for most.","Проверь себя":"Check yourself","Тебе это":"Do you","нужно?":"need this?","Отметь, что про тебя. Даже один пункт — уже повод написать.":"Check what's you. Even one box is reason enough to reach out.","Продукт работает, но выглядит как прототип":"The product works but looks like a prototype","Юзеры заходят — и уходят, не разобравшись":"Users show up — then leave before they get it","Стыдно показывать инвестору или в сторе":"Too embarrassing to show an investor or the store","Отметь пункты, которые про тебя 👆":"Check the boxes that are you 👆","Написать в Telegram":"Message on Telegram","Нет продукта?":"No product yet?","Ещё лучше.":"Even better.","Идея без единой строчки кода — идеальная точка старта. Соберём концепт, структуру и дизайн":"An idea with zero lines of code is the perfect starting point. We'll build the concept, structure, and design","до того":"before",", как ты навайбкодишь то, что придётся переделывать.":" you vibecode something you'll have to redo.","Этот сайт — сам себе кейс:":"This site is its own case study:","собран за 24 часа":"built in 24 hours",". Ты на нём уже":". You've been on it for a while","и всё ещё читаешь —":"and you're still reading —","так и работает упаковка.":"that's how packaging works.","Остался один шаг":"One step left","Покажи продукт —":"Show me your product —","получи план за 15 минут":"get a plan in 15 minutes","Честно скажу, что чинить, что не трогать и сколько это стоит. Дальше решаешь сам.":"I'll tell you straight what to fix, what to leave alone, and what it costs. You decide from there.","@broch":"@broch","rc@roch-art.com":"rc@roch-art.com","Product design · Audit · Gamification — Roman Chernyavsky · roch-audit.com":"Product design · Audit · Gamification — Roman Chernyavsky · roch-audit.com","Предоплата":"The deposit","фиксирует слот. К оплате сейчас —":"locks your slot. Due now —",", остальное после сдачи.":", the rest on delivery.","USDT · крипта":"USDT · crypto","Мгновенно":"Instant","Сеть":"Network","TRC-20 (Tron)":"TRC-20 (Tron)","Кошелёк":"Wallet","TJ3pu1tmmJici14vKaj88p8AWN1gmC9VvN":"TJ3pu1tmmJici14vKaj88p8AWN1gmC9VvN","Банк · ИП Грузия":"Bank · Individual Entrepreneur Georgia","USD":"USD","Банк":"Bank","JSC TBC Bank, Tbilisi · SWIFT TBCBGE22":"JSC TBC Bank, Tbilisi · SWIFT TBCBGE22","IBAN":"IBAN","GE92 TB74 5293 6110 1000 09":"GE92 TB74 5293 6110 1000 09","Получатель":"Beneficiary","Individual Entrepreneur Raman Charniauski":"Individual Entrepreneur Raman Charniauski","Оплатил — написать в Telegram":"Paid — message on Telegram","ИИ-напарник":"AI copilot","Привет. Я ROCH AI.":"Hey. I'm ROCH AI.","Меня обучили на 10 годах работы Ромы в геймдеве и продуктах на":"I was trained on Roma's 10 years in gamedev and products with",". Проще: во мне зашит вкус человека, чьи интерфейсы видели сотни миллионов.":". Simply put: I've got the taste of a guy whose interfaces hundreds of millions have seen.","Твоя боль":"Your pain","Код работает. А юзеры не платят.":"The code works. But users don't pay.","В 9 из 10 случаев причина одна: продукт":"9 times out of 10 the reason is the same: the product","выглядит как прототип":"looks like a prototype",", и ему не верят за 3 секунды. Я чиню именно это.":", and no one trusts it in 3 seconds. That's exactly what I fix.","Как пользоваться":"How to use it","Кидай скрин — лови фикс.":"Drop a screenshot — catch a fix.","За секунды покажу, где утекают юзеры, и":"In seconds I'll show where users leak, and","тут же перерисую косяк":"redraw the flaw right there","— готовый экран, а не абстрактный совет. Не зашло — крути дальше, генерю варианты, пока не щёлкнет.":"— a finished screen, not vague advice. Not feeling it? Keep spinning, I generate variants until it clicks.","Первый аудит — бесплатно":"First audit — free","Погнали.":"Let's go.","Кидай первый скрин — посмотрим, что не так с твоим экраном. Без карты, без обязательств.":"Drop your first screenshot — let's see what's off with your screen. No card, no strings.","Дальше":"Next","Открыть продукт":"Open product","Хочу так же":"I want this too","Тапни меня — расскажу, что почём 👋":"Tap me — I'll tell you what's what 👋","ИИ-напарник · аудит, цены, сроки · честно":"AI copilot · audit, prices, timelines · straight up","Что такое ROCH AI?":"What is ROCH AI?","Первый аудит бесплатный?":"Is the first audit free?","У меня только идея":"I only have an idea","ROCH AI · первый аудит":"ROCH AI · first audit","Бесплатно":"Free","email@example.com":"email@example.com","Спроси про цену, сроки, процесс…":"Ask about price, timelines, process…","Навигация":"Navigation","Ты навайбкодил. Я сделаю, чтобы у тебя купили.":"You vibecoded it. I'll make them buy.","Назад":"Back","Вперёд":"Forward","Смотреть шоурил — геймдев-портфолио":"Watch the showreel — gamedev portfolio","Закрыть":"Close","Копировать":"Copy","Знакомство с ROCH":"Meet ROCH","Проект":"Project","Чат с ассистентом Ромы":"Chat with Roma's assistant","Чат с ассистентом":"Chat with the assistant","Отправить":"Send","Ресторанная система лояльности в Telegram: меню и заказ, баллы за визиты, лиги гостей (бронза → золото), награды и купоны. Гость возвращается — ресторан растит средний чек.":"A restaurant loyalty system in Telegram: menu and ordering, points for visits, guest leagues (bronze → gold), rewards and coupons. Guests keep coming back — the restaurant grows its average check.","Городской гид для Батуми: «куда пойти прямо сейчас», консьерж-сервис, лояльность для локального бизнеса, два мира — гость и бизнес. 3 языка.":"A city guide for Batumi: \"where to go right now,\" a concierge service, loyalty for local businesses, two worlds — guest and business. 3 languages.","Тест личности Big Five в Telegram: глубокий профиль, подарки-приглашения, PvP-сравнения и слой «клоны общаются с клонами». Виральность заложена в механику.":"A Big Five personality test in Telegram: a deep profile, invite-gifts, PvP comparisons, and a \"clones talk to clones\" layer. Virality baked into the mechanic.","Длинные нарды в Telegram: движок правил, 3D-кости, школа обучения, ИИ-наставник на Claude и платежи Stars. Турнирная модель со спонсорскими призами.":"Long backgammon in Telegram: a rules engine, 3D dice, a training school, a Claude-powered AI mentor, and Stars payments. A tournament model with sponsored prizes.","P2P-сервис для топливных очередей: водитель держит место, раннер приносит нужное. Радар близости, QR-рукопожатие, роли водитель/раннер с разными акцентами.":"A P2P service for fuel queues: the driver holds the spot, the runner brings what's needed. A proximity radar, a QR handshake, driver/runner roles with distinct accents.","B2B-аркада для кафе Батуми: QR на столе, гость играет в merge, ставит рекорд — получает скидку. Игра как канал возврата гостей.":"A B2B arcade for Batumi cafés: a QR on the table, the guest plays a merge game, sets a record — gets a discount. A game as a guest-return channel.","Платформа форума Realty Batumi 2026: программа, спикеры, QR-нетворкинг в один тап, AI-инструменты подбора партнёров и калькуляторы инвестора.":"The platform for the Realty Batumi 2026 forum: the program, speakers, one-tap QR networking, AI partner-matching tools, and investor calculators.","Крипто-обменник для Грузии в Telegram: курсы, заявки, розыгрыш с золотым премиум-слоем. Синее liquid glass поверх чёрного с летающими орбами.":"A crypto exchange for Georgia in Telegram: rates, orders, a giveaway with a gold premium layer. Blue liquid glass over black with floating orbs.","Косметологический продукт: квиз подбирает уход по типу кожи, магазин закрывает потребность. Тёплый teal+gold на глубоком тёмном.":"A skincare product: a quiz matches routines to your skin type, the shop closes the need. Warm teal + gold on deep dark.","Аренда авто в Батуми: неоновая витрина с Porsche-вайбом, перки Street King, бронь с таймером обратного отсчёта. Дорогой продукт — дорогая подача.":"Car rentals in Batumi: a neon storefront with Porsche vibes, Street King perks, booking with a countdown timer. A premium product — premium presentation.","Роботы-доставщики последней мили: маршруты по набережной, приложение вызова и трекинга, юнит-экономика под сезонный поток.":"Last-mile delivery robots: routes along the waterfront, an app to summon and track them, unit economics built for seasonal traffic.","Витрина студии AppHub в один тап: продукт и каналы, AI-агент, который продаёт 24/7, и колесо скидок для лидов. Студия, которая сама себе лучший кейс.":"The AppHub studio storefront in one tap: product and channels, an AI agent that sells 24/7, and a discount wheel for leads. A studio that's its own best case study.","Приложение выставки EBIT Batumi 2026: карта стендов и участники, программа по дням, AI-гид и QR-сканер — навёл камеру на стенд и получил его профиль с материалами.":"The app for the EBIT Batumi 2026 expo: a booth map and exhibitors, a day-by-day program, an AI guide, and a QR scanner — point your camera at a booth and get its profile with materials.","Каталог-чертёж стройматериалов: калькуляторы перегородок и кладки, смета за секунды, AI-прораб отвечает как бригадир. Blueprint-эстетика в тёмном стекле.":"A blueprint-style building-materials catalog: calculators for partitions and masonry, an estimate in seconds, an AI foreman that answers like a site boss. Blueprint aesthetics in dark glass.","White-label TMA для водоканалов: показания, аварии, оплата, маскот «Капелька». Светлое aqua-glass, крупная типографика — дизайн для аудитории 60+.":"A white-label TMA for water utilities: meter readings, outages, payments, and the \"Droplet\" mascot. Light aqua-glass, large type — design for a 60+ audience.","Datum Empire — Telegram-игра: Battle Pass с сезонами, рулетки Datum Spin и Lucky Spin, сборка героя, стрики, задания и лидерборд. Монетизация TON + Stars. Флагманский игровой проект.":"Datum Empire — a Telegram game: a seasonal Battle Pass, Datum Spin and Lucky Spin wheels, hero building, streaks, quests, and a leaderboard. Monetized with TON + Stars. The flagship game project.","i18n":"i18n","Premium":"Premium","Промо":"Promo","TON/Stars":"TON/Stars","Stars/TON":"Stars/TON","TMA":"TMA","Hardware":"Hardware","E-com":"E-com"};
+  
+  (function(sup){ for(var _k in sup){ I18N_EN[_k]=sup[_k]; } })({
+    "Тапни меня — расскажу, что почём 👋": "Tap me — I'll tell you what's what 👋",
+    "Первый аудит в ROCH AI — бесплатно 😉": "First audit in ROCH AI — free 😉",
+    "Йо! Я ROCH AI — напарник Ромы 🤖 Кидай скрин или спрашивай про аудит, цены и сроки. Отвечаю честно.": "Yo! I'm ROCH AI — Roma's copilot 🤖 Drop a screen or ask about audits, pricing, timelines. I answer straight up.",
+    "Кажется, я оффлайн 🙈 Напиши Роме напрямую — @broch, он живой и отвечает быстро.": "Looks like I'm offline 🙈 Ping Roma directly — @broch, he's real and replies fast.",
+    "Лимит на сегодня исчерпан": "Daily limit reached"
+  });
+  var LANG='ru'; try{ LANG=localStorage.getItem('roch_lang')||'ru'; }catch(e){} if(LANG!=='en') LANG='ru';
+  function t(ru){ return (LANG==='en' && I18N_EN[ru]!==undefined) ? I18N_EN[ru] : ru; }
+  
+  
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* ===== Ticker: duplicate content for seamless loop ===== */
@@ -2079,8 +2169,10 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
     window.renderSlots = function(live, total){
       if(typeof live !== 'number' || live <= 0) return;
       var free = Math.max(0, total - live);
-      txt.innerHTML = 'осталось ' + free + ' ' + slotWord(free) +
-        '<span class="live-badge"><span class="ld"></span>' + live + ' LIVE</span>';
+      var _sb = '<span class="live-badge"><span class="ld"></span>' + live + ' LIVE</span>';
+      txt.innerHTML = (LANG==='en')
+        ? (free + ' slot' + (free===1?'':'s') + ' left' + _sb)
+        : ('осталось ' + free + ' ' + slotWord(free) + _sb);
     };
     fetch(API_BASE + '/api/vibe-slots')
       .then(function(r){ return r.json(); })
@@ -2255,7 +2347,8 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
       pjDesc.textContent = p.d;
       if(p.shots.length){
         /* в шите — промо-версии (App Store креативы), в лайтбоксе — сырые скрины ЦЕЛИКОМ */
-        var pf = p.shots.map(function(f){ return 'assets/cases/p-' + f; });
+        var _px = (LANG === 'en') ? 'assets/cases/p-en-' : 'assets/cases/p-';
+        var pf = p.shots.map(function(f){ return _px + f; });
         var raw = p.shots.map(function(f){ return 'assets/cases/' + f; });
         pjShots.innerHTML = pf.map(function(src, k){
           return '<img src="' + src + '" loading="lazy" decoding="async" alt="' + p.name + '" data-lb="' + k + '" style="cursor:zoom-in">';
@@ -2266,11 +2359,12 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
           });
         });
       } else {
-        pjShots.innerHTML = '<div class="ph-empty"><i>✦</i>Скриншоты<br>на подходе</div><div class="ph-empty"><i>◈</i>Спроси у ROCH bot<br>про этот проект</div>';
+        pjShots.innerHTML = '<div class="ph-empty"><i>✦</i>Скриншоты<br>на подходе</div><div class="ph-empty"><i>◈</i>Спроси у ROCH AI<br>про этот проект</div>';
       }
       if(p.url){ pjOpen.style.display = ''; pjOpen.href = p.url; }
       else { pjOpen.style.display = 'none'; }
       pjTg.href = tgLink('Привет! Видел «' + p.name + '» в портфолио — хочу так же для своего продукта.');
+      localizeTree(back);
       back.classList.add('open');
       document.body.style.overflow = 'hidden';
     }
@@ -2436,7 +2530,7 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
   /* комикс-бабл */
   var msay = document.getElementById('msay'), sayTimer = null;
   function say(txt, ms){
-    msay.textContent = txt;
+    msay.textContent = t(txt);
     msay.classList.remove('pop'); void msay.offsetWidth; msay.classList.add('pop');
     clearTimeout(sayTimer);
     sayTimer = setTimeout(function(){ msay.classList.remove('pop'); }, ms || 2800);
@@ -2455,7 +2549,7 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
       entries.forEach(function(en){
         if(en.isIntersecting && !priceSaid){
           priceSaid = true;
-          setEmo('fun', 2600); say('Full Pack берут чаще всего 😉', 3000);
+          setEmo('fun', 2600); say('Первый аудит в ROCH AI — бесплатно 😉', 3000);
           priceObs.disconnect();
         }
       });
@@ -2494,14 +2588,16 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
   }
   function showCooldown(){
     chatInput.disabled = true;
-    chatInput.placeholder = 'Лимит на сегодня исчерпан';
+    chatInput.placeholder = t('Лимит на сегодня исчерпан');
     var d = document.createElement('div');
     d.className = 'chat-cool';
     chatLog.appendChild(d);
     function tick(){
       var now = new Date();
       var mid = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0);
-      d.innerHTML = '10 сообщений на сегодня — всё 🙌 Новые через <b>' + fmtLeft(mid - now) + '</b><br>А Рома в Telegram без лимитов: @broch';
+      d.innerHTML = (LANG==='en')
+        ? ('10 messages today — that\'s it 🙌 More in <b>' + fmtLeft(mid - now) + '</b><br>Roma on Telegram has no limits: @broch')
+        : ('10 сообщений на сегодня — всё 🙌 Новые через <b>' + fmtLeft(mid - now) + '</b><br>А Рома в Telegram без лимитов: @broch');
     }
     tick();
     clearInterval(coolTimer);
@@ -2542,7 +2638,7 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
   function addTgCta(label){
     var a = document.createElement('a');
     a.className = 'msg-cta';
-    a.href = tgLink('Привет! Пишу с лендинга — пообщался с ROCH bot, хочу упаковку.');
+    a.href = tgLink('Привет! Пишу с лендинга — пообщался с ROCH AI, хочу упаковку.');
     a.target = '_blank'; a.rel = 'noopener';
     a.innerHTML = '<svg viewBox="0 0 24 24"><path d="M21.9 4.6L18.8 19c-.2 1-0.8 1.2-1.7.8l-4.6-3.4-2.2 2.1c-.2.2-.5.5-.9.5l.3-4.7L18.3 6.6c.4-.3-.1-.5-.6-.2L7.2 13.1l-4.5-1.4c-1-.3-1-1 .2-1.5L20.6 3.1c.8-.3 1.5.2 1.3 1.5z"/></svg>' + (label || 'Написать в Telegram');
     chatLog.appendChild(a);
@@ -2568,7 +2664,7 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
       chatGreeted = true;
       setEmo('fun', 2200);
       setTimeout(function(){
-        addMsg('bot', 'Йо! Я ROCH bot 🤖 Спрашивай про упаковку, цены и сроки — отвечаю честно, как Рома.');
+        addMsg('bot', t('Йо! Я ROCH AI — напарник Ромы 🤖 Кидай скрин или спрашивай про аудит, цены и сроки. Отвечаю честно.'));
         if(quotaLeft() <= 0) showCooldown();
       }, 350);
     }
@@ -2592,7 +2688,7 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
     fetch(VIBE_API, {
       method:'POST',
       headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({ message:text, history: chatHist.slice(0, -1) })
+      body: JSON.stringify({ message:text, history: chatHist.slice(0, -1), lang: LANG })
     })
     .then(function(r){ return r.json(); })
     .then(function(d){
@@ -2612,7 +2708,7 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
   }
   function chatFail(){
     setEmo('wonder', 2400);
-    addMsg('bot', 'Кажется, я оффлайн 🙈 Напиши Роме напрямую — @broch, он живой и отвечает быстро.');
+    addMsg('bot', t('Кажется, я оффлайн 🙈 Напиши Роме напрямую — @broch, он живой и отвечает быстро.'));
   }
   document.getElementById('mfab').addEventListener('click', openChat);
   document.getElementById('chatClose').addEventListener('click', closeChat);
@@ -2756,8 +2852,69 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
   });
 
   document.getElementById('preClose').addEventListener('click', closePre);
-  if(location.hash === '#pay'){ curSku = 'vibe-style-pre'; openPre('Style Core', '$499', false); }
+  if(location.hash === '#pay'){ curSku = 'vibe-style-pre'; openPre('Style Core', '$500', false); }
   preBack.addEventListener('click', function(e){ if(e.target === preBack) closePre(); });
+
+  /* спойлер ручных тарифов (Level 1–3) */
+  var manualToggle = document.getElementById('manualToggle');
+  var manualTiers = document.getElementById('manualTiers');
+  if(manualToggle && manualTiers){
+    manualToggle.addEventListener('click', function(){
+      var open = manualTiers.classList.toggle('open');
+      manualToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      if(open){
+        /* карточки внутри свёрнутого блока могли не «проявиться» — форсим */
+        Array.prototype.forEach.call(manualTiers.querySelectorAll('.reveal'), function(el){ el.classList.add('in'); });
+      }
+    });
+  }
+
+  /* Dexter-онбординг: 4 шага, последний = «кинуть скрин» → чат */
+  var dexBack = document.getElementById('dexBack');
+  var dexTry = document.getElementById('dexTry');
+  var dexNext = document.getElementById('dexNext');
+  var dexDots = document.getElementById('dexDots');
+  var dexSteps = dexBack ? dexBack.querySelectorAll('.dex-step') : [];
+  var dexI = 0;
+  if(dexBack && dexSteps.length){
+    for(var di = 0; di < dexSteps.length; di++){
+      var dd = document.createElement('span');
+      dd.className = 'dex-dot' + (di === 0 ? ' on' : '');
+      dexDots.appendChild(dd);
+    }
+    var dexDotEls = dexDots.querySelectorAll('.dex-dot');
+    var showDex = function(i){
+      dexI = Math.max(0, Math.min(dexSteps.length - 1, i));
+      for(var k = 0; k < dexSteps.length; k++){
+        dexSteps[k].classList.toggle('on', k === dexI);
+        dexDotEls[k].classList.toggle('on', k === dexI);
+      }
+      dexNext.textContent = (dexI === dexSteps.length - 1) ? 'Кинуть скрин →' : 'Дальше';
+    };
+    var openDex = function(){
+      showDex(0);
+      dexBack.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      track('chat_start', 'dexter_onboarding');
+    };
+    var closeDex = function(){
+      dexBack.classList.remove('open');
+      document.body.style.overflow = '';
+    };
+    dexNext.addEventListener('click', function(){
+      if(dexI < dexSteps.length - 1){ showDex(dexI + 1); }
+      else {
+        closeDex();
+        /* генеративного движка ROCH пока нет — заводим в чат ROCH, он делает текстовый разбор */
+        var fab = document.getElementById('mfab');
+        if(fab){ fab.click(); }
+      }
+    });
+    if(dexTry){ dexTry.addEventListener('click', openDex); }
+    document.getElementById('dexCloseBtn').addEventListener('click', closeDex);
+    dexBack.addEventListener('click', function(e){ if(e.target === dexBack) closeDex(); });
+    if(location.hash === '#dexter'){ openDex(); }
+  }
   document.addEventListener('keydown', function(e){
     if(e.key === 'Escape'){
       closePre();
@@ -2832,7 +2989,7 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
   (function(){
     var txt = document.getElementById('typeTxt');
     if(!txt) return;
-    var phrase = 'Ты навайбкодил.';
+    var phrase = t('Ты навайбкодил.');
     if(reduced){
       txt.textContent = phrase;
       return;
@@ -3006,6 +3163,69 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
       if(t) t.scrollIntoView({behavior:'smooth', block:'start'});
     });
   });
+
+  /* ===== i18n engine: walker + hero + переключатель ===== */
+  function _i18nLead(x){ var m=x.match(/^\s*/); return m?m[0]:''; }
+  function _i18nTrail(x){ var m=x.match(/\s*$/); return m?m[0]:''; }
+  function localizeTree(root){
+    if(!root) return;
+    var w=document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null, false), n;
+    while((n=w.nextNode())){
+      var par=n.parentNode; if(!par) continue;
+      var tag=par.nodeName;
+      if(tag==='SCRIPT'||tag==='STYLE'||tag==='TEXTAREA'||tag==='NOSCRIPT') continue;
+      var h1a=par.closest?par.closest('h1'):null; if(h1a && h1a.closest && h1a.closest('.hero')) continue;
+      var raw=n.nodeValue, key=raw.replace(/\s+/g,' ').trim();
+      if(!key) continue;
+      if(LANG==='en'){
+        var tr=I18N_EN[key];
+        if(tr!==undefined){ if(n.__ru===undefined) n.__ru=raw; n.nodeValue=_i18nLead(raw)+tr+_i18nTrail(raw); }
+      } else { if(n.__ru!==undefined) n.nodeValue=n.__ru; }
+    }
+    var els=root.querySelectorAll?root.querySelectorAll('[placeholder],[aria-label],[data-label]'):[];
+    Array.prototype.forEach.call(els, function(el){
+      ['placeholder','aria-label','data-label'].forEach(function(at){
+        if(!el.hasAttribute(at)) return;
+        var cur=el.getAttribute(at), k=cur.replace(/\s+/g,' ').trim(), ck='_i18n_'+at;
+        if(LANG==='en'){ var tr=I18N_EN[k]; if(tr!==undefined){ if(el[ck]===undefined) el[ck]=cur; el.setAttribute(at,tr); } }
+        else if(el[ck]!==undefined){ el.setAttribute(at, el[ck]); }
+      });
+    });
+  }
+  function localizeHero(){
+    var main=document.querySelector('.hero h1 .h-main');
+    if(main){
+      var ws=main.querySelectorAll('.w'), en=["I'll","make","them","buy."];
+      Array.prototype.forEach.call(ws, function(wsp,i){
+        var em=wsp.querySelector('em'), tgt=em||wsp.querySelector('i')||wsp;
+        if(tgt.__ru===undefined) tgt.__ru=tgt.textContent;
+        tgt.textContent=(LANG==='en'&&en[i]!==undefined)?en[i]:tgt.__ru;
+      });
+    }
+    var h1=document.querySelector('.hero h1');
+    if(h1) h1.setAttribute('aria-label', LANG==='en'?"You vibecoded it. I'll make them buy.":"Ты навайбкодил. Я сделаю, чтобы у тебя купили.");
+    var tt=document.getElementById('typeTxt');
+    if(tt){ if(tt.__ru===undefined) tt.__ru='Ты навайбкодил.'; tt.textContent=(LANG==='en')?(I18N_EN['Ты навайбкодил.']||'You vibecoded it.'):tt.__ru; }
+  }
+  function updateLangUI(){
+    var os=document.querySelectorAll('#langTog .lt-o');
+    Array.prototype.forEach.call(os, function(o){ o.classList.toggle('on', o.getAttribute('data-lang')===LANG); });
+  }
+  function applyLang(lang){
+    LANG=(lang==='en')?'en':'ru';
+    try{ localStorage.setItem('roch_lang', LANG); }catch(e){}
+    document.documentElement.setAttribute('lang', LANG);
+    localizeTree(document.body); localizeHero();
+    var op=document.querySelector('.modal-back.open'); if(op) localizeTree(op);
+    updateLangUI();
+    if(typeof track==='function') track('project_view', 'lang_'+LANG);
+  }
+  var _lt=document.getElementById('langTog');
+  if(_lt) _lt.addEventListener('click', function(){ applyLang(LANG==='en'?'ru':'en'); });
+  document.documentElement.setAttribute('lang', LANG);
+  updateLangUI();
+  if(LANG==='en'){ localizeTree(document.body); localizeHero(); }
+
 })();
 </script>
 </body>
