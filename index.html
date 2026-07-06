@@ -1190,7 +1190,6 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
   <div class="nav glass">
     <img class="logo-img" src="" id="logoHeader" alt="ROCH">
     <div class="nav-right">
-      <div class="pill-status" id="slotsPill"><span class="dot"></span><span id="slotsTxt">5 слотов на неделе</span></div>
       <button class="lang-tog" id="langTog" type="button" aria-label="Язык / Language"><span class="lt-o" data-lang="ru">RU</span><span class="lt-o" data-lang="en">EN</span></button>
     </div>
   </div>
@@ -1717,7 +1716,7 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
 
   </div><!-- /manual-tiers -->
 
-  <p class="note">Личное участие Ромы — по 5 слотов в неделю, предоплата 50% фиксирует слот. ROCH AI доступен всегда, без очереди.</p>
+  <p class="note">ROCH AI доступен всегда, без очереди. Личное участие Ромы — по договорённости, предоплата 50% фиксирует старт.</p>
 </section>
 
 <!-- ============ PROCESS ============ -->
@@ -1837,7 +1836,7 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
     <button class="m-close" id="preClose" type="button" aria-label="Закрыть">✕</button>
     <div class="grab"></div>
     <div class="m-head"><h3 id="preName">Предзаказ</h3><span class="mp" id="prePrice">$499</span></div>
-    <p class="m-sub" id="preSub">Предоплата <b>50%</b> фиксирует слот. К оплате сейчас — <b id="preHalf">$250</b>, остальное после сдачи.</p>
+    <p class="m-sub" id="preSub">Предоплата <b>50%</b> фиксирует старт. К оплате сейчас — <b id="preHalf">$250</b>, остальное после сдачи.</p>
 
     <div class="pay-opt">
       <div class="ph"><div class="pic">₮</div><h4>USDT · крипта</h4><span class="tag">Мгновенно</span></div>
@@ -2156,29 +2155,6 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
     if(a) track('tg_click', a.className.indexOf('msg-cta') !== -1 ? 'из чата' : (a.id || ''));
   }, true);
 
-  /* live-слоты в HUD: «осталось N слотов + M LIVE» */
-  (function(){
-    var txt = document.getElementById('slotsTxt');
-    if(!txt) return;
-    function slotWord(n){
-      var m10 = n % 10, m100 = n % 100;
-      if(m10 === 1 && m100 !== 11) return 'слот';
-      if(m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14)) return 'слота';
-      return 'слотов';
-    }
-    window.renderSlots = function(live, total){
-      if(typeof live !== 'number' || live <= 0) return;
-      var free = Math.max(0, total - live);
-      var _sb = '<span class="live-badge"><span class="ld"></span>' + live + ' LIVE</span>';
-      txt.innerHTML = (LANG==='en')
-        ? (free + ' slot' + (free===1?'':'s') + ' left' + _sb)
-        : ('осталось ' + free + ' ' + slotWord(free) + _sb);
-    };
-    fetch(API_BASE + '/api/vibe-slots')
-      .then(function(r){ return r.json(); })
-      .then(function(d){ if(d && !d.degraded) window.renderSlots(d.live, d.total); })
-      .catch(function(){});
-  })();
 
   /* ===== ПОРТФОЛИО: данные проектов =====
      Добавить проект: объект ниже. Скриншоты: jpg в assets/cases/ + имя файла в shots.
@@ -2832,7 +2808,7 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
     } else {
       /* крупно — что платить СЕЙЧАС (50%), мелко — полная цена */
       prePrice.textContent = p.half;
-      preSub.innerHTML = 'К оплате сейчас — предоплата <b>50%</b>, она фиксирует слот. Полная цена — <b>' + p.full + '</b>, остальное после сдачи.';
+      preSub.innerHTML = 'К оплате сейчас — предоплата <b>50%</b>, она фиксирует старт. Полная цена — <b>' + p.full + '</b>, остальное после сдачи.';
       preTg.href = tgLink('Привет! Хочу предзаказ пакета «' + name + '» (' + p.full + '). Вношу предоплату 50% — ' + p.half + '. Вот чек:');
     }
     preBack.classList.add('open');

@@ -1,5 +1,9 @@
 {
   "cleanUrls": true,
+  "rewrites": [
+    { "source": "/rochai", "destination": "https://roch-ai.vercel.app/rochai" },
+    { "source": "/rochai/:path*", "destination": "https://roch-ai.vercel.app/rochai/:path*" }
+  ],
   "headers": [
     {
       "source": "/assets/(.*)",
