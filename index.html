@@ -706,6 +706,23 @@ h1 .w i{animation-delay:var(--wd)}
 .msg-cta.sec{background:transparent;color:var(--lime);border:1.5px solid rgba(212,255,79,.5);box-shadow:none}
 .msg-cta.sec svg{fill:var(--lime)}
 .msg.me{font-variant-numeric:tabular-nums}
+/* полиш чата: hover / focus-visible / tap / reduced-motion */
+.msg-cta{transition:transform .25s var(--spring), filter .2s, background .2s}
+.msg-cta:active{transform:scale(.96)}
+.rcase{transition:border-color .2s, transform .2s var(--spring)}
+@media(hover:hover){
+  .sugg:hover{border-color:rgba(212,255,79,.5);transform:translateY(-1px)}
+  .sugg.act:hover{filter:brightness(1.06)}
+  .msg-cta:hover{filter:brightness(1.05);transform:translateY(-1px)}
+  .msg-cta.sec:hover{background:var(--lime-soft);filter:none}
+  .rcase.tapp:hover{border-color:rgba(212,255,79,.35);transform:translateY(-1px)}
+}
+.rcase.tapp{cursor:pointer}
+.sugg:focus-visible,.msg-cta:focus-visible,.chat-in input:focus-visible,.chat-send:focus-visible{
+  outline:2px solid var(--lime);outline-offset:2px}
+@media(prefers-reduced-motion:reduce){
+  .msg,.msg-cta,.rcase,.chat-cool{animation:none}
+}
 .chat-in{display:flex;gap:8px}
 .chat-in input{flex:1;min-width:0;min-height:48px;padding:12px 16px;border-radius:14px;
   border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);
@@ -1993,7 +2010,8 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
   });
   /* маркетинговый слой чата ROCH AI */
   (function(sup){ for(var _k in sup){ I18N_EN[_k]=sup[_k]; } })({
-    "Привет! Я ROCH AI 🤖 Здесь отвечу на любой вопрос — про разбор проекта, цены, сроки, процесс. Честно, без воды. А чтобы я прошёлся по твоему продукту по скринам и нарисовал фикс — жми «🧠 Разобрать мой проект», открою полную версию в Telegram. С чего начнём?": "Hey! I'm ROCH AI 🤖 Ask me anything here — project breakdowns, pricing, timelines, process. Straight, no fluff. And to have me walk through your product screen by screen and draw a fix — tap «🧠 Break down my project» and I'll open the full version in Telegram. Where do we start?",
+    "Привет! Я ROCH AI 🤖 Отвечу честно на любой вопрос — разбор проекта, цены, сроки, процесс.": "Hey! I'm ROCH AI 🤖 I'll answer anything straight — project breakdowns, pricing, timelines, process.",
+    "А чтобы я прошёлся по продукту по скринам и нарисовал фикс — жми «🧠 Разобрать мой проект», открою полную версию в Telegram. С чего начнём?": "And to have me walk through your product screen by screen and draw a fix — tap «🧠 Break down my project» and I'll open the full version in Telegram. Where do we start?",
     "🧠 Разобрать мой проект": "🧠 Break down my project",
     "Покажи работы": "Show me the work",
     "Что умеет ROCH?": "What can ROCH do?",
@@ -2003,6 +2021,7 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
     "Городской гид «куда пойти сейчас» + лояльность для локального бизнеса.": "A city guide \"where to go now\" + loyalty for local business.",
     "Бьюти-квиз подбирает уход по коже — магазин закрывает продажу.": "A beauty quiz matches skincare — the shop closes the sale.",
     "Полная витрина — в разделе «Кейсы» ↑": "Full showcase — in the \"Cases\" section ↑",
+    "Смотреть все кейсы": "See all cases",
     "Хочешь так же?": "Want the same?",
     "ROCH разбирает продукт по 3 слоям — не один экран, а всё целиком:": "ROCH breaks the product down in 3 layers — not one screen, but the whole thing:",
     "доверие с первого экрана — продукт, а не прототип.": "trust from the first screen — a product, not a prototype.",
@@ -2669,7 +2688,15 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
     chatLog.appendChild(a); chatLog.scrollTop = chatLog.scrollHeight;
   }
   function rCase(name, tag, desc){
-    return '<div class="rcase"><div class="rc-top"><h5>' + name + '</h5><span class="rc-tag">' + t(tag) + '</span></div><p>' + t(desc) + '</p></div>';
+    return '<div class="rcase tapp"><div class="rc-top"><h5>' + name + '</h5><span class="rc-tag">' + t(tag) + '</span></div><p>' + t(desc) + '</p></div>';
+  }
+  function goCases(){ closeChat(); var s = document.getElementById('cases'); if(s){ setTimeout(function(){ s.scrollIntoView({behavior:'smooth', block:'start'}); }, 120); } track('chat_to_cases', 'rcase'); }
+  function addCasesCta(){
+    var a = document.createElement('button');
+    a.className = 'msg-cta sec'; a.type = 'button';
+    a.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>' + t('Смотреть все кейсы');
+    a.addEventListener('click', goCases);
+    chatLog.appendChild(a); chatLog.scrollTop = chatLog.scrollHeight;
   }
   function rLayer(n, title, desc){
     return '<div class="rlayer"><div class="rl-n">' + n + '</div><div class="rl-t"><b>' + t(title) + '</b> — ' + t(desc) + '</div></div>';
@@ -2679,13 +2706,15 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
   }
   var SCRIPTED = {
     works: function(){
-      addRich(
+      var d = addRich(
         '<p class="r-lead">' + t('Живые продукты, не картинки в Figma. Вот три из 15+:') + '</p>' +
         rCase('Nardum', 'Игра', 'Длинные нарды в Telegram: PvP, ИИ-наставник на Claude, платежи Stars.') +
         rCase('CityHUB', 'B2B', 'Городской гид «куда пойти сейчас» + лояльность для локального бизнеса.') +
         rCase('ANZH Skin', 'Beauty', 'Бьюти-квиз подбирает уход по коже — магазин закрывает продажу.') +
-        '<p class="r-foot">' + t('Полная витрина — в разделе «Кейсы» ↑') + ' <b>' + t('Хочешь так же?') + '</b></p>'
+        '<p class="r-foot"><b>' + t('Хочешь так же?') + '</b></p>'
       );
+      Array.prototype.forEach.call(d.querySelectorAll('.rcase.tapp'), function(c){ c.addEventListener('click', goCases); });
+      addCasesCta();
       addBotCta('🧠 Разобрать мой проект');
     },
     value: function(){
@@ -2741,9 +2770,12 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
       chatGreeted = true;
       setEmo('fun', 2200);
       setTimeout(function(){
-        addMsg('bot', t('Привет! Я ROCH AI 🤖 Здесь отвечу на любой вопрос — про разбор проекта, цены, сроки, процесс. Честно, без воды. А чтобы я прошёлся по твоему продукту по скринам и нарисовал фикс — жми «🧠 Разобрать мой проект», открою полную версию в Telegram. С чего начнём?'));
-        if(quotaLeft() <= 0) showCooldown();
+        addMsg('bot', t('Привет! Я ROCH AI 🤖 Отвечу честно на любой вопрос — разбор проекта, цены, сроки, процесс.'));
       }, 350);
+      setTimeout(function(){
+        addMsg('bot', t('А чтобы я прошёлся по продукту по скринам и нарисовал фикс — жми «🧠 Разобрать мой проект», открою полную версию в Telegram. С чего начнём?'));
+        if(quotaLeft() <= 0) showCooldown();
+      }, 1100);
     }
   }
   function closeChat(){
