@@ -1241,6 +1241,67 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
   html{scroll-behavior:auto}
 }
 :focus-visible{outline:2px solid var(--lime);outline-offset:3px;border-radius:8px}
+
+/* ============ DESKTOP LAYOUT (≥1024px) — мобайл не трогаем ============ */
+@media (min-width:1024px){
+  .wrap{max-width:1160px;padding:0 40px}
+  section{padding:84px 0}
+  section > .sec-head{max-width:700px}
+
+  /* header: шире, навигация крупнее */
+  .hud-nav{gap:6px}
+  .hud-link{padding:10px 16px}
+
+  /* ---- HERO: текст слева, before/after справа ---- */
+  .hero{display:grid;grid-template-columns:1.04fr .96fr;column-gap:60px;
+    align-items:center;align-content:center;padding:52px 0 30px;
+    grid-template-areas:"head visual" "lead visual" "cta visual" "stats visual"}
+  .hero h1{grid-area:head;margin:0}
+  .hero .lead{grid-area:lead;max-width:none;margin-top:20px}
+  .hero .hero-cta{grid-area:cta;margin-top:26px}
+  .hero .hero-cta .btn{max-width:440px}
+  .hero .stats{grid-area:stats;margin-top:30px}
+  .hero .morph-wrap{grid-area:visual;margin-top:0;align-self:center}
+  .hero .morph-stage{height:500px}
+
+  /* ---- SERVICES: 3 колонки ---- */
+  #services .cards{grid-template-columns:repeat(3,1fr);gap:20px}
+  #services .svc{padding:26px 22px}
+
+  /* ---- ABOUT: автор+ссылки слева, шоурил справа ---- */
+  #about{display:grid;grid-template-columns:1fr 1fr;column-gap:44px;row-gap:18px;align-items:stretch;
+    grid-template-areas:"head head" "author yt" "links yt" "biobtn biobtn" "biopanel biopanel"}
+  #about > .sec-head{grid-area:head;align-self:end;margin-bottom:6px}
+  #about .author{grid-area:author;margin:0;align-self:start}
+  #about .about-links{grid-area:links;grid-template-columns:1fr 1fr;margin:0;align-self:start}
+  #about #bioBtn{grid-area:biobtn;justify-self:start;margin-top:6px}
+  #about .bio-panel{grid-area:biopanel}
+  #about .yt{grid-area:yt;height:100%;min-height:330px;margin:0}
+
+  /* ---- CASES: широкий грид ---- */
+  #cases .proj-grid{grid-template-columns:repeat(3,1fr);gap:16px}
+
+  /* ---- PRICING: по центру, ручные тарифы в ряд ---- */
+  #pricing{max-width:1080px;margin:0 auto}
+  #pricing > .sec-head{max-width:none;text-align:center;margin-left:auto;margin-right:auto}
+  #pricing .price.offer{max-width:640px;margin-left:auto;margin-right:auto}
+  #pricing .manual-toggle{max-width:640px;margin-left:auto;margin-right:auto;display:flex}
+  #pricing .manual-tiers.open{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;align-items:start}
+  #pricing .manual-tiers .manual-cta{grid-column:1/-1;max-width:440px;margin-left:auto;margin-right:auto}
+  #pricing > .note{text-align:center;max-width:640px;margin-left:auto;margin-right:auto}
+
+  /* ---- PROCESS: 2×2 ---- */
+  #process .steps{display:grid;grid-template-columns:1fr 1fr;gap:18px 36px}
+
+  /* ---- AUDIT / FINAL: центрированные фокус-блоки ---- */
+  #audit{max-width:760px;margin:0 auto}
+  #audit > .sec-head{max-width:none;text-align:center;margin-left:auto;margin-right:auto}
+  .final{max-width:760px;margin:0 auto}
+}
+@media (min-width:1280px){
+  .wrap{max-width:1240px}
+  #cases .proj-grid{grid-template-columns:repeat(4,1fr)}
+}
 </style>
 </head>
 <body>
