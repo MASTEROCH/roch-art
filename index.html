@@ -672,6 +672,40 @@ h1 .w i{animation-delay:var(--wd)}
   background:var(--lime-soft);border:1px solid rgba(212,255,79,.25);border-radius:99px;padding:8px 13px;
   transition:transform .25s var(--spring)}
 .sugg:active{transform:scale(.94)}
+.sugg.act{color:#0B1409;background:var(--lime);border-color:transparent;
+  box-shadow:0 6px 16px rgba(212,255,79,.3), inset 0 1px 0 rgba(255,255,255,.5)}
+/* ===== ROCH AI — маркетинговые rich-ответы в чате ===== */
+.msg.bot.rich{max-width:93%;padding:12px 14px 13px;line-height:1.45;letter-spacing:-.01em}
+.rich .r-lead{font-size:13.5px;font-weight:600;color:var(--text2);margin:0 0 8px;line-height:1.45}
+.rich .r-lead b{color:var(--lime);font-weight:700}
+.rich .r-foot{font-size:12.5px;font-weight:600;color:var(--text3);margin:11px 0 0;line-height:1.45}
+.rich .r-foot b{color:var(--lime)}
+/* мини-кейс портфолио */
+.rcase{display:block;border-radius:12px;padding:9px 12px;margin-top:7px;
+  background:linear-gradient(160deg, rgba(255,255,255,.075), rgba(255,255,255,.02));
+  border:1px solid rgba(255,255,255,.09);box-shadow:inset 0 1px 0 rgba(255,255,255,.07)}
+.rcase .rc-top{display:flex;align-items:baseline;justify-content:space-between;gap:8px}
+.rcase h5{font-size:14px;font-weight:800;letter-spacing:-.015em;color:var(--text)}
+.rcase .rc-tag{flex:0 0 auto;font-size:10px;font-weight:800;letter-spacing:.03em;text-transform:uppercase;
+  color:var(--lime);background:var(--lime-soft);border-radius:99px;padding:3px 8px;white-space:nowrap}
+.rcase p{font-size:12.5px;font-weight:500;color:var(--text2);line-height:1.42;margin:3px 0 0}
+/* тариф-лестница */
+.rtier{display:flex;gap:11px;align-items:flex-start;padding:9px 0;border-top:1px solid rgba(255,255,255,.07)}
+.rtier:first-of-type{border-top:none;padding-top:2px}
+.rtier .rt-price{flex:0 0 88px;font-size:13px;font-weight:800;color:var(--lime);
+  font-variant-numeric:tabular-nums;line-height:1.35}
+.rtier .rt-desc{font-size:12.5px;font-weight:500;color:var(--text2);line-height:1.42}
+.rtier .rt-desc b{color:var(--text);font-weight:700}
+/* слои ценности */
+.rlayer{display:flex;gap:10px;padding:6px 0}
+.rlayer .rl-n{flex:0 0 62px;font-size:10.5px;font-weight:800;letter-spacing:.02em;text-transform:uppercase;
+  color:var(--lime);padding-top:2px}
+.rlayer .rl-t{font-size:12.5px;font-weight:500;color:var(--text2);line-height:1.42}
+.rlayer .rl-t b{color:var(--text);font-weight:700}
+/* вторичный CTA в чате (личный контакт Ромы) */
+.msg-cta.sec{background:transparent;color:var(--lime);border:1.5px solid rgba(212,255,79,.5);box-shadow:none}
+.msg-cta.sec svg{fill:var(--lime)}
+.msg.me{font-variant-numeric:tabular-nums}
 .chat-in{display:flex;gap:8px}
 .chat-in input{flex:1;min-width:0;min-height:48px;padding:12px 16px;border-radius:14px;
   border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);
@@ -1879,9 +1913,11 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
     </div>
     <div class="chat-log" id="chatLog"></div>
     <div class="chat-sugg" id="chatSugg">
-      <button class="sugg" type="button">Что такое ROCH AI?</button>
-      <button class="sugg" type="button">Первый аудит бесплатный?</button>
-      <button class="sugg" type="button">У меня только идея</button>
+      <button class="sugg act" type="button" data-act="bot">🧠 Разобрать мой проект</button>
+      <button class="sugg" type="button" data-act="works">Покажи работы</button>
+      <button class="sugg" type="button" data-act="value">Что умеет ROCH?</button>
+      <button class="sugg" type="button" data-act="price">Сколько стоит?</button>
+      <button class="sugg" type="button" data-act="idea">У меня только идея</button>
     </div>
     <div class="chat-in">
       <input id="chatInput" type="text" maxlength="500" placeholder="Спроси про цену, сроки, процесс…" autocomplete="off">
@@ -1954,6 +1990,39 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
     "ROCH разберёт твой проект по 3 слоям и нарисует готовый фикс. Не один экран — продукт целиком. Первые 5 разборов — бесплатно.": "ROCH breaks down your project in 3 layers and draws a ready fix. Not one screen — the whole product. First 5 breakdowns — free.",
     "ROCH AI · разбор проекта": "ROCH AI · project breakdown",
     "Йо! Я ROCH AI — напарник Ромы 🤖 Кидай скрин — разберу весь проект по 3 слоям и нарисую фикс. Или спроси что угодно.": "Yo! I'm ROCH AI — Roma's copilot 🤖 Drop a screen — I'll break the whole project down in 3 layers and draw a fix. Or ask me anything."
+  });
+  /* маркетинговый слой чата ROCH AI */
+  (function(sup){ for(var _k in sup){ I18N_EN[_k]=sup[_k]; } })({
+    "Привет! Я ROCH AI 🤖 Здесь отвечу на любой вопрос — про разбор проекта, цены, сроки, процесс. Честно, без воды. А чтобы я прошёлся по твоему продукту по скринам и нарисовал фикс — жми «🧠 Разобрать мой проект», открою полную версию в Telegram. С чего начнём?": "Hey! I'm ROCH AI 🤖 Ask me anything here — project breakdowns, pricing, timelines, process. Straight, no fluff. And to have me walk through your product screen by screen and draw a fix — tap «🧠 Break down my project» and I'll open the full version in Telegram. Where do we start?",
+    "🧠 Разобрать мой проект": "🧠 Break down my project",
+    "Покажи работы": "Show me the work",
+    "Что умеет ROCH?": "What can ROCH do?",
+    "Сколько стоит?": "How much?",
+    "Живые продукты, не картинки в Figma. Вот три из 15+:": "Live products, not Figma mockups. Here are three of 15+:",
+    "Длинные нарды в Telegram: PvP, ИИ-наставник на Claude, платежи Stars.": "Long backgammon in Telegram: PvP, a Claude AI coach, Stars payments.",
+    "Городской гид «куда пойти сейчас» + лояльность для локального бизнеса.": "A city guide \"where to go now\" + loyalty for local business.",
+    "Бьюти-квиз подбирает уход по коже — магазин закрывает продажу.": "A beauty quiz matches skincare — the shop closes the sale.",
+    "Полная витрина — в разделе «Кейсы» ↑": "Full showcase — in the \"Cases\" section ↑",
+    "Хочешь так же?": "Want the same?",
+    "ROCH разбирает продукт по 3 слоям — не один экран, а всё целиком:": "ROCH breaks the product down in 3 layers — not one screen, but the whole thing:",
+    "доверие с первого экрана — продукт, а не прототип.": "trust from the first screen — a product, not a prototype.",
+    "где утекают юзеры: онбординг, воронка, «ага-момент».": "where users leak: onboarding, funnel, the aha-moment.",
+    "причина вернуться завтра: XP, стрики, петли.": "a reason to come back tomorrow: XP, streaks, loops.",
+    "AI выдаёт разбор за секунды.": "The AI delivers the breakdown in seconds.",
+    "Начнём с твоего продукта?": "Shall we start with your product?",
+    "Три ступени — начинаешь бесплатно, платишь, когда увидел ценность:": "Three steps — start free, pay once you've seen the value:",
+    "первые <b>5 разборов</b> в ROCH AI — без карты и брифов.": "first <b>5 breakdowns</b> in ROCH AI — no card, no briefs.",
+    "<b>Pro</b> — безлимит разборов + генеративные фиксы 24/7.": "<b>Pro</b> — unlimited breakdowns + generative fixes 24/7.",
+    "от $500": "from $500",
+    "<b>Личное погружение Ромы</b> — лично разбираю проект, веду итерации и довожу ключевые экраны руками.": "<b>Roma's personal deep-dive</b> — I break down the project myself, run the iterations, and polish key screens by hand.",
+    "Начни бесплатно.": "Start free.",
+    "За личную работу берёшься, когда захочешь глубину.": "You go personal when you want the depth.",
+    "🧠 Начать бесплатно": "🧠 Start free",
+    "Хочу личное погружение Ромы": "I want Roma's personal deep-dive",
+    "Идея без единой строчки кода — идеальная точка старта.": "An idea with zero lines of code is the perfect starting point.",
+    "Соберём концепт, структуру и дизайн <b>до того</b>, как ты навайбкодишь то, что придётся переделывать. Расскажи в двух словах — что за идея?": "We'll build the concept, structure, and design <b>before</b> you vibecode something you'll have to redo. Tell me in a sentence — what's the idea?",
+    "Обсудить идею с Ромой": "Discuss the idea with Roma",
+    "Написать Роме лично": "Message Roma directly"
   });
   function t(ru){ return (LANG==='en' && I18N_EN[ru]!==undefined) ? I18N_EN[ru] : ru; }
   
@@ -2573,6 +2642,85 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
     chatLog.appendChild(a);
     chatLog.scrollTop = chatLog.scrollHeight;
   }
+  /* ===== ROCH AI — маркетинговый слой: скриптовые rich-ответы (не тратят API-квоту) ===== */
+  var BOT_URL = 'https://t.me/roch_ai_bot';
+  function addRich(html){
+    var d = document.createElement('div');
+    d.className = 'msg bot rich';
+    d.innerHTML = html;
+    chatLog.appendChild(d);
+    chatLog.scrollTop = chatLog.scrollHeight;
+    return d;
+  }
+  function addBotCta(label){
+    var a = document.createElement('a');
+    a.className = 'msg-cta';
+    a.href = BOT_URL; a.target = '_blank'; a.rel = 'noopener';
+    a.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h7l-1 8 10-12h-7z"/></svg>' + t(label || '🧠 Разобрать мой проект');
+    a.addEventListener('click', function(){ track('chat_to_bot', 'cta'); });
+    chatLog.appendChild(a); chatLog.scrollTop = chatLog.scrollHeight;
+  }
+  function addRomaCta(label){
+    var a = document.createElement('a');
+    a.className = 'msg-cta sec';
+    a.href = tgLink('Привет! Пишу с лендинга — хочу личное погружение Ромы в проект.');
+    a.target = '_blank'; a.rel = 'noopener';
+    a.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.9 4.6L18.8 19c-.2 1-0.8 1.2-1.7.8l-4.6-3.4-2.2 2.1c-.2.2-.5.5-.9.5l.3-4.7L18.3 6.6c.4-.3-.1-.5-.6-.2L7.2 13.1l-4.5-1.4c-1-.3-1-1 .2-1.5L20.6 3.1c.8-.3 1.5.2 1.3 1.5z"/></svg>' + t(label || 'Написать Роме лично');
+    chatLog.appendChild(a); chatLog.scrollTop = chatLog.scrollHeight;
+  }
+  function rCase(name, tag, desc){
+    return '<div class="rcase"><div class="rc-top"><h5>' + name + '</h5><span class="rc-tag">' + t(tag) + '</span></div><p>' + t(desc) + '</p></div>';
+  }
+  function rLayer(n, title, desc){
+    return '<div class="rlayer"><div class="rl-n">' + n + '</div><div class="rl-t"><b>' + t(title) + '</b> — ' + t(desc) + '</div></div>';
+  }
+  function rTier(price, desc){
+    return '<div class="rtier"><div class="rt-price">' + t(price) + '</div><div class="rt-desc">' + t(desc) + '</div></div>';
+  }
+  var SCRIPTED = {
+    works: function(){
+      addRich(
+        '<p class="r-lead">' + t('Живые продукты, не картинки в Figma. Вот три из 15+:') + '</p>' +
+        rCase('Nardum', 'Игра', 'Длинные нарды в Telegram: PvP, ИИ-наставник на Claude, платежи Stars.') +
+        rCase('CityHUB', 'B2B', 'Городской гид «куда пойти сейчас» + лояльность для локального бизнеса.') +
+        rCase('ANZH Skin', 'Beauty', 'Бьюти-квиз подбирает уход по коже — магазин закрывает продажу.') +
+        '<p class="r-foot">' + t('Полная витрина — в разделе «Кейсы» ↑') + ' <b>' + t('Хочешь так же?') + '</b></p>'
+      );
+      addBotCta('🧠 Разобрать мой проект');
+    },
+    value: function(){
+      addRich(
+        '<p class="r-lead">' + t('ROCH разбирает продукт по 3 слоям — не один экран, а всё целиком:') + '</p>' +
+        rLayer('Layer 01', 'Visual', 'доверие с первого экрана — продукт, а не прототип.') +
+        rLayer('Layer 02', 'Product', 'где утекают юзеры: онбординг, воронка, «ага-момент».') +
+        rLayer('Layer 03', 'Retention', 'причина вернуться завтра: XP, стрики, петли.') +
+        '<p class="r-foot"><b>' + t('AI выдаёт разбор за секунды.') + '</b> ' + t('Начнём с твоего продукта?') + '</p>'
+      );
+      addBotCta('🧠 Разобрать мой проект');
+    },
+    price: function(){
+      addRich(
+        '<p class="r-lead">' + t('Три ступени — начинаешь бесплатно, платишь, когда увидел ценность:') + '</p>' +
+        rTier('Бесплатно', 'первые <b>5 разборов</b> в ROCH AI — без карты и брифов.') +
+        rTier('$99/мес', '<b>Pro</b> — безлимит разборов + генеративные фиксы 24/7.') +
+        rTier('от $500', '<b>Личное погружение Ромы</b> — лично разбираю проект, веду итерации и довожу ключевые экраны руками.') +
+        '<p class="r-foot"><b>' + t('Начни бесплатно.') + '</b> ' + t('За личную работу берёшься, когда захочешь глубину.') + '</p>'
+      );
+      addBotCta('🧠 Начать бесплатно');
+      addRomaCta('Хочу личное погружение Ромы');
+    },
+    idea: function(){
+      addRich(
+        '<p class="r-lead">' + t('Идея без единой строчки кода — идеальная точка старта.') + '</p>' +
+        '<p style="margin:0;font-size:13px;font-weight:500;color:var(--text2);line-height:1.45">' + t('Соберём концепт, структуру и дизайн <b>до того</b>, как ты навайбкодишь то, что придётся переделывать. Расскажи в двух словах — что за идея?') + '</p>'
+      );
+      addRomaCta('Обсудить идею с Ромой');
+    }
+  };
+  function botScript(render){
+    botTyping(true); setEmo('think');
+    setTimeout(function(){ botTyping(false); setEmo('fun', 2400); render(); }, 620);
+  }
   function botTyping(on){
     if(on){
       typingEl = document.createElement('div');
@@ -2593,7 +2741,7 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
       chatGreeted = true;
       setEmo('fun', 2200);
       setTimeout(function(){
-        addMsg('bot', t('Йо! Я ROCH AI — напарник Ромы 🤖 Кидай скрин — разберу весь проект по 3 слоям и нарисую фикс. Или спроси что угодно.'));
+        addMsg('bot', t('Привет! Я ROCH AI 🤖 Здесь отвечу на любой вопрос — про разбор проекта, цены, сроки, процесс. Честно, без воды. А чтобы я прошёлся по твоему продукту по скринам и нарисовал фикс — жми «🧠 Разобрать мой проект», открою полную версию в Telegram. С чего начнём?'));
         if(quotaLeft() <= 0) showCooldown();
       }, 350);
     }
@@ -2647,7 +2795,12 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
   chatInput.addEventListener('focus', function(){ setEmo('listen'); });
   chatInput.addEventListener('blur', function(){ if(curEmo === 'listen') setEmo('idle'); });
   Array.prototype.forEach.call(chatSugg.querySelectorAll('.sugg'), function(b){
-    b.addEventListener('click', function(){ sendMsg(b.textContent); });
+    b.addEventListener('click', function(){
+      var act = b.getAttribute('data-act');
+      if(act === 'bot'){ track('chat_to_bot', 'sugg'); window.open(BOT_URL, '_blank', 'noopener'); return; }
+      if(SCRIPTED[act]){ track('chat_script', act); addMsg('me', b.textContent); botScript(SCRIPTED[act]); return; }
+      sendMsg(b.textContent);
+    });
   });
   if(location.hash === '#chat'){ openChat(); }
 
