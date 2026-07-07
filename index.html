@@ -1130,11 +1130,23 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
 .bg::after{content:'';position:absolute;inset:0;opacity:.05;pointer-events:none;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
   background-size:220px 220px}
-/* XP-бар прокрутки — геймдев-HUD */
-.sxp{position:fixed;top:0;left:0;right:0;height:3px;z-index:60;pointer-events:none;
-  background:linear-gradient(90deg,#0F8A57,var(--lime));
-  box-shadow:0 0 12px rgba(212,255,79,.55);
-  transform-origin:left;transform:scaleX(0)}
+/* XP-бар прокрутки — как в ROCH Audit (мягкие концы) + VFX-магия */
+.sxp{position:fixed;top:0;left:0;right:0;height:2.5px;z-index:60;pointer-events:none;
+  transform-origin:left;transform:scaleX(0);
+  background:linear-gradient(90deg, transparent, #E1FE71 14%, #D4FF4F 50%, #E1FE71 86%, transparent);
+  box-shadow:0 0 12px rgba(212,255,79,.6), 0 0 30px rgba(212,255,79,.28)}
+/* комета-голова на кончике прогресса (JS двигает left + scale) */
+.sxp-head{position:fixed;top:0;left:0;z-index:61;width:12px;height:12px;border-radius:50%;pointer-events:none;
+  transform:translate(-50%,-25%) scale(0);
+  background:radial-gradient(circle,#fff,#D4FF4F 42%,transparent 70%);
+  box-shadow:0 0 10px rgba(212,255,79,.9), 0 0 22px rgba(212,255,79,.5)}
+/* искры, слетающие с кометы при скролле */
+.sxp-spark{position:fixed;top:1px;z-index:60;width:3px;height:3px;border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle,#fbffe8,rgba(212,255,79,.85) 45%,transparent 70%);
+  transform:translate(-50%,-50%);animation:sxpSpark .62s ease-out forwards}
+@keyframes sxpSpark{0%{opacity:0;transform:translate(-50%,-50%) scale(0)}
+  20%{opacity:1;transform:translate(-50%,-50%) scale(1)}
+  100%{opacity:0;transform:translate(calc(-50% + var(--sx,0px)),calc(-50% + var(--sy,0px))) scale(0)}}
 /* курсор-прожектор (только desktop) */
 .cur-glow{position:fixed;left:0;top:0;width:520px;height:520px;border-radius:50%;z-index:1;pointer-events:none;
   background:radial-gradient(circle, rgba(212,255,79,.075), transparent 65%);
@@ -1400,6 +1412,7 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
 </div>
 <div class="cur-glow" id="curGlow" aria-hidden="true"></div>
 <div class="sxp" id="sxp" aria-hidden="true"></div>
+<div class="sxp-head" id="sxpHead" aria-hidden="true"></div>
 
 <div class="wrap">
 
@@ -3325,6 +3338,35 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
   var lastY = 0, ticking = false;
 
   var sxp = document.getElementById('sxp');
+  /* ===== XP-бар: пружина + комета-голова + искры (VFX) ===== */
+  var sxpHeadEl = document.getElementById('sxpHead');
+  var sxpTarget = 0, sxpCur = 0, sxpPrev = 0, sxpHeadS = 0, sxpIdle = 99, sxpRAF = 0, sxpSparkAcc = 0, sxpParts = 0;
+  function sxpSpark(xPct){
+    if(sxpParts >= 14) return; sxpParts++;
+    var s = document.createElement('i'); s.className = 'sxp-spark';
+    s.style.left = xPct + '%';
+    s.style.setProperty('--sx', (-(8 + Math.random() * 22)).toFixed(0) + 'px');
+    s.style.setProperty('--sy', ((Math.random() - 0.3) * 14).toFixed(0) + 'px');
+    document.body.appendChild(s);
+    setTimeout(function(){ if(s.parentNode) s.parentNode.removeChild(s); sxpParts--; }, 620);
+  }
+  function sxpTick(){
+    sxpRAF = 0;
+    var d = sxpTarget - sxpCur;
+    sxpCur += d * 0.16; if(Math.abs(d) < 0.0003) sxpCur = sxpTarget;
+    if(sxp) sxp.style.transform = 'scaleX(' + sxpCur.toFixed(4) + ')';
+    var moved = Math.abs(sxpCur - sxpPrev); sxpPrev = sxpCur;
+    if(moved > 0.0002){ sxpSparkAcc += moved; while(sxpSparkAcc > 0.018){ sxpSparkAcc -= 0.018; sxpSpark(sxpCur * 100); } }
+    sxpIdle++;
+    var headTarget = (sxpIdle < 34 && sxpCur > 0.004) ? 1 : 0;
+    sxpHeadS += (headTarget - sxpHeadS) * 0.2;
+    if(sxpHeadEl){
+      sxpHeadEl.style.left = (sxpCur * 100) + '%';
+      sxpHeadEl.style.transform = 'translate(-50%,-25%) scale(' + sxpHeadS.toFixed(3) + ')';
+    }
+    if(Math.abs(sxpTarget - sxpCur) > 0.0003 || sxpHeadS > 0.01 || sxpParts > 0){ sxpRAF = requestAnimationFrame(sxpTick); }
+  }
+  function sxpKick(){ sxpIdle = 0; if(!sxpRAF) sxpRAF = requestAnimationFrame(sxpTick); }
   function onScroll(){
     var y = window.scrollY;
     if(!reduced) orbsC.style.transform = 'translate3d(0,' + (y * -0.08).toFixed(1) + 'px,0)';
@@ -3334,10 +3376,12 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
     if(y > 24) hdr.classList.add('scrolled'); else hdr.classList.remove('scrolled');
     /* cta bar appears after hero */
     if(y > 420) ctaBar.classList.add('show'); else ctaBar.classList.remove('show');
-    /* XP-бар прокрутки */
+    /* XP-бар прокрутки — цель + пружина/VFX (reduced = мгновенно, без кометы) */
     if(sxp){
       var max = document.body.scrollHeight - window.innerHeight;
-      sxp.style.transform = 'scaleX(' + (max > 0 ? Math.min(1, y / max) : 0).toFixed(4) + ')';
+      sxpTarget = max > 0 ? Math.min(1, y / max) : 0;
+      if(reduced) sxp.style.transform = 'scaleX(' + sxpTarget.toFixed(4) + ')';
+      else sxpKick();
     }
     lastY = y;
     ticking = false;
