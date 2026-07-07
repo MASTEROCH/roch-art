@@ -1022,6 +1022,33 @@ a.pre-btn{text-decoration:none}
 .price.dexter .p-diff{color:var(--lime)}
 .p-price small{font-size:13px;font-weight:600;color:var(--text3);letter-spacing:0;margin-left:1px}
 .btn.dexter-try{margin-top:18px;width:100%;min-height:50px}
+/* ═══ ОФФЕР — коронная конверсионная карта: премиум-стекло + дышащая лайм-аура ═══ */
+.price.offer{position:relative;
+  background:
+    radial-gradient(74% 56% at 84% -6%, rgba(212,255,79,.15), transparent 60%),
+    linear-gradient(158deg, rgba(255,255,255,.11), rgba(255,255,255,.02) 54%),
+    rgba(13,19,15,.96);
+  border:1px solid rgba(212,255,79,.5);
+  box-shadow:0 0 0 1px rgba(212,255,79,.16), 0 30px 72px -28px rgba(212,255,79,.5),
+    0 22px 56px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.3);
+  animation:offerGlow 4s ease-in-out infinite}
+@keyframes offerGlow{
+  0%,100%{box-shadow:0 0 0 1px rgba(212,255,79,.15),0 26px 60px -30px rgba(212,255,79,.38),0 22px 56px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.3)}
+  50%{box-shadow:0 0 0 1px rgba(212,255,79,.32),0 32px 88px -22px rgba(212,255,79,.6),0 22px 56px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.3)}}
+/* верхний specular-блик стекла */
+.price.offer::after{content:'';position:absolute;left:12%;right:12%;top:0;height:1.5px;pointer-events:none;
+  background:linear-gradient(90deg,transparent,rgba(212,255,79,.62),transparent)}
+/* reassurance-чипы — снимают трение перед пробой */
+.offer-trust{display:flex;flex-wrap:wrap;gap:7px;margin-top:16px}
+.offer-trust span{display:inline-flex;align-items:center;gap:6px;
+  font-size:11.5px;font-weight:700;color:var(--text2);
+  padding:6px 12px 6px 9px;border-radius:99px;background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.1);box-shadow:inset 0 1px 0 rgba(255,255,255,.08)}
+.offer-trust span::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--lime);box-shadow:0 0 7px rgba(212,255,79,.85)}
+/* shine-свип по главному CTA */
+.offer-cta::after{content:'';position:absolute;top:0;bottom:0;left:-72%;width:42%;pointer-events:none;
+  background:linear-gradient(105deg,transparent,rgba(255,255,255,.5),transparent);transform:skewX(-18deg);
+  animation:sweep 3.6s ease-in-out infinite}
 .btn.dexter-try + .pre-btn{margin-top:10px}
 .btn.dexter-try svg{width:18px;height:18px;fill:none;stroke:#0B1409}
 /* спойлер ручных тарифов */
@@ -1842,6 +1869,7 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
       <li>Готовый фикс — кодом, а не «советом»</li>
       <li>Работает прямо в Telegram, за секунды</li>
     </ul>
+    <div class="offer-trust"><span>Без карты</span><span>Без брифов</span><span>Ответ за секунды</span></div>
     <a class="btn offer-cta" href="https://t.me/roch_ai_bot" target="_blank" rel="noopener"><span class="oc-emo">🧠</span><span class="oc-txt">Разобрать проект бесплатно</span><span class="oc-arr">→</span></a>
     <p class="offer-note">Жмёшь <b>Start</b> в боте → открывается ROCH AI. Первые 3 разбора бесплатно.</p>
   </div>
@@ -2182,6 +2210,9 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
     "ROCH разберёт твой проект по 3 слоям и нарисует готовый фикс. Не один экран — продукт целиком. Первые 3 разбора — бесплатно.": "ROCH breaks down your project in 3 layers and draws a ready fix. Not one screen — the whole product. First 3 breakdowns — free.",
     "Начинаешь бесплатно — платишь, только когда упёрся в лимит:": "Start free — pay only when you hit the limit:",
     "<b>3 разбора</b> в ROCH AI — без карты и брифов.": "<b>3 breakdowns</b> in ROCH AI — no card, no briefs.",
+    "Без карты": "No card",
+    "Без брифов": "No briefs",
+    "Ответ за секунды": "Answer in seconds",
     "Паки": "Packs",
     "$9.99 / 10 · $29.99 / 50 разборов — <b>не сгорают</b>.": "$9.99 / 10 · $29.99 / 50 breakdowns — <b>never expire</b>.",
     "ИИ-напарник · разбор проекта, цены, сроки · честно": "AI copilot · project breakdown, prices, timelines · straight up",
