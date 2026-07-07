@@ -320,6 +320,22 @@ h1 .w i{animation-delay:var(--wd)}
   background:linear-gradient(180deg,transparent,#fbffe8,transparent);
   animation:beamRun 3.6s ease-in-out infinite}
 @keyframes beamRun{0%{top:-6%;opacity:0}16%{opacity:1}84%{opacity:1}100%{top:104%;opacity:0}}
+/* VFX: блюр-трейл за лучом — виден ТОЛЬКО в движении (JS правит --tOp/--tdir/--tW) */
+.morph-trail{position:absolute;top:56px;bottom:12px;left:var(--split,50%);z-index:5;pointer-events:none;
+  width:var(--tW,52px);opacity:var(--tOp,0);
+  transform:translateX(-1px) scaleX(var(--tdir,1));transform-origin:left center;
+  background:linear-gradient(90deg, rgba(212,255,79,.32), rgba(212,255,79,.11) 44%, transparent 82%);
+  filter:blur(6px);will-change:opacity,width;
+  -webkit-mask:linear-gradient(90deg,#000,rgba(0,0,0,.25) 58%,transparent);
+  mask:linear-gradient(90deg,#000,rgba(0,0,0,.25) 58%,transparent)}
+/* лёгкие частицы-искры, вылетающие из луча при движении */
+.morph-particle{position:absolute;z-index:6;width:5px;height:5px;border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle,#fbffe8,rgba(212,255,79,.72) 45%,transparent 70%);
+  animation:particleFly .72s ease-out forwards}
+@keyframes particleFly{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(0)}
+  22%{opacity:1;transform:translate(calc(-50% + var(--px,0px) * .28),calc(-50% + var(--py,0px) * .28)) scale(var(--ps,1))}
+  100%{opacity:0;transform:translate(calc(-50% + var(--px,0px)),calc(-50% + var(--py,0px))) scale(calc(var(--ps,1) * .2))}}
 .morph-knob{position:absolute;top:calc(50% + 26px);left:var(--split,50%);
   transform:translate(-50%,-50%);z-index:7;
   width:46px;height:46px;border-radius:50%;cursor:ew-resize;
@@ -2258,6 +2274,38 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
   exPrev.addEventListener('click', function(e){ e.stopPropagation(); exTouchMark(); goEx(exIdx - 1); });
   exNext.addEventListener('click', function(e){ e.stopPropagation(); exTouchMark(); goEx(exIdx + 1); });
 
+  /* ===== VFX: блюр-трейл + искры за световым лучом — только во время движения ===== */
+  var vfxOn = false, vfxRAF = 0, prevSplit = 50, tOp = 0, partAcc = 0, partLive = 0, trailEl = null;
+  if(!reduced){ trailEl = document.createElement('div'); trailEl.className = 'morph-trail'; morph.appendChild(trailEl); }
+  function spawnParticle(xPct, dir){
+    if(partLive >= 18) return; partLive++;
+    var p = document.createElement('i'); p.className = 'morph-particle';
+    p.style.left = xPct + '%';
+    p.style.top = (16 + Math.random() * 66) + '%';
+    p.style.setProperty('--px', (dir * (14 + Math.random() * 32)).toFixed(0) + 'px');
+    p.style.setProperty('--py', ((Math.random() - 0.5) * 28).toFixed(0) + 'px');
+    p.style.setProperty('--ps', (0.45 + Math.random() * 0.9).toFixed(2));
+    morph.appendChild(p);
+    setTimeout(function(){ if(p.parentNode) p.parentNode.removeChild(p); partLive--; }, 720);
+  }
+  function readSplit(){ return parseFloat(getComputedStyle(morph).getPropertyValue('--split')) || 50; }
+  function vfxTick(){
+    var cur = readSplit(), vel = cur - prevSplit, speed = Math.abs(vel);
+    var target = Math.min(1, speed * 0.34);
+    tOp += (target - tOp) * 0.4; if(tOp < 0.008) tOp = 0;
+    if(trailEl){
+      trailEl.style.setProperty('--tOp', tOp.toFixed(3));
+      if(speed > 0.05) trailEl.style.setProperty('--tdir', vel > 0 ? -1 : 1);
+      trailEl.style.setProperty('--tW', (46 + Math.min(64, speed * 13)).toFixed(0) + 'px');
+    }
+    if(speed > 0.5){ partAcc += speed; while(partAcc > 3.4){ partAcc -= 3.4; spawnParticle(cur, vel > 0 ? -1 : 1); } }
+    else partAcc = 0;
+    prevSplit = cur;
+    vfxRAF = requestAnimationFrame(vfxTick);
+  }
+  function startVfx(){ if(vfxOn || reduced) return; vfxOn = true; prevSplit = readSplit(); vfxRAF = requestAnimationFrame(vfxTick); }
+  function stopVfx(){ vfxOn = false; if(vfxRAF) cancelAnimationFrame(vfxRAF); vfxRAF = 0; if(trailEl) trailEl.style.setProperty('--tOp', '0'); }
+
   /* авто-карусель макетов: листаем сами, но ТОЛЬКО пока пользователь ничего не трогает.
      Палец на разделителе / недавний тап = стоп; вне вьюпорта и в фоне — тоже. */
   var exAutoLast = 0, exVisible = false, revealPlayed = false;
@@ -2269,6 +2317,7 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
       if(exVisible && !revealPlayed && !userTouched && !reduced){
         revealPlayed = true; morph.classList.add('hint');
       }
+      if(exVisible) startVfx(); else stopVfx();
     }, {threshold:.35}).observe(morph);
   }
   if(!reduced){
