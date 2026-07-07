@@ -1962,9 +1962,19 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
   function tgLink(msg){
     return 'https://t.me/' + TG_USER + '?text=' + encodeURIComponent(msg);
   }
-  /* TG-ссылки на личный чат Ромы (.js-tg) — единый deeplink; бот-CTA ведут прямо в @roch_ai_bot (href в разметке) */
+  /* «AI разбор»: десктоп → веб-приложение roch-art.com/rochai, телефон → Telegram-бот */
+  function rochIsMobile(){
+    try{
+      return /Android|iPhone|iPad|iPod|Windows Phone|Opera Mini|IEMobile|Mobile/i.test(navigator.userAgent)
+        || (window.matchMedia && window.matchMedia('(pointer:coarse) and (max-width:1024px)').matches);
+    }catch(e){ return false; }
+  }
+  function rochAiUrl(){ return rochIsMobile() ? 'https://t.me/roch_ai_bot' : 'https://roch-art.com/rochai'; }
+  /* TG-ссылки на личный чат Ромы (.js-tg) — единый deeplink */
   var tgEls = document.querySelectorAll('.js-tg');
   Array.prototype.forEach.call(tgEls, function(a){ a.href = tgLink(TG_MSG_DEFAULT); });
+  /* все CTA «Разобрать проект» → device-aware назначение */
+  Array.prototype.forEach.call(document.querySelectorAll('a[href="https://t.me/roch_ai_bot"]'), function(a){ a.href = rochAiUrl(); });
 
   /* кнопки-якоря */
   Array.prototype.forEach.call(document.querySelectorAll('[data-goto]'), function(b){
@@ -2679,7 +2689,7 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
     chatLog.scrollTop = chatLog.scrollHeight;
   }
   /* ===== ROCH AI — маркетинговый слой: скриптовые rich-ответы (не тратят API-квоту) ===== */
-  var BOT_URL = 'https://t.me/roch_ai_bot';
+  var BOT_URL = rochAiUrl();
   function addRich(html){
     var d = document.createElement('div');
     d.className = 'msg bot rich';
