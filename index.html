@@ -24,7 +24,7 @@
 <link rel="apple-touch-icon" href="assets/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Unbounded:wght@600;700;800;900&display=swap" rel="stylesheet">
 <style>
 :root{
   color-scheme:dark;
@@ -40,6 +40,7 @@
   --shadow:0 26px 64px -14px rgba(0,0,0,.7);
   --r-xl:32px; --r-m:18px;
   --font:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text",Inter,"Helvetica Neue",sans-serif;
+  --font-display:'Unbounded',var(--font);
   --spring:cubic-bezier(.34,1.45,.42,1);
   --ease:cubic-bezier(.2,.7,.2,1);
   --lg-glyph:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M13 2L4.5 13.5H11l-1 8.5L19.5 10H13z' fill='black'/%3E%3C/svg%3E");
@@ -104,6 +105,9 @@ body{
 h1,h2,h3{font-weight:800;letter-spacing:-.04em;line-height:1.04}
 h1{font-size:clamp(38px,10.5vw,58px);font-weight:900}
 h2{font-size:clamp(27px,7.4vw,38px);margin-bottom:12px}
+/* характерный display-шрифт только на крупных заголовках (тело — системное) */
+.h-main,h2{font-family:var(--font-display);letter-spacing:-.03em}
+h2{font-weight:800}
 .lime{color:var(--lime)}
 .grad{
   background:linear-gradient(100deg,#fff 15%,var(--lime) 40%,#7BE0A8 60%,#fff 85%);
