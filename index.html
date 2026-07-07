@@ -1135,12 +1135,7 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
   transform-origin:left;transform:scaleX(0);
   background:linear-gradient(90deg, transparent, #E1FE71 14%, #D4FF4F 50%, #E1FE71 86%, transparent);
   box-shadow:0 0 12px rgba(212,255,79,.6), 0 0 30px rgba(212,255,79,.28)}
-/* комета-голова на кончике прогресса (JS двигает left + scale) */
-.sxp-head{position:fixed;top:0;left:0;z-index:61;width:12px;height:12px;border-radius:50%;pointer-events:none;
-  transform:translate(-50%,-25%) scale(0);
-  background:radial-gradient(circle,#fff,#D4FF4F 42%,transparent 70%);
-  box-shadow:0 0 10px rgba(212,255,79,.9), 0 0 22px rgba(212,255,79,.5)}
-/* искры, слетающие с кометы при скролле */
+/* искры, слетающие с кончика бара при скролле */
 .sxp-spark{position:fixed;top:1px;z-index:60;width:3px;height:3px;border-radius:50%;pointer-events:none;
   background:radial-gradient(circle,#fbffe8,rgba(212,255,79,.85) 45%,transparent 70%);
   transform:translate(-50%,-50%);animation:sxpSpark .62s ease-out forwards}
@@ -1412,7 +1407,6 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
 </div>
 <div class="cur-glow" id="curGlow" aria-hidden="true"></div>
 <div class="sxp" id="sxp" aria-hidden="true"></div>
-<div class="sxp-head" id="sxpHead" aria-hidden="true"></div>
 
 <div class="wrap">
 
@@ -3339,8 +3333,7 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
 
   var sxp = document.getElementById('sxp');
   /* ===== XP-бар: пружина + комета-голова + искры (VFX) ===== */
-  var sxpHeadEl = document.getElementById('sxpHead');
-  var sxpTarget = 0, sxpCur = 0, sxpPrev = 0, sxpHeadS = 0, sxpIdle = 99, sxpRAF = 0, sxpSparkAcc = 0, sxpParts = 0;
+  var sxpTarget = 0, sxpCur = 0, sxpPrev = 0, sxpRAF = 0, sxpSparkAcc = 0, sxpParts = 0;
   function sxpSpark(xPct){
     if(sxpParts >= 14) return; sxpParts++;
     var s = document.createElement('i'); s.className = 'sxp-spark';
@@ -3357,16 +3350,9 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
     if(sxp) sxp.style.transform = 'scaleX(' + sxpCur.toFixed(4) + ')';
     var moved = Math.abs(sxpCur - sxpPrev); sxpPrev = sxpCur;
     if(moved > 0.0002){ sxpSparkAcc += moved; while(sxpSparkAcc > 0.018){ sxpSparkAcc -= 0.018; sxpSpark(sxpCur * 100); } }
-    sxpIdle++;
-    var headTarget = (sxpIdle < 34 && sxpCur > 0.004) ? 1 : 0;
-    sxpHeadS += (headTarget - sxpHeadS) * 0.2;
-    if(sxpHeadEl){
-      sxpHeadEl.style.left = (sxpCur * 100) + '%';
-      sxpHeadEl.style.transform = 'translate(-50%,-25%) scale(' + sxpHeadS.toFixed(3) + ')';
-    }
-    if(Math.abs(sxpTarget - sxpCur) > 0.0003 || sxpHeadS > 0.01 || sxpParts > 0){ sxpRAF = requestAnimationFrame(sxpTick); }
+    if(Math.abs(sxpTarget - sxpCur) > 0.0003 || sxpParts > 0){ sxpRAF = requestAnimationFrame(sxpTick); }
   }
-  function sxpKick(){ sxpIdle = 0; if(!sxpRAF) sxpRAF = requestAnimationFrame(sxpTick); }
+  function sxpKick(){ if(!sxpRAF) sxpRAF = requestAnimationFrame(sxpTick); }
   function onScroll(){
     var y = window.scrollY;
     if(!reduced) orbsC.style.transform = 'translate3d(0,' + (y * -0.08).toFixed(1) + 'px,0)';
