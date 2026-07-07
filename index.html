@@ -299,11 +299,27 @@ h1 .w i{animation-delay:var(--wd)}
   clip-path:inset(0 calc(100% - var(--split,50%)) 0 0)}
 .morph-after{z-index:1;background:#080D0A;
   background-image:radial-gradient(80% 90% at 60% 10%, rgba(16,145,92,.4), transparent 60%)}
+/* «ДО» — мёртвый прототип: тусклый, холодный, обесцвеченный */
+.morph-before .ugly{filter:brightness(.74) saturate(.62) contrast(1.03)}
+.morph-before::after{content:'';position:absolute;inset:0;pointer-events:none;z-index:4;
+  background:linear-gradient(115deg, rgba(38,54,86,.16), transparent 55%)}
+/* «ПОСЛЕ» — живой, лайм-блум по стороне трансформации */
+.morph-after::after{content:'';position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(58% 46% at 80% 42%, rgba(212,255,79,.13), transparent 72%)}
 /* divider + knob move together as one unit, anchored to --split */
-.morph-divider{position:absolute;top:52px;bottom:0;left:var(--split,50%);width:2px;z-index:6;
+.morph-divider{position:absolute;top:56px;bottom:12px;left:var(--split,50%);width:2px;z-index:6;
   transform:translateX(-1px);pointer-events:none;
-  background:linear-gradient(rgba(212,255,79,0),var(--lime) 10% 90%,rgba(212,255,79,0));
-  box-shadow:0 0 16px rgba(212,255,79,.6)}
+  background:linear-gradient(180deg,rgba(212,255,79,0),#e6ff96 14%,#fff 50%,#e6ff96 86%,rgba(212,255,79,0));
+  box-shadow:0 0 7px rgba(212,255,79,.9), 0 0 16px rgba(212,255,79,.38)}
+/* мягкий световой столб вокруг разрыва (сдержанный, чтобы не вылезал за края) */
+.morph-divider::before{content:'';position:absolute;top:0;bottom:0;left:50%;width:18px;transform:translateX(-50%);
+  background:linear-gradient(90deg,transparent,rgba(212,255,79,.12),transparent);pointer-events:none}
+/* бегущий блик вдоль луча — держим строго внутри (opacity-fade на концах) */
+.morph-divider::after{content:'';position:absolute;left:50%;top:0;transform:translateX(-50%);
+  width:2.5px;height:38px;border-radius:3px;filter:blur(.4px);
+  background:linear-gradient(180deg,transparent,#fbffe8,transparent);
+  animation:beamRun 3.6s ease-in-out infinite}
+@keyframes beamRun{0%{top:-6%;opacity:0}16%{opacity:1}84%{opacity:1}100%{top:104%;opacity:0}}
 .morph-knob{position:absolute;top:calc(50% + 26px);left:var(--split,50%);
   transform:translate(-50%,-50%);z-index:7;
   width:46px;height:46px;border-radius:50%;cursor:ew-resize;
@@ -315,8 +331,9 @@ h1 .w i{animation-delay:var(--wd)}
 .morph-knob::before,.morph-knob::after{content:'';width:0;height:0;border-top:5px solid transparent;border-bottom:5px solid transparent}
 .morph-knob::before{border-right:6px solid rgba(255,255,255,.75)}
 .morph-knob::after{border-left:6px solid rgba(255,255,255,.75)}
-.morph-stage.hint{animation:splitHint 2.8s ease-in-out 3}
-@keyframes splitHint{0%,100%{--split:50%}25%{--split:41%}75%{--split:59%}}
+/* кинематографичный показ трансформации при въезде в вид: держим «до» → свайп «после» → центр */
+.morph-stage.hint{animation:splitReveal 2.9s cubic-bezier(.62,.03,.26,1) both}
+@keyframes splitReveal{0%{--split:88%}12%{--split:88%}62%{--split:13%}100%{--split:50%}}
 /* top bar: label centered, side tags */
 .morph-topbar{position:absolute;top:0;left:0;right:0;height:52px;z-index:6;
   display:flex;align-items:center;justify-content:center;
@@ -400,8 +417,9 @@ h1 .w i{animation-delay:var(--wd)}
   filter:drop-shadow(0 0 5px rgba(212,255,79,.6));
   animation:mRing 2.6s var(--ease) infinite alternate}
 @keyframes mRing{from{stroke-dashoffset:110}to{stroke-dashoffset:64}}
-.m-ring .ic{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
-  font-size:26px}
+.m-ring .ic{position:absolute;inset:0;display:flex;align-items:baseline;justify-content:center;gap:1px}
+.m-ring .ic b{font-size:23px;font-weight:800;letter-spacing:-.04em;color:#fff}
+.m-ring .ic i{font-size:12px;font-weight:800;font-style:normal;color:var(--lime)}
 .m-hero .big{flex:1}
 .metric{font-size:34px;font-weight:800;letter-spacing:-.045em;line-height:1;
   background:linear-gradient(180deg,#fff,var(--lime));
@@ -503,7 +521,11 @@ h1 .w i{animation-delay:var(--wd)}
   border-radius:99px;padding:4px 12px;display:inline-block;margin-top:8px;
   border:1px solid rgba(212,255,79,.25)}
 /* — onboarding — */
-.onb-art{font-size:44px;margin-bottom:10px}
+.onb-art{width:56px;height:56px;border-radius:18px;margin-bottom:12px;
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(140deg,var(--lime),#0F8A57);
+  box-shadow:0 10px 26px rgba(212,255,79,.32), inset 0 1px 0 rgba(255,255,255,.5)}
+.onb-art svg{width:28px;height:28px;stroke:#0B1409;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .onb-dots{display:flex;gap:6px;justify-content:center;margin-bottom:14px}
 .onb-dots i{width:7px;height:7px;border-radius:99px;background:rgba(255,255,255,.2)}
 .onb-dots i.on{width:20px;background:var(--lime);box-shadow:0 0 8px rgba(212,255,79,.6)}
@@ -1270,6 +1292,9 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
   .hero .stats{grid-area:stats;margin-top:30px}
   .hero .morph-wrap{grid-area:visual;margin-top:0;align-self:center}
   .hero .morph-stage{height:500px}
+  /* крупнее макеты — «после» читается детально и премиально (оба слоя вместе = ровный вайп) */
+  .hero .morph-layer > .ugly,
+  .hero .morph-layer > .mock-app{transform:translate(-50%,-50%) scale(.9)}
   /* стрелки — в боковых полях, СНАРУЖИ слайдера (не в зоне hover-разделителя) */
   .hero .morph-nav{width:42px;height:42px;opacity:1;top:50%}
   .hero .morph-nav svg{width:19px;height:19px}
@@ -1433,7 +1458,7 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
                   <circle class="trk" cx="48" cy="48" r="42"/>
                   <circle class="prg" cx="48" cy="48" r="42"/>
                 </svg>
-                <div class="ic">🔥</div>
+                <div class="ic"><b>83</b><i>%</i></div>
               </div>
               <div class="big">
                 <div class="metric">12 480</div>
@@ -1599,7 +1624,7 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
         </div>
         <div class="morph-layer morph-after">
           <div class="mock-app center">
-            <div class="onb-art">🚀</div>
+            <div class="onb-art"><svg viewBox="0 0 24 24"><path d="M5 15c-1.6 1-2.2 4.2-2.2 4.2s3.2-.6 4.2-2.2M9.5 12.5a14 14 0 0 1 8.5-8.5c1.6 0 3 .3 4 1s1 2.4 1 4a14 14 0 0 1-8.5 8.5l-3-1-2-2z"/><circle cx="15.2" cy="8.8" r="1.6"/></svg></div>
             <div class="onb-dots"><i class="on"></i><i></i><i></i></div>
             <div class="succ-h" style="font-size:21px">Погнали за 30 секунд</div>
             <div class="succ-sub">Три шага — и продукт готов к запуску. Без воды.</div>
@@ -2235,10 +2260,16 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
 
   /* авто-карусель макетов: листаем сами, но ТОЛЬКО пока пользователь ничего не трогает.
      Палец на разделителе / недавний тап = стоп; вне вьюпорта и в фоне — тоже. */
-  var exAutoLast = 0, exVisible = false;
+  var exAutoLast = 0, exVisible = false, revealPlayed = false;
   function exTouchMark(){ exAutoLast = Date.now(); }
   if('IntersectionObserver' in window){
-    new IntersectionObserver(function(en){ exVisible = en[0].isIntersecting; }, {threshold:.35}).observe(morph);
+    new IntersectionObserver(function(en){
+      exVisible = en[0].isIntersecting;
+      /* кинематографичный свайп — один раз, когда слайдер реально попал в кадр */
+      if(exVisible && !revealPlayed && !userTouched && !reduced){
+        revealPlayed = true; morph.classList.add('hint');
+      }
+    }, {threshold:.35}).observe(morph);
   }
   if(!reduced){
     setInterval(function(){
@@ -2251,7 +2282,7 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
   /* init */
   exListEls[0].classList.add('active');
   setSplit(50);
-  if(!reduced) morph.classList.add('hint');
+  /* .hint (кинематографичный свайп) добавляется observer'ом при въезде в вид */
 
   /* ===== Count-up stats ===== */
   function countUp(el){
