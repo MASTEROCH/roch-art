@@ -1276,6 +1276,8 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
   .hero .morph-nav.prev{left:-50px}
   .hero .morph-nav.next{right:-50px}
   .hero .morph-nav:active{transform:translateY(-50%) scale(.9)}
+  /* десктоп: разделитель следует за курсором → круглый узел не нужен, оставляем полоску */
+  .hero .morph-knob{display:none}
 
   /* ---- SERVICES: 3 колонки ---- */
   #services .cards{grid-template-columns:repeat(3,1fr);gap:20px}
