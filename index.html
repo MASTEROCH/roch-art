@@ -433,9 +433,9 @@ h1 .w i{animation-delay:var(--wd)}
   filter:drop-shadow(0 0 5px rgba(212,255,79,.6));
   animation:mRing 2.6s var(--ease) infinite alternate}
 @keyframes mRing{from{stroke-dashoffset:110}to{stroke-dashoffset:64}}
-.m-ring .ic{position:absolute;inset:0;display:flex;align-items:baseline;justify-content:center;gap:1px}
-.m-ring .ic b{font-size:23px;font-weight:800;letter-spacing:-.04em;color:#fff}
-.m-ring .ic i{font-size:12px;font-weight:800;font-style:normal;color:var(--lime)}
+.m-ring .ic{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:1px;line-height:1}
+.m-ring .ic b{font-size:23px;font-weight:800;letter-spacing:-.04em;color:#fff;line-height:1}
+.m-ring .ic i{font-size:12px;font-weight:800;font-style:normal;color:var(--lime);line-height:1;position:relative;top:-5px}
 .m-hero .big{flex:1}
 .metric{font-size:34px;font-weight:800;letter-spacing:-.045em;line-height:1;
   background:linear-gradient(180deg,#fff,var(--lime));
@@ -541,7 +541,7 @@ h1 .w i{animation-delay:var(--wd)}
   display:flex;align-items:center;justify-content:center;
   background:linear-gradient(140deg,var(--lime),#0F8A57);
   box-shadow:0 10px 26px rgba(212,255,79,.32), inset 0 1px 0 rgba(255,255,255,.5)}
-.onb-art svg{width:28px;height:28px;stroke:#0B1409;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.onb-art svg{width:26px;height:26px;fill:#0B1409}
 .onb-dots{display:flex;gap:6px;justify-content:center;margin-bottom:14px}
 .onb-dots i{width:7px;height:7px;border-radius:99px;background:rgba(255,255,255,.2)}
 .onb-dots i.on{width:20px;background:var(--lime);box-shadow:0 0 8px rgba(212,255,79,.6)}
@@ -1414,7 +1414,7 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
     </span>
     <img class="h-money" src="assets/money.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
   </h1>
-  <p class="lead boot d2">Код у тебя уже есть. Я добавлю то, за что платят: доверие с первого экрана. <b>Кидай скрин в ROCH — разберу весь проект по 3 слоям и нарисую готовый фикс.</b> Рабочий фикс, а не презентация.</p>
+  <p class="lead boot d2">Код у тебя уже есть. Я добавлю то, за что платят: доверие с первого экрана. <b>Кидай скрин в ROCH AI — разберу проект по 3 слоям, до костей, и нарисую готовый макет.</b> Рабочий фикс, а не презентация.</p>
 
   <div class="hero-cta boot d3">
     <a class="btn offer-cta" href="https://t.me/roch_ai_bot" target="_blank" rel="noopener"><span class="oc-emo">🧠</span><span class="oc-txt">Разобрать проект бесплатно</span><span class="oc-arr">→</span></a>
@@ -1640,7 +1640,7 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
         </div>
         <div class="morph-layer morph-after">
           <div class="mock-app center">
-            <div class="onb-art"><svg viewBox="0 0 24 24"><path d="M5 15c-1.6 1-2.2 4.2-2.2 4.2s3.2-.6 4.2-2.2M9.5 12.5a14 14 0 0 1 8.5-8.5c1.6 0 3 .3 4 1s1 2.4 1 4a14 14 0 0 1-8.5 8.5l-3-1-2-2z"/><circle cx="15.2" cy="8.8" r="1.6"/></svg></div>
+            <div class="onb-art"><svg viewBox="0 0 24 24"><path d="M13 2L3 14h7l-1 8 10-12h-7z"/></svg></div>
             <div class="onb-dots"><i class="on"></i><i></i><i></i></div>
             <div class="succ-h" style="font-size:21px">Погнали за 30 секунд</div>
             <div class="succ-sub">Три шага — и продукт готов к запуску. Без воды.</div>
@@ -2126,7 +2126,7 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
   (function(sup){ for(var _k in sup){ I18N_EN[_k]=sup[_k]; } })({"Разобрать экран бесплатно": "Break down your screen — free"});
   /* репозиционирование: «разбор экрана» → «разбор проекта» */
   (function(sup){ for(var _k in sup){ I18N_EN[_k]=sup[_k]; } })({
-    "Кидай скрин в ROCH — разберу весь проект по 3 слоям и нарисую готовый фикс.": "Drop a screen into ROCH — I'll break the whole project down in 3 layers and draw a ready fix.",
+    "Кидай скрин в ROCH AI — разберу проект по 3 слоям, до костей, и нарисую готовый макет.": "Drop a screen into ROCH AI — I'll break the project down to the bone across 3 layers and draw a finished mockup.",
     "Разобрать проект бесплатно": "Break down my project — free",
     "Разбери свой проект": "Break down your project",
     "ROCH разберёт твой проект": "ROCH breaks down your project",
