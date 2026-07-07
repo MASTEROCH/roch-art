@@ -329,6 +329,8 @@ h1 .w i{animation-delay:var(--wd)}
   text-transform:uppercase;padding:5px 10px;border-radius:99px;white-space:nowrap}
 .morph-tag.t-before{left:12px;color:rgba(255,150,130,.95);background:rgba(30,12,10,.55);border:1px solid rgba(255,120,100,.25)}
 .morph-tag.t-after{right:12px;color:var(--lime);background:rgba(10,20,10,.55);border:1px solid rgba(212,255,79,.25)}
+/* обёртка стейджа: стрелки живут ЗДЕСЬ (вне overflow:hidden стейджа) */
+.morph-view{position:relative}
 /* example nav — vertically centered on sides */
 .morph-nav{position:absolute;top:calc(50% + 26px);transform:translateY(-50%);z-index:7;
   width:34px;height:34px;border-radius:50%;cursor:pointer;
@@ -1245,7 +1247,7 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
 
 /* ============ DESKTOP LAYOUT (≥1024px) — мобайл не трогаем ============ */
 @media (min-width:1024px){
-  .wrap{max-width:1160px;padding:0 40px}
+  .wrap{max-width:1160px;padding:0 56px}
   section{padding:84px 0}
   section > .sec-head{max-width:700px}
 
@@ -1264,6 +1266,12 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
   .hero .stats{grid-area:stats;margin-top:30px}
   .hero .morph-wrap{grid-area:visual;margin-top:0;align-self:center}
   .hero .morph-stage{height:500px}
+  /* стрелки — в боковых полях, СНАРУЖИ слайдера (не в зоне hover-разделителя) */
+  .hero .morph-nav{width:42px;height:42px;opacity:1;top:50%}
+  .hero .morph-nav svg{width:19px;height:19px}
+  .hero .morph-nav.prev{left:-50px}
+  .hero .morph-nav.next{right:-50px}
+  .hero .morph-nav:active{transform:translateY(-50%) scale(.9)}
 
   /* ---- SERVICES: 3 колонки ---- */
   #services .cards{grid-template-columns:repeat(3,1fr);gap:20px}
@@ -1378,18 +1386,13 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
       <span class="morph-badge b2">✦ После ROCH</span>
     </div>
 
+    <div class="morph-view">
     <div class="morph-stage glass" id="morph">
       <div class="morph-topbar">
         <span class="morph-label" id="exLabel">Экран статистики</span>
       </div>
       <span class="morph-tag t-before">До</span>
       <span class="morph-tag t-after">После</span>
-      <button class="morph-nav prev" id="exPrev" type="button" aria-label="Назад">
-        <svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg>
-      </button>
-      <button class="morph-nav next" id="exNext" type="button" aria-label="Вперёд">
-        <svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
-      </button>
 
       <!-- ═══ EXAMPLE 1 · STATS SCREEN ═══ -->
       <div class="ex" data-label="Экран статистики">
@@ -1642,6 +1645,13 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
       <div class="morph-divider" id="mDivider"></div>
       <div class="morph-knob" id="mKnob"></div>
     </div>
+    <button class="morph-nav prev" id="exPrev" type="button" aria-label="Назад">
+      <svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg>
+    </button>
+    <button class="morph-nav next" id="exNext" type="button" aria-label="Вперёд">
+      <svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+    </button>
+    </div><!-- /morph-view -->
 
     <div class="morph-dots" id="exDots"></div>
     <p class="lens-cap">Тяни разделитель ↔ Один и тот же экран, <b>разный уровень доверия.</b></p>
