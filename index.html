@@ -2197,6 +2197,13 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
     "Бьюти-квиз подбирает уход по коже — магазин закрывает продажу.": "A beauty quiz matches skincare — the shop closes the sale.",
     "Полная витрина — в разделе «Кейсы» ↑": "Full showcase — in the \"Cases\" section ↑",
     "Смотреть все кейсы": "See all cases",
+    "Земский Доктор": "Zemsky Doctor",
+    "Кабинет косметолога: процедуры, запись, лояльность": "Cosmetologist cabinet: procedures, booking, loyalty",
+    "Telegram Mini App косметолога Анжелики: каталог процедур с ценами, онлайн-запись с выбором времени и мастера, паспорт кожи, клуб лояльности с баллами, магазин домашнего ухода ANZH.store и AI-ассистент. Petrol-luxe — изумруд и золото на глубоком тёмном.": "Angelika's cosmetologist Telegram Mini App: a procedure catalog with prices, online booking with time and specialist selection, a skin passport, a loyalty club with points, the ANZH.store home-care shop, and an AI assistant. Petrol-luxe — emerald and gold on deep dark.",
+    "Медцентр: онлайн-запись к врачу, 16 направлений": "Medical center: online doctor booking, 16 specialties",
+    "Приложение медцентра «Земский Доктор» (Калининград): онлайн-запись к врачу за минуту, 16 направлений с ценами, каталог из 25 врачей, детальные экраны направлений, личный кабинет пациента с медкартой и баллами, маскот dr.Zem. Светлое navy + gold liquid glass.": "The «Zemsky Doctor» medical-center app (Kaliningrad): book a doctor in a minute, 16 specialties with prices, a 25-doctor catalog, detailed specialty screens, a patient cabinet with a medical card and points, and the dr.Zem mascot. Light navy + gold liquid glass.",
+    "Медицина": "Medicine",
+    "Запись": "Booking",
     "Хочешь так же?": "Want the same?",
     "ROCH разбирает продукт по 3 слоям — не один экран, а всё целиком:": "ROCH breaks the product down in 3 layers — not one screen, but the whole thing:",
     "доверие с первого экрана — продукт, а не прототип.": "trust from the first screen — a product, not a prototype.",
@@ -2445,6 +2452,14 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
      Добавить проект: объект ниже. Скриншоты: jpg в assets/cases/ + имя файла в shots.
      Ссылка на живой продукт: поле url. */
   var PROJECTS = [
+    {name:'ANZH Beauty', c:'#12C088', icon:'assets/covers/anzhtma.jpg', feat:true, raw:true,
+     s:'Кабинет косметолога: процедуры, запись, лояльность',
+     d:'Telegram Mini App косметолога Анжелики: каталог процедур с ценами, онлайн-запись с выбором времени и мастера, паспорт кожи, клуб лояльности с баллами, магазин домашнего ухода ANZH.store и AI-ассистент. Petrol-luxe — изумруд и золото на глубоком тёмном.',
+     tags:['Beauty','TMA','Лояльность'], shots:['anzhtma-1.jpg','anzhtma-2.jpg','anzhtma-3.jpg','anzhtma-4.jpg','anzhtma-5.jpg','anzhtma-6.jpg','anzhtma-7.jpg','anzhtma-8.jpg'], url:''},
+    {name:'Земский Доктор', c:'#2E6BE6', icon:'assets/covers/zem.jpg', feat:true, raw:true,
+     s:'Медцентр: онлайн-запись к врачу, 16 направлений',
+     d:'Приложение медцентра «Земский Доктор» (Калининград): онлайн-запись к врачу за минуту, 16 направлений с ценами, каталог из 25 врачей, детальные экраны направлений, личный кабинет пациента с медкартой и баллами, маскот dr.Zem. Светлое navy + gold liquid glass.',
+     tags:['Медицина','Запись','TMA'], shots:['zem-1.jpg','zem-2.jpg','zem-3.jpg','zem-4.jpg','zem-5.jpg','zem-6.jpg','zem-7.jpg'], url:'https://masteroch.github.io/zem-doc/'},
     {name:'Dine', c:'#9fdc3f', icon:'assets/covers/dine.jpg', feat:true,
      s:'Лояльность ресторана: меню, баллы, лиги гостей',
      d:'Ресторанная система лояльности в Telegram: меню и заказ, баллы за визиты, лиги гостей (бронза → золото), награды и купоны. Гость возвращается — ресторан растит средний чек.',
@@ -2608,7 +2623,8 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
       pjDesc.textContent = p.d;
       if(p.shots.length){
         /* в шите — промо-версии (App Store креативы), в лайтбоксе — сырые скрины ЦЕЛИКОМ */
-        var _px = (LANG === 'en') ? 'assets/cases/p-en-' : 'assets/cases/p-';
+        /* raw:true — свежие проекты без промо-конвейера: показываем сырые скрины напрямую */
+        var _px = p.raw ? 'assets/cases/' : ((LANG === 'en') ? 'assets/cases/p-en-' : 'assets/cases/p-');
         var pf = p.shots.map(function(f){ return _px + f; });
         var raw = p.shots.map(function(f){ return 'assets/cases/' + f; });
         pjShots.innerHTML = pf.map(function(src, k){
