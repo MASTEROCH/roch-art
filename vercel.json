@@ -1,8 +1,13 @@
 {
   "cleanUrls": true,
+  "redirects": [
+    { "source": "/motion", "destination": "/motion/", "permanent": false }
+  ],
   "rewrites": [
     { "source": "/rochai", "destination": "https://roch-ai.vercel.app/rochai" },
-    { "source": "/rochai/:path*", "destination": "https://roch-ai.vercel.app/rochai/:path*" }
+    { "source": "/rochai/:path*", "destination": "https://roch-ai.vercel.app/rochai/:path*" },
+    { "source": "/motion/", "destination": "https://roch-motion.vercel.app/" },
+    { "source": "/motion/:path*", "destination": "https://roch-motion.vercel.app/:path*" }
   ],
   "headers": [
     {
