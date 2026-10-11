@@ -1,7 +1,8 @@
 {
   "cleanUrls": true,
   "redirects": [
-    { "source": "/motion", "destination": "/motion/", "permanent": false }
+    { "source": "/motion", "destination": "/motion/", "permanent": false },
+    { "source": "/business", "destination": "/", "permanent": false }
   ],
   "rewrites": [
     { "source": "/rochai", "destination": "https://roch-ai.vercel.app/rochai" },
