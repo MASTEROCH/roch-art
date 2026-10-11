@@ -199,18 +199,6 @@ header.hide .hud-nav{
 /* ============ HERO ============ */
 .hero{padding:44px 0 8px}
 .hero h1{margin-bottom:18px;perspective:900px;position:relative}
-.h-money{position:absolute;right:-4px;bottom:-26px;width:clamp(64px,17.5vw,90px);pointer-events:none;z-index:2;
-  opacity:0;transform:scale(.4) rotate(-10deg);
-  filter:drop-shadow(0 10px 24px rgba(0,0,0,.45));
-  animation:moneyPop .6s var(--spring) 2.05s forwards}
-@keyframes moneyPop{to{opacity:1;transform:none}}
-/* стикеры секций: единая позиция — правый верхний угол .sec-head (зона ghost-цифры) */
-.sec-icon{position:absolute;right:-2px;top:-14px;width:clamp(64px,17.5vw,90px);
-  pointer-events:none;z-index:1;
-  filter:drop-shadow(0 8px 20px rgba(0,0,0,.4));
-  opacity:0;transform:scale(.4) rotate(-8deg);
-  transition:opacity .5s var(--spring) .55s, transform .6s var(--spring) .55s}
-.reveal.in .sec-icon{opacity:1;transform:none}
 h1 .w{display:inline-block;overflow:visible;vertical-align:bottom}
 h1 .w i{display:inline-block;font-style:normal;
   transform:translateY(120%) rotateX(-72deg) scale(.9);filter:blur(10px);opacity:0;
@@ -748,8 +736,6 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
   h1 .w,h1 .w i{transform:none;opacity:1;filter:none}
   .h-caret{display:none}
   .hl::before{transform:rotate(-1.2deg)}
-  .h-money{opacity:1;transform:none}
-  .sec-icon{opacity:1;transform:none}
   .cta-bar{transform:none}
   html{scroll-behavior:auto}
 }
@@ -827,7 +813,6 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
 .bz-hero h1 .w:nth-of-type(5){--wd:.6s}
 .bz-hero h1 .w:nth-of-type(6){--wd:.72s}
 .bz-hero .hl::before{animation-delay:1.15s}
-.bz-hero .h-money{animation-delay:1.45s;bottom:-18px}
 .bz-hero .boot.d2{animation-delay:.7s}
 .bz-hero .boot.d3{animation-delay:.85s}
 .bz-hero .boot.d4{animation-delay:1s}
@@ -870,7 +855,7 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
 .ex.up-fanned .up-phone::before{opacity:1;transform:translate(-50%,-50%) scale(1);transition:opacity .5s var(--ease), transform .8s var(--ease)}
 .up-ph,.up-card{position:absolute;left:50%;top:0;height:100%;aspect-ratio:820/1777;border-radius:24px;overflow:hidden;
   border:1px solid rgba(255,255,255,.16);background:#0B0F0C}
-.up-ph{z-index:2;transform:translateX(-50%);box-shadow:0 24px 50px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.2)}
+.up-ph{z-index:2;pointer-events:auto;cursor:pointer;transform:translateX(-50%);box-shadow:0 24px 50px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.2)}
 .up-ph img,.up-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center}
 .up-empty{position:absolute;inset:0;padding:34px 14px;display:grid;align-content:start;gap:10px}
 .up-empty i{display:block;height:10px;border-radius:6px;background:rgba(255,255,255,.06)}
@@ -892,6 +877,13 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
   transition:opacity .22s var(--ease), transform .22s var(--ease)}
 .up-count.on{opacity:1;transform:translate(-50%,0) scale(1);transition:opacity .34s var(--ease), transform .5s var(--spring)}
 .up-count b{font-variant-numeric:tabular-nums}
+/* живой прототип примера: кнопка под подписью, телефон в сцене тоже открывает его */
+.up-open{display:flex;align-items:center;gap:8px;width:fit-content;margin:6px auto 0;padding:11px 18px;border-radius:99px;
+  font-size:14px;font-weight:700;color:var(--lime);text-decoration:none;background:rgba(212,255,79,.08);
+  border:1px solid rgba(212,255,79,.32);transition:transform .3s var(--ease), background .3s var(--ease)}
+.up-open i{font-style:normal;font-weight:800}
+.up-open:active{transform:scale(.96)}
+@media (hover:hover) and (pointer:fine){ .up-open:hover{background:rgba(212,255,79,.16)} }
 /* стрелки примеров — в строке ниши, а не поверх веера */
 .bz-morph .morph-nav{top:26px}
 .ph img{display:block;width:100%;height:100%;object-fit:cover;object-position:top center}
@@ -1164,7 +1156,6 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
   .wrap{max-width:1160px;padding:0 56px}
   section{padding:84px 0}
   section > .sec-head{max-width:700px}
-  .sec-icon{display:none}
   .hud-nav{gap:6px}
   .hud-link{padding:10px 16px}
 
@@ -1293,7 +1284,7 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
       <span class="w"><i>Ваша</i></span> <span class="w"><i>идея —</i></span>
       <span class="w"><i>в продукт,</i></span> <span class="w"><i>который</i></span> <span class="w"><i><span class="hl"><em>покупают.</em></span></i></span>
     </span>
-    <img class="h-money" src="assets/money.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
+    
   </h1>
   <p class="lead boot d2"><span class="bz-hook">Разработчики просят ТЗ. <span class="lime">Я прошу рассказать.</span></span>Идею, которую вы годами носите в голове, я упакую так же, как 10+ лет упаковывал мобильные игры с 700M+ установок: <b>с петлёй возврата, геймификацией и понятными деньгами.</b></p>
 
@@ -1313,27 +1304,55 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
       <div class="morph-stage glass" id="morph">
         <div class="morph-topbar"><span class="morph-label" id="exLabel">Салон красоты</span></div>
 
-        <div class="ex" data-label="Салон красоты" data-res="ANZH Beauty — запись, паспорт кожи и клуб лояльности" data-n="8" data-fan="assets/cases/anzhtma-1.jpg,assets/cases/anzhtma-7.jpg">
+        <div class="ex" data-label="Салон красоты" data-res="ANZH Beauty — запись, паспорт кожи и клуб лояльности" data-url="https://beauty-tma-prototype.vercel.app" data-n="8" data-fan="assets/cases/anzhtma-1.jpg,assets/cases/anzhtma-7.jpg">
           <div class="up-note"><div class="nt-h">Идея приложения</div><ul><li tabindex="0" role="button" data-scr="assets/cases/anzhtma-4.jpg">запись без звонков</li><li tabindex="0" role="button" data-scr="assets/cases/anzhtma-6.jpg">баллы за визиты</li><li tabindex="0" role="button" data-scr="assets/cases/anzhtma-5.jpg">чтобы приводили подруг</li></ul></div>
           <div class="up-phone"><div class="up-fan"></div><div class="up-ph"><div class="up-empty"><i></i><i></i><i></i><i></i><i></i></div></div></div>
         </div>
-        <div class="ex" data-label="Клиника" data-res="Butyfly — прайс, запись к врачу и кабинет клиники в одном месте" data-n="8" data-fan="assets/cases/butyfly-1.webp,assets/cases/butyfly-3.webp">
-          <div class="up-note"><div class="nt-h">Идея приложения</div><ul><li tabindex="0" role="button" data-scr="assets/cases/butyfly-4.webp">прайс и запись к врачу</li><li tabindex="0" role="button" data-scr="assets/cases/butyfly-6.webp">результаты до и после</li><li tabindex="0" role="button" data-scr="assets/cases/butyfly-7.webp">без звонков в регистратуру</li></ul></div>
+        <div class="ex" data-label="Лояльность ресторана" data-res="Dine — баллы за визиты, лиги гостей от бронзы до золота и награды" data-url="https://dine-gilt-omega.vercel.app" data-n="24" data-fan="assets/cases/dine-s3.jpg,assets/cases/dine-s10.jpg">
+          <div class="up-note"><div class="nt-h">Идея приложения</div><ul><li tabindex="0" role="button" data-scr="assets/cases/dine-s8.jpg">баллы за каждый визит</li><li tabindex="0" role="button" data-scr="assets/cases/dine-s9.jpg">свой QR вместо пластиковой карты</li><li tabindex="0" role="button" data-scr="assets/cases/dine-s11.jpg">гость копит на награду</li></ul></div>
           <div class="up-phone"><div class="up-fan"></div><div class="up-ph"><div class="up-empty"><i></i><i></i><i></i><i></i><i></i></div></div></div>
         </div>
-        <div class="ex" data-label="Ресторан" data-res="EPOCH — меню, бронь и бонусы; зал и кухня видят один заказ" data-n="8" data-fan="assets/cases/epoch-1.webp,assets/cases/epoch-4.webp">
+        <div class="ex" data-label="Выставка" data-res="AGRO FOOD Batumi — бейдж с QR, 3D-схема зала и ИИ-подбор встреч" data-url="https://afb-batumi.vercel.app" data-n="10" data-fan="assets/cases/agro-1.webp,assets/cases/agro-6.webp">
+          <div class="up-note"><div class="nt-h">Идея приложения</div><ul><li tabindex="0" role="button" data-scr="assets/cases/agro-3.webp">бейдж с QR вместо бумажного</li><li tabindex="0" role="button" data-scr="assets/cases/agro-4.webp">3D-схема зала со стендами</li><li tabindex="0" role="button" data-scr="assets/cases/agro-5.webp">ИИ подберёт нужные встречи</li></ul></div>
+          <div class="up-phone"><div class="up-fan"></div><div class="up-ph"><div class="up-empty"><i></i><i></i><i></i><i></i><i></i></div></div></div>
+        </div>
+        <div class="ex" data-label="Ресторан" data-res="EPOCH — меню, бронь и бонусы; зал и кухня видят один заказ" data-url="https://epoch-client-lovat.vercel.app" data-n="8" data-fan="assets/cases/epoch-1.webp,assets/cases/epoch-4.webp">
           <div class="up-note"><div class="nt-h">Идея приложения</div><ul><li tabindex="0" role="button" data-scr="assets/cases/epoch-2.webp">меню с фото и бронь стола</li><li tabindex="0" role="button" data-scr="assets/cases/epoch-3.webp">бонусы постоянным гостям</li><li tabindex="0" role="button" data-scr="assets/cases/epoch-8.webp">кухня сразу видит заказ</li></ul></div>
           <div class="up-phone"><div class="up-fan"></div><div class="up-ph"><div class="up-empty"><i></i><i></i><i></i><i></i><i></i></div></div></div>
         </div>
-        <div class="ex" data-label="Мебель и производство" data-res="Furniturum — клиент видит свою кухню до замера" data-n="8" data-fan="assets/cases/furniturum-1.webp,assets/cases/furniturum-5.webp">
+        <div class="ex" data-label="Стройматериалы" data-res="Korob-ka — калькуляторы кладки, смета за секунды и ИИ-прораб" data-url="https://korob-ka.vercel.app" data-n="8" data-fan="assets/cases/korobka-s1.jpg,assets/cases/korobka-s7.jpg">
+          <div class="up-note"><div class="nt-h">Идея приложения</div><ul><li tabindex="0" role="button" data-scr="assets/cases/korobka-s2.jpg">посчитать блоки на стену</li><li tabindex="0" role="button" data-scr="assets/cases/korobka-s4.jpg">смета за секунды</li><li tabindex="0" role="button" data-scr="assets/cases/korobka-s3.jpg">прораб ответит в любое время</li></ul></div>
+          <div class="up-phone"><div class="up-fan"></div><div class="up-ph"><div class="up-empty"><i></i><i></i><i></i><i></i><i></i></div></div></div>
+        </div>
+        <div class="ex" data-label="Загородный отель" data-res="Hotelito — номера, бани, визы гостей и панель хозяина" data-url="https://hotelito-r4w8.vercel.app" data-n="8" data-fan="assets/cases/hotelito-1.webp,assets/cases/hotelito-6.webp">
+          <div class="up-note"><div class="nt-h">Идея приложения</div><ul><li tabindex="0" role="button" data-scr="assets/cases/hotelito-3.webp">показать номера так, чтобы захотелось</li><li tabindex="0" role="button" data-scr="assets/cases/hotelito-5.webp">бани и чаны с бронью</li><li tabindex="0" role="button" data-scr="assets/cases/hotelito-8.webp">помочь гостю с визой</li></ul></div>
+          <div class="up-phone"><div class="up-fan"></div><div class="up-ph"><div class="up-empty"><i></i><i></i><i></i><i></i><i></i></div></div></div>
+        </div>
+        <div class="ex" data-label="Мебель и производство" data-res="Furniturum — клиент видит свою кухню до замера" data-url="https://furniturum-m5t1.vercel.app" data-n="8" data-fan="assets/cases/furniturum-1.webp,assets/cases/furniturum-5.webp">
           <div class="up-note"><div class="nt-h">Идея приложения</div><ul><li tabindex="0" role="button" data-scr="assets/cases/furniturum-4.webp">клиент собирает кухню сам</li><li tabindex="0" role="button" data-scr="assets/cases/furniturum-2.webp">видит её у себя дома</li><li tabindex="0" role="button" data-scr="assets/cases/furniturum-8.webp">заявка сразу в цех</li></ul></div>
           <div class="up-phone"><div class="up-fan"></div><div class="up-ph"><div class="up-empty"><i></i><i></i><i></i><i></i><i></i></div></div></div>
         </div>
-        <div class="ex" data-label="Туризм" data-res="Paratravel Club — подбор тура за четыре вопроса вместо переписки" data-n="8" data-fan="assets/cases/paratravel-1.webp,assets/cases/paratravel-7.webp">
+        <div class="ex" data-label="Аренда авто" data-res="Batumi Neon — неоновая витрина, перки Street King и бронь с таймером" data-url="https://batumi-neon-v2.vercel.app" data-n="4" data-fan="assets/cases/neon-s1.jpg">
+          <div class="up-note"><div class="nt-h">Идея приложения</div><ul><li tabindex="0" role="button" data-scr="assets/cases/neon-s2.jpg">витрина машин как обложка журнала</li><li tabindex="0" role="button" data-scr="assets/cases/neon-s3.jpg">статус и перки постоянным</li><li tabindex="0" role="button" data-scr="assets/cases/neon-s4.jpg">бронь с таймером</li></ul></div>
+          <div class="up-phone"><div class="up-fan"></div><div class="up-ph"><div class="up-empty"><i></i><i></i><i></i><i></i><i></i></div></div></div>
+        </div>
+        <div class="ex" data-label="Жилой дом" data-res="AL MARE — взносы, заявки, чат дома и ИИ-консьерж для 217 соседей" data-url="https://almare-batumi.vercel.app" data-n="6" data-fan="assets/cases/almare-1.webp,assets/cases/almare-4.webp">
+          <div class="up-note"><div class="nt-h">Идея приложения</div><ul><li tabindex="0" role="button" data-scr="assets/cases/almare-2.webp">взносы в один тап</li><li tabindex="0" role="button" data-scr="assets/cases/almare-3.webp">ИИ-консьерж для жильцов</li><li tabindex="0" role="button" data-scr="assets/cases/almare-5.webp">соседи помогают друг другу</li></ul></div>
+          <div class="up-phone"><div class="up-fan"></div><div class="up-ph"><div class="up-empty"><i></i><i></i><i></i><i></i><i></i></div></div></div>
+        </div>
+        <div class="ex" data-label="Клиника" data-res="Butyfly — прайс, запись к врачу и кабинет клиники в одном месте" data-url="https://butyfly-v9k3.vercel.app" data-n="8" data-fan="assets/cases/butyfly-1.webp,assets/cases/butyfly-3.webp">
+          <div class="up-note"><div class="nt-h">Идея приложения</div><ul><li tabindex="0" role="button" data-scr="assets/cases/butyfly-4.webp">прайс и запись к врачу</li><li tabindex="0" role="button" data-scr="assets/cases/butyfly-6.webp">результаты до и после</li><li tabindex="0" role="button" data-scr="assets/cases/butyfly-7.webp">без звонков в регистратуру</li></ul></div>
+          <div class="up-phone"><div class="up-fan"></div><div class="up-ph"><div class="up-empty"><i></i><i></i><i></i><i></i><i></i></div></div></div>
+        </div>
+        <div class="ex" data-label="Визитка бизнеса" data-res="LinkOS — визитка по анкете за несколько минут, без дизайнера" data-url="https://linkos-ten.vercel.app" data-n="8" data-fan="assets/cases/linkos-1.webp,assets/cases/linkos-3.webp">
+          <div class="up-note"><div class="nt-h">Идея приложения</div><ul><li tabindex="0" role="button" data-scr="assets/cases/linkos-5.webp">визитка за пять минут</li><li tabindex="0" role="button" data-scr="assets/cases/linkos-7.webp">показать только нужное</li><li tabindex="0" role="button" data-scr="assets/cases/linkos-2.webp">заказ в WhatsApp в один тап</li></ul></div>
+          <div class="up-phone"><div class="up-fan"></div><div class="up-ph"><div class="up-empty"><i></i><i></i><i></i><i></i><i></i></div></div></div>
+        </div>
+        <div class="ex" data-label="Туризм" data-res="Paratravel Club — подбор тура за четыре вопроса вместо переписки" data-url="https://paratravel-club.vercel.app" data-n="8" data-fan="assets/cases/paratravel-1.webp,assets/cases/paratravel-7.webp">
           <div class="up-note"><div class="nt-h">Идея приложения</div><ul><li tabindex="0" role="button" data-scr="assets/cases/paratravel-3.webp">подобрать тур за минуту</li><li tabindex="0" role="button" data-scr="assets/cases/paratravel-2.webp">горящие направления</li><li tabindex="0" role="button" data-scr="assets/cases/paratravel-4.webp">кэшбэк за поездки</li></ul></div>
           <div class="up-phone"><div class="up-fan"></div><div class="up-ph"><div class="up-empty"><i></i><i></i><i></i><i></i><i></i></div></div></div>
         </div>
-        <div class="ex" data-label="Детский центр" data-res="BabyLand — праздник за три минуты, смета считается на лету" data-n="7" data-fan="assets/cases/babyland-1.webp,assets/cases/babyland-6.webp">
+        <div class="ex" data-label="Детский центр" data-res="BabyLand — праздник за три минуты, смета считается на лету" data-url="https://babyland-c3x7.vercel.app" data-n="7" data-fan="assets/cases/babyland-1.webp,assets/cases/babyland-6.webp">
           <div class="up-note"><div class="nt-h">Идея приложения</div><ul><li tabindex="0" role="button" data-scr="assets/cases/babyland-2.webp">праздник под ключ онлайн</li><li tabindex="0" role="button" data-scr="assets/cases/babyland-4.webp">родитель сам выбирает героев</li><li tabindex="0" role="button" data-scr="assets/cases/babyland-7.webp">смета считается сразу</li></ul></div>
           <div class="up-phone"><div class="up-fan"></div><div class="up-ph"><div class="up-empty"><i></i><i></i><i></i><i></i><i></i></div></div></div>
         </div>
@@ -1345,6 +1364,7 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
     </div>
     <div class="morph-dots" id="exDots"></div>
     <p class="lens-cap bz-res"><span class="car" aria-hidden="true">❯</span> <span id="exRes">ANZH Beauty — запись, паспорт кожи и клуб лояльности</span></p>
+    <a class="up-open" id="exOpen" href="https://beauty-tma-prototype.vercel.app" target="_blank" rel="noopener"><span>Запустить прототип</span><i aria-hidden="true">↗</i></a>
   </div>
 
 </section>
@@ -1361,7 +1381,7 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
 <section id="how">
   <div class="sec-head reveal">
     <div class="eyebrow">Как это происходит</div>
-    <h2>Вы рассказываете. <span class="grad">Я возвращаю идею живой.</span><img class="sec-icon" src="assets/star.webp" alt="" aria-hidden="true" loading="lazy" decoding="async"></h2>
+    <h2>Вы рассказываете. <span class="grad">Я возвращаю идею живой.</span></h2>
     <p class="lead">Не ТЗ, не бриф на двадцать страниц и не «пришлите референсы». Три акта — от идеи в голове до экрана в телефоне.</p>
   </div>
   <div class="acts">
@@ -1401,7 +1421,7 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
 <section id="time">
   <div class="sec-head reveal">
     <div class="eyebrow">Сколько ждать</div>
-    <h2>Двигайте время — <span class="grad">смотрите, что получите</span><img class="sec-icon" src="assets/ai-think.webp" alt="" aria-hidden="true" loading="lazy" decoding="async"></h2>
+    <h2>Двигайте время — <span class="grad">смотрите, что получите</span></h2>
   </div>
   <div class="tl glass reveal" id="tl">
     <div class="tl-idea">
@@ -1450,7 +1470,7 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
 <section id="who">
   <div class="sec-head reveal">
     <div class="eyebrow">Кому подходит</div>
-    <h2>Бизнесу, которому клиент нужен <span class="grad">не один раз</span><img class="sec-icon" src="assets/bff.webp" alt="" aria-hidden="true" loading="lazy" decoding="async"></h2>
+    <h2>Бизнесу, которому клиент нужен <span class="grad">не один раз</span></h2>
     <p class="lead">Приложение окупается там, где клиент возвращается: за новой записью, поездкой или заказом.</p>
   </div>
   <div class="cards">
@@ -1485,7 +1505,7 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
 <section id="cases">
   <div class="sec-head reveal">
     <div class="eyebrow">Так я упаковываю</div>
-    <h2>Живые продукты <span class="grad">для бизнеса</span><img class="sec-icon" src="assets/loot.webp" alt="" aria-hidden="true" loading="lazy" decoding="async"></h2>
+    <h2>Живые продукты <span class="grad">для бизнеса</span></h2>
     <p class="lead">Не картинки для портфолио — приложения, которые открывают клиенты. Тапните проект: внутри экраны.</p>
   </div>
   <div class="fbar reveal" role="group" aria-label="Фильтр кейсов">
@@ -1502,7 +1522,7 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
 <section id="money">
   <div class="sec-head reveal">
     <div class="eyebrow">Посчитайте сами</div>
-    <h2>Сколько стоит <span class="grad">один лишний визит?</span><img class="sec-icon" src="assets/buff.webp" alt="" aria-hidden="true" loading="lazy" decoding="async"></h2>
+    <h2>Сколько стоит <span class="grad">один лишний визит?</span></h2>
     <p class="lead">Приложение нужно не ради приложения. Оно нужно, чтобы клиент возвращался. Подставьте свои цифры.</p>
   </div>
   <div class="calc glass glass-strong reveal">
@@ -1525,7 +1545,7 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
 <section id="steps">
   <div class="sec-head reveal">
     <div class="eyebrow">Как это работает</div>
-    <h2>Четыре ступени. <span class="grad">Останавливайтесь на любой.</span><img class="sec-icon" src="assets/winner.webp" alt="" aria-hidden="true" loading="lazy" decoding="async"></h2>
+    <h2>Четыре ступени. <span class="grad">Останавливайтесь на любой.</span></h2>
   </div>
   <div class="ladder">
     <div class="rung glass reveal">
@@ -1557,7 +1577,7 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
 <section id="prices" class="bz-prices">
   <div class="sec-head reveal">
     <div class="eyebrow">Цены</div>
-    <h2>Фиксированная цена <span class="grad">и срок</span><img class="sec-icon" src="assets/go.webp" alt="" aria-hidden="true" loading="lazy" decoding="async"></h2>
+    <h2>Фиксированная цена <span class="grad">и срок</span></h2>
   </div>
 
   <div class="price glass reveal offer">
@@ -1629,7 +1649,7 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
 <section id="trust" class="trust">
   <div class="sec-head reveal">
     <div class="eyebrow">Без риска</div>
-    <h2>Идея остаётся <span class="grad">вашей</span><img class="sec-icon" src="assets/bro.webp" alt="" aria-hidden="true" loading="lazy" decoding="async"></h2>
+    <h2>Идея остаётся <span class="grad">вашей</span></h2>
   </div>
   <div class="cards">
     <div class="svc glass reveal">
@@ -1660,7 +1680,7 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
 <section id="faq">
   <div class="sec-head reveal">
     <div class="eyebrow">Частые вопросы</div>
-    <h2>Что спрашивают <span class="grad">перед звонком</span><img class="sec-icon" src="assets/wtf.webp" alt="" aria-hidden="true" loading="lazy" decoding="async"></h2>
+    <h2>Что спрашивают <span class="grad">перед звонком</span></h2>
   </div>
   <div class="faq glass reveal">
     <details class="fq"><summary><span>У меня нет ТЗ и дизайна. Это проблема?</span><i class="ico i-down"></i></summary><p>Нет. Распаковка для этого и нужна: за час разбираем идею, после звонка вы получаете паспорт идеи и следующий шаг.</p></details>
@@ -1884,6 +1904,42 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
     "ROCH 0→1 · распаковка и упаковка идей — Roman Chernyavsky · roch-art.com":"ROCH 0→1 · unpacking and packaging ideas — Roman Chernyavsky · roch-art.com",
 "или запустите сами в LinkOS и BuildOS →":"or launch it yourself in LinkOS and BuildOS →",
 "Экосистема ROCH":"ROCH ecosystem",
+"Лояльность ресторана":"Restaurant loyalty",
+"Выставка":"Trade fair",
+"Стройматериалы":"Building materials",
+"Загородный отель":"Country hotel",
+"Аренда авто":"Car rental",
+"Жилой дом":"Residential building",
+"Визитка бизнеса":"Business card",
+"Dine — баллы за визиты, лиги гостей от бронзы до золота и награды":"Dine — points for visits, guest leagues from bronze to gold, and rewards",
+"AGRO FOOD Batumi — бейдж с QR, 3D-схема зала и ИИ-подбор встреч":"AGRO FOOD Batumi — a QR badge, a 3D hall map and AI-matched meetings",
+"Korob-ka — калькуляторы кладки, смета за секунды и ИИ-прораб":"Korob-ka — masonry calculators, an estimate in seconds and an AI foreman",
+"Hotelito — номера, бани, визы гостей и панель хозяина":"Hotelito — rooms, saunas, guest visas and an owner's panel",
+"Batumi Neon — неоновая витрина, перки Street King и бронь с таймером":"Batumi Neon — a neon showroom, Street King perks and booking with a countdown",
+"AL MARE — взносы, заявки, чат дома и ИИ-консьерж для 217 соседей":"AL MARE — fees, requests, a building chat and an AI concierge for 217 neighbours",
+"LinkOS — визитка по анкете за несколько минут, без дизайнера":"LinkOS — a business card from a short form in minutes, no designer needed",
+"баллы за каждый визит":"points for every visit",
+"свой QR вместо пластиковой карты":"a personal QR instead of a plastic card",
+"гость копит на награду":"guests save up for a reward",
+"бейдж с QR вместо бумажного":"a QR badge instead of a paper one",
+"3D-схема зала со стендами":"a 3D hall map with the stands",
+"ИИ подберёт нужные встречи":"AI finds the right meetings",
+"посчитать блоки на стену":"count the blocks for a wall",
+"смета за секунды":"an estimate in seconds",
+"прораб ответит в любое время":"a foreman who answers any time",
+"показать номера так, чтобы захотелось":"rooms shown so you want to stay",
+"бани и чаны с бронью":"saunas and hot tubs you can book",
+"помочь гостю с визой":"help guests with the visa",
+"витрина машин как обложка журнала":"a car showroom like a magazine cover",
+"статус и перки постоянным":"status and perks for regulars",
+"бронь с таймером":"booking with a countdown",
+"взносы в один тап":"fees in one tap",
+"ИИ-консьерж для жильцов":"an AI concierge for residents",
+"соседи помогают друг другу":"neighbours help each other",
+"визитка за пять минут":"a business card in five minutes",
+"показать только нужное":"show only what matters",
+"заказ в WhatsApp в один тап":"an order via WhatsApp in one tap",
+"Запустить прототип":"Launch the prototype",
 "Готовые эффекты — для тех, кто строит сам":"Ready-made effects for those who build it themselves",
 "Аудит и геймификация продукта, который уже работает":"Audit and gamification for a product that already runs",
 "Разработка под ключ и конструкторы LinkOS, BuildOS":"Turnkey development and the LinkOS, BuildOS builders",
@@ -1996,8 +2052,10 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
     var exLabel = document.getElementById('exLabel');
     var exDots = document.getElementById('exDots');
     var upCount = document.getElementById('upCount');
+    var exOpen = document.getElementById('exOpen');
     var exAutoLast = 0, exVisible = false, upStarted = false, upRun = 0, upTimers = [];
-    var FAN = [-10, -5, 5, 10];
+    /* углы веера по числу карт: у кейса с четырьмя экранами веер из трёх — крайние симметрично */
+    var FANS = { 4: [-10, -5, 5, 10], 3: [-10, 0, 10], 2: [-10, 10], 1: [-10] };
     var exTouchMark = function(){ exAutoLast = Date.now(); };
     var later = function(ms, fn){ var id = setTimeout(fn, ms); upTimers.push(id); return id; };
     var stopAll = function(){ upRun++; upTimers.forEach(clearTimeout); upTimers = []; };
@@ -2050,14 +2108,20 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
       preload(ex);
       var lis = Array.prototype.slice.call(ex.querySelectorAll('.up-note li'));
       var fanSrc = (ex.getAttribute('data-fan') || '').split(',');
-      var order = [lis[0].getAttribute('data-scr'), fanSrc[0], lis[1].getAttribute('data-scr'), fanSrc[1]];
+      var order = [lis[0].getAttribute('data-scr'), fanSrc[0], lis[1].getAttribute('data-scr'), fanSrc[1]].filter(function(x){ return !!x; });
       var fanBox = ex.querySelector('.up-fan');
       var up = { ex: ex, lis: lis, ph: ex.querySelector('.up-ph'), layers: [], fanOpen: false,
-                 n: parseInt(ex.getAttribute('data-n'), 10) || 8, cards: [] };
+                 n: parseInt(ex.getAttribute('data-n'), 10) || 8, cards: [], url: ex.getAttribute('data-url') || '',
+                 ang: FANS[order.length] || FANS[4] };
       order.forEach(function(src){
         var c = document.createElement('div'); c.className = 'up-card';
         var im = document.createElement('img'); im.alt = ''; im.decoding = 'async'; im.src = src;
         c.appendChild(im); fanBox.appendChild(c); up.cards.push(c);
+      });
+      up.ph.addEventListener('click', function(){
+        if(!up.url) return;
+        track('project_view', 'proto:' + ex.getAttribute('data-label'));
+        window.open(up.url, '_blank', 'noopener');
       });
       lis.forEach(function(li, i){
         var go = function(){ userUnpack(up, i); };
@@ -2138,7 +2202,7 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
     var finale = function(up, instant){
       up.fanOpen = true; up.ex.classList.add('up-fanned');
       up.cards.forEach(function(c, i){
-        var A = FAN[i];
+        var A = up.ang[i];
         c.style.visibility = 'visible';
         if(instant || reduced){ c.style.transform = 'translateX(-50%) rotate(' + A + 'deg) scale(.94)'; return; }
         later(i * 70, function(){
@@ -2192,9 +2256,11 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
       if(exRes) exRes.textContent = t(exListEls[exIdx].getAttribute('data-res'));
       var up = prep(exListEls[exIdx]);
       preload(exListEls[(exIdx + 1) % exListEls.length]);
+      if(exOpen){ exOpen.href = up.url || '#'; exOpen.style.display = up.url ? '' : 'none'; }
       if(changed && upStarted) play();
       else if(up.fanOpen) counter(up, true);
     };
+    if(exOpen) exOpen.addEventListener('click', function(){ exTouchMark(); track('project_view', 'proto:' + exListEls[exIdx].getAttribute('data-label')); });
     document.getElementById('exPrev').addEventListener('click', function(e){ e.stopPropagation(); exTouchMark(); goEx(exIdx - 1); });
     document.getElementById('exNext').addEventListener('click', function(e){ e.stopPropagation(); exTouchMark(); goEx(exIdx + 1); });
     var startUp = function(){ if(upStarted) return; upStarted = true; play(); };
