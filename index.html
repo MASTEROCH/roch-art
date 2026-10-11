@@ -1290,6 +1290,67 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
 /* tactile-button (product.js): главная кнопка проседает как клавиша */
 .btn.tk{transition:none}
 @media (min-width:1024px){ .ld-rail,.ld-car{display:none} }
+/* «Это ROCH Motion»: лента живых механик по 20, последняя карточка — «Показать ещё», и так до всех 300 */
+.ms{padding:44px 0 6px}
+.ms-row{display:flex;align-items:flex-start;gap:10px;overflow-x:auto;scroll-snap-type:x proximity;scroll-padding:0 20px;padding:16px 20px 8px;margin:0 -20px;scrollbar-width:none;cursor:grab}
+.ms-row::-webkit-scrollbar{display:none}
+.ms-row.drag{cursor:grabbing;scroll-snap-type:none}
+.ms-tile,.ms-more{flex:0 0 128px;scroll-snap-align:start}
+.ms-tile{min-width:0;text-decoration:none;color:var(--text)}
+.ms-v{position:relative;aspect-ratio:4/5;border-radius:18px;overflow:hidden;background:#0B110D;border:1px solid rgba(255,255,255,.1)}
+.ms-v video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.ms-tile b{display:block;margin-top:8px;font-size:13px;font-weight:700;line-height:1.25;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ms-t{display:block;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:11px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--text3)}
+.ms-t.t-L{color:#FFC94D}.ms-t.t-E{color:#B79BFF}.ms-t.t-R{color:var(--lime)}.ms-t.t-here{color:#7BE0A8;text-transform:none;letter-spacing:0}
+.ms-tile:active .ms-v{transform:scale(.97)}
+.ms-more{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;aspect-ratio:4/5;align-self:flex-start;
+  border-radius:18px;border:1.5px dashed rgba(212,255,79,.4);background:rgba(212,255,79,.05);color:var(--lime);cursor:pointer;font-family:inherit;padding:10px}
+.ms-more i{display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:var(--lime);color:#0B1409;font-style:normal;font-size:24px;font-weight:800;line-height:1}
+.ms-more b{font-size:13px;font-weight:800}
+.ms-more span{font-size:11px;font-weight:600;color:var(--text3);text-align:center}
+.ms-more:active{transform:scale(.96)}
+.ms-go{margin-top:14px}
+/* превью механики: лист в семье .modal — большая живая петля, стрелки и свайп к соседним, покупка в Telegram */
+.ms-sheet{max-width:440px}
+/* крестик — над живой петлёй, а не под ней */
+.ms-sheet .m-close{z-index:6}
+.ms-stage{position:relative;width:min(100%,calc(min(56vh,520px) * .8));aspect-ratio:4/5;margin:0 auto 14px;border-radius:22px;overflow:hidden;
+  background:#0B110D;border:1px solid rgba(255,255,255,.1);touch-action:pan-y}
+.ms-stage video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.ms-nav{position:absolute;top:50%;width:38px;height:38px;margin-top:-19px;border-radius:50%;display:grid;place-items:center;cursor:pointer;
+  border:1px solid rgba(255,255,255,.2);background:rgba(10,14,12,.62)}
+.ms-nav.prev{left:10px}.ms-nav.next{right:10px}
+.ms-nav .ico{width:16px;height:16px;color:var(--lime)}
+.ms-nav::after{content:'';position:absolute;inset:-5px}
+.ms-info h3{font-size:21px;letter-spacing:-.02em;margin-top:2px}
+.ms-info p{font-size:14px;font-weight:500;color:var(--text2);margin:6px 0 16px}
+.ms-tg{margin-top:8px;text-align:center;font-size:12px;font-weight:600;color:var(--text3)}
+.ms-tile{cursor:pointer}
+/* солнечная система ROCH (integration-orbit, переосмыслено): солнце — ROCH, планеты — продукты, без ссылок и пилюль */
+.eco-orbit{position:relative;height:300px;max-width:640px;margin:6px auto 20px;touch-action:pan-y}
+.eo-in{position:absolute;inset:0}
+.eo-svg{position:absolute;left:0;top:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+.eo-orb{fill:none;stroke-width:1}
+.eo-star{fill:#fff}
+.eo-star.tw{animation:eoTw 4.2s ease-in-out infinite}
+@keyframes eoTw{0%,100%{opacity:.15}50%{opacity:.75}}
+.eo-sun{position:absolute;left:50%;top:50%;z-index:2;width:64px;height:64px;margin:-32px 0 0 -32px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;text-align:center;font-size:13px;font-weight:900;line-height:1.02;letter-spacing:-.01em;color:#0B1409;
+  background:radial-gradient(circle at 42% 38%,#FFFFF2 0%,#F1FFC0 22%,#D4FF4F 52%,#8DC424 100%);
+  box-shadow:0 0 22px rgba(212,255,79,.65),0 0 60px rgba(212,255,79,.35)}
+.eo-sun span{position:relative;z-index:1}
+.eo-sun::before{content:'';position:absolute;left:50%;top:50%;width:330%;height:330%;margin:-165% 0 0 -165%;border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle,rgba(212,255,79,.24) 0%,rgba(212,255,79,.08) 32%,transparent 66%);animation:eoCorona 7s ease-in-out infinite alternate}
+@keyframes eoCorona{from{transform:scale(.94);opacity:.85}to{transform:scale(1.06);opacity:1}}
+.eo-p{position:absolute;left:0;top:0;width:0;height:0;pointer-events:none}
+.eo-p i{position:absolute;left:0;top:0;width:var(--s);height:var(--s);margin:calc(var(--s) / -2) 0 0 calc(var(--s) / -2);border-radius:50%;
+  background:radial-gradient(circle at var(--lx,35%) var(--ly,35%),var(--c0) 0%,var(--c1) 30%,var(--c2) 78%,#03050A 100%);
+  box-shadow:0 0 calc(var(--s) * .8) var(--g)}
+.eo-p b{position:absolute;left:0;top:calc(var(--s) / 2 + 7px);transform:translateX(-50%);white-space:nowrap;
+  font-size:11.5px;font-weight:600;letter-spacing:.01em;color:var(--text2)}
+@media (prefers-reduced-motion:reduce){ .eo-sun::before,.eo-star.tw{animation:none} }
+@media (min-width:1024px){ .eco-orbit{height:400px} .eo-sun{width:84px;height:84px;margin:-42px 0 0 -42px;font-size:16px} .eo-p b{font-size:12.5px} }
+@media (min-width:1024px){ .ms-tile,.ms-more{flex:0 0 150px} .ms-row{margin:0;padding:16px 2px 8px;scroll-padding:0} }
 /* logo-marquee (landing.js): студии лентой — схватить и бросить; вертикальный свайп по-прежнему листает страницу */
 .lm{position:relative;overflow:hidden;margin-top:2px;touch-action:pan-y;cursor:grab;user-select:none;-webkit-user-select:none;
   -webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
@@ -1311,37 +1372,12 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
 .vs-yes{display:flex;gap:7px;align-items:flex-start;font-size:14px;font-weight:700;color:var(--text)}
 .vs-yes svg{flex:0 0 16px;width:16px;height:16px;margin-top:2px}
 .vs-yes svg path{fill:none;stroke:var(--lime);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:20;stroke-dashoffset:var(--tk,0)}
-/* «Это ROCH Motion»: живые превью механик этой страницы; петли играют, только пока полоса на экране */
-.ms{padding:30px 0 6px}
-.ms-h p{font-size:17px;font-weight:800;letter-spacing:-.02em;line-height:1.3;color:var(--text)}
-.ms-h small{display:block;margin-top:4px;font-size:13px;font-weight:500;letter-spacing:0;color:var(--text3)}
-.ms-row{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding:0 20px;padding:14px 20px 6px;margin:0 -20px;scrollbar-width:none}
-.ms-row::-webkit-scrollbar{display:none}
-.ms-tile{flex:0 0 128px;scroll-snap-align:start;text-decoration:none;color:var(--text)}
-.ms-v{position:relative;aspect-ratio:4/5;border-radius:18px;overflow:hidden;background:#0B110D;border:1px solid rgba(255,255,255,.1)}
-.ms-v video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
-.ms-tile b{display:block;margin-top:8px;font-size:13px;font-weight:700}
-.ms-tile span{display:block;margin-top:1px;font-size:11px;font-weight:600;color:var(--text3)}
-.ms-go{margin-top:12px}
-.ms-tile:active .ms-v{transform:scale(.97)}
-/* integration-orbit (landing.js): экосистема — ROCH в центре, продукты на двух орбитах; касание тормозит вращение */
-.eco-orbit{position:relative;height:210px;max-width:560px;margin:2px auto 16px;touch-action:pan-y}
-.eco-orbit-ring{position:absolute;left:50%;top:50%;border:1px solid rgba(212,255,79,.16);border-radius:50%;transform:translate(-50%,-50%);pointer-events:none}
-.eco-orbit-core{position:absolute;left:50%;top:50%;z-index:2;width:68px;height:68px;margin:-34px 0 0 -34px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;text-align:center;font-size:14px;font-weight:900;line-height:1.05;color:#0B1409;
-  background:radial-gradient(circle at 35% 30%,#F2FFC4,var(--lime) 55%,#9BD62F);box-shadow:0 0 0 8px rgba(212,255,79,.08),0 0 40px rgba(212,255,79,.45)}
-.eco-orbit-s{position:absolute;left:0;top:0;white-space:nowrap;padding:7px 12px;border-radius:99px;font-size:13px;font-weight:800;line-height:1;
-  color:var(--text);text-decoration:none;background:rgba(16,24,18,.94);border:1px solid rgba(212,255,79,.3)}
 @media (min-width:1024px){
   #vs{max-width:880px;margin-left:auto;margin-right:auto}
   .vs{padding:20px 28px 8px}
   .vs-hd,.vs-row{grid-template-columns:190px 1fr 1fr;align-items:center}
   .vs-hd span:first-child{display:block}
   .vs-row b{grid-column:auto}
-  .ms-row{margin:0;padding:14px 2px 6px}
-  .ms-tile{flex:1 1 0}
-  .eco-orbit{height:290px}
-  .eco-orbit-core{width:86px;height:86px;margin:-43px 0 0 -43px;font-size:15px}
 }
 </style>
 </head>
@@ -1796,24 +1832,21 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
 </section>
 <!-- ============ «ЭТО ROCH MOTION»: превью механик этой страницы ============ -->
 <section class="ms" id="motion-strip">
-  <div class="ms-h"><p>Всё движение на этой странице — <span class="grad">ROCH Motion</span><small>300 готовых механик для приложений и сайтов</small></p></div>
-  <div class="ms-row">
-    <a class="ms-tile" href="/motion/#aurora"><div class="ms-v"><video muted playsinline loop preload="none" poster="/motion/thumbs/aurora.webp" data-src="/motion/thumbs/loop/aurora.mp4" aria-hidden="true"></video></div><b>Сияние</b><span>фон героя</span></a>
-    <a class="ms-tile" href="/motion/#word-spring"><div class="ms-v"><video muted playsinline loop preload="none" poster="/motion/thumbs/word-spring.webp" data-src="/motion/thumbs/loop/word-spring.mp4" aria-hidden="true"></video></div><b>Слова пружиной</b><span>заголовки</span></a>
-    <a class="ms-tile" href="/motion/#stats-band"><div class="ms-v"><video muted playsinline loop preload="none" poster="/motion/thumbs/stats-band.webp" data-src="/motion/thumbs/loop/stats-band.mp4" aria-hidden="true"></video></div><b>Табло</b><span>цифры</span></a>
-    <a class="ms-tile" href="/motion/#beam-flow"><div class="ms-v"><video muted playsinline loop preload="none" poster="/motion/thumbs/beam-flow.webp" data-src="/motion/thumbs/loop/beam-flow.mp4" aria-hidden="true"></video></div><b>Путь света</b><span>три акта</span></a>
-    <a class="ms-tile" href="/motion/#border-beam"><div class="ms-v"><video muted playsinline loop preload="none" poster="/motion/thumbs/border-beam.webp" data-src="/motion/thumbs/loop/border-beam.mp4" aria-hidden="true"></video></div><b>Луч по рамке</b><span>тарифы</span></a>
-    <a class="ms-tile" href="/motion/#stamp-words"><div class="ms-v"><video muted playsinline loop preload="none" poster="/motion/thumbs/stamp-words.webp" data-src="/motion/thumbs/loop/stamp-words.mp4" aria-hidden="true"></video></div><b>Печати</b><span>гарантии</span></a>
+  <div class="sec-head reveal">
+    <div class="eyebrow">ROCH Motion</div>
+    <h2>Всё, что здесь движется, — <span class="grad">готовые механики</span></h2>
+    <p class="lead">300 механик для приложений и сайтов. Листайте — каждая живая. Нажмите — откроется в витрине.</p>
   </div>
-  <a class="btn sec ms-go" href="/motion/">Открыть ROCH Motion · 300 механик</a>
+  <div class="ms-row" id="msRow"></div>
+  <a class="btn sec ms-go" id="msAll" href="#" target="_blank" rel="noopener">Все 300 механик — в Telegram</a>
 </section>
 </main>
 
 <footer>
   <p class="eco-h">Экосистема ROCH</p>
-  <div class="eco-orbit" aria-hidden="true"><i class="eco-orbit-ring"></i><i class="eco-orbit-ring"></i><div class="eco-orbit-core">ROCH<br>0→1</div><a class="eco-orbit-s" data-r="0" href="/motion/" tabindex="-1">Motion</a><a class="eco-orbit-s" data-r="0" href="https://roch-audit.com" tabindex="-1" target="_blank" rel="noopener">Audit</a><a class="eco-orbit-s" data-r="0" href="https://t.me/roch_ai_bot" tabindex="-1" target="_blank" rel="noopener">AI</a><a class="eco-orbit-s" data-r="1" href="https://apphub.studio" tabindex="-1" target="_blank" rel="noopener">AppHub</a><a class="eco-orbit-s" data-r="1" href="https://linkos-ten.vercel.app" tabindex="-1" target="_blank" rel="noopener">LinkOS</a><a class="eco-orbit-s" data-r="1" href="https://apphub.studio" tabindex="-1" target="_blank" rel="noopener">BuildOS</a></div>
+  <div class="eco-orbit" aria-hidden="true"><div class="eo-in"><svg class="eo-svg"></svg><div class="eo-sun"><span>ROCH<br>0→1</span></div><span class="eo-p" data-o="0" style="--s:13px;--c0:#F6FFD2;--c1:#D4FF4F;--c2:#55701A;--g:rgba(212,255,79,.4)"><i></i><b>Motion</b></span><span class="eo-p" data-o="1" style="--s:9px;--c0:#FFFFFF;--c1:#B8F5DA;--c2:#2C6E55;--g:rgba(184,245,218,.35)"><i></i><b>AI</b></span><span class="eo-p" data-o="2" style="--s:12px;--c0:#FFFBE0;--c1:#E8F87A;--c2:#6C7417;--g:rgba(232,248,122,.35)"><i></i><b>Audit</b></span><span class="eo-p" data-o="3" style="--s:12px;--c0:#E6FFFB;--c1:#00E0C7;--c2:#0A5048;--g:rgba(0,224,199,.35)"><i></i><b>LinkOS</b></span><span class="eo-p" data-o="4" style="--s:17px;--c0:#F1EAFF;--c1:#8B55FF;--c2:#2A0F66;--g:rgba(139,85,255,.45)"><i></i><b>AppHub</b></span></div></div>
   <nav class="eco" aria-label="Экосистема ROCH">
-    <a class="eco-card glass" id="ecoMotion" href="/motion/"><b>ROCH Motion</b><span>Готовые эффекты — для тех, кто строит сам</span></a>
+    <a class="eco-card glass" id="ecoMotion" href="#" target="_blank" rel="noopener"><b>ROCH Motion</b><span>Готовые эффекты — для тех, кто строит сам</span></a>
     <a class="eco-card glass" id="ecoAudit" href="https://roch-audit.com" target="_blank" rel="noopener"><b>ROCH Audit</b><span>Аудит и геймификация продукта, который уже работает</span></a>
     <a class="eco-card glass" id="ecoAppHub" href="https://apphub.studio" target="_blank" rel="noopener"><b>AppHub</b><span>Разработка под ключ и конструкторы LinkOS, BuildOS</span></a>
   </nav>
@@ -1842,6 +1875,21 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
       <a class="btn sec" id="pjOpen" href="#" target="_blank" rel="noopener" style="display:none">Открыть продукт</a>
       <a class="btn" id="pjTg" href="#" target="_blank" rel="noopener">Хочу так же</a>
     </div>
+  </div>
+</div>
+
+<!-- ============ ПРЕВЬЮ МЕХАНИКИ ROCH MOTION: живая петля прямо на сайте, покупка — в Telegram ============ -->
+<div class="modal-back" id="msBack">
+  <div class="modal ms-sheet" role="dialog" aria-modal="true" aria-label="Механика ROCH Motion">
+    <button class="m-close" id="msClose" type="button" aria-label="Закрыть"><i class="ico i-x"></i></button>
+    <div class="grab"></div>
+    <div class="ms-stage" id="msStage"><video id="msVid" muted playsinline loop aria-hidden="true"></video>
+      <button class="ms-nav prev" id="msPrev" type="button" aria-label="Предыдущая"><i class="ico i-prev"></i></button>
+      <button class="ms-nav next" id="msNext" type="button" aria-label="Следующая"><i class="ico i-next"></i></button>
+    </div>
+    <div class="ms-info"><span class="ms-t" id="msTier"></span><h3 id="msName" data-noi18n></h3><p>Живая механика ROCH Motion: код на ES5 и CSS без зависимостей — встраивается в приложение или сайт.</p></div>
+    <a class="btn offer-cta" id="msBuy" href="#" target="_blank" rel="noopener"><i class="ico i-tg"></i><span class="oc-txt">Купить в ROCH Motion</span></a>
+    <p class="ms-tg">Откроется в Telegram</p>
   </div>
 </div>
 
@@ -2011,6 +2059,14 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
     "ROCH 0→1 · распаковка и упаковка идей — Roman Chernyavsky · roch-art.com":"ROCH 0→1 · unpacking and packaging ideas — Roman Chernyavsky · roch-art.com",
 "или запустите сами в LinkOS и BuildOS →":"or launch it yourself in LinkOS and BuildOS →",
 "Экосистема ROCH":"ROCH ecosystem",
+"Живая механика ROCH Motion: код на ES5 и CSS без зависимостей — встраивается в приложение или сайт.":"A live ROCH Motion mechanic: ES5 and CSS code with no dependencies — drops into an app or a site.",
+"Купить в ROCH Motion":"Buy in ROCH Motion",
+"Откроется в Telegram":"Opens in Telegram",
+"Все 300 механик — в Telegram":"All 300 mechanics — in Telegram",
+"Всё, что здесь движется, —":"Everything that moves here is",
+"готовые механики":"ready-made mechanics",
+"300 механик для приложений и сайтов. Листайте — каждая живая. Нажмите — откроется в витрине.":"300 mechanics for apps and sites. Scroll — each one is live. Tap — it opens in the showcase.",
+"Открыть всю витрину · 300 механик":"Open the full showcase · 300 mechanics",
 "Чем отличается":"How it's different",
 "Обычно — ТЗ и недели.":"Usually — a spec and weeks.",
 "Здесь — рассказ и 24 часа.":"Here — your story and 24 hours.",
@@ -3540,63 +3596,207 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
     }, .25);
   })();
 
-  /* ---- «Это ROCH Motion»: петли превью грузятся и играют, только пока полоса на экране ---- */
+  /* ---- «Это ROCH Motion»: лента живых механик. 20 сразу, «Показать ещё» добавляет по 20 — до всех 300.
+     Порядок: механики этой страницы, затем лучшие по арт-ревью каталога. Петля грузится и играет, только пока плитка видна. ---- */
+  /* ▶ АДРЕС БОТА ROCH MOTION. Пусто — «купить» ведёт в личку Роме (@broch) с готовым сообщением.
+     Заполнить, например 'https://t.me/roch_motion_bot' — все кнопки поведут в бота, механика передаётся в startapp. */
+  var MOTION_BOT = '';
+  var MS_ALL = [["aurora","Северное сияние","Aurora","E"],["word-spring","Заголовок пружиной","Spring headline","R"],["stats-band","Полоса цифр","Stats band","R"],["beam-flow","Как это работает","How it works","R"],["border-beam","Луч по рамке","Border beam","R"],["stamp-words","Штамп","Stamp","R"],["gravity-lens","Линза","Lens","L"],["holo-map","Голограмма города","City hologram","L"],["vault-door","Сейф","Vault","L"],["brand-fire","Огонь по знаку","Brand fire","L"],["brand-fireworks","Салют-логотип","Logo fireworks","L"],["prism-reveal","Призма","Prism","L"],["domino-cascade","Домино","Dominoes","L"],["rubik-brand","Кубик бренда","Brand cube","L"],["liquid-glass","Стекло","Glass","L"],["holo-card","Голографическая карта","Holographic card","L"],["liquid-metal","Жидкий металл","Liquid metal","L"],["portal","Портал","Portal","L"],["cloth-unveil","Снятие покрывала","Unveiling","L"],["orders-globe","Глобус клиентов","Client globe","L"],["booster-pack","Бустер-пак","Booster pack","L"],["crystal-forge","Кристалл легенды","Legend crystal","L"],["meteor-drop","Метеорит лута","Loot meteor","L"],["metaball-logo","Жидкий логотип","Liquid logo","L"],["glass-bubbles","Стеклянные сферы","Glass spheres","L"],["water-ripple","Водная гладь","Water surface","L"],["particle-text","Заголовок из частиц","Particle headline","L"],["nfc-tap","Оплата касанием","Tap to pay","L"],["pinscreen","Пин-арт","Pin art","L"],["treasure-map","Карта сокровищ","Treasure map","L"],["swarm","Рой","Swarm","E"],["qr-scan","QR-сканер","QR scanner","R"],["coin-fountain","Золотой дождь","Golden rain","L"],["xray","Рентген","X-ray","E"],["shatter","Осколки","Shatter","E"],["booking-ticket","Барабаны и билет","Drums and ticket","E"],["flap-board","Табло","Split-flap board","E"],["chest","Сундук с лучами","Radiant chest","E"],["brand-ink","Чернила бренда","Brand ink","E"],["sand-hourglass","Песочные часы","Hourglass","E"],["constellation","Созвездие достижений","Achievement constellation","E"],["origami-plane","Оригами-отправка","Origami send","E"],["hero-lamp","Лампа над заголовком","Lamp over headline","E"],["spotlight-hero","Прожектор","Spotlight","E"],["ferrofluid","Феррожидкость","Ferrofluid","E"],["sphere-catalog","Сфера каталога","Catalog sphere","E"],["island-morph","Остров статуса","Status island","E"],["agent-orb","Шар-агент","Agent orb","E"],["streak-unfreeze","Разморозка серии","Streak unfreeze","E"],["coin-flip","Монетка","Coin flip","E"],["dice-roll","Кубики скидки","Discount dice","E"],["lenticular","Лентикуляр","Lenticular","E"],["vertigo","Вертиго","Vertigo","E"],["pulse","Пульс","Pulse","E"],["popup-card","Открытка","Pop-up card","E"],["drum-catalog","Барабан витрины","Showcase drum","E"],["stars-coin","Звезда Stars","Stars coin","E"],["iso-delivery","Квартал","City block","E"],["review-helix","Спираль отзывов","Review helix","E"],["fortune-wheel","Колесо удачи","Wheel of fortune","E"],["medal","Медаль достижения","Achievement medal","E"],["confetti-cannons","Конфетти-пушки","Confetti cannons","E"],["slot-machine","Слот-машина","Slot machine","E"],["level-map","Карта квестов","Quest map","E"],["secure-lock","Безопасная оплата","Secure payment","E"],["seat-map","Места в зале","Seat map","E"],["box-fold","Заказ упакован","Order packed","E"],["queue-position","Очередь","Queue","E"],["price-freeze","Кристаллизация цены","Price freeze","E"],["turntable","Подиум-шоурум","Showroom podium","E"],["holo-ticket","Голограмма билета","Hologram ticket","E"],["app-launch","Запуск приложения","App launch","E"],["depth-title","Заголовок из глубины","Headline from depth","E"],["integration-orbit","Орбита интеграций","Integration orbit","E"],["device-scroll","Телефон из глубины","Phone from depth","E"],["cta-magnet","Финальный призыв","Final call to action","E"],["silk","Шёлк","Silk","E"],["ballpit","Бассейн шаров","Ball pit","E"],["warp","Варп","Warp","E"],["lightning","Молния-распродажа","Lightning sale","E"],["shredder","Шредер данных","Data shredder","E"],["decay-card","Сгорающее предложение","Burning offer","E"],["dome-gallery","Купол","Dome","E"],["lanyard-badge","Бейдж на ленте","Lanyard badge","E"],["flying-posters","Летящие афиши","Flying posters","E"],["infinite-spiral","Спираль","Spiral","E"],["gift-upgrade","Апгрейд подарка","Gift upgrade","E"],["gift-craft","Слияние наград","Reward merge","E"],["edge-glow","Сияние ИИ по краю","AI edge glow","E"],["glass-loupe","Стеклянная лупа","Glass loupe","E"],["glass-morph-menu","Стекло-меню","Glass morph menu","E"],["namedrop-merge","Обмен контактами","Contact exchange","E"],["object-glow","Подсветка объекта","Object glow","E"],["claw-machine","Автомат с игрушками","Claw machine","E"],["lottery-balls","Лотерейный барабан","Lottery drum","E"],["tabbar","Таб-бар «Капля»","“Droplet” tab bar","R"],["pull-refresh","Pull-to-refresh","Pull refresh","R"],["hold-pay","Удержание для оплаты","Hold to pay","R"],["slide-pay","Свайп-подтверждение","Slide to confirm","R"],["promo-coupon","Промокод → купон","Promo code → coupon","R"],["scratch-card","Скретч-карта","Scratch card","R"],["liquid-progress","Колба до подарка","Gift flask","R"],["card-cvv","Карта к CVV","Card flips to CVV","R"],["visit-countdown","До визита","Visit countdown","R"],["courier-map","Курьер на карте","Courier on the map","R"],["cooking-progress","Готовим заказ","Preparing your order","R"],["pin-drop","Пин падает","Pin drop","R"],["radius-search","Радиус поиска","Search radius","R"],["emotion-slider","Оценка-эмоция","Emotion rating","R"],["stories-cube","Сторис-куб","Stories cube","R"],["logo-splash","Сплэш логотипа","Logo splash","R"],["mascot-eyes","Маскот следит","Watching mascot","R"],["orders-map","Заказы на карте","Orders on the map","R"],["metal-sweep","Металлический заголовок","Metal headline","R"],["bento-reveal","Бенто возможностей","Feature bento","R"],["pricing-toggle","Тарифы с переключателем","Pricing toggle","R"],["sticky-steps","Шаги и липкий экран","Steps with sticky screen","R"],["video-dialog","Видео-демо","Video demo","R"],["topography","Рельеф","Terrain","R"],["radar","Радар поиска","Search radar","R"],["retro-grid","Ретро-сетка","Retro grid","R"],["crumple","Смять и выбросить","Crumple and toss","R"],["fuse-button","Кнопка-фитиль","Fuse button","R"],["peek-rating","Подглядывающая оценка","Peeking rating","R"],["sticker-peel","Наклейка со скидкой","Discount sticker","R"],["slosh-gauge","Плещущийся индикатор","Sloshing progress","R"],["curved-band","Изогнутая лента","Curved strip","R"],["spoiler-dust","Пыльца-спойлер","Spoiler dust","R"],["star-burst","Звёздный залп","Star volley","R"],["wave-scrub","Волна голосового","Voice wave scrub","R"],["wallet-stack","Стопка карт","Card stack","R"],["tabbar-minimize","Сворачивание таббара","Minimizing tab bar","R"],["glass-thumb","Стеклянный ползунок","Glass slider","R"],["jiggle-reorder","Режим правки","Edit mode","R"],["keypad-amount","Касса-клавиатура","Amount keypad","R"],["chart-scrub","Скраб графика","Chart scrub","R"],["trash-drop","В корзину удаления","Into the bin","R"],["dock-scrub","Док-лупа","Dock lens","R"],["tactile-button","Тактильная кнопка","Tactile button","R"],["stream-fade","Потоковый ответ","Streaming answer","R"],["diffusion-reveal","Проявка диффузии","Diffusion reveal","R"],["magic-fill","Волшебное автозаполнение","Magic autofill","R"],["tldr-morph","Сжатие в суть","TL;DR morph","R"],["ai-underline","ИИ-подчёркивание","AI underline","R"],["pinata","Пиньята","Piñata","R"],["stamp-card","Штамп-карта","Stamp card","R"],["search-morph","Поиск-морф","Search morph","R"],["cart-stepper","Корзина → степпер","Cart → stepper","R"],["double-tap-like","Двойной тап «Лайк»","Double-tap “Like”","R"],["flip-timer","Флип-таймер","Flip timer","R"],["bottom-sheet","Нижний лист","Bottom sheet","R"],["swipe-deck","Колода онбординга","Onboarding deck","R"],["order-status","Статус заказа","Order status","R"],["xp-ring","Кольцо опыта","XP ring","R"],["cashback-stack","Кешбэк-стопка","Cashback stack","R"],["plinko","Плинко","Plinko","R"],["gift-tap","Подарок в три тапа","Three-tap gift","R"],["daily-calendar","Ежедневный бонус","Daily bonus","R"],["tier-card","Карта статуса","Tier card","R"],["receipt-print","Чек печатается","Receipt printout","R"],["split-bill","Разделить счёт","Split the bill","R"],["wallet-topup","Пополнение кошелька","Wallet top-up","R"],["build-bowl","Собери сам","Build your own","R"],["time-ruler","Линейка времени","Time ruler","R"],["clock-dial","Циферблат","Clock dial","R"],["cluster-split","Кластеры","Clusters","R"],["compass","Компас к месту","Compass to venue","R"],["portal-reveal","Переход-портал","Portal transition","R"],["app-switcher","Стек экранов","Screen stack","R"],["voice-input","Голосовой ввод","Voice input","R"],["empty-cart","Пустая корзина с маскотом","Empty cart with mascot","R"],["glitch-error","Ошибка с глитчем","Glitch error","R"],["ai-concierge","AI-консьерж","AI concierge","R"],["onboarding-parallax","Онбординг с параллаксом","Parallax onboarding","R"],["bars-3d","Заказы по дням","Orders by day","R"],["funnel","Воронка продаж","Sales funnel","R"],["tier-elevator","Лифт статусов","Status elevator","R"],["decode","Расшифровка промокода","Promo code decrypt","R"],["weight-wave","Волна насыщенности","Weight wave","R"],["counter-mass","Счётчик с массой","Weighted counter","R"],["circle-badge","Печать по кругу","Circular seal","R"],["giant-marquee","Огромная бегущая строка","Giant marquee","R"],["w-flight","Рейс и трансфер","Flight and transfer","R"],["w-weather","Погода","Weather","R"],["w-pager","Пейджер «Готово»","“Ready” pager","R"],["w-home","Главный экран","Home screen","R"],["testimonials-flow","Отзывы лентами","Review strips","R"],["tracing-beam","Луч по статье","Article tracing beam","R"],["feature-tabs","Вкладки возможностей","Feature tabs","R"],["compare-table","Почему мы","Why us","R"],["light-rays","Лучи из угла","Corner rays","R"],["threads","Нити","Threads","R"],["sling-send","Рогатка «Отправить»","Slingshot send","R"],["bell-toggle","Колокольчик-тумблер","Bell toggle","R"],["magnet-button","Магнитная кнопка","Magnetic button","R"],["subscribe-morph","Подписка-морф","Subscribe morph","R"],["click-sparks","Искры касания","Tap sparks","R"],["product-trail","Шлейф товаров","Product trail","R"],["electric-border","Электрическая рамка","Electric frame","R"],["cipher-card","Шифр-карта","Cipher card","R"],["card-swap","Колода смены","Shuffle deck","R"],["bounce-fan","Веер","Card fan","R"],["glass-icons","Стеклянные ярлыки","Glass tiles","R"],["pixel-reveal","Секретное предложение","Secret offer","R"],["folder","Папка документов","Document folder","R"],["scroll-stack","Стопка при прокрутке","Scroll stack","R"],["depth-carousel","Карусель глубины","Depth carousel","R"],["accordion-gallery","Гармошка","Accordion","R"],["pixel-transition","Пиксельный переход","Pixel transition","R"],["bid-ladder","Лестница ставок","Bid ladder","R"],["avatar-expand","Раскрытие аватара","Avatar expand","R"],["star-comment","Звёздный комментарий","Star comment","R"],["round-video","Кружок-видео","Round video","R"],["spatial-photo","Пространственное фото","Spatial photo","R"],["family-tray","Лоток-морф","Morphing tray","R"],["precision-slider","Точный слайдер","Precision slider","R"],["radial-menu","Радиальное меню","Radial menu","R"],["vanish-input","Исчезающий ввод","Vanishing input","R"],["agent-steps","Шаги агента","Agent steps","R"],["combo-meter","Комбо-множитель","Combo multiplier","R"],["balloon-pop","Надуть шарик","Balloon pop","R"],["bubble-wrap","Пупырка","Bubble wrap","R"],["push-stack","Стопка","Stack","R"],["header-parallax","Шапка-параллакс","Parallax header","R"],["toast-pendulum","Тост-маятник","Pendulum toast","R"],["achievement-toast","Плашка достижения","Achievement toast","R"],["streak-flame","Серия с пламенем","Streak flame","R"],["tip-slider","Чаевые с отметками","Tips with stops","R"],["rate-ticker","Курс в реальном времени","Live exchange rate","R"],["cover-flow","Галерея cover-flow","Cover-flow gallery","R"],["quick-view","Быстрый просмотр","Quick view","R"],["fav-fly","Избранное в профиль","Favorites to profile","R"],["calendar-range","Даты заезда и выезда","Check-in and check-out dates","R"],["master-picker","Выбор мастера","Specialist picker","R"],["door-drawer","Меню-дверь","Door menu","R"],["photo-upload","Загрузка фото","Photo upload","R"],["success-ripple","Успех с волнами","Success ripple","R"],["reaction-picker","Реакции на сообщение","Message reactions","R"],["message-send","Отправка сообщения","Message send","R"],["permission-bell","Разрешение на уведомления","Notification permission","R"],["name-greeting","Приветствие по имени","Greeting by name","R"],["donut","Структура продаж","Sales mix","R"],["live-orders","Живой поток заказов","Live order feed","R"],["heatmap-hours","Загрузка по часам","Busy hours","R"],["goal-gauge","Цель месяца","Monthly goal","R"],["bar-race","Гонка топ-позиций","Top items race","R"],["kinetic-build","Сборка по центру","Centered assembly","R"],["mask-lines","Строки из-под маски","Masked line reveal","R"],["price-drop","Цена со скидкой","Discounted price","R"],["word-morph","Слово в слово","Word for word","R"],["marker","Маркер","Marker","R"],["digit-morph","Морфинг цифр","Digit morph","R"],["w-appointment","Ближайшая запись","Next booking","R"],["w-delivery","Доставка на дуге","Delivery arc","R"],["w-points","Стопка баллов","Points stack","R"],["w-stars","Кошелёк Stars","Stars wallet","R"],["w-car","Ваша машина","Your car","R"],["w-rings","Кольца активности","Activity rings","R"],["w-water","Стакан воды","Glass of water","R"],["w-event","Отсчёт до выхода","Countdown to start","R"],["w-score","Живой счёт","Live score","R"],["w-revenue","Выручка сегодня","Today’s revenue","R"],["logo-marquee","Лента клиентов","Client marquee","R"],["grain-gradient","Зернистый градиент","Grainy gradient","R"],["spring-grid","Пружинная сетка","Spring grid","R"],["ticker-matrix","Матрица котировок","Quote matrix","R"],["jelly-radio","Желейный выбор","Jelly picker","R"],["finger-ribbon","Ленты за пальцем","Finger ribbons","R"],["spotlight-card","Карточка-прожектор","Spotlight card","R"],["wobble-card","Желе-карточка","Jelly card","R"],["masonry-flow","Плиточная лента","Tile feed","R"],["chroma-grid","Наши мастера","Our specialists","R"],["profile-pattern","Узор профиля","Profile pattern","R"],["inline-convert","Цена-конвертер","Price converter","R"],["scroll-minimap","Мини-карта меню","Menu minimap","R"],["think-shimmer","Думаю…","Thinking…","R"],["icon-wake-3d","Объёмные иконки","3D icons","R"],["skeleton","Скелетон → проявка","Skeleton → reveal","B"],["product-tilt","Карточка-параллакс","Parallax card","B"],["before-after","До и после","Before and after","B"],["variant-swatch","Выбор варианта","Variant picker","B"],["edge-back","Свайп назад от края","Edge swipe back","B"],["inchworm-tabs","Табы-гусеница","Caterpillar tabs","B"],["otp-code","Код из SMS","SMS code","B"],["pin-dots","PIN-код","PIN code","B"],["floating-label","Поля с проверкой","Validated fields","B"],["offline","Нет сети","Offline","B"],["copy-morph","Копирование кода","Copy code","B"],["poll","Опрос с пружинами","Spring poll","B"],["revenue-line","Выручка за неделю","Weekly revenue","B"],["compare-weeks","Неделя к неделе","Week over week","B"],["quote","Цитата отзыва","Review quote","B"],["w-meds","Приём лекарства","Medication dose","B"],["focus-cards","Фокус","Focus","B"],["direction-hover","Направленный ховер","Directional hover","B"],["segmented","Сегмент-контрол","Segmented control","B"],["accordion","FAQ-аккордеон","FAQ accordion","B"],["swipe-delete","Удаление с отменой","Delete with undo","B"],["kpi-tiles","KPI-плитки","KPI tiles","B"],["toggles","Тумблеры и галочки","Toggles and checkboxes","B"]];
+  var MS_HERE = { 'aurora':'фон героя', 'word-spring':'заголовки', 'stats-band':'цифры', 'beam-flow':'три акта', 'border-beam':'тарифы', 'stamp-words':'гарантии' };
+  var MS_TIER = { L:['Легенда', 'Legendary'], E:['Эпик', 'Epic'], R:['Редкая', 'Rare'], B:['Базовая', 'Base'] };
+  var msTiles = [];
+  function msLabel(el){
+    var d = el.__d, en = LANG === 'en';
+    el.querySelector('b').textContent = en ? d[2] : d[1];
+    var t = el.querySelector('.ms-t');
+    if(MS_HERE[d[0]]) t.textContent = (en ? 'here: ' : 'здесь: ') + t_(MS_HERE[d[0]]);
+    else t.textContent = MS_TIER[d[3]][en ? 1 : 0];
+  }
+  function t_(s){ return t(s); }
   (function motionStrip(){
-    var row = document.querySelector('.ms-row'); if(!row || reduced) return;
-    var vids = Array.prototype.slice.call(row.querySelectorAll('video'));
-    onSeen(row, function(v){
-      vids.forEach(function(el){
-        if(v){
-          if(!el.getAttribute('src')) el.setAttribute('src', el.getAttribute('data-src'));
-          el.muted = true;
+    var row = document.getElementById('msRow'); if(!row) return;
+    var STEP = 20, shown = 0, more = null;
+    var io = 'IntersectionObserver' in window ? new IntersectionObserver(function(en){
+      en.forEach(function(e){
+        var v = e.target.__v; if(!v) return;
+        if(e.isIntersecting){
+          if(!v.getAttribute('poster')) v.setAttribute('poster', '/motion/thumbs/' + e.target.__d[0] + '.webp');
+          if(reduced) return;
+          if(!v.getAttribute('src')) v.setAttribute('src', '/motion/thumbs/loop/' + e.target.__d[0] + '.mp4');
+          v.muted = true;
           /* первый play() срывается, пока петля не загружена — повторяем, когда кадр готов */
-          var p = el.play();
-          if(p && p.catch) p.catch(function(){ var h = function(){ el.removeEventListener('canplay', h); var q = el.play(); if(q && q.catch) q.catch(function(){}); }; el.addEventListener('canplay', h); });
-        } else el.pause();
+          var p = v.play();
+          if(p && p.catch) p.catch(function(){ var h = function(){ v.removeEventListener('canplay', h); if(e.target.__on){ var q = v.play(); if(q && q.catch) q.catch(function(){}); } }; v.addEventListener('canplay', h); });
+        } else v.pause();
+        e.target.__on = e.isIntersecting;
       });
-    }, .2);
+    }, {threshold: .35}) : null;
+    function tile(d){
+      var a = document.createElement('a');
+      a.className = 'ms-tile'; a.href = motionBuyUrl(d); a.__d = d; a.__i = MS_ALL.indexOf(d);
+      a.addEventListener('click', function(e){ e.preventDefault(); if(row.__dragged) return; msOpen(a.__i); });
+      a.innerHTML = '<div class="ms-v"><video muted playsinline loop preload="none" aria-hidden="true"></video></div><b></b><span class="ms-t ' + (MS_HERE[d[0]] ? 't-here' : 't-' + d[3]) + '"></span>';
+      a.__v = a.querySelector('video'); msLabel(a); msTiles.push(a);
+      if(io) io.observe(a); else a.__v.setAttribute('poster', '/motion/thumbs/' + d[0] + '.webp');
+      return a;
+    }
+    function moreCard(){
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'ms-more';
+      b.addEventListener('click', function(){ if(row.__dragged) return; add(); track('project_view', 'motion_more:' + shown); });
+      return b;
+    }
+    function moreText(){
+      if(!more) return;
+      var left = MS_ALL.length - shown, en = LANG === 'en';
+      more.innerHTML = '<i>+</i><b>' + (en ? 'Show more' : 'Показать ещё') + '</b><span>' + (en ? 'another ' + Math.min(STEP, left) + ' of ' + left : 'ещё ' + Math.min(STEP, left) + ' из ' + left) + '</span>';
+    }
+    function add(){
+      var from = shown, to = Math.min(MS_ALL.length, shown + STEP), fr = document.createDocumentFragment(), born = [];
+      for(var i = from; i < to; i++){ var el = tile(MS_ALL[i]); born.push(el); fr.appendChild(el); }
+      if(more) row.insertBefore(fr, more); else row.appendChild(fr);
+      shown = to;
+      if(shown >= MS_ALL.length){ if(more){ row.removeChild(more); more = null; } }
+      else { if(!more){ more = moreCard(); row.appendChild(more); } moreText(); }
+      /* новые плитки приходят каскадом на пружине pop */
+      if(from > 0 && !reduced) born.forEach(function(el, k){
+        el.style.opacity = '0'; el.style.transform = 'scale(.9)';
+        setTimeout(function(){ MOT.spring(0, SP.pop[0], SP.pop[1], function(v){ el.style.opacity = Math.min(1, v * 1.4).toFixed(2); el.style.transform = 'scale(' + (.9 + .1 * v).toFixed(3) + ')'; }).to(1, function(){ el.style.transform = ''; el.style.opacity = ''; }); }, k * 30);
+      });
+    }
+    add();
+    row.__moreText = moreText;
+    /* мышью ленту можно тянуть; палец листает нативно */
+    var dn = null;
+    row.addEventListener('pointerdown', function(e){ if(e.pointerType !== 'mouse') return; dn = {x: e.clientX, s: row.scrollLeft, m: 0}; row.__dragged = false; });
+    window.addEventListener('pointermove', function(e){ if(!dn) return; var dx = e.clientX - dn.x; dn.m = Math.max(dn.m, Math.abs(dx)); if(dn.m > 5){ row.classList.add('drag'); row.__dragged = true; row.scrollLeft = dn.s - dx; } });
+    window.addEventListener('pointerup', function(){ if(!dn) return; dn = null; row.classList.remove('drag'); setTimeout(function(){ row.__dragged = false; }, 0); });
+    row.addEventListener('click', function(e){ if(row.__dragged){ e.preventDefault(); e.stopPropagation(); } }, true);
   })();
 
-  /* ---- integration-orbit · экосистема на двух орбитах (26 с и −38 с на круг), глубина — масштабом и светом (landing.js) ---- */
+  /* ---- превью механики прямо на сайте. Покупка — в Telegram: в бота ROCH Motion, а пока бота нет — в личку Роме ---- */
+  function motionBuyUrl(d){
+    if(MOTION_BOT) return MOTION_BOT + (MOTION_BOT.indexOf('?') < 0 ? '?startapp=' : '&startapp=') + (d ? d[0] : 'catalog');
+    if(!d) return tgLink(LANG === 'en' ? 'Hi Roma! I want to see ROCH Motion — all 300 mechanics.' : 'Привет, Рома! Хочу посмотреть ROCH Motion — все 300 механик.');
+    return tgLink(LANG === 'en' ? 'Hi Roma! I want the mechanic “' + d[2] + '” from ROCH Motion.' : 'Привет, Рома! Хочу механику «' + d[1] + '» из ROCH Motion.');
+  }
+  var msIdx = -1;
+  function msFill(){
+    var d = MS_ALL[msIdx], en = LANG === 'en', v = document.getElementById('msVid');
+    document.getElementById('msName').textContent = en ? d[2] : d[1];
+    var tr = document.getElementById('msTier');
+    tr.className = 'ms-t ' + (MS_HERE[d[0]] ? 't-here' : 't-' + d[3]);
+    tr.textContent = MS_HERE[d[0]] ? (en ? 'on this page: ' : 'на этой странице: ') + t(MS_HERE[d[0]]) : MS_TIER[d[3]][en ? 1 : 0];
+    document.getElementById('msBuy').href = motionBuyUrl(d);
+    v.setAttribute('poster', '/motion/thumbs/' + d[0] + '.webp');
+    v.setAttribute('src', '/motion/thumbs/loop/' + d[0] + '.mp4');
+    v.muted = true;
+    if(!reduced){ var p = v.play(); if(p && p.catch) p.catch(function(){ var h = function(){ v.removeEventListener('canplay', h); var q = v.play(); if(q && q.catch) q.catch(function(){}); }; v.addEventListener('canplay', h); }); }
+  }
+  function msOpen(i){
+    msIdx = (i + MS_ALL.length) % MS_ALL.length; msFill();
+    document.getElementById('msBack').classList.add('open'); lockScroll(true);
+    track('project_view', 'motion_preview:' + MS_ALL[msIdx][0]);
+  }
+  function msClose(){ var v = document.getElementById('msVid'); v.pause(); document.getElementById('msBack').classList.remove('open'); lockScroll(false); msIdx = -1; }
+  (function msSheet(){
+    var back = document.getElementById('msBack'); if(!back) return;
+    document.getElementById('msClose').addEventListener('click', msClose);
+    back.addEventListener('click', function(e){ if(e.target === back) msClose(); });
+    document.getElementById('msPrev').addEventListener('click', function(){ msIdx = (msIdx - 1 + MS_ALL.length) % MS_ALL.length; msFill(); });
+    document.getElementById('msNext').addEventListener('click', function(){ msIdx = (msIdx + 1) % MS_ALL.length; msFill(); });
+    document.getElementById('msBuy').addEventListener('click', function(){ if(msIdx >= 0) track('tg_click', 'motion_buy:' + MS_ALL[msIdx][0]); });
+    document.addEventListener('keydown', function(e){ if(msIdx < 0) return; if(e.key === 'Escape') msClose(); else if(e.key === 'ArrowRight') document.getElementById('msNext').click(); else if(e.key === 'ArrowLeft') document.getElementById('msPrev').click(); });
+    /* свайп по петле — к соседней механике */
+    var st = document.getElementById('msStage'), sx = null;
+    st.addEventListener('pointerdown', function(e){ sx = e.clientX; }, {passive:true});
+    st.addEventListener('pointerup', function(e){ if(sx === null) return; var dx = e.clientX - sx; sx = null; if(Math.abs(dx) > 50) document.getElementById(dx < 0 ? 'msNext' : 'msPrev').click(); }, {passive:true});
+    function links(){ var a = document.getElementById('msAll'), c = document.getElementById('ecoMotion'); if(a) a.href = motionBuyUrl(null); if(c) c.href = motionBuyUrl(null); }
+    links(); back.__links = links;
+  })();
+  /* ---- солнечная система ROCH: настоящая 3D-проекция и камера, привязанная к прокрутке.
+     Вход в кадр — почти с ребра, крупно, с креном; центр экрана — раскрытый ракурс; выход — выше и с отъездом.
+     Камера догоняет прокрутку мягкой пружиной (k40/c12). Период орбит ∝ r^1,5 (Кеплер), свет на планетах — со стороны солнца ---- */
   (function orbit(){
     var box = document.querySelector('.eco-orbit'); if(!box) return;
-    var sats = Array.prototype.slice.call(box.querySelectorAll('.eco-orbit-s')), rings = box.querySelectorAll('.eco-orbit-ring');
-    var R = [{rx:1, ry:1, w: 2 * Math.PI / 26, n:0}, {rx:1, ry:1, w: -2 * Math.PI / 38, n:0}];
-    var S = sats.map(function(s){ var r = +s.getAttribute('data-r') || 0; return {el: s, r: r, k: R[r].n++, w: 0, h: 0}; });
-    var t = 0, seen = false, live = false, cx = 0, cy = 0;
-    var spd = MOT.spring(1, SP.glide[0], SP.glide[1]);
+    var svg = box.querySelector('.eo-svg'), sun = box.querySelector('.eo-sun'), NS = 'http://www.w3.org/2000/svg';
+    var P = Array.prototype.slice.call(box.querySelectorAll('.eo-p')).map(function(el, i){
+      return {el: el, o: +el.getAttribute('data-o'), ball: el.querySelector('i'), lab: el.querySelector('b'), a0: i * 2.39996 + .4};
+    });
+    var NO = P.length, R = [], orbs = [], stars = null, cx = 0, cy = 0, t = 0, seen = false, live = false, sunR = 29;
+    var D2R = Math.PI / 180;
+    var cam = { tilt: MOT.spring(80, 40, 12), roll: MOT.spring(-14, 40, 12), zoom: MOT.spring(1.4, 40, 12) };
+    var ptr = MOT.spring(0, 70, 11);
+    function mk(n, a, parent){ var e = document.createElementNS(NS, n); for(var k in a) e.setAttribute(k, a[k]); (parent || svg).appendChild(e); return e; }
     function size(){
-      var W = box.clientWidth, H = box.clientHeight; cx = W / 2; cy = H / 2;
-      /* внешняя орбита не шире бокса: радиус = половина ширины минус половина самой длинной плашки */
-      var half = 0; S.forEach(function(o){ o.w = o.el.offsetWidth; o.h = o.el.offsetHeight; half = Math.max(half, o.w / 2); });
-      R[1].rx = Math.max(60, Math.min(W / 2 - half - 6, 250)); R[1].ry = Math.min(R[1].rx * .5, H / 2 - 18);
-      R[0].rx = Math.min(R[1].rx * .58, 150); R[0].ry = R[0].rx * .5;
-      for(var i = 0; i < 2; i++){ rings[i].style.width = (R[i].rx * 2) + 'px'; rings[i].style.height = (R[i].ry * 2) + 'px'; }
+      var W = box.clientWidth, H = box.clientHeight; sunR = sun.offsetWidth / 2;
+      cx = W / 2; cy = H / 2;
+      var minR = sunR + 22, maxR = Math.min(W / 2 - 34, 280);
+      while(svg.firstChild) svg.removeChild(svg.firstChild);
+      svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+      stars = mk('g', {});
+      var seed = 7; function rnd(){ seed = (seed * 16807) % 2147483647; return seed / 2147483647; }
+      for(var s = 0; s < 90; s++){
+        var st = mk('circle', {cx: (rnd() * W * 1.4 - W * .2).toFixed(1), cy: (rnd() * H * 1.4 - H * .2).toFixed(1), r: (.35 + rnd() * .9).toFixed(2), 'class': 'eo-star' + (s % 6 === 0 ? ' tw' : '')}, stars);
+        st.style.opacity = (.12 + rnd() * .45).toFixed(2); if(s % 6 === 0) st.style.animationDelay = (rnd() * 4).toFixed(2) + 's';
+      }
+      R = []; orbs = [];
+      for(var i = 0; i < NO; i++){
+        var r = minR + (maxR - minR) * i / Math.max(1, NO - 1);
+        R.push({r: r, T: 16 * Math.pow(r / minR, 1.5)});
+        orbs.push(mk('ellipse', {'class': 'eo-orb', stroke: i < 3 ? 'rgba(212,255,79,.13)' : 'rgba(167,139,255,.15)'}));
+      }
     }
-    function place(){
-      S.forEach(function(o){
-        var r = R[o.r], a = o.k / r.n * Math.PI * 2 + t * r.w + (o.r ? .52 : 0), sn = Math.sin(a), d = (sn + 1) / 2;
-        var x = cx + Math.cos(a) * r.rx - o.w / 2, y = cy + sn * r.ry - o.h / 2;
-        o.el.style.transform = 'translate(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px) scale(' + (.8 + .2 * d).toFixed(3) + ')';
-        o.el.style.opacity = (.5 + .5 * d).toFixed(2);
-        o.el.style.zIndex = sn > 0 ? 3 : 1;
+    /* куда смотрит камера при прогрессе прокрутки p (0 — блок только вошёл снизу, 1 — ушёл вверх) */
+    function smooth(e){ return e * e * (3 - 2 * e); }
+    function aim(){
+      var b = box.getBoundingClientRect(), vh = window.innerHeight || 1;
+      var p = Math.max(0, Math.min(1, (vh - b.top) / (vh + b.height)));
+      var tilt, roll, zoom;
+      /* пролёт за одну прокрутку: линия с ребра → раскрытый диск → почти вид сверху */
+      if(p < .5){ var e = smooth(p / .5); tilt = 85 + (58 - 85) * e; roll = -18 + 18 * e; zoom = 1.6 + (1.05 - 1.6) * e; }
+      else { var f = smooth((p - .5) / .5); tilt = 58 + (34 - 58) * f; roll = 14 * f; zoom = 1.05 + (.9 - 1.05) * f; }
+      cam.tilt.to(reduced ? 58 : tilt); cam.roll.to(reduced ? 0 : roll); cam.zoom.to(reduced ? 1 : zoom);
+    }
+    function render(){
+      var ti = cam.tilt.x * D2R, ro = (cam.roll.x + ptr.x * 4) * D2R, z = cam.zoom.x, ct = Math.cos(ti), st_ = Math.sin(ti), cr = Math.cos(ro), sr = Math.sin(ro);
+      stars.setAttribute('transform', 'translate(' + cx + ' ' + cy + ') rotate(' + ((cam.roll.x + ptr.x * 4) * .35).toFixed(2) + ') scale(' + (1 + (z - 1) * .3).toFixed(3) + ') translate(' + (-cx) + ' ' + (-cy) + ')');
+      orbs.forEach(function(e, i){
+        e.setAttribute('cx', cx); e.setAttribute('cy', cy);
+        e.setAttribute('rx', (R[i].r * z).toFixed(1)); e.setAttribute('ry', (R[i].r * z * ct).toFixed(1));
+        e.setAttribute('transform', 'rotate(' + (ro / D2R).toFixed(2) + ' ' + cx + ' ' + cy + ')');
+      });
+      sun.style.transform = 'scale(' + z.toFixed(3) + ')';
+      P.forEach(function(p){
+        var r = R[p.o], a = p.a0 + t * 2 * Math.PI / r.T, X = Math.cos(a) * r.r, Y = Math.sin(a) * r.r;
+        var yp = Y * ct, depth = Math.sin(a) * st_, d = (Math.sin(a) + 1) / 2;
+        var x = cx + (X * cr - yp * sr) * z, y = cy + (X * sr + yp * cr) * z;
+        var lx = cx - x, ly = cy - y, L = Math.sqrt(lx * lx + ly * ly) || 1;
+        p.ball.style.setProperty('--lx', (50 + lx / L * 32).toFixed(1) + '%'); p.ball.style.setProperty('--ly', (50 + ly / L * 32).toFixed(1) + '%');
+        /* впереди солнца — крупнее и ярче, позади — меньше и уходит за диск */
+        p.el.style.transform = 'translate(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px) scale(' + (z * (.78 + .32 * d)).toFixed(3) + ')';
+        p.el.style.zIndex = depth > 0 ? 3 : 1;
+        p.ball.style.opacity = (.5 + .5 * d).toFixed(2);
+        p.lab.style.opacity = Math.max(0, Math.min(1, (d - .32) / .3)).toFixed(2);
       });
     }
-    function frame(dt){ if(!seen){ live = false; return false; } t += dt * spd.x; place(); }
-    size(); place();
-    window.addEventListener('resize', function(){ size(); place(); }, {passive:true});
-    onSeen(box, function(v){ seen = v; if(v && !live && !reduced){ live = true; MOT.tick(frame); } });
-    /* касание или наведение тормозит орбиты — продукт можно нажать */
-    box.addEventListener('pointerenter', function(){ spd.to(0); });
-    box.addEventListener('pointerdown', function(){ spd.to(0); });
-    box.addEventListener('pointerleave', function(){ spd.to(1); });
-    box.addEventListener('pointerup', function(e){ if(e.pointerType !== 'mouse') setTimeout(function(){ spd.to(1); }, 1200); });
+    function frame(dt){
+      if(!seen){ live = false; return false; }
+      t += dt; aim(); render();
+    }
+    size(); aim(); cam.tilt.x = cam.tilt.t; cam.roll.x = cam.roll.t; cam.zoom.x = cam.zoom.t; render();
+    window.addEventListener('resize', function(){ size(); render(); }, {passive:true});
+    onSeen(box, function(v){ seen = v; if(v && !live){ live = true; if(reduced){ aim(); render(); live = false; } else MOT.tick(frame); } });
+    box.addEventListener('pointermove', function(e){ var b = box.getBoundingClientRect(); ptr.to(((e.clientX - b.left) / b.width - .5) * 2); }, {passive:true});
+    box.addEventListener('pointerleave', function(){ ptr.to(0); }, {passive:true});
   })();
 
   /* смена языка: заголовки и печати собираются заново из исходных строк */
   function motionLang(){
     WS.forEach(function(o){ o.words = wsBuild(o.h); if(!o.played) wsHide(o.words); });
     Array.prototype.forEach.call(document.querySelectorAll('.stamp'), function(st){ st.textContent = t(st.__ru); });
+    msTiles.forEach(function(a){ msLabel(a); a.href = motionBuyUrl(a.__d); });
+    var mb = document.getElementById('msBack'); if(mb && mb.__links) mb.__links(); if(msIdx >= 0) msFill();
+    var mr = document.getElementById('msRow'); if(mr && mr.__moreText) mr.__moreText();
   }
 
   /* табло ROCH Motion (stats-band): разряды докручиваются, правые — на круг больше и стартуют раньше */
