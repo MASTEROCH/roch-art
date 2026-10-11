@@ -1211,7 +1211,7 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
 .bz-hero{position:relative;z-index:0}
 .au-cv{position:absolute;z-index:-1;top:-120px;left:50%;width:100vw;height:min(calc(100svh + 120px),980px);
   transform:translateX(-50%);display:block;pointer-events:none;opacity:0;transition:opacity 1.4s var(--ease);
-  -webkit-mask-image:linear-gradient(#000 52%,transparent);mask-image:linear-gradient(#000 52%,transparent)}
+  -webkit-mask-image:linear-gradient(#000 22%,rgba(0,0,0,.4) 46%,transparent 70%);mask-image:linear-gradient(#000 22%,rgba(0,0,0,.4) 46%,transparent 70%)}
 .au-cv.on{opacity:1}
 /* word-spring (type.js): слова заголовка выпрыгивают пружиной из-под маски, акцент — последним */
 .ws-m{display:inline-block;overflow:hidden;vertical-align:top;padding:.14em .08em .2em;margin:-.14em -.08em -.2em}
@@ -1272,6 +1272,8 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
 .price.feat,.price.offer{animation:none}
 .bb-svg{position:absolute;left:0;top:0;width:100%;height:100%;overflow:visible;pointer-events:none;z-index:3}
 .bb-svg path{fill:none;stroke-linecap:round}
+/* бейдж тарифа сидит на рамке — луч проходит под ним, а не поверх */
+.price > .badge{z-index:4}
 /* stamp-words (type.js): обещания ложатся печатями */
 /* печать сидит на верхнем крае карточки, наполовину снаружи — как штамп на углу документа, и не закрывает текст */
 .stamp{position:absolute;top:-13px;right:16px;z-index:3;pointer-events:none;white-space:nowrap;opacity:0;
@@ -1288,6 +1290,59 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
 /* tactile-button (product.js): главная кнопка проседает как клавиша */
 .btn.tk{transition:none}
 @media (min-width:1024px){ .ld-rail,.ld-car{display:none} }
+/* logo-marquee (landing.js): студии лентой — схватить и бросить; вертикальный свайп по-прежнему листает страницу */
+.lm{position:relative;overflow:hidden;margin-top:2px;touch-action:pan-y;cursor:grab;user-select:none;-webkit-user-select:none;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+.lm.drag{cursor:grabbing}
+.lm-t{display:flex;align-items:center;width:max-content}
+.lm-t span{font-size:15px;font-weight:700;letter-spacing:-.01em;color:var(--text2);white-space:nowrap;padding:6px 0}
+.lm-t i{font-style:normal;font-size:10px;color:var(--lime);opacity:.6;margin:0 16px}
+/* compare-table (landing.js): «обычно / здесь» — строки переворачиваются, галочки рисуются */
+.vs{padding:16px 18px 6px;perspective:900px}
+.vs-hd,.vs-row{display:grid;grid-template-columns:1fr 1fr;gap:4px 14px}
+.vs-hd{padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,.08)}
+.vs-hd span{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--text3)}
+.vs-hd span:first-child{display:none}
+.vs-hd .vs-me{color:var(--lime)}
+.vs-row{padding:12px 0;border-bottom:1px solid rgba(255,255,255,.06);transform-origin:50% 0;backface-visibility:hidden}
+.vs-row:last-child{border-bottom:0}
+.vs-row b{grid-column:1 / -1;font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--text3)}
+.vs-no{font-size:14px;font-weight:500;color:var(--text3)}
+.vs-yes{display:flex;gap:7px;align-items:flex-start;font-size:14px;font-weight:700;color:var(--text)}
+.vs-yes svg{flex:0 0 16px;width:16px;height:16px;margin-top:2px}
+.vs-yes svg path{fill:none;stroke:var(--lime);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:20;stroke-dashoffset:var(--tk,0)}
+/* «Это ROCH Motion»: живые превью механик этой страницы; петли играют, только пока полоса на экране */
+.ms{padding:30px 0 6px}
+.ms-h p{font-size:17px;font-weight:800;letter-spacing:-.02em;line-height:1.3;color:var(--text)}
+.ms-h small{display:block;margin-top:4px;font-size:13px;font-weight:500;letter-spacing:0;color:var(--text3)}
+.ms-row{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding:0 20px;padding:14px 20px 6px;margin:0 -20px;scrollbar-width:none}
+.ms-row::-webkit-scrollbar{display:none}
+.ms-tile{flex:0 0 128px;scroll-snap-align:start;text-decoration:none;color:var(--text)}
+.ms-v{position:relative;aspect-ratio:4/5;border-radius:18px;overflow:hidden;background:#0B110D;border:1px solid rgba(255,255,255,.1)}
+.ms-v video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.ms-tile b{display:block;margin-top:8px;font-size:13px;font-weight:700}
+.ms-tile span{display:block;margin-top:1px;font-size:11px;font-weight:600;color:var(--text3)}
+.ms-go{margin-top:12px}
+.ms-tile:active .ms-v{transform:scale(.97)}
+/* integration-orbit (landing.js): экосистема — ROCH в центре, продукты на двух орбитах; касание тормозит вращение */
+.eco-orbit{position:relative;height:210px;max-width:560px;margin:2px auto 16px;touch-action:pan-y}
+.eco-orbit-ring{position:absolute;left:50%;top:50%;border:1px solid rgba(212,255,79,.16);border-radius:50%;transform:translate(-50%,-50%);pointer-events:none}
+.eco-orbit-core{position:absolute;left:50%;top:50%;z-index:2;width:68px;height:68px;margin:-34px 0 0 -34px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;text-align:center;font-size:14px;font-weight:900;line-height:1.05;color:#0B1409;
+  background:radial-gradient(circle at 35% 30%,#F2FFC4,var(--lime) 55%,#9BD62F);box-shadow:0 0 0 8px rgba(212,255,79,.08),0 0 40px rgba(212,255,79,.45)}
+.eco-orbit-s{position:absolute;left:0;top:0;white-space:nowrap;padding:7px 12px;border-radius:99px;font-size:13px;font-weight:800;line-height:1;
+  color:var(--text);text-decoration:none;background:rgba(16,24,18,.94);border:1px solid rgba(212,255,79,.3)}
+@media (min-width:1024px){
+  #vs{max-width:880px;margin-left:auto;margin-right:auto}
+  .vs{padding:20px 28px 8px}
+  .vs-hd,.vs-row{grid-template-columns:190px 1fr 1fr;align-items:center}
+  .vs-hd span:first-child{display:block}
+  .vs-row b{grid-column:auto}
+  .ms-row{margin:0;padding:14px 2px 6px}
+  .ms-tile{flex:1 1 0}
+  .eco-orbit{height:290px}
+  .eco-orbit-core{width:86px;height:86px;margin:-43px 0 0 -43px;font-size:15px}
+}
 </style>
 </head>
 <body>
@@ -1500,7 +1555,7 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
 <section class="bz-proof" aria-label="Опыт">
   <div class="bz-studios reveal">
     <div class="p-diff">Проектировал интерфейсы для</div>
-    <b>Playgendary · My.Games · Belka Games · Century Games · Vizor</b>
+    <div class="lm" role="img" aria-label="Playgendary · My.Games · Belka Games · Century Games · Vizor"><div class="lm-t"><span>Playgendary</span><i>◆</i><span>My.Games</span><i>◆</i><span>Belka Games</span><i>◆</i><span>Century Games</span><i>◆</i><span>Vizor</span><i>◆</i></div></div>
   </div>
   <div class="stats">
     <div class="stat glass"><div class="n" data-count="700" data-suffix="M+">0</div><div class="l">установок</div></div>
@@ -1593,6 +1648,22 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
     </div>
   </div>
 </section>
+<!-- ============ ЧЕМ ОТЛИЧАЕТСЯ: compare-table ROCH Motion ============ -->
+<section id="vs">
+  <div class="sec-head reveal">
+    <div class="eyebrow">Чем отличается</div>
+    <h2>Обычно — ТЗ и недели. <span class="grad">Здесь — рассказ и 24 часа.</span></h2>
+  </div>
+  <div class="vs glass reveal">
+    <div class="vs-hd"><span></span><span>Обычно</span><span class="vs-me">ROCH 0→1</span></div>
+    <div class="vs-row"><b>Начало</b><span class="vs-no">«Пришлите ТЗ»</span><span class="vs-yes"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg><span>Рассказ своими словами</span></span></div>
+    <div class="vs-row"><b>Первый результат</b><span class="vs-no">через недели</span><span class="vs-yes"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg><span>через 24 часа</span></span></div>
+    <div class="vs-row"><b>Что в руках</b><span class="vs-no">макеты в Figma</span><span class="vs-yes"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg><span>прототип в вашем телефоне</span></span></div>
+    <div class="vs-row"><b>Если идея слабая</b><span class="vs-no">сделают всё равно</span><span class="vs-yes"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg><span>скажу до разработки</span></span></div>
+    <div class="vs-row"><b>Цена ошибки</b><span class="vs-no">от $1 500 после запуска</span><span class="vs-yes"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg><span>$100 на распаковке</span></span></div>
+  </div>
+</section>
+
 
 <!-- ============ ЦЕНЫ ============ -->
 <section id="prices" class="bz-prices">
@@ -1723,10 +1794,24 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
     <a class="bz-alt" id="finalAi" href="https://t.me/roch_ai_bot?start=biz" target="_blank" rel="noopener">или сначала проверьте идею в ROCH AI</a>
   </div>
 </section>
+<!-- ============ «ЭТО ROCH MOTION»: превью механик этой страницы ============ -->
+<section class="ms" id="motion-strip">
+  <div class="ms-h"><p>Всё движение на этой странице — <span class="grad">ROCH Motion</span><small>300 готовых механик для приложений и сайтов</small></p></div>
+  <div class="ms-row">
+    <a class="ms-tile" href="/motion/#aurora"><div class="ms-v"><video muted playsinline loop preload="none" poster="/motion/thumbs/aurora.webp" data-src="/motion/thumbs/loop/aurora.mp4" aria-hidden="true"></video></div><b>Сияние</b><span>фон героя</span></a>
+    <a class="ms-tile" href="/motion/#word-spring"><div class="ms-v"><video muted playsinline loop preload="none" poster="/motion/thumbs/word-spring.webp" data-src="/motion/thumbs/loop/word-spring.mp4" aria-hidden="true"></video></div><b>Слова пружиной</b><span>заголовки</span></a>
+    <a class="ms-tile" href="/motion/#stats-band"><div class="ms-v"><video muted playsinline loop preload="none" poster="/motion/thumbs/stats-band.webp" data-src="/motion/thumbs/loop/stats-band.mp4" aria-hidden="true"></video></div><b>Табло</b><span>цифры</span></a>
+    <a class="ms-tile" href="/motion/#beam-flow"><div class="ms-v"><video muted playsinline loop preload="none" poster="/motion/thumbs/beam-flow.webp" data-src="/motion/thumbs/loop/beam-flow.mp4" aria-hidden="true"></video></div><b>Путь света</b><span>три акта</span></a>
+    <a class="ms-tile" href="/motion/#border-beam"><div class="ms-v"><video muted playsinline loop preload="none" poster="/motion/thumbs/border-beam.webp" data-src="/motion/thumbs/loop/border-beam.mp4" aria-hidden="true"></video></div><b>Луч по рамке</b><span>тарифы</span></a>
+    <a class="ms-tile" href="/motion/#stamp-words"><div class="ms-v"><video muted playsinline loop preload="none" poster="/motion/thumbs/stamp-words.webp" data-src="/motion/thumbs/loop/stamp-words.mp4" aria-hidden="true"></video></div><b>Печати</b><span>гарантии</span></a>
+  </div>
+  <a class="btn sec ms-go" href="/motion/">Открыть ROCH Motion · 300 механик</a>
+</section>
 </main>
 
 <footer>
   <p class="eco-h">Экосистема ROCH</p>
+  <div class="eco-orbit" aria-hidden="true"><i class="eco-orbit-ring"></i><i class="eco-orbit-ring"></i><div class="eco-orbit-core">ROCH<br>0→1</div><a class="eco-orbit-s" data-r="0" href="/motion/" tabindex="-1">Motion</a><a class="eco-orbit-s" data-r="0" href="https://roch-audit.com" tabindex="-1" target="_blank" rel="noopener">Audit</a><a class="eco-orbit-s" data-r="0" href="https://t.me/roch_ai_bot" tabindex="-1" target="_blank" rel="noopener">AI</a><a class="eco-orbit-s" data-r="1" href="https://apphub.studio" tabindex="-1" target="_blank" rel="noopener">AppHub</a><a class="eco-orbit-s" data-r="1" href="https://linkos-ten.vercel.app" tabindex="-1" target="_blank" rel="noopener">LinkOS</a><a class="eco-orbit-s" data-r="1" href="https://apphub.studio" tabindex="-1" target="_blank" rel="noopener">BuildOS</a></div>
   <nav class="eco" aria-label="Экосистема ROCH">
     <a class="eco-card glass" id="ecoMotion" href="/motion/"><b>ROCH Motion</b><span>Готовые эффекты — для тех, кто строит сам</span></a>
     <a class="eco-card glass" id="ecoAudit" href="https://roch-audit.com" target="_blank" rel="noopener"><b>ROCH Audit</b><span>Аудит и геймификация продукта, который уже работает</span></a>
@@ -1926,6 +2011,40 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
     "ROCH 0→1 · распаковка и упаковка идей — Roman Chernyavsky · roch-art.com":"ROCH 0→1 · unpacking and packaging ideas — Roman Chernyavsky · roch-art.com",
 "или запустите сами в LinkOS и BuildOS →":"or launch it yourself in LinkOS and BuildOS →",
 "Экосистема ROCH":"ROCH ecosystem",
+"Чем отличается":"How it's different",
+"Обычно — ТЗ и недели.":"Usually — a spec and weeks.",
+"Здесь — рассказ и 24 часа.":"Here — your story and 24 hours.",
+"Обычно":"Usually",
+"Начало":"Start",
+"«Пришлите ТЗ»":"“Send us a spec”",
+"Рассказ своими словами":"Your story, in your words",
+"Первый результат":"First result",
+"через недели":"in weeks",
+"через 24 часа":"in 24 hours",
+"Что в руках":"What you hold",
+"макеты в Figma":"Figma mockups",
+"прототип в вашем телефоне":"a prototype on your phone",
+"Если идея слабая":"If the idea is weak",
+"сделают всё равно":"they build it anyway",
+"скажу до разработки":"I'll say so before development",
+"Цена ошибки":"Cost of a mistake",
+"от $1 500 после запуска":"$1,500+ after launch",
+"$100 на распаковке":"$100 at the unpacking",
+"Всё движение на этой странице —":"All the motion on this page is",
+"300 готовых механик для приложений и сайтов":"300 ready-made mechanics for apps and sites",
+"Сияние":"Aurora",
+"фон героя":"hero background",
+"Слова пружиной":"Spring words",
+"заголовки":"headings",
+"Табло":"Odometer",
+"цифры":"numbers",
+"Путь света":"Light path",
+"три акта":"three acts",
+"Луч по рамке":"Border beam",
+"тарифы":"pricing",
+"Печати":"Stamps",
+"гарантии":"guarantees",
+"Открыть ROCH Motion · 300 механик":"Open ROCH Motion · 300 mechanics",
 "Честно":"Honest",
 "$100 в зачёт":"$100 credited",
 "Лояльность ресторана":"Restaurant loyalty",
@@ -2927,7 +3046,7 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
       ' float up=exp(-max(h,0.)*(2.4+fi*.9));',
       ' float r1=vn(vec2(x*20.+w*36.+fi*11.-g*6.,t*.33));',
       ' float r2=vn(vec2(x*53.+fi*5.+w*20.,t*.55+3.));',
-      ' float ray=.22+.78*pow(r1*.68+r2*.32,2.2);',
+      ' float ray=.5+.5*pow(r1*.68+r2*.32,2.2);',
       ' float dw=cos(x*1.55+t*.21+fi*1.9)*.1+cos(x*3.6-t*.29+fi*4.1)*.108;',
       ' float fold=.75+2.2*abs(dw);',
       ' return vec2(low*up*ray*fold*(1.-fi*.22),h);',
@@ -2938,14 +3057,14 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
       ' vec3 col=mix(mix(BG,AD,.24),BG*.92,smoothstep(.12,1.,sy));',
       ' vec2 su=uv*150.+PX*1.5;vec2 ci=floor(su);',
       ' float st=step(.991,h21(ci))*smoothstep(.42,0.,length(fract(su)-.5))*(.35+.65*h21(ci+4.2));',
-      ' col+=vec3(st)*.6*smoothstep(.3,.62,sy);',
+      ' col+=vec3(st)*.22*smoothstep(.3,.62,sy);',
       ' vec2 cu=uv+PX*vec2(.012,.006);',
       ' vec3 au=vec3(0.);',
       ' for(int i=0;i<3;i++){float fi=float(i);vec2 r=curtain(cu,fi,T,pb,P.z);',
       '  float sg=1.+.9*exp(-(cu.x-K)*(cu.x-K)*10.);',
       '  vec3 cc=mix(A2,A,smoothstep(0.,.14,r.y));cc=mix(cc,AD,smoothstep(.12,.42,r.y));',
       '  au+=cc*r.x*sg;}',
-      ' au*=GN*(1.-.4*calm(fc));',
+      ' au*=GN*(1.-.72*calm(fc));',
       ' float am=max(max(au.r,au.g),max(au.b,1e-4));au*=(am>.6?.6+(am-.6)/(1.+(am-.6)*2.5):am)/am;',
       ' col+=au*.92;',
       ' float x1=uv.x+PX.x*.016;',
@@ -2976,7 +3095,7 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
     /* палитра сайта: лайм, светлый лайм, тёмная зелень, почти-чёрный фон */
     gl.uniform3f(U.A, 212 / 255, 1, 79 / 255); gl.uniform3f(U.A2, 240 / 255, 1, 176 / 255);
     gl.uniform3f(U.AD, 15 / 255, 138 / 255, 87 / 255); gl.uniform3f(U.BG, 5 / 255, 7 / 255, 6 / 255);
-    gl.uniform1f(U.K, -3); gl.uniform1f(U.GN, .92);
+    gl.uniform1f(U.K, -3); gl.uniform1f(U.GN, .7);
     /* автокачество каталога: ступени [1 .8 .64 .5 .4], EMA кадра; вниз при > 20 мс, вверх при < 12,5 мс 240 кадров */
     var Q = [1, .8, .64, .5, .4], qi = 0, bad = {}, ema = 16.7, slowN = 0, slowT = 0, fastN = 0;
     var W = 2, H = 2, sc = 1, T = 14, live = false, seen = false, lastF = 0;
@@ -2987,9 +3106,13 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
       W = Math.max(2, Math.round(r.width * sc)); H = Math.max(2, Math.round(r.height * sc));
       if(cv.width !== W || cv.height !== H){ cv.width = W; cv.height = H; gl.viewport(0, 0, W, H); }
       gl.uniform2f(U.R, W, H);
-      /* тихая зона: вокруг заголовка сияние приглушено на 40 %, текст читается */
-      var h1 = document.getElementById('bzH1');
-      if(h1){ var b = h1.getBoundingClientRect(); gl.uniform4f(U.Z, (b.left + b.width / 2 - r.left) * sc, H - (b.top + b.height / 2 - r.top) * sc, b.width / 2 * sc, b.height / 2 * sc); }
+      /* тихая зона: весь текстовый блок героя (заголовок + абзац), сияние там приглушено на 72 % — текст читается */
+      var h1 = document.getElementById('bzH1'), ld = document.querySelector('.bz-hero .lead');
+      if(h1){
+        var b = h1.getBoundingClientRect(), L = b.left, Tp = b.top, Rt = b.right, Bt = b.bottom;
+        if(ld){ var c = ld.getBoundingClientRect(); L = Math.min(L, c.left); Tp = Math.min(Tp, c.top); Rt = Math.max(Rt, c.right); Bt = Math.max(Bt, c.bottom); }
+        gl.uniform4f(U.Z, ((L + Rt) / 2 - r.left) * sc, H - ((Tp + Bt) / 2 - r.top) * sc, (Rt - L) / 2 * 1.15 * sc, (Bt - Tp) / 2 * 1.15 * sc);
+      }
     }
     function draw(){
       gl.uniform1f(U.T, T); gl.uniform4f(U.P, F.x * sc, H - F.y * sc, fs_.x, 0); gl.uniform2f(U.PX, F.px, F.py);
@@ -3370,6 +3493,104 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
       btn.addEventListener('pointerleave', up, {passive:true});
       btn.addEventListener('pointercancel', up, {passive:true});
     });
+  })();
+
+  /* ---- logo-marquee · студии лентой: база 40 px/с, бросок с инерцией e^-1,3t (landing.js · giant-marquee) ---- */
+  (function logoRail(){
+    var box = document.querySelector('.lm'), tr = box ? box.querySelector('.lm-t') : null; if(!tr) return;
+    var unit = tr.innerHTML; tr.innerHTML = unit + unit + unit;
+    var w = 1, pos = 0, vel = 40, BASE = 40, drag = false, lx = 0, lt = 0, seen = false, live = false;
+    function measure(){ w = Math.max(1, tr.scrollWidth / 3); }
+    function frame(dt){
+      if(!seen && !drag){ live = false; return false; }
+      if(!drag){ vel += (BASE - vel) * (1 - Math.exp(-1.3 * dt)); pos += vel * dt; }
+      tr.style.transform = 'translate3d(' + (-(((pos % w) + w) % w)).toFixed(1) + 'px,0,0)';
+    }
+    function run(){ if(!live && !reduced){ live = true; MOT.tick(frame); } }
+    measure(); window.addEventListener('resize', measure, {passive:true});
+    onSeen(box, function(v){ seen = v; if(v) run(); });
+    box.addEventListener('pointerdown', function(e){
+      drag = true; box.classList.add('drag'); lx = e.clientX; lt = performance.now(); vel = 0;
+      try{ box.setPointerCapture(e.pointerId); }catch(err){}
+      run();
+    });
+    box.addEventListener('pointermove', function(e){
+      if(!drag) return;
+      var now = performance.now(), dx = e.clientX - lx, dts = Math.max(8, now - lt) / 1000;
+      pos -= dx; vel += (-dx / dts - vel) * .4; lx = e.clientX; lt = now;
+    });
+    var end = function(){ if(!drag) return; drag = false; box.classList.remove('drag'); };
+    box.addEventListener('pointerup', end); box.addEventListener('pointercancel', end);
+  })();
+
+  /* ---- compare-table · строки переворачиваются (pop, каскад 70 мс), галочки дорисовываются 320 мс (landing.js) ---- */
+  (function compare(){
+    var box = document.querySelector('.vs'); if(!box || reduced) return;
+    var rows = Array.prototype.slice.call(box.querySelectorAll('.vs-row')), done = false;
+    rows.forEach(function(r){ r.style.transform = 'rotateX(-80deg)'; r.style.opacity = '0'; r.style.setProperty('--tk', '20'); });
+    onSeen(box, function(v){
+      if(!v || done) return; done = true;
+      rows.forEach(function(r, i){
+        setTimeout(function(){
+          MOT.spring(0, SP.pop[0], SP.pop[1], function(x){ r.style.transform = 'rotateX(' + (-80 * (1 - x)).toFixed(2) + 'deg)'; r.style.opacity = Math.min(1, Math.max(0, x) * 1.6).toFixed(2); })
+            .to(1, function(){ r.style.transform = ''; r.style.opacity = ''; });
+          setTimeout(function(){ tweenF(320, outCubic, function(p){ r.style.setProperty('--tk', (20 * (1 - p)).toFixed(2)); }); }, 160);
+        }, 120 + i * 70);
+      });
+    }, .25);
+  })();
+
+  /* ---- «Это ROCH Motion»: петли превью грузятся и играют, только пока полоса на экране ---- */
+  (function motionStrip(){
+    var row = document.querySelector('.ms-row'); if(!row || reduced) return;
+    var vids = Array.prototype.slice.call(row.querySelectorAll('video'));
+    onSeen(row, function(v){
+      vids.forEach(function(el){
+        if(v){
+          if(!el.getAttribute('src')) el.setAttribute('src', el.getAttribute('data-src'));
+          el.muted = true;
+          /* первый play() срывается, пока петля не загружена — повторяем, когда кадр готов */
+          var p = el.play();
+          if(p && p.catch) p.catch(function(){ var h = function(){ el.removeEventListener('canplay', h); var q = el.play(); if(q && q.catch) q.catch(function(){}); }; el.addEventListener('canplay', h); });
+        } else el.pause();
+      });
+    }, .2);
+  })();
+
+  /* ---- integration-orbit · экосистема на двух орбитах (26 с и −38 с на круг), глубина — масштабом и светом (landing.js) ---- */
+  (function orbit(){
+    var box = document.querySelector('.eco-orbit'); if(!box) return;
+    var sats = Array.prototype.slice.call(box.querySelectorAll('.eco-orbit-s')), rings = box.querySelectorAll('.eco-orbit-ring');
+    var R = [{rx:1, ry:1, w: 2 * Math.PI / 26, n:0}, {rx:1, ry:1, w: -2 * Math.PI / 38, n:0}];
+    var S = sats.map(function(s){ var r = +s.getAttribute('data-r') || 0; return {el: s, r: r, k: R[r].n++, w: 0, h: 0}; });
+    var t = 0, seen = false, live = false, cx = 0, cy = 0;
+    var spd = MOT.spring(1, SP.glide[0], SP.glide[1]);
+    function size(){
+      var W = box.clientWidth, H = box.clientHeight; cx = W / 2; cy = H / 2;
+      /* внешняя орбита не шире бокса: радиус = половина ширины минус половина самой длинной плашки */
+      var half = 0; S.forEach(function(o){ o.w = o.el.offsetWidth; o.h = o.el.offsetHeight; half = Math.max(half, o.w / 2); });
+      R[1].rx = Math.max(60, Math.min(W / 2 - half - 6, 250)); R[1].ry = Math.min(R[1].rx * .5, H / 2 - 18);
+      R[0].rx = Math.min(R[1].rx * .58, 150); R[0].ry = R[0].rx * .5;
+      for(var i = 0; i < 2; i++){ rings[i].style.width = (R[i].rx * 2) + 'px'; rings[i].style.height = (R[i].ry * 2) + 'px'; }
+    }
+    function place(){
+      S.forEach(function(o){
+        var r = R[o.r], a = o.k / r.n * Math.PI * 2 + t * r.w + (o.r ? .52 : 0), sn = Math.sin(a), d = (sn + 1) / 2;
+        var x = cx + Math.cos(a) * r.rx - o.w / 2, y = cy + sn * r.ry - o.h / 2;
+        o.el.style.transform = 'translate(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px) scale(' + (.8 + .2 * d).toFixed(3) + ')';
+        o.el.style.opacity = (.5 + .5 * d).toFixed(2);
+        o.el.style.zIndex = sn > 0 ? 3 : 1;
+      });
+    }
+    function frame(dt){ if(!seen){ live = false; return false; } t += dt * spd.x; place(); }
+    size(); place();
+    window.addEventListener('resize', function(){ size(); place(); }, {passive:true});
+    onSeen(box, function(v){ seen = v; if(v && !live && !reduced){ live = true; MOT.tick(frame); } });
+    /* касание или наведение тормозит орбиты — продукт можно нажать */
+    box.addEventListener('pointerenter', function(){ spd.to(0); });
+    box.addEventListener('pointerdown', function(){ spd.to(0); });
+    box.addEventListener('pointerleave', function(){ spd.to(1); });
+    box.addEventListener('pointerup', function(e){ if(e.pointerType !== 'mouse') setTimeout(function(){ spd.to(1); }, 1200); });
   })();
 
   /* смена языка: заголовки и печати собираются заново из исходных строк */
