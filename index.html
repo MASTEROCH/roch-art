@@ -282,73 +282,10 @@ h1 .w i{animation-delay:var(--wd)}
 .morph-badge.b1{color:rgba(255,140,120,.95);background:rgba(255,120,100,.1);border:1px solid rgba(255,120,100,.2)}
 .morph-badge.b2{color:var(--lime);background:var(--lime-soft);border:1px solid rgba(212,255,79,.28)}
 .morph-badge.b2{margin-left:auto}
-@property --split{syntax:'<percentage>';inherits:true;initial-value:50%}
-.morph-stage{position:relative;height:410px;overflow:hidden;touch-action:pan-y;--split:50%;
+.morph-stage{position:relative;height:410px;overflow:hidden;touch-action:pan-y;
   user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
 .ex{position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .4s var(--ease)}
 .ex.active{opacity:1;pointer-events:auto}
-.morph-layer{position:absolute;top:52px;left:0;right:0;bottom:0;
-  display:flex;align-items:center;justify-content:center;padding:16px 20px 20px}
-/* both cards pinned to identical box + same size → divider wipes one continuous surface */
-.morph-layer > .ugly,
-.morph-layer > .mock-app{position:absolute;left:50%;top:50%;
-  transform:translate(-50%,-50%) scale(.74);transform-origin:center;
-  width:min(300px, calc(100% - 48px));max-width:none;margin:0}
-.morph-before{z-index:2;background:#0C120E;
-  clip-path:inset(0 calc(100% - var(--split,50%)) 0 0)}
-.morph-after{z-index:1;background:#080D0A;
-  background-image:radial-gradient(80% 90% at 60% 10%, rgba(16,145,92,.4), transparent 60%)}
-/* «ДО» — мёртвый прототип: тусклый, холодный, обесцвеченный */
-.morph-before .ugly{filter:brightness(.74) saturate(.62) contrast(1.03)}
-.morph-before::after{content:'';position:absolute;inset:0;pointer-events:none;z-index:4;
-  background:linear-gradient(115deg, rgba(38,54,86,.16), transparent 55%)}
-/* «ПОСЛЕ» — живой, лайм-блум по стороне трансформации */
-.morph-after::after{content:'';position:absolute;inset:0;pointer-events:none;
-  background:radial-gradient(58% 46% at 80% 42%, rgba(212,255,79,.13), transparent 72%)}
-/* divider + knob move together as one unit, anchored to --split */
-.morph-divider{position:absolute;top:56px;bottom:12px;left:var(--split,50%);width:2px;z-index:6;
-  transform:translateX(-1px);pointer-events:none;
-  background:linear-gradient(180deg,rgba(212,255,79,0),#e6ff96 14%,#fff 50%,#e6ff96 86%,rgba(212,255,79,0));
-  box-shadow:0 0 7px rgba(212,255,79,.9), 0 0 16px rgba(212,255,79,.38)}
-/* мягкий световой столб вокруг разрыва (сдержанный, чтобы не вылезал за края) */
-.morph-divider::before{content:'';position:absolute;top:0;bottom:0;left:50%;width:18px;transform:translateX(-50%);
-  background:linear-gradient(90deg,transparent,rgba(212,255,79,.12),transparent);pointer-events:none}
-/* бегущий блик вдоль луча — держим строго внутри (opacity-fade на концах) */
-.morph-divider::after{content:'';position:absolute;left:50%;top:0;transform:translateX(-50%);
-  width:2.5px;height:38px;border-radius:3px;filter:blur(.4px);
-  background:linear-gradient(180deg,transparent,#fbffe8,transparent);
-  animation:beamRun 3.6s ease-in-out infinite}
-@keyframes beamRun{0%{top:-6%;opacity:0}16%{opacity:1}84%{opacity:1}100%{top:104%;opacity:0}}
-/* VFX: блюр-трейл за лучом — виден ТОЛЬКО в движении (JS правит --tOp/--tdir/--tW) */
-.morph-trail{position:absolute;top:56px;bottom:12px;left:var(--split,50%);z-index:5;pointer-events:none;
-  width:var(--tW,52px);opacity:var(--tOp,0);
-  transform:translateX(-1px) scaleX(var(--tdir,1));transform-origin:left center;
-  background:linear-gradient(90deg, rgba(212,255,79,.32), rgba(212,255,79,.11) 44%, transparent 82%);
-  filter:blur(6px);will-change:opacity,width;
-  -webkit-mask:linear-gradient(90deg,#000,rgba(0,0,0,.25) 58%,transparent);
-  mask:linear-gradient(90deg,#000,rgba(0,0,0,.25) 58%,transparent)}
-/* лёгкие частицы-искры, вылетающие из луча при движении */
-.morph-particle{position:absolute;z-index:6;width:5px;height:5px;border-radius:50%;pointer-events:none;
-  background:radial-gradient(circle,#fbffe8,rgba(212,255,79,.72) 45%,transparent 70%);
-  animation:particleFly .72s ease-out forwards}
-@keyframes particleFly{
-  0%{opacity:0;transform:translate(-50%,-50%) scale(0)}
-  22%{opacity:1;transform:translate(calc(-50% + var(--px,0px) * .28),calc(-50% + var(--py,0px) * .28)) scale(var(--ps,1))}
-  100%{opacity:0;transform:translate(calc(-50% + var(--px,0px)),calc(-50% + var(--py,0px))) scale(calc(var(--ps,1) * .2))}}
-.morph-knob{position:absolute;top:calc(50% + 26px);left:var(--split,50%);
-  transform:translate(-50%,-50%);z-index:7;
-  width:46px;height:46px;border-radius:50%;cursor:ew-resize;
-  background:linear-gradient(150deg, rgba(255,255,255,.32), rgba(255,255,255,.08)), rgba(14,20,16,.9);
-  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
-  border:2px solid rgba(255,255,255,.38);
-  box-shadow:0 8px 24px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.4);
-  display:flex;align-items:center;justify-content:center;gap:3px;touch-action:none}
-.morph-knob::before,.morph-knob::after{content:'';width:0;height:0;border-top:5px solid transparent;border-bottom:5px solid transparent}
-.morph-knob::before{border-right:6px solid rgba(255,255,255,.75)}
-.morph-knob::after{border-left:6px solid rgba(255,255,255,.75)}
-/* кинематографичный показ трансформации при въезде в вид: держим «до» → свайп «после» → центр */
-.morph-stage.hint{animation:splitReveal 2.9s cubic-bezier(.62,.03,.26,1) both}
-@keyframes splitReveal{0%{--split:88%}12%{--split:88%}62%{--split:13%}100%{--split:50%}}
 /* top bar: label centered, side tags */
 .morph-topbar{position:absolute;top:0;left:0;right:0;height:52px;z-index:6;
   display:flex;align-items:center;justify-content:center;
@@ -357,10 +294,6 @@ h1 .w i{animation-delay:var(--wd)}
   white-space:nowrap;padding:5px 13px;border-radius:99px;
   background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);
   -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
-.morph-tag{position:absolute;top:15px;z-index:7;font-size:10px;font-weight:800;letter-spacing:.06em;
-  text-transform:uppercase;padding:5px 10px;border-radius:99px;white-space:nowrap}
-.morph-tag.t-before{left:12px;color:rgba(255,150,130,.95);background:rgba(30,12,10,.55);border:1px solid rgba(255,120,100,.25)}
-.morph-tag.t-after{right:12px;color:var(--lime);background:rgba(10,20,10,.55);border:1px solid rgba(212,255,79,.25)}
 /* обёртка стейджа: стрелки живут ЗДЕСЬ (вне overflow:hidden стейджа) */
 .morph-view{position:relative}
 /* example nav — vertically centered on sides */
@@ -911,23 +844,57 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
 
 /* ---- ДО/ПОСЛЕ: идея на словах → продукт (механика — из index) ---- */
 .morph-badge.b0{color:var(--text2);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14)}
-.bz-morph .morph-stage{height:470px}
-.bz-morph .morph-tag.t-before{color:var(--text2);background:rgba(10,14,12,.6);border-color:rgba(255,255,255,.18)}
-.morph-layer > .ph{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
-  height:calc(100% - 26px);aspect-ratio:860/1864;border-radius:26px;overflow:hidden;
-  border:1px solid rgba(255,255,255,.16);background:#0B0F0C;
-  box-shadow:0 24px 50px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.2)}
+.bz-morph .morph-stage{height:568px}
+/* ---- РАСПАКОВКА: строка заметки отрывается, летит дугой в телефон и в точке посадки становится настоящим экраном;
+   финал — веер экранов за телефоном. Одно кинематографичное событие на экран (ДВИЖЕНИЕ, закон 4). ---- */
+.up-note{position:absolute;top:62px;left:14px;right:14px;z-index:4;padding:13px 16px 6px;border-radius:18px;
+  background:rgba(11,15,12,.86);border:1px solid rgba(255,255,255,.1);box-shadow:0 14px 30px rgba(0,0,0,.35)}
+.up-note .nt-h{font-size:15px;font-weight:800;letter-spacing:-.02em;line-height:1.2;color:rgba(255,255,255,.82)}
+.up-note ul{list-style:none;margin-top:6px}
+.up-note li{position:relative;isolation:isolate;padding:7px 0 7px 22px;font-size:13px;font-weight:500;line-height:1.3;
+  color:var(--text2);border-top:1px solid rgba(255,255,255,.06);cursor:pointer;outline:none;
+  transition:color .3s var(--ease), opacity .25s var(--ease)}
+.up-note li::before{content:'—';position:absolute;left:0;top:7px;width:14px;text-align:center;color:var(--text3)}
+.up-note li::after{content:'';position:absolute;z-index:-1;left:17px;right:-4px;top:4px;bottom:4px;border-radius:6px;
+  background:var(--lime-soft);transform:scaleX(0);transform-origin:0 50%;transition:transform .28s var(--ease)}
+.up-note li.up-mark::after{transform:scaleX(1)}
+.up-note li.up-lift{opacity:.38}
+.up-note li.up-done{color:var(--text);opacity:1}
+.up-note li.up-done::before{content:'✓';color:var(--lime);font-weight:800}
+.up-note li.up-done::after{transform:scaleX(0);transition-duration:.18s}
+.up-note li:focus-visible{box-shadow:0 0 0 2px rgba(212,255,79,.6);border-radius:6px}
+.up-phone{position:absolute;left:0;right:0;top:220px;bottom:28px;z-index:2;pointer-events:none}
+.up-phone::before{content:'';position:absolute;left:50%;top:48%;width:min(130%,520px);aspect-ratio:1;border-radius:50%;
+  background:radial-gradient(closest-side, rgba(212,255,79,.26), rgba(212,255,79,0));
+  opacity:0;transform:translate(-50%,-50%) scale(.55);transition:opacity .22s var(--ease), transform .22s var(--ease)}
+.ex.up-fanned .up-phone::before{opacity:1;transform:translate(-50%,-50%) scale(1);transition:opacity .5s var(--ease), transform .8s var(--ease)}
+.up-ph,.up-card{position:absolute;left:50%;top:0;height:100%;aspect-ratio:820/1777;border-radius:24px;overflow:hidden;
+  border:1px solid rgba(255,255,255,.16);background:#0B0F0C}
+.up-ph{z-index:2;transform:translateX(-50%);box-shadow:0 24px 50px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.2)}
+.up-ph img,.up-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center}
+.up-empty{position:absolute;inset:0;padding:34px 14px;display:grid;align-content:start;gap:10px}
+.up-empty i{display:block;height:10px;border-radius:6px;background:rgba(255,255,255,.06)}
+.up-empty i:nth-child(1){width:46%;height:14px}
+.up-empty i:nth-child(2){height:96px;border-radius:14px;border:1.5px dashed rgba(255,255,255,.14);background:none}
+.up-empty i:nth-child(3){width:82%}.up-empty i:nth-child(4){width:64%}
+.up-empty i:nth-child(5){height:34px;border-radius:12px;margin-top:8px}
+/* веер: ось ниже карты — карты расходятся снизу вверх, как рука в карточной игре; притушены затемнением, не opacity */
+.up-card{z-index:1;transform-origin:50% 130%;visibility:hidden}
+.up-card::after{content:'';position:absolute;inset:0;background:rgba(4,8,5,.38)}
+.up-ring{position:absolute;z-index:3;width:60px;height:60px;margin:-30px 0 0 -30px;border-radius:50%;pointer-events:none;
+  border:2px solid var(--lime);box-shadow:0 0 22px rgba(212,255,79,.55)}
+.up-fly{position:absolute;left:0;top:0;z-index:8;pointer-events:none;white-space:nowrap;padding:6px 12px;border-radius:99px;
+  font-size:13px;font-weight:700;color:var(--lime);background:rgba(14,22,12,.94);border:1px solid rgba(212,255,79,.5);
+  box-shadow:0 10px 26px rgba(0,0,0,.45), 0 0 18px rgba(212,255,79,.22);will-change:transform}
+.up-count{position:absolute;left:50%;bottom:30px;z-index:6;white-space:nowrap;padding:8px 15px;border-radius:99px;
+  font-size:13px;font-weight:800;letter-spacing:-.01em;color:#0B1409;background:var(--lime);
+  box-shadow:0 10px 30px rgba(212,255,79,.35);opacity:0;transform:translate(-50%,14px) scale(.92);pointer-events:none;
+  transition:opacity .22s var(--ease), transform .22s var(--ease)}
+.up-count.on{opacity:1;transform:translate(-50%,0) scale(1);transition:opacity .34s var(--ease), transform .5s var(--spring)}
+.up-count b{font-variant-numeric:tabular-nums}
+/* стрелки примеров — в строке ниши, а не поверх веера */
+.bz-morph .morph-nav{top:26px}
 .ph img{display:block;width:100%;height:100%;object-fit:cover;object-position:top center}
-/* «идея» — заметка в телефоне: тускло, без формы, только слова */
-.ph-notes{padding:22px 14px 14px;filter:brightness(.82) saturate(.6)}
-.ph-notes .nt-h{font-size:15px;font-weight:800;letter-spacing:-.02em;color:rgba(255,255,255,.82);line-height:1.2}
-.ph-notes ul{list-style:none;margin-top:12px}
-.ph-notes li{position:relative;padding:6px 0 6px 13px;font-size:12.5px;font-weight:500;line-height:1.35;color:var(--text2);
-  border-bottom:1px solid rgba(255,255,255,.06)}
-.ph-notes li::before{content:'—';position:absolute;left:0;color:var(--text3)}
-.nt-sk{margin-top:18px;display:grid;gap:8px}
-.nt-sk i{display:block;height:8px;border-radius:5px;background:rgba(255,255,255,.07)}
-.nt-sk i:nth-child(2){width:72%}.nt-sk i:nth-child(3){width:48%}
 .morph-nav .ico{width:16px;height:16px;color:var(--lime)}
 /* зона тапа стрелок — 44px при визуальных 34px */
 .morph-nav::after{content:'';position:absolute;inset:-5px}
@@ -1209,11 +1176,11 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
   .bz-hero .bz-cta{grid-area:cta;margin-top:26px}
   .bz-hero .bz-under{grid-area:under}
   .bz-hero .bz-morph{grid-area:visual;margin-top:0;align-self:center}
-  .bz-morph .morph-stage{height:560px}
+  .bz-morph .morph-stage{height:640px}
   .bz-morph .morph-nav{width:42px;height:42px;top:50%}
   .bz-morph .morph-nav.prev{left:-50px}
   .bz-morph .morph-nav.next{right:-50px}
-  .bz-morph .morph-knob{display:none}
+  .up-phone{top:232px;bottom:32px}
 
   #how > .sec-head{max-width:760px}
   /* бегунок: идея + рельс слева, результат справа */
@@ -1345,36 +1312,33 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
     <div class="morph-view">
       <div class="morph-stage glass" id="morph">
         <div class="morph-topbar"><span class="morph-label" id="exLabel">Салон красоты</span></div>
-        <span class="morph-tag t-before">Идея</span>
-        <span class="morph-tag t-after">Продукт</span>
 
-        <div class="ex" data-label="Салон красоты" data-res="ANZH Beauty — запись, паспорт кожи и клуб лояльности">
-          <div class="morph-layer morph-before"><div class="ph ph-notes"><div class="nt-h">Идея приложения</div><ul><li>запись без звонков</li><li>баллы за визиты</li><li>чтобы приводили подруг</li></ul><div class="nt-sk"><i></i><i></i><i></i></div></div></div>
-          <div class="morph-layer morph-after"><div class="ph"><img src="assets/cases/anzhtma-1.jpg" alt="ANZH Beauty — экран приложения" decoding="async"></div></div>
+        <div class="ex" data-label="Салон красоты" data-res="ANZH Beauty — запись, паспорт кожи и клуб лояльности" data-n="8" data-fan="assets/cases/anzhtma-1.jpg,assets/cases/anzhtma-7.jpg">
+          <div class="up-note"><div class="nt-h">Идея приложения</div><ul><li tabindex="0" role="button" data-scr="assets/cases/anzhtma-4.jpg">запись без звонков</li><li tabindex="0" role="button" data-scr="assets/cases/anzhtma-6.jpg">баллы за визиты</li><li tabindex="0" role="button" data-scr="assets/cases/anzhtma-5.jpg">чтобы приводили подруг</li></ul></div>
+          <div class="up-phone"><div class="up-fan"></div><div class="up-ph"><div class="up-empty"><i></i><i></i><i></i><i></i><i></i></div></div></div>
         </div>
-        <div class="ex" data-label="Клиника" data-res="Butyfly — прайс, запись к врачу и кабинет клиники в одном месте">
-          <div class="morph-layer morph-before"><div class="ph ph-notes"><div class="nt-h">Идея приложения</div><ul><li>прайс и запись к врачу</li><li>результаты до и после</li><li>без звонков в регистратуру</li></ul><div class="nt-sk"><i></i><i></i><i></i></div></div></div>
-          <div class="morph-layer morph-after"><div class="ph"><img src="assets/cases/butyfly-1.webp" alt="Butyfly — экран приложения" loading="lazy" decoding="async"></div></div>
+        <div class="ex" data-label="Клиника" data-res="Butyfly — прайс, запись к врачу и кабинет клиники в одном месте" data-n="8" data-fan="assets/cases/butyfly-1.webp,assets/cases/butyfly-3.webp">
+          <div class="up-note"><div class="nt-h">Идея приложения</div><ul><li tabindex="0" role="button" data-scr="assets/cases/butyfly-4.webp">прайс и запись к врачу</li><li tabindex="0" role="button" data-scr="assets/cases/butyfly-6.webp">результаты до и после</li><li tabindex="0" role="button" data-scr="assets/cases/butyfly-7.webp">без звонков в регистратуру</li></ul></div>
+          <div class="up-phone"><div class="up-fan"></div><div class="up-ph"><div class="up-empty"><i></i><i></i><i></i><i></i><i></i></div></div></div>
         </div>
-        <div class="ex" data-label="Ресторан" data-res="EPOCH — меню, бронь и бонусы; зал и кухня видят один заказ">
-          <div class="morph-layer morph-before"><div class="ph ph-notes"><div class="nt-h">Идея приложения</div><ul><li>меню с фото и бронь стола</li><li>бонусы постоянным гостям</li><li>кухня сразу видит заказ</li></ul><div class="nt-sk"><i></i><i></i><i></i></div></div></div>
-          <div class="morph-layer morph-after"><div class="ph"><img src="assets/cases/epoch-1.webp" alt="EPOCH — экран приложения" loading="lazy" decoding="async"></div></div>
+        <div class="ex" data-label="Ресторан" data-res="EPOCH — меню, бронь и бонусы; зал и кухня видят один заказ" data-n="8" data-fan="assets/cases/epoch-1.webp,assets/cases/epoch-4.webp">
+          <div class="up-note"><div class="nt-h">Идея приложения</div><ul><li tabindex="0" role="button" data-scr="assets/cases/epoch-2.webp">меню с фото и бронь стола</li><li tabindex="0" role="button" data-scr="assets/cases/epoch-3.webp">бонусы постоянным гостям</li><li tabindex="0" role="button" data-scr="assets/cases/epoch-8.webp">кухня сразу видит заказ</li></ul></div>
+          <div class="up-phone"><div class="up-fan"></div><div class="up-ph"><div class="up-empty"><i></i><i></i><i></i><i></i><i></i></div></div></div>
         </div>
-        <div class="ex" data-label="Мебель и производство" data-res="Furniturum — клиент видит свою кухню до замера">
-          <div class="morph-layer morph-before"><div class="ph ph-notes"><div class="nt-h">Идея приложения</div><ul><li>клиент собирает кухню сам</li><li>видит её у себя дома</li><li>заявка сразу в цех</li></ul><div class="nt-sk"><i></i><i></i><i></i></div></div></div>
-          <div class="morph-layer morph-after"><div class="ph"><img src="assets/cases/furniturum-1.webp" alt="Furniturum — экран приложения" loading="lazy" decoding="async"></div></div>
+        <div class="ex" data-label="Мебель и производство" data-res="Furniturum — клиент видит свою кухню до замера" data-n="8" data-fan="assets/cases/furniturum-1.webp,assets/cases/furniturum-5.webp">
+          <div class="up-note"><div class="nt-h">Идея приложения</div><ul><li tabindex="0" role="button" data-scr="assets/cases/furniturum-4.webp">клиент собирает кухню сам</li><li tabindex="0" role="button" data-scr="assets/cases/furniturum-2.webp">видит её у себя дома</li><li tabindex="0" role="button" data-scr="assets/cases/furniturum-8.webp">заявка сразу в цех</li></ul></div>
+          <div class="up-phone"><div class="up-fan"></div><div class="up-ph"><div class="up-empty"><i></i><i></i><i></i><i></i><i></i></div></div></div>
         </div>
-        <div class="ex" data-label="Туризм" data-res="Paratravel Club — подбор тура за четыре вопроса вместо переписки">
-          <div class="morph-layer morph-before"><div class="ph ph-notes"><div class="nt-h">Идея приложения</div><ul><li>подобрать тур за минуту</li><li>горящие направления</li><li>кэшбэк за поездки</li></ul><div class="nt-sk"><i></i><i></i><i></i></div></div></div>
-          <div class="morph-layer morph-after"><div class="ph"><img src="assets/cases/paratravel-1.webp" alt="Paratravel Club — экран приложения" loading="lazy" decoding="async"></div></div>
+        <div class="ex" data-label="Туризм" data-res="Paratravel Club — подбор тура за четыре вопроса вместо переписки" data-n="8" data-fan="assets/cases/paratravel-1.webp,assets/cases/paratravel-7.webp">
+          <div class="up-note"><div class="nt-h">Идея приложения</div><ul><li tabindex="0" role="button" data-scr="assets/cases/paratravel-3.webp">подобрать тур за минуту</li><li tabindex="0" role="button" data-scr="assets/cases/paratravel-2.webp">горящие направления</li><li tabindex="0" role="button" data-scr="assets/cases/paratravel-4.webp">кэшбэк за поездки</li></ul></div>
+          <div class="up-phone"><div class="up-fan"></div><div class="up-ph"><div class="up-empty"><i></i><i></i><i></i><i></i><i></i></div></div></div>
         </div>
-        <div class="ex" data-label="Детский центр" data-res="BabyLand — праздник за три минуты, смета считается на лету">
-          <div class="morph-layer morph-before"><div class="ph ph-notes"><div class="nt-h">Идея приложения</div><ul><li>праздник под ключ онлайн</li><li>родитель сам выбирает героев</li><li>смета считается сразу</li></ul><div class="nt-sk"><i></i><i></i><i></i></div></div></div>
-          <div class="morph-layer morph-after"><div class="ph"><img src="assets/cases/babyland-1.webp" alt="BabyLand — экран приложения" loading="lazy" decoding="async"></div></div>
+        <div class="ex" data-label="Детский центр" data-res="BabyLand — праздник за три минуты, смета считается на лету" data-n="7" data-fan="assets/cases/babyland-1.webp,assets/cases/babyland-6.webp">
+          <div class="up-note"><div class="nt-h">Идея приложения</div><ul><li tabindex="0" role="button" data-scr="assets/cases/babyland-2.webp">праздник под ключ онлайн</li><li tabindex="0" role="button" data-scr="assets/cases/babyland-4.webp">родитель сам выбирает героев</li><li tabindex="0" role="button" data-scr="assets/cases/babyland-7.webp">смета считается сразу</li></ul></div>
+          <div class="up-phone"><div class="up-fan"></div><div class="up-ph"><div class="up-empty"><i></i><i></i><i></i><i></i><i></i></div></div></div>
         </div>
 
-        <div class="morph-divider" id="mDivider"></div>
-        <div class="morph-knob" id="mKnob"></div>
+        <div class="up-count" id="upCount" aria-live="polite"></div>
       </div>
       <button class="morph-nav prev" id="exPrev" type="button" aria-label="Назад"><i class="ico i-prev"></i></button>
       <button class="morph-nav next" id="exNext" type="button" aria-label="Вперёд"><i class="ico i-next"></i></button>
@@ -2018,17 +1982,198 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
   var ticker = document.getElementById('ticker');
   if(ticker) ticker.innerHTML += ticker.innerHTML;
 
-  /* ===== ДО / ПОСЛЕ: механика слайдера главной, примеры — идея на словах → продукт ===== */
+  /* ===== РАСПАКОВКА (было «до / после»): строка заметки отрывается, летит дугой в телефон и в точке посадки
+     становится настоящим экраном этой функции; после трёх строк экраны раскрываются веером за телефоном.
+     Полёт — «Полёт в чип» ROCH Motion (skill/fx/cards.js): квадратичная дуга, контрольная точка на 90px выше,
+     пружина k150/c24 без перелёта, наклон по касательной ±14° → 0° к прилёту.
+     Веер — «Веер» ROCH Motion: ось ниже карты, раскрытие пружиной «pop», карты притушены затемнением. ===== */
   var morph = document.getElementById('morph');
   var exRes = document.getElementById('exRes');
   var goEx = function(){};
+  var exIdx = 0;
   if(morph){
-    var mKnob = document.getElementById('mKnob');
     var exListEls = Array.prototype.slice.call(morph.querySelectorAll('.ex'));
     var exLabel = document.getElementById('exLabel');
     var exDots = document.getElementById('exDots');
-    var exIdx = 0, dragging = false, userTouched = false, exAutoLast = 0, exVisible = false, revealPlayed = false;
+    var upCount = document.getElementById('upCount');
+    var exAutoLast = 0, exVisible = false, upStarted = false, upRun = 0, upTimers = [];
+    var FAN = [-10, -5, 5, 10];
     var exTouchMark = function(){ exAutoLast = Date.now(); };
+    var later = function(ms, fn){ var id = setTimeout(fn, ms); upTimers.push(id); return id; };
+    var stopAll = function(){ upRun++; upTimers.forEach(clearTimeout); upTimers = []; };
+    var easeOut = function(x){ return 1 - Math.pow(1 - x, 3); };
+    var clamp = function(v, a, b){ return Math.max(a, Math.min(b, v)); };
+    /* скрытая вкладка тормозит rAF — конец каждой анимации страхуем таймером */
+    var tween = function(ms, step, done){
+      var my = upRun, t0 = 0, fin = false;
+      var end = function(){ if(fin) return; fin = true; step(1); if(done && my === upRun) done(); };
+      var f = function(ts){
+        if(fin) return;
+        if(my !== upRun){ fin = true; return; }
+        if(!t0) t0 = ts;
+        var p = Math.min(1, (ts - t0) / ms);
+        step(easeOut(p));
+        if(p < 1) requestAnimationFrame(f); else end();
+      };
+      requestAnimationFrame(f);
+      later(ms + 400, end);
+    };
+    var spring = function(k, c, step, done){
+      var my = upRun, x = 0, v = 0, last = 0, fin = false;
+      var end = function(){ if(fin) return; fin = true; step(1, 0); if(done && my === upRun) done(); };
+      var f = function(ts){
+        if(fin) return;
+        if(my !== upRun){ fin = true; return; }
+        var dt = last ? Math.min(0.034, (ts - last) / 1000) : 0.016; last = ts;
+        for(var n = 0; n < 4; n++){ var a = -k * (x - 1) - c * v; v += a * dt / 4; x += v * dt / 4; }
+        step(x, v);
+        if(Math.abs(1 - x) < 0.003 && Math.abs(v) < 0.02) end(); else requestAnimationFrame(f);
+      };
+      requestAnimationFrame(f);
+      later(1700, end);
+    };
+    var rel = function(el){
+      var a = el.getBoundingClientRect(), b = morph.getBoundingClientRect();
+      return { x: a.left - b.left, y: a.top - b.top, w: a.width, h: a.height };
+    };
+    var sweep = function(){
+      Array.prototype.forEach.call(morph.querySelectorAll('.up-fly,.up-ring'), function(e){ e.parentNode.removeChild(e); });
+    };
+    var preload = function(ex){
+      if(!ex || ex.__pre) return; ex.__pre = true;
+      var list = (ex.getAttribute('data-fan') || '').split(',');
+      Array.prototype.forEach.call(ex.querySelectorAll('.up-note li'), function(li){ list.push(li.getAttribute('data-scr')); });
+      list.forEach(function(s){ if(s){ var im = new Image(); im.src = s; } });
+    };
+    var prep = function(ex){
+      if(ex.__up) return ex.__up;
+      preload(ex);
+      var lis = Array.prototype.slice.call(ex.querySelectorAll('.up-note li'));
+      var fanSrc = (ex.getAttribute('data-fan') || '').split(',');
+      var order = [lis[0].getAttribute('data-scr'), fanSrc[0], lis[1].getAttribute('data-scr'), fanSrc[1]];
+      var fanBox = ex.querySelector('.up-fan');
+      var up = { ex: ex, lis: lis, ph: ex.querySelector('.up-ph'), layers: [], fanOpen: false,
+                 n: parseInt(ex.getAttribute('data-n'), 10) || 8, cards: [] };
+      order.forEach(function(src){
+        var c = document.createElement('div'); c.className = 'up-card';
+        var im = document.createElement('img'); im.alt = ''; im.decoding = 'async'; im.src = src;
+        c.appendChild(im); fanBox.appendChild(c); up.cards.push(c);
+      });
+      lis.forEach(function(li, i){
+        var go = function(){ userUnpack(up, i); };
+        li.addEventListener('click', go);
+        li.addEventListener('keydown', function(e){ if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); go(); } });
+      });
+      ex.__up = up;
+      return up;
+    };
+    var reset = function(up){
+      up.lis.forEach(function(li){ li.classList.remove('up-mark'); li.classList.remove('up-lift'); li.classList.remove('up-done'); });
+      up.layers.forEach(function(im){ if(im.parentNode) im.parentNode.removeChild(im); });
+      up.layers = []; up.fanOpen = false; up.ex.classList.remove('up-fanned');
+      up.cards.forEach(function(c){ c.style.visibility = 'hidden'; c.style.transform = 'translateX(-50%)'; });
+      sweep(); upCount.classList.remove('on');
+    };
+    /* экран проявляется кругом из точки посадки — «долетело и засчиталось» видно там, куда летело */
+    var showScreen = function(up, src, at){
+      var im = document.createElement('img'); im.alt = ''; im.decoding = 'async'; im.src = src;
+      var trim = function(){ while(up.layers.length > 2){ var o = up.layers.shift(); if(o.parentNode) o.parentNode.removeChild(o); } };
+      up.ph.appendChild(im); up.layers.push(im);
+      if(!at || reduced){ trim(); return; }
+      var w = up.ph.clientWidth, h = up.ph.clientHeight, R = Math.sqrt(w * w + h * h);
+      var clip = function(r){ var s = 'circle(' + r.toFixed(1) + 'px at ' + at.x.toFixed(1) + 'px ' + at.y.toFixed(1) + 'px)'; im.style.webkitClipPath = s; im.style.clipPath = s; };
+      clip(0);
+      tween(560, function(p){ clip(p * R); if(p >= 1){ im.style.webkitClipPath = ''; im.style.clipPath = ''; } }, trim);
+    };
+    var ring = function(x, y){
+      var r = document.createElement('i'); r.className = 'up-ring';
+      r.style.left = x.toFixed(1) + 'px'; r.style.top = y.toFixed(1) + 'px';
+      morph.appendChild(r);
+      tween(620, function(p){ r.style.transform = 'scale(' + (0.3 + p * 1.5).toFixed(3) + ')'; r.style.opacity = (1 - p).toFixed(3); },
+        function(){ if(r.parentNode) r.parentNode.removeChild(r); });
+    };
+    var fly = function(li, tx, ty, landed){
+      var a = rel(li), f = document.createElement('div'); f.className = 'up-fly'; f.textContent = li.textContent;
+      morph.appendChild(f);
+      var x0 = a.x + 9 + f.offsetWidth / 2, y0 = a.y + a.h / 2;
+      var cx = (x0 + tx) / 2 - 30, cy = Math.min(y0, ty) - 90, hit = false;
+      var land = function(){ if(hit) return; hit = true; if(f.parentNode) f.parentNode.removeChild(f); landed(); };
+      spring(150, 24, function(v){
+        var e = clamp(v, 0, 1), u = 1 - e;
+        var x = u * u * x0 + 2 * u * e * cx + e * e * tx, y = u * u * y0 + 2 * u * e * cy + e * e * ty;
+        var vx = 2 * u * (cx - x0) + 2 * e * (tx - cx), vy = 2 * u * (cy - y0) + 2 * e * (ty - cy);
+        var tl = clamp(Math.atan2(vy, Math.abs(vx) + 0.001) * 57.3 * 0.25, -14, 14) * u;
+        f.style.transform = 'translate(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px) translate(-50%,-50%) scale(' + (1 - 0.5 * e).toFixed(3) + ') rotate(' + tl.toFixed(1) + 'deg)';
+        f.style.opacity = e > 0.85 ? ((1 - e) / 0.15).toFixed(3) : '1';
+        if(v > 0.97) land();
+      }, land);
+    };
+    var unpack = function(up, i, done){
+      var li = up.lis[i];
+      li.classList.remove('up-done'); li.classList.add('up-mark');
+      later(300, function(){
+        li.classList.add('up-lift');
+        var p = rel(up.ph), at = { x: p.w / 2, y: p.h * (0.3 + 0.13 * i) };
+        fly(li, p.x + at.x, p.y + at.y, function(){
+          ring(p.x + at.x, p.y + at.y);
+          showScreen(up, li.getAttribute('data-scr'), at);
+          li.classList.remove('up-mark'); li.classList.remove('up-lift'); li.classList.add('up-done');
+          if(done) later(620, done);
+        });
+      });
+    };
+    var plural = function(k){ var a = k % 10, b = k % 100; return (a === 1 && b !== 11) ? '' : (a >= 2 && a <= 4 && (b < 10 || b >= 20)) ? 'а' : 'ов'; };
+    var counter = function(up, instant){
+      var n = up.n;
+      var render = function(k){
+        upCount.innerHTML = LANG === 'en' ? '<b>3</b> lines of an idea → <b>' + k + '</b> product screens'
+                                          : '<b>3</b> строки идеи → <b>' + k + '</b> экран' + plural(k) + ' продукта';
+      };
+      upCount.classList.add('on');
+      if(instant || reduced){ render(n); return; }
+      var k = 3; render(k);
+      var stepN = function(){ if(k >= n) return; k++; render(k); later(75, stepN); };
+      later(260, stepN);
+    };
+    var finale = function(up, instant){
+      up.fanOpen = true; up.ex.classList.add('up-fanned');
+      up.cards.forEach(function(c, i){
+        var A = FAN[i];
+        c.style.visibility = 'visible';
+        if(instant || reduced){ c.style.transform = 'translateX(-50%) rotate(' + A + 'deg) scale(.94)'; return; }
+        later(i * 70, function(){
+          spring(170, 13, function(v){ c.style.transform = 'translateX(-50%) rotate(' + (A * v).toFixed(2) + 'deg) scale(' + (0.9 + 0.04 * clamp(v, 0, 1)).toFixed(3) + ')'; });
+        });
+      });
+      counter(up, instant);
+    };
+    var play = function(){
+      stopAll();
+      var up = prep(exListEls[exIdx]);
+      reset(up);
+      if(reduced){
+        up.lis.forEach(function(li){ li.classList.add('up-done'); });
+        showScreen(up, up.lis[up.lis.length - 1].getAttribute('data-scr'), null);
+        finale(up, true);
+        return;
+      }
+      var i = 0;
+      var next = function(){
+        if(i < up.lis.length){ var k = i++; later(k === 0 ? 450 : 240, function(){ unpack(up, k, next); }); return; }
+        later(180, function(){ finale(up); });
+        later(4600, function(){ if(exVisible && !document.hidden && Date.now() - exAutoLast > 8000) goEx(exIdx + 1); });
+      };
+      next();
+    };
+    /* тап по строке — распаковать именно её; распаковал все три — веер */
+    var userUnpack = function(up, i){
+      exTouchMark(); stopAll(); sweep();
+      up.lis.forEach(function(li){ li.classList.remove('up-mark'); li.classList.remove('up-lift'); });
+      unpack(up, i, function(){
+        var all = up.lis.every(function(li){ return li.classList.contains('up-done'); });
+        if(all && !up.fanOpen) finale(up);
+      });
+    };
     exListEls.forEach(function(_, i){
       var d = document.createElement('button');
       d.type = 'button'; d.className = 'morph-dot' + (i === 0 ? ' on' : '');
@@ -2037,92 +2182,30 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
       exDots.appendChild(d);
     });
     var dots = exDots.querySelectorAll('.morph-dot');
-    var setSplit = function(pct){ morph.style.setProperty('--split', Math.max(6, Math.min(94, pct)) + '%'); };
-    var firstTouch = function(){ if(userTouched) return; userTouched = true; morph.classList.remove('hint'); };
+    /* тот же индекс — только обновить подписи (смена языка), другой — проиграть распаковку заново */
     goEx = function(i){
-      exIdx = (i + exListEls.length) % exListEls.length;
+      var ni = (i + exListEls.length) % exListEls.length, changed = ni !== exIdx;
+      exIdx = ni;
       exListEls.forEach(function(ex, k){ ex.classList.toggle('active', k === exIdx); });
       Array.prototype.forEach.call(dots, function(d, k){ d.classList.toggle('on', k === exIdx); });
       exLabel.textContent = t(exListEls[exIdx].getAttribute('data-label'));
       if(exRes) exRes.textContent = t(exListEls[exIdx].getAttribute('data-res'));
-      /* следующий кадр грузим заранее — «после» не мигает пустым телефоном */
-      var nx = exListEls[(exIdx + 1) % exListEls.length].querySelector('.morph-after img');
-      if(nx && nx.loading === 'lazy'){ nx.loading = 'eager'; }
+      var up = prep(exListEls[exIdx]);
+      preload(exListEls[(exIdx + 1) % exListEls.length]);
+      if(changed && upStarted) play();
+      else if(up.fanOpen) counter(up, true);
     };
-    var stageX = function(clientX){ var r = morph.getBoundingClientRect(); return ((clientX - r.left) / r.width) * 100; };
-    var onMove = function(e){
-      if(!dragging) return;
-      var x = e.touches ? e.touches[0].clientX : e.clientX;
-      setSplit(stageX(x));
-      if(e.cancelable && e.touches) e.preventDefault();
-    };
-    var onDown = function(e){ dragging = true; firstTouch(); exTouchMark(); onMove(e); };
-    var onUp = function(){ if(dragging) exTouchMark(); dragging = false; };
-    mKnob.addEventListener('mousedown', onDown);
-    mKnob.addEventListener('touchstart', onDown, {passive:false});
-    morph.addEventListener('mousedown', function(e){ if(!e.target.closest('.morph-nav')) onDown(e); });
-    morph.addEventListener('touchstart', function(e){ if(!e.target.closest('.morph-nav')) onDown(e); }, {passive:false});
-    window.addEventListener('mousemove', onMove);
-    window.addEventListener('touchmove', onMove, {passive:false});
-    window.addEventListener('mouseup', onUp);
-    window.addEventListener('touchend', onUp);
-    var hoverMode = false;
-    try{ hoverMode = window.matchMedia('(hover:hover) and (pointer:fine)').matches; }catch(e){}
-    if(hoverMode){
-      morph.addEventListener('mousemove', function(e){
-        if(dragging || e.target.closest('.morph-nav')) return;
-        firstTouch(); exTouchMark(); setSplit(stageX(e.clientX));
-      });
-    }
     document.getElementById('exPrev').addEventListener('click', function(e){ e.stopPropagation(); exTouchMark(); goEx(exIdx - 1); });
     document.getElementById('exNext').addEventListener('click', function(e){ e.stopPropagation(); exTouchMark(); goEx(exIdx + 1); });
-
-    /* VFX: блюр-трейл + искры за лучом — только во время движения (как на главной) */
-    var vfxOn = false, vfxRAF = 0, prevSplit = 50, tOp = 0, partAcc = 0, partLive = 0, trailEl = null;
-    if(!reduced){ trailEl = document.createElement('div'); trailEl.className = 'morph-trail'; morph.appendChild(trailEl); }
-    var spawnParticle = function(xPct, dir){
-      if(partLive >= 18) return; partLive++;
-      var p = document.createElement('i'); p.className = 'morph-particle';
-      p.style.left = xPct + '%';
-      p.style.top = (16 + Math.random() * 66) + '%';
-      p.style.setProperty('--px', (dir * (14 + Math.random() * 32)).toFixed(0) + 'px');
-      p.style.setProperty('--py', ((Math.random() - 0.5) * 28).toFixed(0) + 'px');
-      p.style.setProperty('--ps', (0.45 + Math.random() * 0.9).toFixed(2));
-      morph.appendChild(p);
-      setTimeout(function(){ if(p.parentNode) p.parentNode.removeChild(p); partLive--; }, 720);
-    };
-    var readSplit = function(){ return parseFloat(getComputedStyle(morph).getPropertyValue('--split')) || 50; };
-    var vfxTick = function(){
-      var cur = readSplit(), vel = cur - prevSplit, speed = Math.abs(vel);
-      tOp += (Math.min(1, speed * 0.34) - tOp) * 0.4; if(tOp < 0.008) tOp = 0;
-      if(trailEl){
-        trailEl.style.setProperty('--tOp', tOp.toFixed(3));
-        if(speed > 0.05) trailEl.style.setProperty('--tdir', vel > 0 ? -1 : 1);
-        trailEl.style.setProperty('--tW', (46 + Math.min(64, speed * 13)).toFixed(0) + 'px');
-      }
-      if(speed > 0.5){ partAcc += speed; while(partAcc > 3.4){ partAcc -= 3.4; spawnParticle(cur, vel > 0 ? -1 : 1); } }
-      else partAcc = 0;
-      prevSplit = cur;
-      vfxRAF = requestAnimationFrame(vfxTick);
-    };
-    var startVfx = function(){ if(vfxOn || reduced) return; vfxOn = true; prevSplit = readSplit(); vfxRAF = requestAnimationFrame(vfxTick); };
-    var stopVfx = function(){ vfxOn = false; if(vfxRAF) cancelAnimationFrame(vfxRAF); vfxRAF = 0; if(trailEl) trailEl.style.setProperty('--tOp', '0'); };
+    var startUp = function(){ if(upStarted) return; upStarted = true; play(); };
+    exListEls[0].classList.add('active');
+    prep(exListEls[0]);
     if('IntersectionObserver' in window){
       new IntersectionObserver(function(en){
         exVisible = en[0].isIntersecting;
-        if(exVisible && !revealPlayed && !userTouched && !reduced){ revealPlayed = true; morph.classList.add('hint'); }
-        if(exVisible) startVfx(); else stopVfx();
+        if(exVisible) startUp();
       }, {threshold:.35}).observe(morph);
-    }
-    if(!reduced){
-      setInterval(function(){
-        if(document.hidden || !exVisible || dragging) return;
-        if(Date.now() - exAutoLast < 8000) return;
-        goEx(exIdx + 1);
-      }, 5200);
-    }
-    exListEls[0].classList.add('active');
-    setSplit(50);
+    } else { exVisible = true; startUp(); }
   }
 
   /* ===== КЕЙСЫ: данные — из index.html (опубликованные) + портфолио-бот (свежие) ===== */
