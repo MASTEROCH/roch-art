@@ -1326,30 +1326,25 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
 .ms-info p{font-size:14px;font-weight:500;color:var(--text2);margin:6px 0 16px}
 .ms-tg{margin-top:8px;text-align:center;font-size:12px;font-weight:600;color:var(--text3)}
 .ms-tile{cursor:pointer}
-/* солнечная система ROCH (integration-orbit, переосмыслено): солнце — ROCH, планеты — продукты, без ссылок и пилюль */
-.eco-orbit{position:relative;height:300px;max-width:640px;margin:6px auto 20px;touch-action:pan-y}
-.eo-in{position:absolute;inset:0}
-.eo-svg{position:absolute;left:0;top:0;width:100%;height:100%;overflow:visible;pointer-events:none}
-.eo-orb{fill:none;stroke-width:1}
-.eo-star{fill:#fff}
-.eo-star.tw{animation:eoTw 4.2s ease-in-out infinite}
-@keyframes eoTw{0%,100%{opacity:.15}50%{opacity:.75}}
-.eo-sun{position:absolute;left:50%;top:50%;z-index:2;width:64px;height:64px;margin:-32px 0 0 -32px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;text-align:center;font-size:13px;font-weight:900;line-height:1.02;letter-spacing:-.01em;color:#0B1409;
-  background:radial-gradient(circle at 42% 38%,#FFFFF2 0%,#F1FFC0 22%,#D4FF4F 52%,#8DC424 100%);
-  box-shadow:0 0 22px rgba(212,255,79,.65),0 0 60px rgba(212,255,79,.35)}
-.eo-sun span{position:relative;z-index:1}
-.eo-sun::before{content:'';position:absolute;left:50%;top:50%;width:330%;height:330%;margin:-165% 0 0 -165%;border-radius:50%;pointer-events:none;
-  background:radial-gradient(circle,rgba(212,255,79,.24) 0%,rgba(212,255,79,.08) 32%,transparent 66%);animation:eoCorona 7s ease-in-out infinite alternate}
-@keyframes eoCorona{from{transform:scale(.94);opacity:.85}to{transform:scale(1.06);opacity:1}}
-.eo-p{position:absolute;left:0;top:0;width:0;height:0;pointer-events:none}
-.eo-p i{position:absolute;left:0;top:0;width:var(--s);height:var(--s);margin:calc(var(--s) / -2) 0 0 calc(var(--s) / -2);border-radius:50%;
-  background:radial-gradient(circle at var(--lx,35%) var(--ly,35%),var(--c0) 0%,var(--c1) 30%,var(--c2) 78%,#03050A 100%);
-  box-shadow:0 0 calc(var(--s) * .8) var(--g)}
-.eo-p b{position:absolute;left:0;top:calc(var(--s) / 2 + 7px);transform:translateX(-50%);white-space:nowrap;
-  font-size:11.5px;font-weight:600;letter-spacing:.01em;color:var(--text2)}
-@media (prefers-reduced-motion:reduce){ .eo-sun::before,.eo-star.tw{animation:none} }
-@media (min-width:1024px){ .eco-orbit{height:400px} .eo-sun{width:84px;height:84px;margin:-42px 0 0 -42px;font-size:16px} .eo-p b{font-size:12.5px} }
+/* фильм экосистемы ROCH (Vifix: 4 ключевых кадра → 3 клипа Kling). Края растворяются в фоне подвала, имена планет — HTML на финальном кадре */
+.eco-film{max-width:560px;margin:2px auto 22px}
+.ef-stage{position:relative;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.ef-box{position:relative;aspect-ratio:1/1;
+  -webkit-mask-image:radial-gradient(farthest-side,#000 80%,transparent);mask-image:radial-gradient(farthest-side,#000 80%,transparent)}
+.ef-v{display:block;width:100%;height:100%;object-fit:cover;background:#050706}
+.ef-tags b{position:absolute;left:var(--x);top:var(--y);transform:translate(-50%,calc(-50% + 6px));opacity:0;pointer-events:none;white-space:nowrap;
+  font-size:11.5px;font-weight:800;letter-spacing:.02em;color:var(--text);text-shadow:0 1px 10px rgba(0,0,0,.9),0 0 2px rgba(0,0,0,.9);
+  transition:opacity .45s cubic-bezier(.22,1,.36,1),transform .45s cubic-bezier(.22,1,.36,1)}
+.eco-film.end .ef-tags b{opacity:1;transform:translate(-50%,-50%)}
+.eco-film.end .ef-tags b:nth-child(2){transition-delay:.07s}.eco-film.end .ef-tags b:nth-child(3){transition-delay:.14s}
+.eco-film.end .ef-tags b:nth-child(4){transition-delay:.21s}.eco-film.end .ef-tags b:nth-child(5){transition-delay:.28s}
+.ef-again{position:absolute;right:6%;bottom:6%;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;
+  color:var(--text2);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);opacity:0;pointer-events:none;transition:opacity .3s}
+.eco-film.end .ef-again{opacity:1;pointer-events:auto}
+.ef-cap{display:grid;margin-top:4px;min-height:40px;font-size:13.5px;font-weight:600;line-height:1.4;color:var(--text2)}
+.ef-cap span{grid-area:1/1;opacity:0;transform:translateY(6px);transition:opacity .45s cubic-bezier(.22,1,.36,1),transform .45s cubic-bezier(.22,1,.36,1)}
+.ef-cap span.on{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){ .ef-tags b,.ef-cap span{transition:none} }
 @media (min-width:1024px){ .ms-tile,.ms-more{flex:0 0 150px} .ms-row{margin:0;padding:16px 2px 8px;scroll-padding:0} }
 /* logo-marquee (landing.js): студии лентой — схватить и бросить; вертикальный свайп по-прежнему листает страницу */
 .lm{position:relative;overflow:hidden;margin-top:2px;touch-action:pan-y;cursor:grab;user-select:none;-webkit-user-select:none;
@@ -1844,7 +1839,14 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
 
 <footer>
   <p class="eco-h">Экосистема ROCH</p>
-  <div class="eco-orbit" aria-hidden="true"><div class="eo-in"><svg class="eo-svg"></svg><div class="eo-sun"><span>ROCH<br>0→1</span></div><span class="eo-p" data-o="0" style="--s:13px;--c0:#F6FFD2;--c1:#D4FF4F;--c2:#55701A;--g:rgba(212,255,79,.4)"><i></i><b>Motion</b></span><span class="eo-p" data-o="1" style="--s:9px;--c0:#FFFFFF;--c1:#B8F5DA;--c2:#2C6E55;--g:rgba(184,245,218,.35)"><i></i><b>AI</b></span><span class="eo-p" data-o="2" style="--s:12px;--c0:#FFFBE0;--c1:#E8F87A;--c2:#6C7417;--g:rgba(232,248,122,.35)"><i></i><b>Audit</b></span><span class="eo-p" data-o="3" style="--s:12px;--c0:#E6FFFB;--c1:#00E0C7;--c2:#0A5048;--g:rgba(0,224,199,.35)"><i></i><b>LinkOS</b></span><span class="eo-p" data-o="4" style="--s:17px;--c0:#F1EAFF;--c1:#8B55FF;--c2:#2A0F66;--g:rgba(139,85,255,.45)"><i></i><b>AppHub</b></span></div></div>
+  <figure class="eco-film">
+    <div class="ef-stage"><div class="ef-box">
+      <video class="ef-v" muted playsinline preload="none" poster="assets/eco/eco-first.webp" aria-hidden="true"><source src="assets/eco/eco-film.mp4" type="video/mp4"></video>
+      <div class="ef-tags" aria-hidden="true"><b style="--x:31.9%;--y:18.6%">Motion</b><b style="--x:66.7%;--y:21.4%">AI</b><b style="--x:77.4%;--y:64.2%">Audit</b><b style="--x:27.7%;--y:66%">LinkOS</b><b style="--x:50%;--y:88.8%">AppHub</b></div>
+      </div><button class="ef-again" type="button" aria-label="Смотреть снова"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.34-5.66M20 4v5h-5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    </div>
+    <figcaption class="ef-cap"><span class="on">В центре — ROCH 0→1: идея становится продуктом</span><span>На орбитах — продукты, которые его растят</span><span>Всё связано: один вход — вся система</span></figcaption>
+  </figure>
   <nav class="eco" aria-label="Экосистема ROCH">
     <a class="eco-card glass" id="ecoMotion" href="#" target="_blank" rel="noopener"><b>ROCH Motion</b><span>Готовые эффекты — для тех, кто строит сам</span></a>
     <a class="eco-card glass" id="ecoAudit" href="https://roch-audit.com" target="_blank" rel="noopener"><b>ROCH Audit</b><span>Аудит и геймификация продукта, который уже работает</span></a>
@@ -2059,6 +2061,10 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
     "ROCH 0→1 · распаковка и упаковка идей — Roman Chernyavsky · roch-art.com":"ROCH 0→1 · unpacking and packaging ideas — Roman Chernyavsky · roch-art.com",
 "или запустите сами в LinkOS и BuildOS →":"or launch it yourself in LinkOS and BuildOS →",
 "Экосистема ROCH":"ROCH ecosystem",
+"В центре — ROCH 0→1: идея становится продуктом":"At the core — ROCH 0→1: an idea becomes a product",
+"На орбитах — продукты, которые его растят":"In orbit — the products that grow it",
+"Всё связано: один вход — вся система":"All connected: one door — the whole system",
+"Смотреть снова":"Watch again",
 "Живая механика ROCH Motion: код на ES5 и CSS без зависимостей — встраивается в приложение или сайт.":"A live ROCH Motion mechanic: ES5 and CSS code with no dependencies — drops into an app or a site.",
 "Купить в ROCH Motion":"Buy in ROCH Motion",
 "Откроется приложение в Telegram":"Opens the app in Telegram",
@@ -3715,81 +3721,37 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
     function links(){ var a = document.getElementById('msAll'), c = document.getElementById('ecoMotion'); if(a) a.href = motionBuyUrl(null); if(c) c.href = motionBuyUrl(null); }
     links(); back.__links = links;
   })();
-  /* ---- солнечная система ROCH: настоящая 3D-проекция и камера, привязанная к прокрутке.
-     Вход в кадр — почти с ребра, крупно, с креном; центр экрана — раскрытый ракурс; выход — выше и с отъездом.
-     Камера догоняет прокрутку мягкой пружиной (k40/c12). Период орбит ∝ r^1,5 (Кеплер), свет на планетах — со стороны солнца ---- */
-  (function orbit(){
-    var box = document.querySelector('.eco-orbit'); if(!box) return;
-    var svg = box.querySelector('.eo-svg'), sun = box.querySelector('.eo-sun'), NS = 'http://www.w3.org/2000/svg';
-    var P = Array.prototype.slice.call(box.querySelectorAll('.eo-p')).map(function(el, i){
-      return {el: el, o: +el.getAttribute('data-o'), ball: el.querySelector('i'), lab: el.querySelector('b'), a0: i * 2.39996 + .4};
-    });
-    var NO = P.length, R = [], orbs = [], stars = null, cx = 0, cy = 0, t = 0, seen = false, live = false, sunR = 29;
-    var D2R = Math.PI / 180;
-    var cam = { tilt: MOT.spring(80, 40, 12), roll: MOT.spring(-14, 40, 12), zoom: MOT.spring(1.4, 40, 12) };
-    var ptr = MOT.spring(0, 70, 11);
-    function mk(n, a, parent){ var e = document.createElementNS(NS, n); for(var k in a) e.setAttribute(k, a[k]); (parent || svg).appendChild(e); return e; }
-    function size(){
-      var W = box.clientWidth, H = box.clientHeight; sunR = sun.offsetWidth / 2;
-      cx = W / 2; cy = H / 2;
-      var minR = sunR + 22, maxR = Math.min(W / 2 - 34, 280);
-      while(svg.firstChild) svg.removeChild(svg.firstChild);
-      svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
-      stars = mk('g', {});
-      var seed = 7; function rnd(){ seed = (seed * 16807) % 2147483647; return seed / 2147483647; }
-      for(var s = 0; s < 90; s++){
-        var st = mk('circle', {cx: (rnd() * W * 1.4 - W * .2).toFixed(1), cy: (rnd() * H * 1.4 - H * .2).toFixed(1), r: (.35 + rnd() * .9).toFixed(2), 'class': 'eo-star' + (s % 6 === 0 ? ' tw' : '')}, stars);
-        st.style.opacity = (.12 + rnd() * .45).toFixed(2); if(s % 6 === 0) st.style.animationDelay = (rnd() * 4).toFixed(2) + 's';
-      }
-      R = []; orbs = [];
-      for(var i = 0; i < NO; i++){
-        var r = minR + (maxR - minR) * i / Math.max(1, NO - 1);
-        R.push({r: r, T: 16 * Math.pow(r / minR, 1.5)});
-        orbs.push(mk('ellipse', {'class': 'eo-orb', stroke: i < 3 ? 'rgba(212,255,79,.13)' : 'rgba(167,139,255,.15)'}));
-      }
+  /* ---- фильм экосистемы ROCH: Vifix, 4 ключевых кадра → 3 клипа Kling по 5 с (вспышка ядра · отъезд к орбитам · связи).
+     Играет раз, когда блок в кадре, и замирает на кадре связей — тогда проявляются имена планет. Подпись меняется по отрезкам.
+     Тап — заново. «Уменьшить движение» или отказ автовоспроизведения (режим энергосбережения iOS) — сразу финальный кадр. ---- */
+  (function ecoFilm(){
+    var box = document.querySelector('.eco-film'); if(!box) return;
+    var v = box.querySelector('video'), caps = box.querySelectorAll('.ef-cap span'), seg = -1, started = false, dead = false;
+    function cap(i){ if(i === seg) return; seg = i; for(var k = 0; k < caps.length; k++) caps[k].classList.toggle('on', k === i); }
+    function end(){ box.classList.add('end'); cap(caps.length - 1); }
+    function still(){ dead = true; v.poster = 'assets/eco/eco-last.webp'; v.removeAttribute('src'); while(v.firstChild) v.removeChild(v.firstChild); try{ v.load(); }catch(e){} end(); }
+    function play(){
+      box.classList.remove('end'); cap(0);
+      try{ v.currentTime = 0; }catch(e){}
+      /* финал вместо фильма — только при запрете автозапуска; AbortError (ушли из кадра до старта) — не повод */
+      var p = v.play(); if(p && p.catch) p.catch(function(e){ if(e && e.name === 'NotAllowedError') still(); });
     }
-    /* куда смотрит камера при прогрессе прокрутки p (0 — блок только вошёл снизу, 1 — ушёл вверх) */
-    function smooth(e){ return e * e * (3 - 2 * e); }
-    function aim(){
-      var b = box.getBoundingClientRect(), vh = window.innerHeight || 1;
-      var p = Math.max(0, Math.min(1, (vh - b.top) / (vh + b.height)));
-      var tilt, roll, zoom;
-      /* пролёт за одну прокрутку: линия с ребра → раскрытый диск → почти вид сверху */
-      if(p < .5){ var e = smooth(p / .5); tilt = 85 + (58 - 85) * e; roll = -18 + 18 * e; zoom = 1.6 + (1.05 - 1.6) * e; }
-      else { var f = smooth((p - .5) / .5); tilt = 58 + (34 - 58) * f; roll = 14 * f; zoom = 1.05 + (.9 - 1.05) * f; }
-      cam.tilt.to(reduced ? 58 : tilt); cam.roll.to(reduced ? 0 : roll); cam.zoom.to(reduced ? 1 : zoom);
+    if(reduced){ still(); return; }
+    /* 2,4 МБ грузятся за экран до блока, а не с открытием страницы: подвал видят не все */
+    if('IntersectionObserver' in window){
+      var near = new IntersectionObserver(function(en){ if(en[0].isIntersecting && !started){ near.disconnect(); v.preload = 'auto'; try{ v.load(); }catch(e){} } }, {rootMargin: '0px 0px 900px 0px'});
+      near.observe(box);
     }
-    function render(){
-      var ti = cam.tilt.x * D2R, ro = (cam.roll.x + ptr.x * 4) * D2R, z = cam.zoom.x, ct = Math.cos(ti), st_ = Math.sin(ti), cr = Math.cos(ro), sr = Math.sin(ro);
-      stars.setAttribute('transform', 'translate(' + cx + ' ' + cy + ') rotate(' + ((cam.roll.x + ptr.x * 4) * .35).toFixed(2) + ') scale(' + (1 + (z - 1) * .3).toFixed(3) + ') translate(' + (-cx) + ' ' + (-cy) + ')');
-      orbs.forEach(function(e, i){
-        e.setAttribute('cx', cx); e.setAttribute('cy', cy);
-        e.setAttribute('rx', (R[i].r * z).toFixed(1)); e.setAttribute('ry', (R[i].r * z * ct).toFixed(1));
-        e.setAttribute('transform', 'rotate(' + (ro / D2R).toFixed(2) + ' ' + cx + ' ' + cy + ')');
-      });
-      sun.style.transform = 'scale(' + z.toFixed(3) + ')';
-      P.forEach(function(p){
-        var r = R[p.o], a = p.a0 + t * 2 * Math.PI / r.T, X = Math.cos(a) * r.r, Y = Math.sin(a) * r.r;
-        var yp = Y * ct, depth = Math.sin(a) * st_, d = (Math.sin(a) + 1) / 2;
-        var x = cx + (X * cr - yp * sr) * z, y = cy + (X * sr + yp * cr) * z;
-        var lx = cx - x, ly = cy - y, L = Math.sqrt(lx * lx + ly * ly) || 1;
-        p.ball.style.setProperty('--lx', (50 + lx / L * 32).toFixed(1) + '%'); p.ball.style.setProperty('--ly', (50 + ly / L * 32).toFixed(1) + '%');
-        /* впереди солнца — крупнее и ярче, позади — меньше и уходит за диск */
-        p.el.style.transform = 'translate(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px) scale(' + (z * (.78 + .32 * d)).toFixed(3) + ')';
-        p.el.style.zIndex = depth > 0 ? 3 : 1;
-        p.ball.style.opacity = (.5 + .5 * d).toFixed(2);
-        p.lab.style.opacity = Math.max(0, Math.min(1, (d - .32) / .3)).toFixed(2);
-      });
-    }
-    function frame(dt){
-      if(!seen){ live = false; return false; }
-      t += dt; aim(); render();
-    }
-    size(); aim(); cam.tilt.x = cam.tilt.t; cam.roll.x = cam.roll.t; cam.zoom.x = cam.zoom.t; render();
-    window.addEventListener('resize', function(){ size(); render(); }, {passive:true});
-    onSeen(box, function(v){ seen = v; if(v && !live){ live = true; if(reduced){ aim(); render(); live = false; } else MOT.tick(frame); } });
-    box.addEventListener('pointermove', function(e){ var b = box.getBoundingClientRect(); ptr.to(((e.clientX - b.left) / b.width - .5) * 2); }, {passive:true});
-    box.addEventListener('pointerleave', function(){ ptr.to(0); }, {passive:true});
+    v.addEventListener('timeupdate', function(){ if(!box.classList.contains('end')) cap(Math.min(caps.length - 1, Math.floor(v.currentTime / 5))); });
+    v.addEventListener('ended', end);
+    v.addEventListener('error', still, true);
+    box.querySelector('.ef-stage').addEventListener('click', function(){ if(started && !dead) play(); });
+    onSeen(box, function(on){
+      if(dead) return;
+      if(on && !started){ started = true; v.preload = 'auto'; play(); }
+      else if(!on && started && !v.paused) v.pause();
+      else if(on && started && v.paused && !box.classList.contains('end')) { var p = v.play(); if(p && p.catch) p.catch(function(){}); }
+    }, .45);
   })();
 
   /* смена языка: заголовки и печати собираются заново из исходных строк */
@@ -3799,6 +3761,7 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
     msTiles.forEach(function(a){ msLabel(a); a.href = motionBuyUrl(a.__d); });
     var mb = document.getElementById('msBack'); if(mb && mb.__links) mb.__links(); if(msIdx >= 0) msFill();
     var mr = document.getElementById('msRow'); if(mr && mr.__moreText) mr.__moreText();
+    var ea = document.querySelector('.ef-again'); if(ea) ea.setAttribute('aria-label', t('Смотреть снова'));
   }
 
   /* табло ROCH Motion (stats-band): разряды докручиваются, правые — на круг больше и стартуют раньше */
