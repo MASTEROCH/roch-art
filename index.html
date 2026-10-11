@@ -1049,34 +1049,6 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
 .more-btn[aria-expanded="true"] .ico{transform:rotate(180deg)}
 .more-btn[hidden]{display:none}
 
-/* ---- РАСЧЁТ ---- */
-.calc{padding:24px 20px 20px}
-.calc-in{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.cin{display:grid;gap:7px;min-width:0;align-content:start}
-.cin span{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);line-height:1.25;min-height:2.5em}
-.cin input{width:100%;min-width:0;min-height:54px;padding:0 16px;border-radius:16px;font-family:var(--font);
-  font-size:18px;font-weight:800;letter-spacing:-.01em;color:var(--text);font-variant-numeric:tabular-nums;
-  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);box-shadow:inset 0 1px 0 rgba(255,255,255,.08);
-  -moz-appearance:textfield;appearance:textfield;outline:none;transition:border-color .2s, background .2s}
-.cin input::-webkit-outer-spin-button,.cin input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
-.cin input::placeholder{color:var(--text3);font-weight:600;font-size:16px}
-.cin input:focus{border-color:rgba(212,255,79,.55);background:rgba(212,255,79,.06)}
-.calc-out{margin:20px 0 18px;padding:18px;border-radius:20px;text-align:center;
-  background:radial-gradient(90% 120% at 50% -20%, rgba(212,255,79,.16), transparent 62%), rgba(255,255,255,.03);
-  border:1px solid rgba(212,255,79,.22)}
-.co-k{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--text3)}
-.calc.mine .co-k{color:var(--lime)}
-.co-big{display:flex;align-items:baseline;justify-content:center;gap:8px;margin-top:8px;flex-wrap:wrap}
-.co-big b{font-size:clamp(34px,10vw,46px);font-weight:900;letter-spacing:-.04em;color:var(--lime);line-height:1;
-  font-variant-numeric:tabular-nums;text-shadow:0 0 26px rgba(212,255,79,.4)}
-.co-big span{font-size:15px;font-weight:800;color:var(--text2)}
-.co-t{margin-top:8px;font-size:14px;font-weight:500;color:var(--text2)}
-.co-t b{color:var(--text)}
-.co-pay{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:12px;padding-top:12px;
-  border-top:1px solid rgba(255,255,255,.08);font-size:14px;font-weight:700;color:var(--text)}
-.co-pay .ico{width:16px;height:16px;color:var(--lime)}
-.calc-note{margin-top:12px;text-align:center;font-size:12px;font-weight:500;color:var(--text3)}
-
 /* ---- 4 СТУПЕНИ (лестница) ---- */
 .ladder{display:grid;gap:12px;margin-top:22px}
 .rung{position:relative;padding:20px 20px 20px 74px}
@@ -1201,16 +1173,6 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
   #cases .proj-grid{grid-template-columns:repeat(3,1fr);gap:16px}
   .more-btn{max-width:440px;margin-left:auto;margin-right:auto}
 
-  #money{max-width:980px;margin:0 auto}
-  #money > .sec-head{max-width:none;text-align:center;margin-left:auto;margin-right:auto}
-  .calc{display:grid;grid-template-columns:1fr 1.1fr;column-gap:26px;align-items:center;padding:28px;
-    grid-template-areas:"in out" "cta out" "note out"}
-  .calc-in{grid-area:in;grid-template-columns:1fr;gap:14px}
-  .cin span{min-height:0}
-  .calc-out{grid-area:out;margin:0}
-  .calc > .btn{grid-area:cta;margin-top:14px}
-  .calc-note{grid-area:note;text-align:left}
-
   /* лестница: 4 ступени растут слева направо */
   .ladder{grid-template-columns:repeat(4,1fr);gap:16px;align-items:end;margin-top:30px}
   .rung{padding:24px 22px 24px}
@@ -1244,6 +1206,88 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
   .tl-stop:not(.on):hover{color:var(--text)}
   .tl-stop:not(.on):hover::before{border-color:rgba(212,255,79,.45);background:rgba(212,255,79,.05)}
 }
+/* ═══ ROCH MOTION на сайте: механики каталога, перенесённые в код страницы (числа — из skill/fx) ═══ */
+/* aurora (bg.js): шейдерное сияние за героем, палец его толкает; без WebGL остаётся фон страницы */
+.bz-hero{position:relative;z-index:0}
+.au-cv{position:absolute;z-index:-1;top:-120px;left:50%;width:100vw;height:min(calc(100svh + 120px),980px);
+  transform:translateX(-50%);display:block;pointer-events:none;opacity:0;transition:opacity 1.4s var(--ease);
+  -webkit-mask-image:linear-gradient(#000 52%,transparent);mask-image:linear-gradient(#000 52%,transparent)}
+.au-cv.on{opacity:1}
+/* word-spring (type.js): слова заголовка выпрыгивают пружиной из-под маски, акцент — последним */
+.ws-m{display:inline-block;overflow:hidden;vertical-align:top;padding:.14em .08em .2em;margin:-.14em -.08em -.2em}
+.ws-w{display:inline-block;transform-origin:50% 100%}
+.ws-w.grad{animation:none;background:linear-gradient(100deg,#EEFFB0 0%,var(--lime) 38%,#7BE0A8 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+/* giant-marquee (type.js): лента косится и разгоняется от скорости прокрутки */
+.ticker span{transform:skewX(var(--tsk,0deg))}
+/* stats-band (landing.js): табло — разряды докручиваются */
+.od-c{display:inline-block;height:1.1em;overflow:hidden;vertical-align:top;line-height:1.1em}
+.od-s{display:block;white-space:pre;line-height:1.1em}
+/* inline-convert (product.js): цена в бегунке докручивается по разрядам */
+.rp-c,.rp-t{display:inline-block;height:1.15em;line-height:1.15em;vertical-align:bottom}
+.rp-c{overflow:hidden}
+.tl-price #tlPrice span{font:inherit;letter-spacing:inherit;color:inherit}
+/* свечение цены — фильтром на всю цену: тень текста внутри колонок обрезалась в прямоугольники */
+#tlPrice.rp-on{text-shadow:none;filter:drop-shadow(0 0 13px rgba(212,255,79,.4))}
+#tlPrice.rp-on span{text-shadow:none}
+.rp-s{display:block}
+.rp-s i{display:block;height:1.15em;font-style:normal}
+/* beam-flow (landing.js): свет бежит «рассказ → паспорт → продукт» */
+.acts{position:relative}
+.bf-svg{position:absolute;left:0;top:0;width:100%;height:100%;overflow:visible;pointer-events:none;z-index:3}
+.bf-line{fill:none;stroke:rgba(255,255,255,.13);stroke-width:2;stroke-linecap:round}
+.bf-node{fill:#0B110D;stroke:rgba(212,255,79,.6);stroke-width:2}
+.bf-glow{fill:rgba(212,255,79,.3)}
+.bf-head{fill:#fff}
+.bf-tr{fill:var(--lime)}
+.bf-ring{fill:none;stroke:var(--lime);stroke-width:2}
+.bf-run{transition:opacity .33s var(--ease)}
+.act{transition:border-color .4s var(--ease), box-shadow .4s var(--ease)}
+.act.hot{border-color:rgba(212,255,79,.5);box-shadow:0 0 0 1px rgba(212,255,79,.16), 0 18px 50px -22px rgba(212,255,79,.5)}
+/* spotlight-card (cards.js): свет и кромка идут за пальцем */
+.who-card,.proj,.trust .svc{position:relative}
+.sp{position:absolute;inset:0;z-index:1;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .45s var(--ease);
+  background:radial-gradient(180px circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,.11),transparent 70%)}
+.sp::after{content:'';position:absolute;inset:0;border-radius:inherit;padding:1.5px;
+  background:radial-gradient(210px circle at var(--mx,50%) var(--my,50%),#fff,var(--lime) 22%,rgba(212,255,79,.45) 44%,transparent 76%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;
+  mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0)}
+.sp-on > .sp{opacity:1}
+/* tier-elevator (theatre.js): лифт по ступеням — маркер едет по рельсу, номер ступени перекидывается табличкой */
+.ladder{position:relative}
+.ld-rail{position:absolute;left:-11px;top:0;width:2px;margin-left:-1px;border-radius:2px;background:rgba(255,255,255,.08);pointer-events:none}
+.ld-fill{position:absolute;inset:0;border-radius:2px;background:linear-gradient(var(--lime),rgba(212,255,79,.35));
+  transform-origin:50% 0;transform:scaleY(var(--lp,0));transition:transform .6s var(--ease)}
+.ld-car{position:absolute;left:-11px;top:0;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;z-index:3;pointer-events:none;
+  background:var(--lime);box-shadow:0 0 0 4px rgba(212,255,79,.18),0 0 18px rgba(212,255,79,.9);opacity:0;transition:opacity .4s var(--ease)}
+.ld-car.on{opacity:1}
+.rung{transition:border-color .5s var(--ease)}
+.rung.lit{border-color:rgba(212,255,79,.4)}
+.rung.lit:not(.here) .num{border-color:rgba(212,255,79,.6);color:var(--lime)}
+.rung .num.flap{animation:numFlap .3s both}
+@keyframes numFlap{0%{transform:rotateX(0);animation-timing-function:cubic-bezier(.32,0,.67,0)}
+  50%{transform:rotateX(-90deg)}50.01%{transform:rotateX(90deg);animation-timing-function:cubic-bezier(.34,1.56,.64,1)}
+  100%{transform:rotateX(0)}}
+/* border-beam (cards.js): свет бежит по рамке — выделение движением рамки, а не вечным свечением */
+.price.feat,.price.offer{animation:none}
+.bb-svg{position:absolute;left:0;top:0;width:100%;height:100%;overflow:visible;pointer-events:none;z-index:3}
+.bb-svg path{fill:none;stroke-linecap:round}
+/* stamp-words (type.js): обещания ложатся печатями */
+/* печать сидит на верхнем крае карточки, наполовину снаружи — как штамп на углу документа, и не закрывает текст */
+.stamp{position:absolute;top:-13px;right:16px;z-index:3;pointer-events:none;white-space:nowrap;opacity:0;
+  font-size:13px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:var(--lime);
+  padding:.32em .6em;border:.14em solid var(--lime);border-radius:.3em;
+  box-shadow:inset 0 0 0 .16em #0B110D, inset 0 0 0 .24em rgba(212,255,79,.5)}
+.stamp.inked{-webkit-mask-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' seed='7'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -2.2 1.75'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  mask-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' seed='7'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -2.2 1.75'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  -webkit-mask-size:160px;mask-size:160px}
+.st-ink{position:absolute;left:0;top:0;z-index:3;margin:-3px 0 0 -3px;border-radius:50%;background:var(--lime);pointer-events:none}
+/* accordion (forms.js): ответ раскрывается пружиной, строки приходят снизу */
+.fq-b{overflow:hidden}
+.fq.closing summary .ico{transform:none}
+/* tactile-button (product.js): главная кнопка проседает как клавиша */
+.btn.tk{transition:none}
+@media (min-width:1024px){ .ld-rail,.ld-car{display:none} }
 </style>
 </head>
 <body>
@@ -1269,7 +1313,6 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
   <nav class="hud-nav" id="hudNav" aria-label="Навигация">
     <button type="button" class="hud-link" data-sec="how"><i class="ico i-wave"></i><span>Как</span></button>
     <button type="button" class="hud-link" data-sec="cases"><i class="ico i-grid"></i><span>Кейсы</span></button>
-    <button type="button" class="hud-link" data-sec="money"><i class="ico i-calc"></i><span>Расчёт</span></button>
     <button type="button" class="hud-link" data-sec="prices"><i class="ico i-tag"></i><span>Цены</span></button>
     <button type="button" class="hud-link" data-sec="faq"><i class="ico i-help"></i><span>Вопросы</span></button>
   </nav>
@@ -1401,7 +1444,7 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
       <div class="act-vis" aria-hidden="true"><div class="mini-ph"><img src="assets/cases/epoch-2.webp" alt="" loading="lazy" decoding="async"></div></div>
       <div class="act-k"><span class="act-n">Акт 3</span><span class="ctag act-tag">Style Core · 24 ч</span></div>
       <h3>Вы видите её в телефоне</h3>
-      <p>Если идея проходит три «да» — через 24 часа она в вашем телефоне: в вашем бренде, с ключевым экраном и планом. Это уже можно показывать клиентам.</p>
+      <p>Если идея проходит три «да» — через 24 часа она в вашем телефоне: в вашем бренде, кликабельным прототипом ключевого сценария. Это уже можно показывать клиентам.</p>
     </div>
   </div>
   <div class="yes3 glass reveal">
@@ -1440,11 +1483,11 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
     </div>
     <div class="tl-out" id="tlOut" aria-live="polite">
       <div class="tl-top"><span class="bi-badge b2" id="tlWhen">✦ Через 24 часа</span><span class="tl-pack" id="tlPack">Style Core</span></div>
-      <div class="tl-price"><b id="tlPrice">$500</b><span id="tlNote">стиль и ключевой экран</span></div>
+      <div class="tl-price"><b id="tlPrice">$500</b><span id="tlNote">стиль и кликабельный прототип</span></div>
       <ul class="bi-list" id="tlList">
         <li><i class="car" aria-hidden="true">❯</i><span>Продуктовая логика и петля возврата</span></li>
         <li><i class="car" aria-hidden="true">❯</i><span>Визуальный стиль под ваш бренд</span></li>
-        <li><i class="car" aria-hidden="true">❯</i><span>Ключевой экран в телефоне клиента</span></li>
+        <li><i class="car" aria-hidden="true">❯</i><span>Кликабельный прототип в телефоне клиента</span></li>
         <li><i class="car" aria-hidden="true">❯</i><span>План: что делать и сколько это стоит</span></li>
       </ul>
       <a class="btn offer-cta" id="tlCta" data-tgmsg="Привет, Рома! Хочу пакет «Style Core» ($500) для своего бизнеса. Мой бизнес: … Идея: …"><span class="oc-txt" id="tlCtaTxt">Выбрать Style Core — $500</span><span class="oc-arr">→</span></a>
@@ -1462,7 +1505,7 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
   <div class="stats">
     <div class="stat glass"><div class="n" data-count="700" data-suffix="M+">0</div><div class="l">установок</div></div>
     <div class="stat glass"><div class="n" data-count="10" data-suffix="+">0</div><div class="l">лет в геймдеве</div></div>
-    <div class="stat glass"><div class="n" data-count="24" data-suffix="ч" data-small="1">0</div><div class="l">до первого результата</div></div>
+    <div class="stat glass"><div class="n" data-count="24" data-suffix="ч" data-small="1">0</div><div class="l">до прототипа в телефоне</div></div>
   </div>
 </section>
 
@@ -1518,33 +1561,11 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
   <button type="button" class="pre-btn more-btn" id="projMore" aria-expanded="false"><i class="ico i-down"></i><span id="projMoreTxt">Показать все проекты</span></button>
 </section>
 
-<!-- ============ РАСЧЁТ ============ -->
-<section id="money">
-  <div class="sec-head reveal">
-    <div class="eyebrow">Посчитайте сами</div>
-    <h2>Сколько стоит <span class="grad">один лишний визит?</span></h2>
-    <p class="lead">Приложение нужно не ради приложения. Оно нужно, чтобы клиент возвращался. Подставьте свои цифры.</p>
-  </div>
-  <div class="calc glass glass-strong reveal">
-    <div class="calc-in">
-      <label class="cin"><span>Новых клиентов в месяц</span><input id="cClients" type="number" inputmode="numeric" min="0" max="100000" step="1" placeholder="например, 80" autocomplete="off"></label>
-      <label class="cin"><span>Средний чек, $</span><input id="cCheck" type="number" inputmode="decimal" min="0" max="100000" step="1" placeholder="например, 40" autocomplete="off"></label>
-    </div>
-    <div class="calc-out" aria-live="polite">
-      <div class="co-k" id="cMode">Пример расчёта — впишите свои цифры</div>
-      <div class="co-big"><b id="cYear">+$38 400</b><span id="cYearL">в год</span></div>
-      <p class="co-t">если каждый клиент придёт ещё <b>один раз</b> за год</p>
-      <p class="co-pay"><i class="ico i-check"></i><span id="cPay">Распаковка за $100 окупится, когда вернутся 3 клиента.</span></p>
-    </div>
-    <a class="btn offer-cta" id="calcCta" data-tgmsg="Привет, Рома! Хочу распаковку идеи ($100)."><span class="oc-txt">Распаковать идею — $100</span><span class="oc-arr">→</span></a>
-    <p class="calc-note">Считает ваш браузер, цифры никуда не отправляются.</p>
-  </div>
-</section>
 
 <!-- ============ 4 СТУПЕНИ ============ -->
 <section id="steps">
   <div class="sec-head reveal">
-    <div class="eyebrow">Как это работает</div>
+    <div class="eyebrow">Лестница цены</div>
     <h2>Четыре ступени. <span class="grad">Останавливайтесь на любой.</span></h2>
   </div>
   <div class="ladder">
@@ -1561,7 +1582,7 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
     <div class="rung glass reveal">
       <div class="num">03</div>
       <div class="r-top"><h3>Упаковка</h3><span class="ctag">от $500</span></div>
-      <p>Стиль, экраны, прототип, геймификация. С этим можно идти к клиентам и партнёрам.</p>
+      <p>Стиль и кликабельный прототип ключевого сценария в вашем телефоне. С ним можно идти к клиентам и партнёрам.</p>
     </div>
     <div class="rung glass reveal partner">
       <div class="num">04</div>
@@ -1605,7 +1626,7 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
       <div class="p-time">24 часа</div>
       <ul class="p-list">
         <li>Стиль продукта</li>
-        <li>Концепт ключевого экрана</li>
+        <li>Кликабельный прототип ключевого сценария</li>
         <li>Продуктовая логика на 1 странице</li>
       </ul>
       <a class="btn sec tier-cta" data-tgmsg="Привет, Рома! Хочу пакет «Style Core» ($500) для своего бизнеса. Мой бизнес: … Идея: …">Выбрать Style Core</a>
@@ -1618,7 +1639,7 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
       <div class="p-time">3–4 дня</div>
       <ul class="p-list">
         <li>Полная UI-система</li>
-        <li>Кликабельный прототип</li>
+        <li>Прототип всех сценариев</li>
         <li>Лендинг для первых клиентов</li>
         <li>Аудит и план запуска</li>
       </ul>
@@ -1820,14 +1841,14 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
     "Ваш рассказ — на одной странице: кто ваш клиент, почему он вернётся, где вы заработаете и с чего начать. Его можно показать партнёру и команде.":"Your story on one page: who your client is, why they'll come back, where you'll earn and where to start. You can show it to a partner and the team.",
     "Паспорт идеи":"Idea passport",
     "Вы видите её в телефоне":"You see it on your phone",
-    "Если идея проходит три «да» — через 24 часа она в вашем телефоне: в вашем бренде, с ключевым экраном и планом. Это уже можно показывать клиентам.":"If the idea passes three “yes” — within 24 hours it's on your phone: in your brand, with the key screen and a plan. Something you can already show clients.",
+    "Если идея проходит три «да» — через 24 часа она в вашем телефоне: в вашем бренде, кликабельным прототипом ключевого сценария. Это уже можно показывать клиентам.":"If the idea passes three “yes” — within 24 hours it's on your phone: in your brand, as a clickable prototype of the key flow. Something you can already show to clients.",
     "Правило трёх «да»":"The rule of three “yes”",
     "Идея идёт дальше, только если на все три вопроса ответ «да». Нет хотя бы одного — скажу честно.":"The idea moves on only if all three answers are “yes”. If even one is missing — I'll say so honestly.",
     "да":"yes",
     "Понятно, зачем клиент откроет приложение впервые":"It's clear why a client opens the app the first time",
     "Понятно, почему он вернётся":"It's clear why they'll come back","Понятно, где вы заработаете":"It's clear where you'll earn",
     "Опыт":"Experience","Проектировал интерфейсы для":"Designed interfaces for",
-    "установок":"installs","лет в геймдеве":"years in gamedev","до первого результата":"to the first result","ч":"h",
+    "установок":"installs","лет в геймдеве":"years in gamedev","до прототипа в телефоне":"to a prototype on your phone","ч":"h",
     "Кому подходит":"Who it's for",
     "Бизнесу, которому клиент нужен":"For businesses that need a client","не один раз":"more than once",
     "Приложение окупается там, где клиент возвращается: за новой записью, поездкой или заказом.":"An app pays off where the client comes back: for the next booking, trip or order.",
@@ -1851,13 +1872,14 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
     "в год":"a year","если каждый клиент придёт ещё":"if every client comes back","один раз":"one more time","за год":"a year",
     "Распаковать идею — $100":"Unpack the idea — $100","Впишите оба числа — посчитаю сразу.":"Enter both numbers — I'll do the math instantly.",
     "Привет, Рома! Хочу распаковку идеи ($100).":"Hi Roma! I'd like an idea unpacking ($100).","Считает ваш браузер, цифры никуда не отправляются.":"Your browser does the math; the numbers aren't sent anywhere.",
-    "Как это работает":"How it works","Четыре ступени.":"Four steps.","Останавливайтесь на любой.":"Stop at any of them.",
+    "Как это работает":"How it works",
+"Лестница цены":"Price ladder","Четыре ступени.":"Four steps.","Останавливайтесь на любой.":"Stop at any of them.",
     "Старт бесплатно":"Free start",
     "Опишите идею моему обученному ИИ в Telegram. Стартовые разборы бесплатно, дальше — $49.99 в месяц.":"Describe your idea to my trained AI in Telegram. The starter reviews are free, then $49.99 a month.",
     "Распаковка":"Unpacking",
     "Час со мной: режем лишнее, находим, за что клиенты заплатят, и честно говорим, стоит ли делать.":"An hour with me: we cut the excess, find what clients will pay for, and I tell you honestly whether it's worth building.",
     "Упаковка":"Packaging","от $500":"from $500",
-    "Стиль, экраны, прототип, геймификация. С этим можно идти к клиентам и партнёрам.":"Style, screens, prototype, gamification. Something you can take to clients and partners.",
+    "Стиль и кликабельный прототип ключевого сценария в вашем телефоне. С ним можно идти к клиентам и партнёрам.":"Style and a clickable prototype of the key flow on your phone. Ready to show clients and partners.",
     "Реализация":"Build","от $1 500":"from $1,500",
     "Рабочее приложение в Telegram от студии-партнёра AppHub. Запуск и поддержка.":"A working Telegram app from partner studio AppHub. Launch and support.",
     "Делает AppHub":"Built by AppHub",
@@ -1868,10 +1890,10 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
     "Ошибка в идее после разработки":"A flawed idea found after development","Найти её до разработки":"Finding it before development",
     "Записаться":"Book",
     "Уровень 1 · фундамент":"Level 1 · foundation","24 часа":"24 hours",
-    "Стиль продукта":"Product style","Концепт ключевого экрана":"Key screen concept",
+    "Стиль продукта":"Product style","Кликабельный прототип ключевого сценария":"A clickable prototype of the key flow",
     "Продуктовая логика на 1 странице":"Product logic on one page","Выбрать Style Core":"Choose Style Core",
     "Чаще всего":"Most popular","Уровень 2 · вся упаковка":"Level 2 · full packaging","3–4 дня":"3–4 days",
-    "Полная UI-система":"Full UI system","Кликабельный прототип":"Clickable prototype",
+    "Полная UI-система":"Full UI system","Прототип всех сценариев":"A prototype of every flow",
     "Лендинг для первых клиентов":"Landing page for first clients","Аудит и план запуска":"Audit and launch plan",
     "Выбрать Full Build":"Choose Full Build",
     "Уровень 3 · продукт как игра":"Level 3 · product as a game","7–10 дней":"7–10 days",
@@ -1904,6 +1926,8 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
     "ROCH 0→1 · распаковка и упаковка идей — Roman Chernyavsky · roch-art.com":"ROCH 0→1 · unpacking and packaging ideas — Roman Chernyavsky · roch-art.com",
 "или запустите сами в LinkOS и BuildOS →":"or launch it yourself in LinkOS and BuildOS →",
 "Экосистема ROCH":"ROCH ecosystem",
+"Честно":"Honest",
+"$100 в зачёт":"$100 credited",
 "Лояльность ресторана":"Restaurant loyalty",
 "Выставка":"Trade fair",
 "Стройматериалы":"Building materials",
@@ -1950,10 +1974,10 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
     "Пример запроса":"Example request","Сколько времени":"How much time",
     "1 час":"1 hour","двигайте":"drag",
     "✦ Через 1 час":"✦ In 1 hour","✦ Через 24 часа":"✦ In 24 hours","✦ Через 3–4 дня":"✦ In 3–4 days",
-    "звонок и паспорт идеи":"a call and the idea passport","стиль и ключевой экран":"style and the key screen","прототип и лендинг":"prototype and landing page",
+    "звонок и паспорт идеи":"a call and the idea passport","стиль и кликабельный прототип":"style and a clickable prototype","прототип и лендинг":"prototype and landing page",
     "Паспорт идеи на 1 странице":"A one-page idea passport","Следующий шаг и бюджет":"The next step and the budget",
     "Продуктовая логика и петля возврата":"Product logic and the return loop","Визуальный стиль под ваш бренд":"Visual style for your brand",
-    "Ключевой экран в телефоне клиента":"The key screen on your client's phone","План: что делать и сколько это стоит":"The plan: what to do and what it costs",
+    "Кликабельный прототип в телефоне клиента":"A clickable prototype on your client's phone","План: что делать и сколько это стоит":"The plan: what to do and what it costs",
     "Всё из Style Core":"Everything in Style Core",
     "Записаться на распаковку — $100":"Book an unpacking — $100","Выбрать Style Core — $500":"Choose Style Core — $500","Выбрать Full Build — $2 500":"Choose Full Build — $2,500",
     "$100 за распаковку засчитываются в любой пакет.":"The $100 unpacking fee counts toward any package.",
@@ -2507,11 +2531,11 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
     { when:'✦ Через 1 час', pack:'Распаковка', price:'$100', note:'звонок и паспорт идеи',
       items:['Паспорт идеи на 1 странице', 'Вердикт по правилу трёх «да»', 'Следующий шаг и бюджет'],
       cta:'Записаться на распаковку — $100', msg:'Привет, Рома! Хочу распаковку идеи ($100). Мой бизнес: … Идея: …' },
-    { when:'✦ Через 24 часа', pack:'Style Core', price:'$500', note:'стиль и ключевой экран',
-      items:['Продуктовая логика и петля возврата', 'Визуальный стиль под ваш бренд', 'Ключевой экран в телефоне клиента', 'План: что делать и сколько это стоит'],
+    { when:'✦ Через 24 часа', pack:'Style Core', price:'$500', note:'стиль и кликабельный прототип',
+      items:['Продуктовая логика и петля возврата', 'Визуальный стиль под ваш бренд', 'Кликабельный прототип в телефоне клиента', 'План: что делать и сколько это стоит'],
       cta:'Выбрать Style Core — $500', msg:'Привет, Рома! Хочу пакет «Style Core» ($500) для своего бизнеса. Мой бизнес: … Идея: …' },
     { when:'✦ Через 3–4 дня', pack:'Full Build', price:'$2 500', note:'прототип и лендинг',
-      items:['Всё из Style Core', 'Полная UI-система', 'Кликабельный прототип', 'Лендинг для первых клиентов', 'Аудит и план запуска'],
+      items:['Всё из Style Core', 'Полная UI-система', 'Прототип всех сценариев', 'Лендинг для первых клиентов', 'Аудит и план запуска'],
       cta:'Выбрать Full Build — $2 500', msg:'Привет, Рома! Хочу пакет «Full Build» ($2 500) для своего бизнеса. Мой бизнес: … Идея: …' }
   ];
   var tlBox = document.getElementById('tl');
@@ -2527,7 +2551,7 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
       var d = TL[tlIdx];
       document.getElementById('tlWhen').textContent = t(d.when);
       document.getElementById('tlPack').textContent = t(d.pack);
-      document.getElementById('tlPrice').textContent = tlPrice(d.price);
+      rollPrice(document.getElementById('tlPrice'), tlPrice(d.price));
       document.getElementById('tlNote').textContent = t(d.note);
       document.getElementById('tlList').innerHTML = d.items.map(function(it){
         return '<li><i class="car" aria-hidden="true">❯</i><span>' + t(it) + '</span></li>';
@@ -2618,52 +2642,6 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
     renderTL(false);
   }
 
-  /* ===== РАСЧЁТ: +1 визит в год от каждого нового клиента. Считает браузер, никуда не шлёт ===== */
-  var cClients = document.getElementById('cClients');
-  var cCheck = document.getElementById('cCheck');
-  var calcEl = document.querySelector('.calc');
-  var calcTracked = false;
-  function num(el, fallback){
-    var v = parseFloat(String(el.value).replace(',', '.'));
-    return (isFinite(v) && v > 0) ? Math.min(v, 100000) : fallback;
-  }
-  function plural(n, one, few, many){
-    var m10 = n % 10, m100 = n % 100;
-    if(m10 === 1 && m100 !== 11) return one;
-    if(m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14)) return few;
-    return many;
-  }
-  function calc(){
-    if(!cClients || !cCheck) return;
-    var mine = cClients.value !== '' || cCheck.value !== '';
-    /* пример — только пока оба поля пусты; начал вводить — считаем строго по его цифрам */
-    var clients = mine ? num(cClients, 0) : 80, check = mine ? num(cCheck, 0) : 40;
-    calcEl.classList.toggle('mine', mine);
-    document.getElementById('cMode').textContent = mine ? t('Ваш расчёт') : t('Пример расчёта — впишите свои цифры');
-    document.getElementById('cYearL').textContent = t('в год');
-    if(!(clients > 0 && check > 0)){
-      document.getElementById('cYear').textContent = '—';
-      document.getElementById('cPay').textContent = t('Впишите оба числа — посчитаю сразу.');
-      var cta0 = document.getElementById('calcCta');
-      if(cta0) cta0.href = tgLink(t('Привет, Рома! Хочу распаковку идеи ($100).'));
-      return;
-    }
-    var year = clients * 12 * check;
-    var payback = Math.max(1, Math.ceil(100 / check));
-    document.getElementById('cYear').textContent = '+' + fmtMoney(year);
-    document.getElementById('cPay').textContent = LANG === 'en'
-      ? 'The $100 unpacking pays off once ' + payback + (payback === 1 ? ' client comes' : ' clients come') + ' back.'
-      : 'Распаковка за $100 окупится, когда ' + (payback === 1 ? 'вернётся ' : 'вернутся ') + payback + ' ' + plural(payback, 'клиент', 'клиента', 'клиентов') + '.';
-    var cta = document.getElementById('calcCta');
-    if(cta){
-      var base = 'Привет, Рома! Хочу распаковку идеи ($100).';
-      var extra = mine ? ' Мои цифры: ' + Math.round(clients) + ' новых клиентов в месяц, средний чек $' + Math.round(check) + '.' : '';
-      var en = 'Hi Roma! I\'d like an idea unpacking ($100).' + (mine ? ' My numbers: ' + Math.round(clients) + ' new clients a month, average check $' + Math.round(check) + '.' : '');
-      cta.href = tgLink(LANG === 'en' ? en : base + extra);
-    }
-    if(mine && !calcTracked){ calcTracked = true; track('project_view', 'biz-calc'); }
-  }
-  if(cClients){ cClients.addEventListener('input', calc); cCheck.addEventListener('input', calc); }
 
   /* ===== Count-up (700M+ / 10+ / 24ч) ===== */
   function statHtml(el, v){
@@ -2672,29 +2650,21 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
   }
   function countUp(el){
     var end = parseInt(el.getAttribute('data-count'), 10);
-    var dur = 1400, start = null;
     if(reduced){ el.innerHTML = statHtml(el, end); el._done = true; return; }
-    function step(ts){
-      if(!start) start = ts;
-      var p = Math.min(1, (ts - start) / dur);
-      p = 1 - Math.pow(1 - p, 3);
-      el.innerHTML = statHtml(el, Math.round(end * p));
-      if(p < 1) requestAnimationFrame(step); else el._done = true;
-    }
-    requestAnimationFrame(step);
+    odometer(el, end, statHtml(el, ''), function(){ el._done = true; });
   }
 
   function applyLang(lang){
     LANG = (lang === 'en') ? 'en' : 'ru';
     try{ localStorage.setItem('roch_lang', LANG); }catch(e){}
     document.documentElement.setAttribute('lang', LANG);
-    localizeTree(document.body); localizeHero(); updateLangUI(); refreshTgLinks();
+    localizeTree(document.body); localizeHero(); updateLangUI(); refreshTgLinks(); motionLang();
     Array.prototype.forEach.call(document.querySelectorAll('[data-count]'), function(el){
       if(el._done) el.innerHTML = statHtml(el, parseInt(el.getAttribute('data-count'), 10));
     });
     if(morph) goEx(exIdx);
     if(tlRail) setTL(tlIdx, 'force');
-    applyFilter(false); calc();
+    applyFilter(false);
     setupBtnMarquee();
   }
   var langTog = document.getElementById('langTog');
@@ -2703,7 +2673,7 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
   updateLangUI();
   refreshTgLinks();
   if(LANG === 'en'){ localizeTree(document.body); localizeHero(); if(morph) goEx(0); if(tlRail) setTL(tlIdx, 'force'); applyFilter(false); }
-  calc();
+ 
 
   /* ===== Reveal + stats — однократно, как на главной ===== */
   var statsEl = document.querySelector('.stats');
@@ -2741,7 +2711,7 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
 
   /* ===== HUD: активная секция + якоря ===== */
   var hudLinks = document.querySelectorAll('.hud-link');
-  var navSecs = ['how', 'cases', 'money', 'prices', 'faq'];
+  var navSecs = ['how', 'cases', 'prices', 'faq'];
   var secEls = navSecs.map(function(id){ return document.getElementById(id); }).filter(Boolean);
   var curActive = null;
   function updateActive(){
@@ -2883,6 +2853,562 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
     var mqRO = new ResizeObserver(mqKick);
     Array.prototype.forEach.call(document.querySelectorAll('.oc-txt'), function(tx){ mqRO.observe(tx.parentNode); });
   }
+  /* ═══ ROCH MOTION на сайте: механики каталога, перенесённые в код страницы. Числа и кривые — из skill/fx ROCH Motion. ═══ */
+  var MOT = (function(){
+    var subs = [], raf = 0, last = 0;
+    function loop(ts){
+      var dt = last ? Math.min(1 / 30, (ts - last) / 1000) : 1 / 60; last = ts;
+      for(var i = subs.length - 1; i >= 0; i--){ if(subs[i](dt, ts / 1000) === false) subs.splice(i, 1); }
+      if(subs.length) raf = requestAnimationFrame(loop); else { raf = 0; last = 0; }
+    }
+    function tick(fn){ subs.push(fn); if(!raf) raf = requestAnimationFrame(loop); }
+    /* пружина движка ROCH Motion: полунеявный Эйлер с подшагом 4 мс; покой при |x−t| < 0,001·max(1,|t|) и |v| < 0,01 */
+    function Spring(x, k, c, on){ this.x = x; this.v = 0; this.t = x; this.k = k; this.c = c; this.on = on || null; this.live = false; this.done = null; }
+    Spring.prototype.to = function(t, done){
+      var s = this; s.t = t; s.done = done || null;
+      if(reduced){ s.x = t; s.v = 0; if(s.on) s.on(t, 0); var d0 = s.done; s.done = null; if(d0) d0(); return s; }
+      if(!s.live){
+        s.live = true;
+        tick(function(dt){
+          var n = Math.ceil(dt / 0.004), h = dt / n;
+          for(var i = 0; i < n; i++){ var a = -s.k * (s.x - s.t) - s.c * s.v; s.v += a * h; s.x += s.v * h; }
+          var rest = Math.abs(s.x - s.t) < 0.001 * Math.max(1, Math.abs(s.t)) && Math.abs(s.v) < 0.01;
+          if(rest){ s.x = s.t; s.v = 0; }
+          if(s.on) s.on(s.x, s.v);
+          if(rest){ s.live = false; var d = s.done; s.done = null; if(d) d(); return false; }
+        });
+      }
+      return s;
+    };
+    return { tick: tick, spring: function(x, k, c, on){ return new Spring(x, k, c, on); } };
+  })();
+  /* именованные пружины движка: snap 700/46 · pop 520/19 · glide 210/27 · heavy 260/36 при m 2,2 */
+  var SP = { snap:[700, 46], pop:[520, 19], glide:[210, 27], heavy:[118, 16.4] };
+  var outCubic = function(p){ return 1 - Math.pow(1 - p, 3); }, inCubic = function(p){ return p * p * p; };
+  function tweenF(ms, ease, step, done){
+    if(reduced){ step(1); if(done) done(); return; }
+    var t0 = -1;
+    MOT.tick(function(dt, now){
+      if(t0 < 0) t0 = now;
+      var p = Math.min(1, (now - t0) * 1000 / ms);
+      step(ease(p));
+      if(p >= 1){ if(done) done(); return false; }
+    });
+  }
+  function onSeen(el, fn, thr){
+    if(!el) return;
+    if(!('IntersectionObserver' in window)){ fn(true); return; }
+    new IntersectionObserver(function(en){ fn(en[0].isIntersecting); }, {threshold: thr || 0}).observe(el);
+  }
+
+  /* ---- aurora · шейдерное сияние за героем (bg.js). Шейдер — дословно из каталога ---- */
+  (function aurora(){
+    var hero = document.querySelector('.bz-hero'); if(!hero) return;
+    var cv = document.createElement('canvas'), gl = null;
+    cv.className = 'au-cv'; cv.setAttribute('aria-hidden', 'true');
+    try{ gl = cv.getContext('webgl', {antialias:false, alpha:false, depth:false, powerPreference:'low-power'}); }catch(e){}
+    if(!gl) return;
+    var FS = [
+      '#ifdef GL_FRAGMENT_PRECISION_HIGH', 'precision highp float;', '#else', 'precision mediump float;', '#endif',
+      'uniform vec2 R;uniform float T;uniform vec3 A,A2,AD,BG;uniform vec4 P;uniform vec4 Z;',
+      'float h21(vec2 p){p=fract(p*vec2(123.34,456.21));p+=dot(p,p+45.32);return fract(p.x*p.y);}',
+      'float vn(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(h21(i),h21(i+vec2(1.,0.)),f.x),mix(h21(i+vec2(0.,1.)),h21(i+vec2(1.,1.)),f.x),f.y);}',
+      'float fbm(vec2 p){float s=0.,a=.5;for(int i=0;i<4;i++){s+=a*vn(p);p=p*2.03+vec2(1.7,9.2);a*=.5;}return s;}',
+      'float calm(vec2 q){vec2 d=(q-Z.xy)/max(Z.zw,vec2(1.));return 1.-smoothstep(.65,1.4,length(d));}',
+      'uniform float K,GN;uniform vec2 PX;',
+      'vec2 curtain(vec2 uv,float fi,float t,vec2 pb,float ps){',
+      ' float x=uv.x;',
+      ' float w=sin(x*1.55+t*.21+fi*1.9)*.065+sin(x*3.6-t*.29+fi*4.1)*.03+(vn(vec2(x*1.25+fi*3.1,t*.11))-.5)*.11;',
+      ' float base=.53+fi*.1+w;',
+      ' float g=ps*exp(-(x-pb.x)*(x-pb.x)*9.);',
+      ' base=mix(base,pb.y-.03,g*.62);',
+      ' float h=uv.y-base;',
+      ' float low=smoothstep(-.03,.004,h);',
+      ' float up=exp(-max(h,0.)*(2.4+fi*.9));',
+      ' float r1=vn(vec2(x*20.+w*36.+fi*11.-g*6.,t*.33));',
+      ' float r2=vn(vec2(x*53.+fi*5.+w*20.,t*.55+3.));',
+      ' float ray=.22+.78*pow(r1*.68+r2*.32,2.2);',
+      ' float dw=cos(x*1.55+t*.21+fi*1.9)*.1+cos(x*3.6-t*.29+fi*4.1)*.108;',
+      ' float fold=.75+2.2*abs(dw);',
+      ' return vec2(low*up*ray*fold*(1.-fi*.22),h);',
+      '}',
+      'void main(){',
+      ' vec2 fc=gl_FragCoord.xy;vec2 uv=fc/R.y;float sy=uv.y;float px=1.5/R.y;',
+      ' vec2 pb=P.xy/R.y;',
+      ' vec3 col=mix(mix(BG,AD,.24),BG*.92,smoothstep(.12,1.,sy));',
+      ' vec2 su=uv*150.+PX*1.5;vec2 ci=floor(su);',
+      ' float st=step(.991,h21(ci))*smoothstep(.42,0.,length(fract(su)-.5))*(.35+.65*h21(ci+4.2));',
+      ' col+=vec3(st)*.6*smoothstep(.3,.62,sy);',
+      ' vec2 cu=uv+PX*vec2(.012,.006);',
+      ' vec3 au=vec3(0.);',
+      ' for(int i=0;i<3;i++){float fi=float(i);vec2 r=curtain(cu,fi,T,pb,P.z);',
+      '  float sg=1.+.9*exp(-(cu.x-K)*(cu.x-K)*10.);',
+      '  vec3 cc=mix(A2,A,smoothstep(0.,.14,r.y));cc=mix(cc,AD,smoothstep(.12,.42,r.y));',
+      '  au+=cc*r.x*sg;}',
+      ' au*=GN*(1.-.4*calm(fc));',
+      ' float am=max(max(au.r,au.g),max(au.b,1e-4));au*=(am>.6?.6+(am-.6)/(1.+(am-.6)*2.5):am)/am;',
+      ' col+=au*.92;',
+      ' float x1=uv.x+PX.x*.016;',
+      ' float r1=.27+.05*sin(x1*2.3+1.2)+.09*(fbm(vec2(x1*2.6,3.))-.5);',
+      ' float m1=smoothstep(r1+px,r1-px,sy);',
+      ' col=mix(col,mix(BG,AD,.2)+au*.1,m1);',
+      ' col+=A2*.4*exp(-abs(sy-r1)*R.y*.35)*(1.-m1)*GN;',
+      ' float x2=uv.x+PX.x*.034;',
+      ' float r2=.16+.035*sin(x2*3.1+4.)+.1*(fbm(vec2(x2*4.1+7.,1.))-.5);',
+      ' float m2=smoothstep(r2+px,r2-px,sy);',
+      ' col=mix(col,BG*.8,m2);',
+      ' vec2 v=fc/R-.5;col*=1.-.5*dot(v,v);',
+      ' col+=(h21(fc)-.5)/255.;',
+      ' gl_FragColor=vec4(col,1.);',
+      '}'].join('\n');
+    function sh(type, src){ var s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s); return gl.getShaderParameter(s, gl.COMPILE_STATUS) ? s : null; }
+    var vs = sh(gl.VERTEX_SHADER, 'attribute vec2 a;void main(){gl_Position=vec4(a,0.,1.);}'), fs = sh(gl.FRAGMENT_SHADER, FS);
+    if(!vs || !fs) return;
+    var pr = gl.createProgram(); gl.attachShader(pr, vs); gl.attachShader(pr, fs); gl.linkProgram(pr);
+    if(!gl.getProgramParameter(pr, gl.LINK_STATUS)) return;
+    hero.insertBefore(cv, hero.firstChild);
+    gl.useProgram(pr);
+    gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+    var al = gl.getAttribLocation(pr, 'a'); gl.enableVertexAttribArray(al); gl.vertexAttribPointer(al, 2, gl.FLOAT, false, 0, 0);
+    var U = {};
+    ['R', 'T', 'A', 'A2', 'AD', 'BG', 'P', 'Z', 'K', 'GN', 'PX'].forEach(function(n){ U[n] = gl.getUniformLocation(pr, n); });
+    /* палитра сайта: лайм, светлый лайм, тёмная зелень, почти-чёрный фон */
+    gl.uniform3f(U.A, 212 / 255, 1, 79 / 255); gl.uniform3f(U.A2, 240 / 255, 1, 176 / 255);
+    gl.uniform3f(U.AD, 15 / 255, 138 / 255, 87 / 255); gl.uniform3f(U.BG, 5 / 255, 7 / 255, 6 / 255);
+    gl.uniform1f(U.K, -3); gl.uniform1f(U.GN, .92);
+    /* автокачество каталога: ступени [1 .8 .64 .5 .4], EMA кадра; вниз при > 20 мс, вверх при < 12,5 мс 240 кадров */
+    var Q = [1, .8, .64, .5, .4], qi = 0, bad = {}, ema = 16.7, slowN = 0, slowT = 0, fastN = 0;
+    var W = 2, H = 2, sc = 1, T = 14, live = false, seen = false, lastF = 0;
+    var F = { x:0, y:0, tx:0, ty:0, px:0, py:0 }, fs_ = MOT.spring(0, SP.snap[0], SP.snap[1]);
+    function fit(){
+      var r = cv.getBoundingClientRect(), dpr = Math.min(window.devicePixelRatio || 1, 2);
+      sc = Math.max(.3, dpr * Q[qi] * .75);
+      W = Math.max(2, Math.round(r.width * sc)); H = Math.max(2, Math.round(r.height * sc));
+      if(cv.width !== W || cv.height !== H){ cv.width = W; cv.height = H; gl.viewport(0, 0, W, H); }
+      gl.uniform2f(U.R, W, H);
+      /* тихая зона: вокруг заголовка сияние приглушено на 40 %, текст читается */
+      var h1 = document.getElementById('bzH1');
+      if(h1){ var b = h1.getBoundingClientRect(); gl.uniform4f(U.Z, (b.left + b.width / 2 - r.left) * sc, H - (b.top + b.height / 2 - r.top) * sc, b.width / 2 * sc, b.height / 2 * sc); }
+    }
+    function draw(){
+      gl.uniform1f(U.T, T); gl.uniform4f(U.P, F.x * sc, H - F.y * sc, fs_.x, 0); gl.uniform2f(U.PX, F.px, F.py);
+      gl.drawArrays(gl.TRIANGLES, 0, 3);
+    }
+    function frame(dt, now){
+      if(!live) return false;
+      if(lastF && now - lastF < 1 / 62) return;
+      var fd = lastF ? Math.min(1 / 30, now - lastF) : 1 / 60; lastF = now;
+      T += fd;
+      var e6 = 1 - Math.exp(-6 * fd), e3 = 1 - Math.exp(-3 * fd), r = cv.getBoundingClientRect();
+      F.x += (F.tx - F.x) * e6; F.y += (F.ty - F.y) * e6;
+      F.px += ((F.tx / Math.max(1, r.width) * 2 - 1) * fs_.x - F.px) * e3;
+      F.py += ((F.ty / Math.max(1, r.height) * 2 - 1) * fs_.x - F.py) * e3;
+      draw();
+      ema = ema * .9 + fd * 1000 * .1;
+      if(ema > 20){ slowN++; slowT += fd; if(slowN >= 5 && slowT >= .35 && qi < Q.length - 1){ bad[qi] = true; qi++; fit(); slowN = 0; slowT = 0; fastN = 0; } }
+      else { slowN = 0; slowT = 0; }
+      if(ema < 12.5){ if(++fastN >= 240 && qi > 0 && !bad[qi - 1]){ qi--; fit(); fastN = 0; } } else fastN = 0;
+    }
+    function start(){ if(live || reduced) return; live = true; lastF = 0; MOT.tick(frame); }
+    fit(); draw(); cv.classList.add('on');
+    onSeen(cv, function(v){ seen = v; if(v && !document.hidden) start(); else live = false; });
+    document.addEventListener('visibilitychange', function(){ if(document.hidden) live = false; else if(seen) start(); });
+    var lw = 0, lh = 0;
+    var refit = function(){ var r = cv.getBoundingClientRect(); if(Math.abs(r.width - lw) < 2 && Math.abs(r.height - lh) < 2) return; lw = r.width; lh = r.height; fit(); if(!live) draw(); };
+    if('ResizeObserver' in window) new ResizeObserver(refit).observe(cv); else window.addEventListener('resize', refit);
+    /* палец толкает сияние; вертикальный свайп по-прежнему листает страницу */
+    var pt = function(e){ var r = cv.getBoundingClientRect(); F.tx = e.clientX - r.left; F.ty = e.clientY - r.top; };
+    hero.addEventListener('pointermove', function(e){ pt(e); if(e.pointerType === 'mouse' && fs_.t < .55) fs_.to(.55); }, {passive:true});
+    hero.addEventListener('pointerdown', function(e){ pt(e); fs_.to(1); }, {passive:true});
+    hero.addEventListener('pointerup', function(e){ fs_.to(e.pointerType === 'mouse' ? .55 : 0); }, {passive:true});
+    hero.addEventListener('pointercancel', function(){ fs_.to(0); }, {passive:true});
+    hero.addEventListener('pointerleave', function(){ fs_.to(0); }, {passive:true});
+    cv.addEventListener('webglcontextlost', function(e){ e.preventDefault(); live = false; cv.style.display = 'none'; });
+  })();
+
+  /* ---- word-spring · слова заголовков выпрыгивают пружиной (type.js). Заголовок вне общего словаря: собирается из t() ---- */
+  var WS = [];
+  function wsSrc(n){ return n.__src !== undefined ? n.__src : n.nodeValue; }
+  function wsBuild(h){
+    if(!h.__parts){
+      h.__parts = [];
+      Array.prototype.forEach.call(h.childNodes, function(n){
+        if(n.nodeType === 3){ var v = wsSrc(n); h.__parts.push(v.trim() ? {tx: v, cls: ''} : {sp: true}); }
+        else if(n.nodeName === 'BR') h.__parts.push({br: true});
+        else if(n.nodeType === 1){
+          var tn = n.firstChild && n.firstChild.nodeType === 3 ? n.firstChild : null;
+          h.__parts.push({tx: tn ? wsSrc(tn) : n.textContent, cls: n.className || ''});
+        }
+      });
+      h.setAttribute('data-noi18n', '');
+    }
+    var words = [];
+    h.innerHTML = '';
+    h.__parts.forEach(function(p){
+      if(p.br){ h.appendChild(document.createElement('br')); return; }
+      if(p.sp){ h.appendChild(document.createTextNode(' ')); return; }
+      var txt = t(p.tx.replace(/\s+/g, ' ').trim());
+      if(/^\s/.test(p.tx)) h.appendChild(document.createTextNode(' '));
+      txt.split(' ').forEach(function(w, i, arr){
+        var m = document.createElement('span'), s = document.createElement('span');
+        m.className = 'ws-m'; s.className = 'ws-w' + (p.cls ? ' ' + p.cls : ''); s.textContent = w;
+        m.appendChild(s); h.appendChild(m); words.push({el: s, acc: !!p.cls});
+        if(i < arr.length - 1) h.appendChild(document.createTextNode(' '));
+      });
+      if(/\s$/.test(p.tx)) h.appendChild(document.createTextNode(' '));
+    });
+    return words;
+  }
+  function wsSet(w, y, r, s){ w.el.style.transform = 'translate3d(0,' + (y * 100).toFixed(1) + '%,0) rotate(' + r.toFixed(2) + 'deg) scale(' + s.toFixed(3) + ')'; }
+  function wsHide(words){ words.forEach(function(w){ if(w.acc) wsSet(w, 1.35, -6, .7); else wsSet(w, 1.18, 7, 1); }); }
+  function wsPlay(words){
+    var heads = words.filter(function(w){ return !w.acc; }), accs = words.filter(function(w){ return w.acc; });
+    heads.forEach(function(w, i){
+      setTimeout(function(){
+        MOT.spring(0, SP.pop[0], SP.pop[1], function(v){ wsSet(w, 1.18 * (1 - v), 7 * (1 - v), 1); }).to(1, function(){ w.el.style.transform = ''; });
+      }, i * 45);
+    });
+    /* акцент — после паузы, с недолётом масштаба и лёгким перелётом (k 420 / c 24) */
+    accs.forEach(function(w, i){
+      setTimeout(function(){
+        MOT.spring(0, 420, 24, function(v){ wsSet(w, 1.35 * (1 - v), -6 * (1 - v), .7 + .3 * v); }).to(1, function(){ w.el.style.transform = ''; });
+      }, heads.length * 45 + 330 + i * 45);
+    });
+  }
+  (function wordSpring(){
+    Array.prototype.forEach.call(document.querySelectorAll('.sec-head h2'), function(h){
+      var o = {h: h, words: wsBuild(h), played: reduced};
+      WS.push(o);
+      if(o.played) return;
+      wsHide(o.words);
+      onSeen(h, function(v){ if(v && !o.played){ o.played = true; wsPlay(o.words); } }, .4);
+    });
+  })();
+
+  /* ---- giant-marquee · лента косится и разгоняется от скорости прокрутки (type.js) ---- */
+  (function marquee(){
+    var tk = document.getElementById('ticker'); if(!tk || reduced) return;
+    var anim = null; try{ anim = tk.getAnimations ? tk.getAnimations()[0] : null; }catch(e){}
+    var lastY = window.scrollY, vel = 0, skew = 0, seen = false, live = false;
+    function step(dt){
+      var y = window.scrollY, raw = (y - lastY) / Math.max(dt, .008); lastY = y;
+      vel += (raw - vel) * Math.min(1, 10 * dt);
+      skew += (Math.max(-12, Math.min(12, vel * .006)) - skew) * Math.min(1, 10 * dt);
+      tk.style.setProperty('--tsk', (-skew).toFixed(2) + 'deg');
+      if(anim) anim.playbackRate = 1 + Math.min(3, Math.abs(vel) / 700);
+      if(Math.abs(vel) < 4 && Math.abs(skew) < .05){ tk.style.setProperty('--tsk', '0deg'); if(anim) anim.playbackRate = 1; live = false; return false; }
+    }
+    onSeen(tk.parentNode, function(v){ seen = v; });
+    window.addEventListener('scroll', function(){ if(seen && !live){ live = true; lastY = window.scrollY; MOT.tick(step); } }, {passive:true});
+  })();
+
+  /* ---- beam-flow · свет бежит «рассказ → паспорт → продукт» (landing.js: пружина k110/c19, хвост из 3 точек) ---- */
+  (function beamFlow(){
+    var acts = document.querySelector('#how .acts'); if(!acts) return;
+    var cards = acts.querySelectorAll('.act'); if(cards.length < 2) return;
+    var NS = 'http://www.w3.org/2000/svg', svg = document.createElementNS(NS, 'svg');
+    svg.setAttribute('class', 'bf-svg'); svg.setAttribute('aria-hidden', 'true'); acts.appendChild(svg);
+    var P = [], cum = [0], nodes = [], run = [], head, glow, trail = [];
+    function mk(n, a){ var e = document.createElementNS(NS, n); for(var k in a) e.setAttribute(k, a[k]); svg.appendChild(e); return e; }
+    function layout(){
+      while(svg.firstChild) svg.removeChild(svg.firstChild);
+      var ar = acts.getBoundingClientRect(), wide = window.innerWidth >= 1024;
+      P = Array.prototype.map.call(cards, function(c){
+        var b = c.getBoundingClientRect(), k = c.querySelector('.act-k') || c, kb = k.getBoundingClientRect();
+        return wide ? {x: b.left - ar.left + 34, y: -12} : {x: -11, y: kb.top - ar.top + kb.height / 2};
+      });
+      var d = 'M' + P[0].x + ' ' + P[0].y; cum = [0];
+      for(var i = 1; i < P.length; i++){ d += ' L' + P[i].x + ' ' + P[i].y; cum.push(cum[i - 1] + Math.sqrt(Math.pow(P[i].x - P[i - 1].x, 2) + Math.pow(P[i].y - P[i - 1].y, 2))); }
+      mk('path', {d: d, 'class': 'bf-line'});
+      nodes = P.map(function(p){ return mk('circle', {cx: p.x, cy: p.y, r: 5, 'class': 'bf-node'}); });
+      glow = mk('circle', {r: 11, 'class': 'bf-glow bf-run'});
+      trail = [0, 1, 2].map(function(j){ return mk('circle', {r: (3.6 - j * .8).toFixed(1), 'class': 'bf-tr bf-run'}); });
+      head = mk('circle', {r: 5, 'class': 'bf-head bf-run'});
+      run = [glow, head].concat(trail);
+      run.forEach(function(c){ c.setAttribute('cx', P[0].x); c.setAttribute('cy', P[0].y); c.style.opacity = 0; });
+    }
+    function at(s){
+      for(var i = 1; i < P.length; i++){
+        if(s <= cum[i] || i === P.length - 1){
+          var u = Math.max(0, Math.min(1, (s - cum[i - 1]) / Math.max(1, cum[i] - cum[i - 1])));
+          return {x: P[i - 1].x + (P[i].x - P[i - 1].x) * u, y: P[i - 1].y + (P[i].y - P[i - 1].y) * u};
+        }
+      }
+      return P[0];
+    }
+    function pulse(i){
+      cards[i].classList.add('hot');
+      setTimeout(function(){ cards[i].classList.remove('hot'); }, 1500);
+      var r = mk('circle', {cx: P[i].x, cy: P[i].y, r: 5, 'class': 'bf-ring'});
+      tweenF(700, function(p){ return 1 - Math.pow(1 - p, 4); }, function(p){ r.setAttribute('r', (5 + 7 * p).toFixed(2)); r.style.opacity = (.8 * (1 - p)).toFixed(3); }, function(){ if(r.parentNode) r.parentNode.removeChild(r); });
+    }
+    var busy = false, seen = false, tmr = 0;
+    function go(){
+      if(busy || !seen || reduced) return;
+      busy = true; layout();
+      var seg = 1, s = MOT.spring(0, 110, 19, null);
+      run.forEach(function(c){ c.style.opacity = 1; });
+      pulse(0);
+      var fin = function(){ run.forEach(function(c){ c.style.opacity = 0; }); busy = false; if(seen) tmr = setTimeout(go, 3400); };
+      s.on = function(v){
+        var p = at(v), spd = Math.abs(s.v);
+        head.setAttribute('cx', p.x.toFixed(1)); head.setAttribute('cy', p.y.toFixed(1));
+        glow.setAttribute('cx', p.x.toFixed(1)); glow.setAttribute('cy', p.y.toFixed(1));
+        head.setAttribute('r', (5 * (1 + Math.min(900, spd) / 1400)).toFixed(2));
+        trail.forEach(function(c, j){ var q = at(Math.max(0, v - (j + 1) * (4 + spd * .018))); c.setAttribute('cx', q.x.toFixed(1)); c.setAttribute('cy', q.y.toFixed(1)); });
+        if(seg < P.length && v > cum[seg] - 3){ pulse(seg); seg++; if(seg < P.length) s.to(cum[seg], seg === P.length - 1 ? fin : null); }
+      };
+      s.to(cum[1], P.length === 2 ? fin : null);
+    }
+    layout();
+    onSeen(acts, function(v){ seen = v; clearTimeout(tmr); if(v) tmr = setTimeout(go, 500); }, .25);
+    window.addEventListener('resize', function(){ if(!busy) layout(); }, {passive:true});
+  })();
+
+  /* ---- spotlight-card · свет и кромка за пальцем (cards.js) ---- */
+  (function spotlight(){
+    var SEL = '.who-card, .proj, .trust .svc', cur = null, offT = 0;
+    function host(e){ return e.target && e.target.closest ? e.target.closest(SEL) : null; }
+    function put(h, e){
+      if(!h.querySelector(':scope > .sp')){ var i = document.createElement('i'); i.className = 'sp'; i.setAttribute('aria-hidden', 'true'); h.appendChild(i); }
+      var b = h.getBoundingClientRect();
+      h.style.setProperty('--mx', (e.clientX - b.left).toFixed(0) + 'px'); h.style.setProperty('--my', (e.clientY - b.top).toFixed(0) + 'px');
+    }
+    function on(h){ if(cur && cur !== h) cur.classList.remove('sp-on'); cur = h; clearTimeout(offT); h.classList.add('sp-on'); }
+    function off(ms){ var h = cur; clearTimeout(offT); offT = setTimeout(function(){ if(h) h.classList.remove('sp-on'); if(cur === h) cur = null; }, ms); }
+    document.addEventListener('pointermove', function(e){
+      var h = host(e);
+      if(!h){ if(cur && e.pointerType === 'mouse') off(0); return; }
+      if(e.pointerType !== 'mouse' && !e.buttons) return;
+      put(h, e); on(h);
+    }, {passive:true});
+    document.addEventListener('pointerdown', function(e){ var h = host(e); if(h){ put(h, e); on(h); } }, {passive:true});
+    document.addEventListener('pointerup', function(e){ if(e.pointerType !== 'mouse') off(700); }, {passive:true});
+    document.addEventListener('pointercancel', function(){ off(300); }, {passive:true});
+  })();
+
+  /* ---- tier-elevator · лифт по ступеням: маркер едет по рельсу, номер перекидывается табличкой (theatre.js) ---- */
+  (function lift(){
+    var lad = document.querySelector('#steps .ladder'); if(!lad) return;
+    var rungs = Array.prototype.slice.call(lad.querySelectorAll('.rung')); if(!rungs.length) return;
+    var rail = document.createElement('i'), car = document.createElement('i');
+    rail.className = 'ld-rail'; rail.innerHTML = '<i class="ld-fill"></i>'; car.className = 'ld-car';
+    rail.setAttribute('aria-hidden', 'true'); car.setAttribute('aria-hidden', 'true');
+    lad.insertBefore(rail, lad.firstChild); lad.appendChild(car);
+    var ys = [], lit = -2;
+    var carS = MOT.spring(0, SP.glide[0], SP.glide[1], function(v){ car.style.transform = 'translateY(' + v.toFixed(1) + 'px)'; });
+    function measure(){
+      var lb = lad.getBoundingClientRect();
+      ys = rungs.map(function(r){ var n = r.querySelector('.num') || r, b = n.getBoundingClientRect(); return b.top - lb.top + b.height / 2; });
+      rail.style.top = ys[0] + 'px'; rail.style.height = Math.max(0, ys[ys.length - 1] - ys[0]) + 'px';
+    }
+    function update(){
+      var line = window.innerHeight * .62, n = -1;
+      rungs.forEach(function(r, i){ var b = r.getBoundingClientRect(); if(b.top + b.height * .5 < line) n = i; });
+      if(n === lit) return;
+      measure();
+      rungs.forEach(function(r, i){
+        if(i <= n && !r.classList.contains('lit')){
+          r.classList.add('lit');
+          var nm = r.querySelector('.num');
+          if(nm && !reduced){ nm.classList.remove('flap'); void nm.offsetWidth; nm.classList.add('flap'); }
+        } else if(i > n) r.classList.remove('lit');
+      });
+      if(lit < -1) carS.x = ys[Math.max(0, n)] || 0;
+      lit = n;
+      car.classList.toggle('on', n >= 0);
+      if(n >= 0){
+        carS.to(ys[n]);
+        var span = ys[ys.length - 1] - ys[0];
+        rail.style.setProperty('--lp', span > 0 ? ((ys[n] - ys[0]) / span).toFixed(3) : '1');
+      } else rail.style.setProperty('--lp', '0');
+    }
+    var rq = 0;
+    window.addEventListener('scroll', function(){ if(rq) return; rq = requestAnimationFrame(function(){ rq = 0; update(); }); }, {passive:true});
+    window.addEventListener('resize', function(){ measure(); if(lit >= 0) carS.to(ys[lit]); }, {passive:true});
+    update();
+  })();
+
+  /* ---- border-beam · свет бежит по рамке выделенного тарифа: круг за 5,4 с, хвост из наложенных отрезков (cards.js) ---- */
+  (function borderBeam(){
+    Array.prototype.forEach.call(document.querySelectorAll('.price.feat, .price.offer'), function(card){
+      var NS = 'http://www.w3.org/2000/svg', svg = document.createElementNS(NS, 'svg');
+      svg.setAttribute('class', 'bb-svg'); svg.setAttribute('aria-hidden', 'true'); card.appendChild(svg);
+      var P = 0, s = Math.random() * 400, paths = [], live = false;
+      function mk(col, w, op){ var p = document.createElementNS(NS, 'path'); p.setAttribute('stroke', col); p.setAttribute('stroke-width', w); p.setAttribute('opacity', op); svg.appendChild(p); return p; }
+      function build(){
+        while(svg.firstChild) svg.removeChild(svg.firstChild);
+        var w = card.offsetWidth, h = card.offsetHeight;
+        var r = Math.max(2, Math.min((parseFloat(getComputedStyle(card).borderTopLeftRadius) || 24) - 1, w / 2 - 2, h / 2 - 2));
+        var x0 = 1, y0 = 1, x1 = w - 1, y1 = h - 1, a = ' A' + r + ' ' + r + ' 0 0 1 ';
+        var d = 'M' + (x0 + r) + ' ' + y0 + ' H' + (x1 - r) + a + x1 + ' ' + (y0 + r) + ' V' + (y1 - r) + a + (x1 - r) + ' ' + y1 +
+                ' H' + (x0 + r) + a + x0 + ' ' + (y1 - r) + ' V' + (y0 + r) + a + (x0 + r) + ' ' + y0 + ' Z';
+        svg.setAttribute('viewBox', '0 0 ' + w + ' ' + h);
+        P = 2 * (w - 2 - 2 * r) + 2 * (h - 2 - 2 * r) + 2 * Math.PI * r;
+        paths = [];
+        for(var i = 0; i < 3; i++) paths.push({p: mk('#D4FF4F', 6, .08), f: .85 * (i + 1) / 3});
+        for(var j = 0; j < 8; j++) paths.push({p: mk('#E9FF9E', 2.2, .17), f: (j + 1) / 8});
+        paths.push({p: mk('#ffffff', 2.4, 1), head: true});
+        paths.forEach(function(o){ o.p.setAttribute('d', d); });
+      }
+      function draw(){
+        var LT = P * .16, LH = P * .028;
+        paths.forEach(function(o){
+          var L = o.head ? LH : LT * o.f;
+          o.p.style.strokeDasharray = L.toFixed(1) + ' ' + Math.max(0, P - L).toFixed(1);
+          o.p.style.strokeDashoffset = (L - s).toFixed(1);
+        });
+      }
+      build(); draw();
+      onSeen(card, function(v){
+        if(v && !reduced && !live){ live = true; MOT.tick(function(dt){ if(!live) return false; s = (s + P / 5.4 * dt) % P; draw(); }); }
+        else if(!v) live = false;
+      });
+      if('ResizeObserver' in window) new ResizeObserver(function(){ build(); draw(); }).observe(card);
+    });
+  })();
+
+  /* ---- stamp-words · обещания ложатся печатями: замах 130 мс, удар 110 мс, брызги чернил (type.js) ---- */
+  (function stamps(){
+    var cards = document.querySelectorAll('#trust .svc'); if(!cards.length) return;
+    var KINDS = [['NDA', -11, 1], ['Честно', 9, 0], ['$100 в зачёт', -7, 0]];
+    function ink(card, st, heavy){
+      var cb = card.getBoundingClientRect(), sb = st.getBoundingClientRect(), cx = sb.left - cb.left + sb.width / 2, cy = sb.top - cb.top + sb.height / 2, drops = [];
+      for(var i = 0; i < (heavy ? 12 : 8); i++){
+        var e = document.createElement('i'), a = Math.random() * Math.PI * 2, v = 260 + Math.random() * 520, z = 3 + Math.random() * 6;
+        e.className = 'st-ink'; e.style.width = e.style.height = z.toFixed(1) + 'px'; card.appendChild(e);
+        drops.push({e: e, x: cx, y: cy, vx: Math.cos(a) * v, vy: Math.sin(a) * v, t: 0});
+      }
+      MOT.tick(function(dt){
+        var alive = 0;
+        drops.forEach(function(d){
+          if(!d.e) return;
+          var drag = Math.exp(-9 * dt); d.t += dt; d.vx *= drag; d.vy *= drag; d.x += d.vx * dt; d.y += d.vy * dt;
+          var sp = Math.sqrt(d.vx * d.vx + d.vy * d.vy), op = Math.max(0, 1 - d.t / .9);
+          d.e.style.transform = 'translate(' + d.x.toFixed(1) + 'px,' + d.y.toFixed(1) + 'px) rotate(' + (Math.atan2(d.vy, d.vx) * 57.3).toFixed(1) + 'deg) scale(' + (1 + Math.min(sp / 260, 1.6)).toFixed(2) + ',' + (1 - Math.min(sp / 900, .4)).toFixed(2) + ')';
+          d.e.style.opacity = op.toFixed(2);
+          if(op <= 0){ d.e.parentNode.removeChild(d.e); d.e = null; } else alive++;
+        });
+        if(!alive) return false;
+      });
+    }
+    Array.prototype.forEach.call(cards, function(card, i){
+      var k = KINDS[i % KINDS.length], rot = k[1], st = document.createElement('span');
+      st.className = 'stamp'; st.setAttribute('data-noi18n', ''); st.setAttribute('aria-hidden', 'true');
+      st.__ru = k[0]; st.textContent = t(k[0]); card.appendChild(st);
+      function pose(L, extra){
+        st.style.opacity = (.35 + .65 * (1 - Math.min(1, L))).toFixed(3);
+        st.style.transform = 'translateY(' + (-L * 26).toFixed(1) + 'px) rotate(' + (rot - 4 * L + (extra || 0)).toFixed(2) + 'deg) scale(' + (1 + .25 * L).toFixed(3) + ')';
+      }
+      function strike(){
+        if(reduced){ st.classList.add('inked'); pose(0); return; }
+        pose(1);
+        tweenF(130, outCubic, function(p){ pose(1 + .35 * p, -5 * p); }, function(){
+          tweenF(110, inCubic, function(p){ pose(1.35 * (1 - p), -5 * (1 - p)); }, function(){
+            st.classList.add('inked'); pose(0);
+            MOT.spring(k[2] ? .9 : .95, SP.pop[0], SP.pop[1], function(v){ st.style.transform = 'rotate(' + rot + 'deg) scale(' + v.toFixed(3) + ')'; }).to(1);
+            ink(card, st, k[2]);
+          });
+        });
+      }
+      var done = false;
+      onSeen(card, function(v){ if(v && !done){ done = true; setTimeout(strike, 350 + i * 260); } }, .5);
+    });
+  })();
+
+  /* ---- accordion · ответ раскрывается пружиной: открыть k260/c22, закрыть k520/c44, строки снизу (forms.js) ---- */
+  (function faqSpring(){
+    var items = Array.prototype.slice.call(document.querySelectorAll('.fq'));
+    function open(d){
+      var b = d.__b, p = d.__p; d.classList.remove('closing'); d.open = true;
+      d.__h.k = 260; d.__h.c = 22; d.__h.x = b.offsetHeight; d.__h.v = 0;
+      d.__h.to(p.offsetHeight, function(){ b.style.height = 'auto'; });
+      d.__l.x = 0; d.__l.on(0);
+      setTimeout(function(){ d.__l.to(1); }, reduced ? 0 : 90);
+    }
+    function close(d){
+      var b = d.__b; d.classList.add('closing');
+      d.__h.k = 520; d.__h.c = 44; d.__h.x = b.offsetHeight; d.__h.v = 0; b.style.height = d.__h.x + 'px';
+      d.__h.to(0, function(){ d.open = false; d.classList.remove('closing'); });
+    }
+    items.forEach(function(d){
+      var p = d.querySelector('p'), sm = d.querySelector('summary'); if(!p || !sm) return;
+      var b = document.createElement('div'); b.className = 'fq-b'; d.insertBefore(b, p); b.appendChild(p);
+      if(!d.open) b.style.height = '0px';
+      d.__b = b; d.__p = p;
+      d.__h = MOT.spring(0, 260, 22, function(v){ b.style.height = Math.max(0, v).toFixed(1) + 'px'; });
+      d.__l = MOT.spring(1, SP.pop[0], SP.pop[1], function(v){ p.style.transform = 'translateY(' + ((1 - v) * 12).toFixed(1) + 'px)'; p.style.opacity = Math.min(1, v * 1.4).toFixed(2); });
+      sm.addEventListener('click', function(e){
+        e.preventDefault();
+        if(d.open && !d.classList.contains('closing')) close(d);
+        else { items.forEach(function(o){ if(o !== d && o.open && !o.classList.contains('closing')) close(o); }); open(d); }
+      });
+    });
+  })();
+
+  /* ---- tactile-button · главная кнопка проседает как клавиша: нажим k1400/c52 в два этапа, отпуск k520/c25 (product.js) ---- */
+  (function tactile(){
+    Array.prototype.forEach.call(document.querySelectorAll('.btn:not(.sec)'), function(btn){
+      var held = false, t2 = 0;
+      var d = MOT.spring(0, 1400, 52, function(v){
+        var x = Math.max(0, v);
+        btn.style.transform = 'translateY(' + (x * 4).toFixed(2) + 'px) scale(' + (1 - x * .03).toFixed(4) + ')';
+        btn.style.filter = 'brightness(' + (1 - x * .07).toFixed(3) + ')';
+      });
+      function release(){ d.k = 520; d.c = 25; d.to(0, function(){ btn.style.transform = ''; btn.style.filter = ''; btn.classList.remove('tk'); }); }
+      btn.addEventListener('pointerdown', function(){
+        held = true; btn.classList.add('tk'); d.k = 1400; d.c = 52; d.to(.8);
+        clearTimeout(t2); t2 = setTimeout(function(){ if(held) d.to(1); }, 150);
+      }, {passive:true});
+      var up = function(){
+        if(!held) return; held = false; clearTimeout(t2);
+        /* короткий тап всё равно доезжает до дна, отпуск — через 40 мс */
+        if(d.x < .96){ d.k = 1400; d.c = 52; d.to(1); setTimeout(release, 100); } else release();
+      };
+      btn.addEventListener('pointerup', up, {passive:true});
+      btn.addEventListener('pointerleave', up, {passive:true});
+      btn.addEventListener('pointercancel', up, {passive:true});
+    });
+  })();
+
+  /* смена языка: заголовки и печати собираются заново из исходных строк */
+  function motionLang(){
+    WS.forEach(function(o){ o.words = wsBuild(o.h); if(!o.played) wsHide(o.words); });
+    Array.prototype.forEach.call(document.querySelectorAll('.stamp'), function(st){ st.textContent = t(st.__ru); });
+  }
+
+  /* табло ROCH Motion (stats-band): разряды докручиваются, правые — на круг больше и стартуют раньше */
+  function odometer(el, end, suffixHtml, done){
+    var ds = String(end).split(''), nd = ds.length, left = nd, strip = '0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0';
+    el.innerHTML = ds.map(function(){ return '<span class="od-c"><span class="od-s">' + strip + '</span></span>'; }).join('') + suffixHtml;
+    var cols = el.querySelectorAll('.od-s');
+    ds.forEach(function(dg, k){
+      var col = cols[k], target = +dg + 10 * (k + 1);
+      var sp = MOT.spring(0, 64, 16, function(v){ col.style.transform = 'translateY(' + (-(((v % 10) + 10) % 10) * 1.1).toFixed(3) + 'em)'; });
+      setTimeout(function(){ sp.to(target, function(){ col.style.transform = 'translateY(' + (-(+dg) * 1.1) + 'em)'; if(--left === 0 && done) done(); }); }, (nd - 1 - k) * 45);
+    });
+  }
+
+  /* inline-convert (product.js): цена докручивается по разрядам справа налево, k170/c20, каскад 46 мс */
+  function rollPrice(el, str){
+    if(!el) return;
+    var prev = el.__rp || ''; el.__rp = str;
+    if(reduced || !prev || prev === str){ el.textContent = str; el.classList.remove('rp-on'); return; }
+    var oldD = prev.replace(/\D/g, ''), dig = str.replace(/\D/g, ''), html = '', col = '<span class="rp-c"><span class="rp-s">';
+    for(var n = 0; n < 10; n++) col += '<i>' + n + '</i>';
+    col += '</span></span>';
+    for(var i = 0; i < str.length; i++){ var ch = str.charAt(i); html += /\d/.test(ch) ? col : '<span class="rp-t">' + (ch === ' ' ? '&nbsp;' : ch) + '</span>'; }
+    el.innerHTML = html; el.classList.add('rp-on');
+    var cols = el.querySelectorAll('.rp-s');
+    Array.prototype.forEach.call(cols, function(c, k){
+      var fromRight = cols.length - 1 - k, od = oldD.charAt(oldD.length - 1 - fromRight), from = od === '' ? 0 : +od, to = +dig.charAt(k);
+      c.style.transform = 'translateY(' + (-from * 10) + '%)';
+      var sp = MOT.spring(from, 170, 20, function(v){ c.style.transform = 'translateY(' + (-v * 10).toFixed(3) + '%)'; });
+      setTimeout(function(){ sp.to(to); }, fromRight * 46);
+    });
+  }
+
 })();
 </script>
 </body>
