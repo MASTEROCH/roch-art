@@ -1341,6 +1341,8 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
 .ef-again{position:absolute;right:6%;bottom:6%;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;
   color:var(--text2);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);opacity:0;pointer-events:none;transition:opacity .3s}
 .eco-film.end .ef-again{opacity:1;pointer-events:auto}
+.eco-film.nofilm .ef-again{display:none}
+.eco-film.nofilm .ef-stage{cursor:default}
 .ef-cap{display:grid;margin-top:4px;min-height:40px;font-size:13.5px;font-weight:600;line-height:1.4;color:var(--text2)}
 .ef-cap span{grid-area:1/1;opacity:0;transform:translateY(6px);transition:opacity .45s cubic-bezier(.22,1,.36,1),transform .45s cubic-bezier(.22,1,.36,1)}
 .ef-cap span.on{opacity:1;transform:none}
@@ -3723,31 +3725,34 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
   })();
   /* ---- фильм экосистемы ROCH: Vifix, 4 ключевых кадра → 3 клипа Kling по 5 с (вспышка ядра · отъезд к орбитам · связи).
      Играет раз, когда блок в кадре, и замирает на кадре связей — тогда проявляются имена планет. Подпись меняется по отрезкам.
-     Тап — заново. «Уменьшить движение» или отказ автовоспроизведения (режим энергосбережения iOS) — сразу финальный кадр. ---- */
+     Тап — заново. «Уменьшить движение» или запрет автозапуска (энергосбережение iOS) — сразу финальный кадр с именами,
+     но ролик остаётся: тап — жест пользователя, на него iOS запускает видео и в энергосбережении. ---- */
   (function ecoFilm(){
     var box = document.querySelector('.eco-film'); if(!box) return;
-    var v = box.querySelector('video'), caps = box.querySelectorAll('.ef-cap span'), seg = -1, started = false, dead = false;
+    var v = box.querySelector('video'), caps = box.querySelectorAll('.ef-cap span'), seg = -1, started = false, blocked = false, gone = false;
     function cap(i){ if(i === seg) return; seg = i; for(var k = 0; k < caps.length; k++) caps[k].classList.toggle('on', k === i); }
     function end(){ box.classList.add('end'); cap(caps.length - 1); }
-    function still(){ dead = true; v.poster = 'assets/eco/eco-last.webp'; v.removeAttribute('src'); while(v.firstChild) v.removeChild(v.firstChild); try{ v.load(); }catch(e){} end(); }
-    function play(){
+    function still(){ blocked = true; v.poster = 'assets/eco/eco-last.webp'; end(); }
+    function play(byTap){
+      if(byTap){ blocked = false; started = true; v.preload = 'auto'; }
       box.classList.remove('end'); cap(0);
       try{ v.currentTime = 0; }catch(e){}
       /* финал вместо фильма — только при запрете автозапуска; AbortError (ушли из кадра до старта) — не повод */
       var p = v.play(); if(p && p.catch) p.catch(function(e){ if(e && e.name === 'NotAllowedError') still(); });
     }
+    v.addEventListener('timeupdate', function(){ if(!box.classList.contains('end')) cap(Math.min(caps.length - 1, Math.floor(v.currentTime / 5))); });
+    v.addEventListener('ended', end);
+    /* файла нет или он битый — финальный постер без кнопки повтора */
+    v.addEventListener('error', function(){ gone = true; box.classList.add('nofilm'); still(); }, true);
+    box.querySelector('.ef-stage').addEventListener('click', function(){ if(!gone && (started || blocked)) play(true); });
     if(reduced){ still(); return; }
     /* 2,4 МБ грузятся за экран до блока, а не с открытием страницы: подвал видят не все */
     if('IntersectionObserver' in window){
       var near = new IntersectionObserver(function(en){ if(en[0].isIntersecting && !started){ near.disconnect(); v.preload = 'auto'; try{ v.load(); }catch(e){} } }, {rootMargin: '0px 0px 900px 0px'});
       near.observe(box);
     }
-    v.addEventListener('timeupdate', function(){ if(!box.classList.contains('end')) cap(Math.min(caps.length - 1, Math.floor(v.currentTime / 5))); });
-    v.addEventListener('ended', end);
-    v.addEventListener('error', still, true);
-    box.querySelector('.ef-stage').addEventListener('click', function(){ if(started && !dead) play(); });
     onSeen(box, function(on){
-      if(dead) return;
+      if(gone || blocked) return;
       if(on && !started){ started = true; v.preload = 'auto'; play(); }
       else if(!on && started && !v.paused) v.pause();
       else if(on && started && v.paused && !box.classList.contains('end')) { var p = v.play(); if(p && p.catch) p.catch(function(){}); }
