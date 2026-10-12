@@ -3609,7 +3609,8 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
   /* ---- «Это ROCH Motion»: лента живых механик. 20 сразу, «Показать ещё» добавляет по 20 — до всех 300.
      Порядок: механики этой страницы, затем лучшие по арт-ревью каталога. Петля грузится и играет, только пока плитка видна. ---- */
   /* ▶ БОТ ROCH MOTION. Ссылки сразу запускают мини-приложение (startapp, Main Mini App в BotFather), а не чат:
-     механика — «f_<id>», витрина откроет её первой; «все 300» — без параметра. Пусто — «купить» ведёт в личку Роме. */
+     механика — «w__f_<id>», витрина откроет её первой; «все 300» — «w». w — метка сайта: бот считает эти заходы
+     отдельной строкой в /stats («С сайта»), не смешивая с «Открытками». Пусто — «купить» ведёт в личку Роме. */
   var MOTION_BOT = 'https://t.me/ROCH_Motion_Bot';
   /* превью и петли механик: полный адрес хранилища — работают на проде, в превью Vercel и локально. Переедут — меняется одна строка */
   var MS_ASSETS = 'https://roch-motion.vercel.app/thumbs/';
@@ -3687,7 +3688,7 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
 
   /* ---- превью механики прямо на сайте. Покупка — в мини-приложении бота ROCH Motion в Telegram ---- */
   function motionBuyUrl(d){
-    if(MOTION_BOT) return MOTION_BOT + '?startapp' + (d ? '=f_' + d[0] : '');
+    if(MOTION_BOT) return MOTION_BOT + '?startapp=w' + (d ? '__f_' + d[0] : '');
     if(!d) return tgLink(LANG === 'en' ? 'Hi Roma! I want to see ROCH Motion — all 300 mechanics.' : 'Привет, Рома! Хочу посмотреть ROCH Motion — все 300 механик.');
     return tgLink(LANG === 'en' ? 'Hi Roma! I want the mechanic “' + d[2] + '” from ROCH Motion.' : 'Привет, Рома! Хочу механику «' + d[1] + '» из ROCH Motion.');
   }
