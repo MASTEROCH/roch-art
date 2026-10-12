@@ -1332,6 +1332,8 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
 .ef-box{position:relative;aspect-ratio:1/1;
   -webkit-mask-image:radial-gradient(farthest-side,#000 80%,transparent);mask-image:radial-gradient(farthest-side,#000 80%,transparent)}
 .ef-v{display:block;width:100%;height:100%;object-fit:cover;background:#050706}
+.ef-pic{position:absolute;left:0;top:0;opacity:0;transition:opacity .35s cubic-bezier(.22,1,.36,1)}
+.ef-pic.on{opacity:1}
 .ef-tags b{position:absolute;left:var(--x);top:var(--y);transform:translate(-50%,calc(-50% + 6px));opacity:0;pointer-events:none;white-space:nowrap;
   font-size:11.5px;font-weight:800;letter-spacing:.02em;color:var(--text);text-shadow:0 1px 10px rgba(0,0,0,.9),0 0 2px rgba(0,0,0,.9);
   transition:opacity .45s cubic-bezier(.22,1,.36,1),transform .45s cubic-bezier(.22,1,.36,1)}
@@ -3725,24 +3727,41 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
   })();
   /* ---- фильм экосистемы ROCH: Vifix, 4 ключевых кадра → 3 клипа Kling по 5 с (вспышка ядра · отъезд к орбитам · связи).
      Играет раз, когда блок в кадре, и замирает на кадре связей — тогда проявляются имена планет. Подпись меняется по отрезкам.
-     Тап — заново. «Уменьшить движение» или запрет автозапуска (энергосбережение iOS) — сразу финальный кадр с именами,
-     но ролик остаётся: тап — жест пользователя, на него iOS запускает видео и в энергосбережении. ---- */
+     Запрет автозапуска (энергосбережение iOS, встроенный браузер Telegram) — тот же ролик анимированным AVIF поверх видео:
+     картинке разрешение не нужно. Тап — заново, уже видео (жест пользователя). «Уменьшить движение» — финальный кадр. ---- */
   (function ecoFilm(){
     var box = document.querySelector('.eco-film'); if(!box) return;
-    var v = box.querySelector('video'), caps = box.querySelectorAll('.ef-cap span'), seg = -1, started = false, blocked = false, gone = false;
+    var v = box.querySelector('video'), caps = box.querySelectorAll('.ef-cap span'), seg = -1,
+        started = false, blocked = false, gone = false, pic = null, timers = [];
     function cap(i){ if(i === seg) return; seg = i; for(var k = 0; k < caps.length; k++) caps[k].classList.toggle('on', k === i); }
     function end(){ box.classList.add('end'); cap(caps.length - 1); }
-    function still(){ blocked = true; v.poster = 'assets/eco/eco-last.webp'; end(); }
+    function clear(){ while(timers.length) clearTimeout(timers.pop()); if(pic) pic.classList.remove('on'); }
+    /* картинка поверх видео: постер iOS после загрузки ролика не перерисовывает, поэтому финал — отдельным слоем */
+    function show(src, ready, fail){
+      clear();
+      if(!pic){ pic = new Image(); pic.className = 'ef-v ef-pic'; pic.alt = ''; v.parentNode.insertBefore(pic, v.nextSibling); }
+      pic.onload = function(){ pic.classList.add('on'); if(ready) ready(); };
+      pic.onerror = fail || null;
+      pic.src = src;
+    }
+    function still(){ blocked = true; show('assets/eco/eco-last.webp', end); }
+    function flipbook(){
+      blocked = true;
+      show('assets/eco/eco-film.avif', function(){
+        box.classList.remove('end'); cap(0);
+        timers.push(setTimeout(function(){ cap(1); }, 5000), setTimeout(function(){ cap(2); }, 10000), setTimeout(end, 15100));
+      }, still);
+    }
     function play(byTap){
-      if(byTap){ blocked = false; started = true; v.preload = 'auto'; }
+      if(byTap){ blocked = false; started = true; v.preload = 'auto'; clear(); }
       box.classList.remove('end'); cap(0);
       try{ v.currentTime = 0; }catch(e){}
-      /* финал вместо фильма — только при запрете автозапуска; AbortError (ушли из кадра до старта) — не повод */
-      var p = v.play(); if(p && p.catch) p.catch(function(e){ if(e && e.name === 'NotAllowedError') still(); });
+      /* AbortError (ушли из кадра до старта) — не запрет; запрет без жеста — AVIF, с жестом — финальный кадр */
+      var p = v.play(); if(p && p.catch) p.catch(function(e){ if(e && e.name === 'NotAllowedError'){ if(byTap) still(); else flipbook(); } });
     }
-    v.addEventListener('timeupdate', function(){ if(!box.classList.contains('end')) cap(Math.min(caps.length - 1, Math.floor(v.currentTime / 5))); });
+    v.addEventListener('timeupdate', function(){ if(!blocked && !box.classList.contains('end')) cap(Math.min(caps.length - 1, Math.floor(v.currentTime / 5))); });
     v.addEventListener('ended', end);
-    /* файла нет или он битый — финальный постер без кнопки повтора */
+    /* файла нет или он битый — финальный кадр без кнопки повтора */
     v.addEventListener('error', function(){ gone = true; box.classList.add('nofilm'); still(); }, true);
     box.querySelector('.ef-stage').addEventListener('click', function(){ if(!gone && (started || blocked)) play(true); });
     if(reduced){ still(); return; }
