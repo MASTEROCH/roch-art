@@ -1518,7 +1518,7 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
           <div class="up-phone"><div class="up-fan"></div><div class="up-ph"><div class="up-empty"><i></i><i></i><i></i><i></i><i></i></div></div></div>
         </div>
         <div class="ex" data-label="Игра в Telegram" data-res="Datum Empire — Battle Pass с сезонами, рулетка Datum Spin, сборка героя и оплата TON и звёздами" data-n="11" data-fan="assets/cases/datum-s1.jpg,assets/cases/datum-s5.jpg">
-          <div class="up-note"><div class="nt-h">Идея приложения</div><ul><li tabindex="0" role="button" data-scr="assets/cases/datum-s2.jpg">сезонный Battle Pass за TON и звёзды</li><li tabindex="0" role="button" data-scr="assets/cases/datum-s3.jpg">рулетка с призовым фондом</li><li tabindex="0" role="button" data-scr="assets/cases/datum-s4.jpg">герой, которого собираешь по частям</li></ul></div>
+          <div class="up-note"><div class="nt-h">Идея приложения</div><ul><li tabindex="0" role="button" data-scr="assets/cases/datum-s2.jpg">сезонный Battle Pass за TON и звёзды</li><li tabindex="0" role="button" data-scr="assets/cases/datum-s7.jpg">рулетка с призовым фондом</li><li tabindex="0" role="button" data-scr="assets/cases/datum-s4.jpg">герой, которого собираешь по частям</li></ul></div>
           <div class="up-phone"><div class="up-fan"></div><div class="up-ph"><div class="up-empty"><i></i><i></i><i></i><i></i><i></i></div></div></div>
         </div>
         <div class="ex" data-label="Туризм" data-res="Paratravel Club — подбор тура за четыре вопроса вместо переписки" data-url="https://paratravel-club.vercel.app" data-n="8" data-fan="assets/cases/paratravel-1.webp,assets/cases/paratravel-7.webp">
@@ -2395,7 +2395,8 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
       if(!ex || ex.__pre) return; ex.__pre = true;
       var list = (ex.getAttribute('data-fan') || '').split(',');
       Array.prototype.forEach.call(ex.querySelectorAll('.up-note li'), function(li){ list.push(li.getAttribute('data-scr')); });
-      list.forEach(function(s){ if(s){ var im = new Image(); im.src = s; } });
+      list.forEach(function(s){ if(s) imgOf(s); });
+      warm(ex);
     };
     var prep = function(ex){
       if(ex.__up) return ex.__up;
@@ -2439,6 +2440,14 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
       var trim = function(){ while(up.layers.length > 2){ var o = up.layers.shift(); if(o.parentNode) o.parentNode.removeChild(o); } };
       up.ph.appendChild(im); up.layers.push(im);
       if(!at || reduced){ trim(); return; }
+      if(at === 'parts' && burst(up, im, src, trim)) return;
+      if(at === 'rim' || at === 'parts'){
+        /* экран рождается из рамки: маска-ирис сходится от краёв к центру (мягкий край 14 %) */
+        var iris = function(q){ var r = 100 - 114 * q, m = 'radial-gradient(ellipse farthest-corner at 50% 50%, transparent ' + r.toFixed(1) + '%, #000 ' + (r + 14).toFixed(1) + '%)'; im.style.webkitMaskImage = m; im.style.maskImage = m; };
+        iris(0);
+        tween(680, function(q){ iris(q); if(q >= 1){ im.style.webkitMaskImage = ''; im.style.maskImage = ''; } }, trim);
+        return;
+      }
       var w = up.ph.clientWidth, h = up.ph.clientHeight, R = Math.sqrt(w * w + h * h);
       var clip = function(r){ var s = 'circle(' + r.toFixed(1) + 'px at ' + at.x.toFixed(1) + 'px ' + at.y.toFixed(1) + 'px)'; im.style.webkitClipPath = s; im.style.clipPath = s; };
       clip(0);
@@ -2454,10 +2463,10 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
        размытия, α ≤ .3, и подчинено ему — стартует за 230 мс до первой волны прилёта, форма садится вместе с роем. ---- */
     var upLay = {};
     var readLayout = function(im){
-      var GW = 72, GH = Math.round(GW * 1777 / 820), c = document.createElement('canvas'), g = c.getContext('2d'), d, i, x, y, k;
+      var GW = 72, GH = Math.round(GW * 1777 / 820), c = document.createElement('canvas'), g = c.getContext('2d', { willReadFrequently: true }), d, i, x, y, k;
       c.width = GW; c.height = GH;
-      var sc = Math.max(GW / im.naturalWidth, GH / im.naturalHeight), dw = im.naturalWidth * sc;
-      g.drawImage(im, (GW - dw) / 2, 0, dw, im.naturalHeight * sc);
+      var iw = im.naturalWidth || im.width, ih = im.naturalHeight || im.height, sc = Math.max(GW / iw, GH / ih), dw = iw * sc;
+      g.drawImage(im, (GW - dw) / 2, 0, dw, ih * sc);
       try{ d = g.getImageData(0, 0, GW, GH).data; }catch(e){ return null; }
       var q4 = function(j){ return (d[j * 4] >> 4) * 256 + (d[j * 4 + 1] >> 4) * 16 + (d[j * 4 + 2] >> 4); };
       var rgb = function(key){ return [(key >> 8) * 16 + 8, ((key >> 4) & 15) * 16 + 8, (key & 15) * 16 + 8]; };
@@ -2490,10 +2499,11 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
     };
     var layoutOf = function(src, done){
       if(upLay[src] !== undefined){ done(upLay[src]); return; }
-      var im = new Image();
-      im.onload = function(){ upLay[src] = readLayout(im); done(upLay[src]); };
-      im.onerror = function(){ upLay[src] = null; done(null); };
-      im.src = src;
+      bmOf(src).then(function(bm){
+        var im = imgOf(src);
+        if(upLay[src] === undefined) upLay[src] = bm ? readLayout(bm) : (im.complete && im.naturalWidth ? readLayout(im) : null);
+        done(upLay[src]);
+      });
     };
     var flow = function(up, src, wait){
       var sk = up.ph.querySelector('.up-empty'), my = upRun;
@@ -2547,10 +2557,10 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
        рой летит дугой в телефон и оседает на экран; экран проявляется сквозь садящиеся частицы — на первой волне
        прилёта, а не после неё (закон ДВИЖЕНИЯ: мелкое из точек нечитаемо, настоящее — сквозь оседание).
        Один холст на сцену, частицы — в одном rAF; отменяется вместе со сценой (upRun). ---- */
-    var swCv = null, swCx = null, swP = [], swOn = false, swRun = -1;
+    var swCv = null, swCx = null, swP = [], swOn = false, swRun = -1, swPh = null, swW = 0, swH = 0;
     var swSize = function(){
       if(!swCv){ swCv = document.createElement('canvas'); swCv.className = 'up-swarm'; swCv.setAttribute('aria-hidden', 'true'); morph.appendChild(swCv); swCx = swCv.getContext('2d'); }
-      var d = Math.min(2, window.devicePixelRatio || 1), w = morph.clientWidth, h = morph.clientHeight;
+      var d = Math.min(2, window.devicePixelRatio || 1), w = morph.clientWidth, h = morph.clientHeight; swW = w; swH = h;
       if(swCv.width !== Math.round(w * d) || swCv.height !== Math.round(h * d)){ swCv.width = Math.round(w * d); swCv.height = Math.round(h * d); swCv.style.width = w + 'px'; swCv.style.height = h + 'px'; }
       swCx.setTransform(d, 0, 0, d, 0, 0);
     };
@@ -2561,7 +2571,7 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
       if(rs.length === 1){
         var r = rs[0], cs = getComputedStyle(li), w = Math.ceil(r.width) + 4, h = Math.ceil(r.height) + 4;
         var oc = document.createElement('canvas'); oc.width = w; oc.height = h;
-        var o = oc.getContext('2d'); o.font = cs.fontWeight + ' ' + cs.fontSize + ' ' + cs.fontFamily; o.textBaseline = 'middle'; o.fillStyle = '#fff';
+        var o = oc.getContext('2d', { willReadFrequently: true }); o.font = cs.fontWeight + ' ' + cs.fontSize + ' ' + cs.fontFamily; o.textBaseline = 'middle'; o.fillStyle = '#fff';
         o.fillText(li.textContent, 2, h / 2);
         var d = o.getImageData(0, 0, w, h).data;
         for(y = 0; y < h; y += 2) for(x = 0; x < w; x += 2) if(d[(y * w + x) * 4 + 3] > 110) pts.push([r.left - m.left - 2 + x, r.top - m.top - 2 + y]);
@@ -2570,49 +2580,204 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
       while(pts.length > 420) pts.splice((Math.random() * pts.length) | 0, 1);
       return pts;
     };
+    /* ---- рой садится в рамку мокапа: точки по периметру по часовой от верхней середины в порядке прилёта —
+       рамка заряжается лаймом, как кольцо загрузки; замкнулась — вспышка 160 мс и угасание ease-in 400 мс,
+       экран рождается из рамки ирисом к центру. К нижней части рамки точки заходят снаружи, огибая телефон сбоку. ---- */
+    var swRim = null, swImg = null, swBox = null, tlHold = 0, tiltRest = function(){};
+    var upImgs = {};
+    /* картинки экранов декодируются заранее и вне главного потока: иначе JPEG декодируется синхронно в первом drawImage */
+    var imgOf = function(src){ var im = upImgs[src]; if(!im){ im = upImgs[src] = new Image(); im.decoding = 'async'; im.src = src; im.__ok = im.decode ? im.decode() : null; if(im.__ok) im.__ok.catch(function(){}); } return im; };
+    /* битмап экрана: декод из блоба (fetch → createImageBitmap) вне главного потока; drawImage(<img>) в холст и
+       createImageBitmap(<img>) декодировали JPEG синхронно — 50–140 мс на телефоне. Файл уже в HTTP-кеше после предзагрузки */
+    var upBm = {};
+    var bmOf = function(src){
+      if(!upBm[src]) upBm[src] = (window.createImageBitmap && window.fetch)
+        ? fetch(src).then(function(r){ return r.blob(); }).then(function(b){ return createImageBitmap(b); }).then(null, function(){ return null; })
+        : { then: function(f){ f(null); } };
+      return upBm[src];
+    };
+    var idle = function(fn){ if(window.requestIdleCallback) requestIdleCallback(fn, { timeout: 2000 }); else setTimeout(fn, 200); };
+    /* скелетон и мозаика для экранов примера — в простое браузера, а не посреди полёта роя */
+    var warm = function(ex){
+      var ph = morph.querySelector('.ex.active .up-ph') || ex.querySelector('.up-ph'), P = ph && ph.offsetWidth ? { w: ph.offsetWidth, h: ph.offsetHeight } : null;
+      Array.prototype.forEach.call(ex.querySelectorAll('.up-note li'), function(li, i){
+        var src = li.getAttribute('data-scr'), im = imgOf(src);
+        var go = function(){ bmOf(src).then(function(bm){ idle(function(){ if(P) prepBurst(src, P, bm); if(i === 0) layoutOf(src, function(){}); }); }); };
+        if(im.__ok) im.__ok.then(go, function(){}); else if(im.complete) go(); else im.addEventListener('load', go);
+      });
+    };
+    /* ---- экран из частиц: рамка вспыхивает и вихрем выпускает внутрь ~3 000 частиц цвета пикселей скриншота.
+       Путь от рамки к своему пикселю — по прямой с закруткой 0 → .35 рад → 0 (старт и посадка точно на месте, иначе угол
+       высокого телефона уезжает за рамку), ease-out, длительность ∝ расстоянию:
+       ближние к краю садятся первыми, экран собирается мозаикой от рамки к центру. Настоящий скриншот
+       проявляется сквозь оседающие частицы на последних 40 % (мелкий текст из точек нечитаем), частицы гаснут
+       ease-in за 220 мс. Рисуются пачками по цвету (5 бит на канал) — один fillStyle на пачку, а не на частицу. ---- */
+    var upPrep = {};
+    /* частицы экрана считаются заранее (через 200 мс полёта роя) и кешируются: координаты — от центра телефона */
+    var prepBurst = function(src, P, bm){
+      var key = src + '|' + Math.round(P.w) + 'x' + Math.round(P.h), pic = bm || imgOf(src);
+      if(upPrep[key]) return upPrep[key];
+      var iw = pic.naturalWidth || pic.width, ih = pic.naturalHeight || pic.height;
+      if(!bm && !pic.complete || !iw) return null;
+      var st = Math.max(4, Math.ceil(Math.sqrt(P.w * P.h / 3000))), gw = Math.round(P.w / st), gh = Math.round(P.h / st);
+      var c = document.createElement('canvas'), g = c.getContext('2d', { willReadFrequently: true }), d, i, j;
+      c.width = gw; c.height = gh;
+      var k = Math.max(gw / iw, gh / ih), dw = iw * k;
+      g.drawImage(pic, (gw - dw) / 2, 0, dw, ih * k);
+      try{ d = g.getImageData(0, 0, gw, gh).data; }catch(e){ return null; }
+      var hw = P.w / 2, hh = P.h / 2, bk = {}, len = 0;
+      for(j = 0; j < gh; j++) for(i = 0; i < gw; i++){
+        var o = (j * gw + i) * 4, dx = (i + .5) * st - hw, dy = (j + .5) * st - hh, dl = Math.sqrt(dx * dx + dy * dy);
+        if(dl < 1){ var ra = Math.random() * 6.2832; dx = Math.cos(ra); dy = Math.sin(ra); dl = 1; }
+        /* старт — на рамке по лучу из центра через свой пиксель */
+        var f = Math.min(hw / Math.max(1e-3, Math.abs(dx)), hh / Math.max(1e-3, Math.abs(dy))) * (1 + Math.random() * .04);
+        var q = { sx: dx * f, sy: dy * f, ex: dx, ey: dy, dl: Math.random() * 140, dur: 280 + (f - 1) * dl * 2.2 };
+        len = Math.max(len, q.dl + q.dur);
+        var kk = (d[o] >> 3) * 1024 + (d[o + 1] >> 3) * 32 + (d[o + 2] >> 3);
+        (bk[kk] || (bk[kk] = { c: 'rgb(' + (d[o] | 4) + ',' + (d[o + 1] | 4) + ',' + (d[o + 2] | 4) + ')', p: [] })).p.push(q);
+      }
+      return (upPrep[key] = { st: st, bk: bk, len: len });
+    };
+    var burst = function(up, im, src, done){
+      /* мозаика — только из готового кеша; без createImageBitmap (старый Safari) — из <img> на месте */
+      var P = swBox, R = P && swCx ? (upPrep[src + '|' + Math.round(P.w) + 'x' + Math.round(P.h)] || (!window.createImageBitmap ? prepBurst(src, P) : null)) : null;
+      if(!R) return false;
+      if(swImg && swImg.im !== im) swImg.im.style.opacity = '';
+      im.style.opacity = '0';
+      swImg = { im: im, cx: P.x + P.w / 2, cy: P.y + P.h / 2, st: R.st, bk: R.bk, t0: performance.now(), len: R.len, done: done, rim: swRim ? swRim.pts : null };
+      later(R.len + 900, function(){ if(swImg && swImg.im === im){ im.style.opacity = ''; swImg = null; if(done) done(); } });
+      if(!swOn){ swOn = true; requestAnimationFrame(swLoop); }
+      return true;
+    };
+    /* скруглённый прямоугольник рамки → n+1 точек по длине дуги, по часовой от верхней середины */
+    var rimPath = function(p, r, n){
+      var x0 = p.x + .75, y0 = p.y + .75, w = p.w - 1.5, h = p.h - 1.5, q = Math.PI / 2, out = [], i;
+      r = Math.min(r, w / 2, h / 2);
+      var S = [
+        [w / 2 - r, function(t){ return [x0 + w / 2 + t * (w / 2 - r), y0]; }],
+        [q * r, function(t){ var a = -q + t * q; return [x0 + w - r + r * Math.cos(a), y0 + r + r * Math.sin(a)]; }],
+        [h - 2 * r, function(t){ return [x0 + w, y0 + r + t * (h - 2 * r)]; }],
+        [q * r, function(t){ var a = t * q; return [x0 + w - r + r * Math.cos(a), y0 + h - r + r * Math.sin(a)]; }],
+        [w - 2 * r, function(t){ return [x0 + w - r - t * (w - 2 * r), y0 + h]; }],
+        [q * r, function(t){ var a = q + t * q; return [x0 + r + r * Math.cos(a), y0 + h - r + r * Math.sin(a)]; }],
+        [h - 2 * r, function(t){ return [x0, y0 + h - r - t * (h - 2 * r)]; }],
+        [q * r, function(t){ var a = 2 * q + t * q; return [x0 + r + r * Math.cos(a), y0 + r + r * Math.sin(a)]; }],
+        [w / 2 - r, function(t){ return [x0 + r + t * (w / 2 - r), y0]; }]
+      ], L = 0;
+      S.forEach(function(g){ L += g[0]; });
+      for(i = 0; i <= n; i++){
+        var d = i / n * L, k = 0;
+        while(k < S.length - 1 && d > S[k][0]){ d -= S[k][0]; k++; }
+        out.push(S[k][1](S[k][0] > 0 ? Math.min(1, d / S[k][0]) : 0));
+      }
+      return out;
+    };
     var swLoop = function(){
-      if(swRun !== upRun){ swP = []; }
-      var now = performance.now(), W = morph.clientWidth, H = morph.clientHeight;
+      if(swRun !== upRun){ swP = []; swRim = null; if(swImg){ swImg.im.style.opacity = ''; swImg = null; } }
+      var now = performance.now(), W = swW, H = swH, R = swRim, fade = 1, flash = 0;
       /* хвосты: прошлый кадр не стирается, а гаснет — рой летит кометами */
       swCx.globalCompositeOperation = 'destination-out'; swCx.fillStyle = 'rgba(0,0,0,.3)'; swCx.fillRect(0, 0, W, H);
       swCx.globalCompositeOperation = 'lighter';
-      var alive = [];
+      if(R && R.tf){ var ft = now - R.tf; flash = ft < 160 ? 1 - ft / 160 : 0; fade = ft < 160 ? 1 : Math.max(0, 1 - Math.pow((ft - 160) / 400, 2)); }
+      var alive = [], nl = 0;
       for(var i = 0; i < swP.length; i++){
         var q = swP[i], t = (now - q.t0) / q.dur;
         if(t < 0){ alive.push(q); swCx.fillStyle = 'rgba(212,255,79,.9)'; swCx.fillRect(q.x0 - q.s / 2, q.y0 - q.s / 2, q.s, q.s); continue; }
-        if(t > 1.35) continue;
+        if(t >= 1){
+          nl++;
+          if(fade <= 0) continue;
+          alive.push(q);
+          swCx.fillStyle = 'rgba(212,255,79,' + (.42 * fade).toFixed(3) + ')';
+          swCx.beginPath(); swCx.arc(q.x1, q.y1, q.s * .45, 0, 6.2832); swCx.fill();
+          continue;
+        }
         alive.push(q);
-        var e = t >= 1 ? 1 : (t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2), u = 1 - e;
-        var x = u * u * q.x0 + 2 * u * e * q.cx + e * e * q.x1, y = u * u * q.y0 + 2 * u * e * q.cy + e * e * q.y1;
-        var a = t <= 1 ? 1 : 1 - (t - 1) / .35, sz = q.s * (t <= 1 ? 1 + .6 * Math.sin(e * Math.PI) : 1 + (t - 1) * 2);
-        swCx.fillStyle = q.w ? 'rgba(255,255,255,' + (a * .95).toFixed(3) + ')' : 'rgba(212,255,79,' + (a * .9).toFixed(3) + ')';
+        var e = t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2, u = 1 - e;
+        var b0 = u * u * u, b1 = 3 * u * u * e, b2 = 3 * u * e * e, b3 = e * e * e;
+        var x = b0 * q.x0 + b1 * q.c1x + b2 * q.c2x + b3 * q.x1, y = b0 * q.y0 + b1 * q.c1y + b2 * q.c2y + b3 * q.y1;
+        var sz = q.s * (1 + .6 * Math.sin(e * Math.PI));
+        swCx.fillStyle = q.w ? 'rgba(255,255,255,.95)' : 'rgba(212,255,79,.9)';
         swCx.beginPath(); swCx.arc(x, y, sz / 2, 0, 6.2832); swCx.fill();
       }
-      swCx.globalCompositeOperation = 'source-over';
-      swP = alive;
-      if(swP.length) requestAnimationFrame(swLoop); else { swOn = false; swCx.clearRect(0, 0, W, H); }
-    };
-    var swarm = function(li, p, at, landed){
-      swSize(); swRun = upRun;
-      var pts = swSample(li), now = performance.now(), minX = 1e9, maxX = -1e9, i;
-      for(i = 0; i < pts.length; i++){ minX = Math.min(minX, pts[i][0]); maxX = Math.max(maxX, pts[i][0]); }
-      var R = p.w * .34, tx = p.x + at.x, ty = p.y + at.y, first = 1e9;
-      for(i = 0; i < pts.length; i++){
-        var x0 = pts[i][0], y0 = pts[i][1], k = (x0 - minX) / Math.max(1, maxX - minX);
-        var ang = Math.random() * 6.2832, rr = R * Math.sqrt(Math.random());
-        var x1 = tx + Math.cos(ang) * rr, y1 = ty + Math.sin(ang) * rr * 1.3;
-        var lift = 70 + Math.random() * 90, side = (Math.random() - .5) * 120;
-        var q = { x0: x0, y0: y0, x1: x1, y1: y1, cx: (x0 + x1) / 2 + side, cy: Math.min(y0, y1) - lift,
-                  t0: now + k * 240 + Math.random() * 60, dur: 760 + Math.random() * 300, s: 1.6 + Math.random() * 1.4, w: Math.random() < .14 };
-        first = Math.min(first, q.t0 + q.dur * .62);
-        swP.push(q);
+      /* рамка: линия растёт вслед за севшими точками; замкнулась — вспышка и угасание */
+      if(R){
+        var prog = Math.min(1, nl / R.total), m = Math.floor(prog * (R.pts.length - 1));
+        if(prog >= 1 && !R.tf) R.tf = now;
+        if(m > 0 && fade > 0){
+          swCx.lineCap = 'round'; swCx.lineJoin = 'round';
+          swCx.beginPath(); swCx.moveTo(R.pts[0][0], R.pts[0][1]);
+          for(var k = 1; k <= m; k++) swCx.lineTo(R.pts[k][0], R.pts[k][1]);
+          swCx.strokeStyle = 'rgba(212,255,79,' + ((.1 + .25 * flash) * fade).toFixed(3) + ')'; swCx.lineWidth = 6 + 6 * flash; swCx.stroke();
+          swCx.strokeStyle = 'rgba(212,255,79,' + ((.55 + .45 * flash) * fade).toFixed(3) + ')'; swCx.lineWidth = 1.6 + .8 * flash; swCx.stroke();
+        }
       }
+      swCx.globalCompositeOperation = 'source-over';
+      /* мозаика экрана: частицы вихрем от рамки к своим пикселям, сквозь них проявляется настоящий скриншот */
+      var M = swImg;
+      if(M){
+        var el = now - M.t0, out = el > M.len ? Math.min(1, (el - M.len) / 220) : 0, ma = 1 - out * out, hs = M.st - .5;
+        M.im.style.opacity = Math.max(0, Math.min(1, (el / M.len - .6) / .4)).toFixed(3);
+        if(ma > 0){
+          /* вихрь крутится внутри рамки: она — граница экрана, а не точка, мимо которой летят */
+          swCx.save();
+          if(M.rim){ swCx.beginPath(); swCx.moveTo(M.rim[0][0], M.rim[0][1]); for(var rp = 1; rp < M.rim.length; rp++) swCx.lineTo(M.rim[rp][0], M.rim[rp][1]); swCx.closePath(); swCx.clip(); }
+          swCx.globalAlpha = ma;
+          for(var key in M.bk){
+            var B = M.bk[key]; swCx.fillStyle = B.c;
+            for(var n = 0; n < B.p.length; n++){
+              var z = B.p[n], tt = (el - z.dl) / z.dur;
+              if(tt < 0) continue;
+              var ez = tt >= 1 ? 1 : 1 - Math.pow(1 - tt, 3), rx = z.sx + (z.ex - z.sx) * ez, ry = z.sy + (z.ey - z.sy) * ez;
+              var th = 1.4 * ez * (1 - ez), co = Math.cos(th), si = Math.sin(th), sz = hs * (.55 + .45 * ez);
+              swCx.fillRect(M.cx + rx * co - ry * si - sz / 2, M.cy + rx * si + ry * co - sz / 2, sz, sz);
+            }
+          }
+          swCx.restore();
+        } else { M.im.style.opacity = ''; swImg = null; if(M.done) M.done(); }
+      }
+      swP = alive;
+      if(swP.length || (R && fade > 0) || swImg) requestAnimationFrame(swLoop); else { swOn = false; swRim = null; swCx.clearRect(0, 0, W, H); }
+    };
+    var swarm = function(li, p, landed){
+      swSize(); swRun = upRun;
+      var pts = swSample(li), now = performance.now(), minX = 1e9, maxX = -1e9, i, qs = [];
+      for(i = 0; i < pts.length; i++){ minX = Math.min(minX, pts[i][0]); maxX = Math.max(maxX, pts[i][0]); }
+      for(i = 0; i < pts.length; i++){
+        var k0 = (pts[i][0] - minX) / Math.max(1, maxX - minX), q0 = { x0: pts[i][0], y0: pts[i][1], t0: now + k0 * 240 + Math.random() * 60, dur: 760 + Math.random() * 300, s: 1.6 + Math.random() * 1.4, w: Math.random() < .14 };
+        q0.land = q0.t0 + q0.dur; qs.push(q0);
+      }
+      var scr = li.getAttribute('data-scr');
+      swBox = p; imgOf(scr); bmOf(scr).then(function(bm){ if(bm) prepBurst(scr, p, bm); });
+      if(!qs.length){ landed('parts'); return 300; }
+      /* место на рамке — по порядку прилёта: рамка заполняется по часовой без разрывов */
+      qs.sort(function(a, b){ return a.land - b.land; });
+      var rim = rimPath(p, parseFloat(getComputedStyle(swPh).borderTopLeftRadius) || 24, 240), cx = p.x + p.w / 2, N = qs.length;
+      qs.forEach(function(q, j){
+        var ix = Math.min(rim.length - 1, Math.floor((j + .5) / N * (rim.length - 1)));
+        var a = rim[Math.max(0, ix - 1)], b = rim[Math.min(rim.length - 1, ix + 1)], tx = b[0] - a[0], ty = b[1] - a[1], tl = Math.sqrt(tx * tx + ty * ty) || 1;
+        var nx = ty / tl, ny = -tx / tl, jt = (Math.random() - .5) * 1.6, D = 40 + Math.random() * 50;
+        q.x1 = rim[ix][0] + nx * jt; q.y1 = rim[ix][1] + ny * jt;
+        if(q.y1 < p.y + p.h * .18){
+          q.c2x = q.x1 + nx * D; q.c2y = q.y1 + ny * D;
+          q.c1x = (q.x0 + q.c2x) / 2 + (Math.random() - .5) * 80; q.c1y = Math.min(q.y0, q.c2y) - 60 - Math.random() * 60;
+        } else {
+          /* к нижней части рамки — снаружи, огибая телефон сбоку, а не сквозь экран */
+          var sd = q.x1 < cx ? -1 : 1;
+          q.c1x = cx + sd * (p.w / 2 + 70 + Math.random() * 40); q.c1y = p.y - 10 + Math.random() * 40;
+          q.c2x = q.x1 + nx * D + sd * 20 * Math.abs(ny); q.c2y = q.y1 + ny * D;
+        }
+        swP.push(q);
+      });
+      swRim = { pts: rim, total: N, tf: 0 };
+      /* наклон за курсором выпрямляется на время события — рамка роя совпадает с телефоном */
+      tlHold = qs[N - 1].land + 700; tiltRest();
       li.classList.add('up-dust');
       if(!swOn){ swOn = true; requestAnimationFrame(swLoop); }
-      /* экран — на первой волне прилёта; страховка таймером на скрытую вкладку */
-      var hit = false, go = function(){ if(hit) return; hit = true; li.classList.remove('up-dust'); landed(); };
-      later(Math.max(300, first - now), go);
-      return Math.max(300, first - now);
+      /* экран — когда рамка заряжена на 90 %: она вспыхивает и выпускает частицы экрана; страховка таймером на скрытую вкладку */
+      var eta = Math.max(300, qs[Math.floor(N * .9)].land - now);
+      var hit = false, go = function(){ if(hit) return; hit = true; li.classList.remove('up-dust'); landed('parts'); };
+      later(eta, go);
+      return eta;
     };
     /* наклон за курсором (RM.tilt): телефон живой под мышью; касание не трогаем — на телефоне палец листает страницу */
     if(!reduced && window.matchMedia && matchMedia('(hover: hover) and (pointer: fine)').matches){
@@ -2623,11 +2788,13 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
         if(Math.abs(tlTX - tlX) > .02 || Math.abs(tlTY - tlY) > .02) requestAnimationFrame(tlStep); else tlOn = false;
       };
       var tlKick = function(){ if(!tlOn){ tlOn = true; requestAnimationFrame(tlStep); } };
+      tiltRest = function(){ tlTX = 0; tlTY = 0; tlKick(); };
       morph.addEventListener('pointermove', function(e){
         if(e.pointerType !== 'mouse') return;
         var ph = morph.querySelector('.ex.active .up-ph'); if(!ph) return;
         if(tlEl && tlEl !== ph) tlEl.style.transform = '';
         tlEl = ph;
+        if(performance.now() < tlHold){ tlTX = 0; tlTY = 0; tlKick(); return; }
         var r = ph.getBoundingClientRect(), dx = (e.clientX - (r.left + r.width / 2)) / (r.width * 1.6), dy = (e.clientY - (r.top + r.height / 2)) / (r.height * 1.2);
         tlTX = clamp(dx, -1, 1) * 11; tlTY = -clamp(dy, -1, 1) * 7; tlKick();
       });
@@ -2654,15 +2821,19 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
       li.classList.remove('up-done'); li.classList.add('up-mark');
       later(300, function(){
         li.classList.add('up-lift');
-        var p = rel(up.ph), at = { x: p.w / 2, y: p.h * (0.3 + 0.13 * i) };
-        var landed = function(){
-          ring(p.x + at.x, p.y + at.y);
-          showScreen(up, li.getAttribute('data-scr'), at);
+        /* рамка телефона без наклона: offset* не видят transform, а наклон вертит .up-ph в 3D */
+        var b = rel(up.ph.parentNode), p = { x: b.x + up.ph.offsetLeft - up.ph.offsetWidth / 2, y: b.y + up.ph.offsetTop, w: up.ph.offsetWidth, h: up.ph.offsetHeight };
+        var at = { x: p.w / 2, y: p.h * (0.3 + 0.13 * i) };
+        var landed = function(mode){
+          if(mode !== 'parts') ring(p.x + at.x, p.y + at.y);
+          showScreen(up, li.getAttribute('data-scr'), mode === 'parts' ? 'parts' : at);
           li.classList.remove('up-mark'); li.classList.remove('up-lift'); li.classList.add('up-done');
           if(done) later(900, done);
         };
-        var eta = (window.HTMLCanvasElement && document.createRange) ? swarm(li, p, at, landed) : (fly(li, p.x + at.x, p.y + at.y, landed), 520);
-        flow(up, li.getAttribute('data-scr'), Math.max(0, eta - 230));
+        if(reduced){ landed(); return; }
+        swPh = up.ph;
+        var eta = (window.HTMLCanvasElement && document.createRange) ? swarm(li, p, landed) : (fly(li, p.x + at.x, p.y + at.y, landed), 520);
+        flow(up, li.getAttribute('data-scr'), Math.max(0, eta - 300));
       });
     };
     var plural = function(k){ var a = k % 10, b = k % 100; return (a === 1 && b !== 11) ? '' : (a >= 2 && a <= 4 && (b < 10 || b >= 20)) ? 'а' : 'ов'; };
@@ -3476,10 +3647,12 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
       if(lastF && now - lastF < 1 / 62) return;
       var fd = lastF ? Math.min(1 / 30, now - lastF) : 1 / 60; lastF = now;
       T += fd;
-      var e6 = 1 - Math.exp(-6 * fd), e3 = 1 - Math.exp(-3 * fd), r = cv.getBoundingClientRect();
+      /* размер холста — из ResizeObserver (refit): getBoundingClientRect каждый кадр заставлял пересчитывать вёрстку
+         всей страницы, пока рядом шла любая анимация, — 745 мс из 4 с на телефоне при распаковке витрины */
+      var e6 = 1 - Math.exp(-6 * fd), e3 = 1 - Math.exp(-3 * fd);
       F.x += (F.tx - F.x) * e6; F.y += (F.ty - F.y) * e6;
-      F.px += ((F.tx / Math.max(1, r.width) * 2 - 1) * fs_.x - F.px) * e3;
-      F.py += ((F.ty / Math.max(1, r.height) * 2 - 1) * fs_.x - F.py) * e3;
+      F.px += ((F.tx / Math.max(1, lw) * 2 - 1) * fs_.x - F.px) * e3;
+      F.py += ((F.ty / Math.max(1, lh) * 2 - 1) * fs_.x - F.py) * e3;
       draw();
       ema = ema * .9 + fd * 1000 * .1;
       if(ema > 20){ slowN++; slowT += fd; if(slowN >= 5 && slowT >= .35 && qi < Q.length - 1){ bad[qi] = true; qi++; fit(); slowN = 0; slowT = 0; fastN = 0; } }
@@ -4145,7 +4318,7 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
       cv.className = 'foot-cv'; cv.setAttribute('aria-hidden', 'true');
       try{ gl = cv.getContext('webgl', { alpha: true, premultipliedAlpha: true, antialias: false, depth: false, stencil: false }); }catch(e){}
       if(!gl) return;
-      var oc = document.createElement('canvas'), o = oc.getContext('2d');
+      var oc = document.createElement('canvas'), o = oc.getContext('2d', { willReadFrequently: true });
       try{ oc.width = 1; oc.height = 1; o.drawImage(img, 0, 0); o.getImageData(0, 0, 1, 1); }catch(e){ return; }
       /* поле расстояний и наклон считаются в размере холста: без мип-уровней (NPOT) уменьшенная текстура дала бы пунктир по краю */
       var build = function(w, h, d){
@@ -4192,14 +4365,17 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
       gl.uniform1i(U.u_tex, 0); gl.uniform3f(U.u_a, 212 / 255, 1, 79 / 255);
       box.appendChild(cv);
       var vis = false, lost = false, raf = 0, t0 = performance.now(), lx = 0, ly = 0, tlx = 0, tly = 0, sh0 = -1, lastShine = -1e9, shown = false;
-      var TAU = Math.PI * 2;
+      var TAU = Math.PI * 2, bw = 0, bh = 0, bTop = 0, fN = 0;
+      if('ResizeObserver' in window) new ResizeObserver(function(){ bw = 0; }).observe(box);
       var frame = function(now){
         raf = 0;
         if(!vis || lost) return;
-        var d = Math.min(2, window.devicePixelRatio || 1), w = Math.round(box.clientWidth * d), h = Math.round(box.clientHeight * d);
+        /* размер и место знака — из кеша: чтение вёрстки каждый кадр пересчитывало бы страницу при любой соседней анимации */
+        if(!bw || !(++fN % 60)){ var bb = box.getBoundingClientRect(); bw = bb.width; bh = bb.height; bTop = bb.top + window.scrollY; }
+        var d = Math.min(2, window.devicePixelRatio || 1), w = Math.round(bw * d), h = Math.round(bh * d);
         if(w < 2 || h < 2){ raf = requestAnimationFrame(frame); return; }
         if(cv.width !== w || cv.height !== h){ cv.width = w; cv.height = h; build(w, h, d); }
-        var t = (now - t0) / 1000, r = box.getBoundingClientRect(), vh = window.innerHeight || 800;
+        var t = (now - t0) / 1000, r = { top: bTop - window.scrollY, height: bh }, vh = window.innerHeight || 800;
         /* горизонт: знак внизу экрана смотрит в пол (лайм), поднимается к середине — в небо */
         var hz = -.42 * Math.max(-.7, Math.min(.7, (r.top + r.height / 2) / vh - .5)) + .05 * Math.sin(t * .4);
         lx += (tlx - lx) * .08; ly += (tly - ly) * .08;
