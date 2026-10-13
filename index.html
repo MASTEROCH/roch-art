@@ -1363,6 +1363,17 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
 .me-facts span{padding:7px 12px;border-radius:99px;font-size:12px;font-weight:700;color:var(--text2);
   background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1)}
 .me-facts b{color:var(--lime);margin-right:4px}
+/* LinkedIn — единственная живая пилюля среди фактов: имя проверяется одним тапом (Роч, 13.10). Размер как у фактов,
+   зона касания расширена до 44 px невидимым ::after; в ряду не сжимается (канон #243) */
+.me-in{position:relative;display:inline-flex;align-items:center;gap:6px;flex:0 0 auto;padding:7px 12px;border-radius:99px;
+  font-size:12px;font-weight:700;color:var(--lime);text-decoration:none;
+  background:rgba(212,255,79,.08);border:1px solid rgba(212,255,79,.38);transition:transform .25s var(--spring),background .2s,border-color .2s}
+.me-in::after{content:'';position:absolute;inset:-7px -3px}
+.me-in .ico{width:13px;height:13px}
+.me-in .ico.i-out{width:10px;height:10px;opacity:.7}
+.me-in:active{transform:scale(.95)}
+.me-in:focus-visible{border-radius:99px}
+@media (hover:hover) and (pointer:fine){ .me-in:hover{background:rgba(212,255,79,.15);border-color:rgba(212,255,79,.65);transform:translateY(-2px)} }
 .reel{position:relative;display:block;margin-top:14px;aspect-ratio:16/9;padding:0;overflow:hidden;cursor:pointer}
 .reel-p{position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
 .reel-gl{position:absolute;left:0;top:0;width:100%;height:100%;opacity:0;transition:opacity .5s var(--ease);touch-action:pan-y}
@@ -1875,17 +1886,16 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
         <h3>Роман Чернявский · ROCH</h3>
         <p>10+ лет дизайна в геймдеве — продукты с <b>700M+ установок</b>. Теперь упаковываю продукты бизнеса так же, как свои.</p>
       </div>
-      <div class="me-facts"><span><b>10+</b> лет в геймдеве</span><span><b>700M+</b> установок</span><span><b>5</b> студий</span></div>
+      <div class="me-facts"><span><b>10+</b> лет в геймдеве</span><span><b>700M+</b> установок</span><span><b>5</b> студий</span><a class="me-in" href="https://www.linkedin.com/in/roman-chernyavsky-1b97a1aa/" target="_blank" rel="noopener"><i class="ico i-in"></i>LinkedIn<i class="ico i-out"></i></a></div>
     </div>
     <div class="reel glass reveal" id="reel" role="button" tabindex="0" aria-label="Смотреть шоурил — геймдев-портфолио">
-      <img class="reel-p" src="assets/showreel-poster.jpg" alt="" loading="lazy" decoding="async">
+      <img class="reel-p" src="assets/showreel-poster.webp" alt="" loading="lazy" decoding="async">
       <i class="reel-scrim"></i><i class="reel-play"></i>
       <div class="reel-cap"><b>Шоурил · геймдев в движении</b><span>2 минуты вместо тысячи слов — прямо здесь</span></div>
     </div>
   </div>
   <div class="me-links reveal">
     <a class="c-chip" href="https://youtu.be/uFlb1IN30FM" target="_blank" rel="noopener"><i class="ico i-play"></i>Геймдев-портфолио</a>
-    <a class="c-chip" href="https://www.linkedin.com/in/roman-chernyavsky-1b97a1aa/" target="_blank" rel="noopener"><i class="ico i-in"></i>LinkedIn</a>
     <a class="c-chip" href="https://bio.roch-art.com/about-me" target="_blank" rel="noopener"><i class="ico i-out"></i>CV · bio.roch-art.com</a>
   </div>
 </section>
@@ -3408,7 +3418,7 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
       list.forEach(function(p, i){
         var b = document.createElement('button'); b.type = 'button'; b.className = 'fp-p';
         var idx = PROJECTS.indexOf(p) + 1;
-        b.innerHTML = '<img alt="" decoding="async" src="' + escAttr(shotSrc(p, p.shots[0])) + '"' + (p.pos ? ' style="object-position:50% ' + p.pos + '"' : '') + '>' +
+        b.innerHTML = '<img alt="" decoding="async" ' + (fpNear ? 'src' : 'data-src') + '="' + escAttr(shotSrc(p, p.shots[0])) + '"' + (p.pos ? ' style="object-position:50% ' + p.pos + '"' : '') + '>' +
           '<span class="fp-k">' + pad2(idx) + '</span><span class="fp-tx"><b>' + p.name + '</b><span>' + p.s + '</span></span>';
         b.addEventListener('click', function(){ openProj(p); });
         world.appendChild(b);
@@ -3471,6 +3481,17 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
     new IntersectionObserver(function(en){ vis = en[0].isIntersecting; kick(); }, { rootMargin: '100px 0px' }).observe(wrap);
     window.addEventListener('scroll', function(){ if(vis) kick(); }, { passive: true });
     var rz = 0; window.addEventListener('resize', function(){ clearTimeout(rz); rz = setTimeout(geo, 150); });
+    /* обложки (до 160 КБ каждая) — когда коридор в полутора экранах, а не с открытием страницы:
+       на медленном 4G восемь обложек (830 КБ) забирали канал у скриншотов первого экрана */
+    var fpNear = !('IntersectionObserver' in window);
+    if(!fpNear){
+      var fpNearIO = new IntersectionObserver(function(en){
+        if(!en[0].isIntersecting) return;
+        fpNearIO.disconnect(); fpNear = true;
+        Array.prototype.forEach.call(world.querySelectorAll('img[data-src]'), function(im){ im.src = im.getAttribute('data-src'); im.removeAttribute('data-src'); });
+      }, { rootMargin: '150% 0px' });
+      fpNearIO.observe(wrap);
+    }
     fpBuild(); geo();
   })();
 
@@ -3789,9 +3810,9 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
   function updateActive(){
     var line = window.scrollY + window.innerHeight * 0.35;
     var active = null;
-    for(var i = 0; i < secEls.length; i++){ if(secEls[i].offsetTop <= line) active = secEls[i].id; }
+    for(var i = 0; i < secEls.length; i++){ if(pg.tops[i] <= line) active = secEls[i].id; }
     if(window.scrollY < 80) active = null;
-    if(window.innerHeight + window.scrollY >= document.body.scrollHeight - 60) active = navSecs[navSecs.length - 1];
+    if(window.innerHeight + window.scrollY >= pg.h - 60) active = navSecs[navSecs.length - 1];
     if(active === curActive) return;
     curActive = active;
     Array.prototype.forEach.call(hudLinks, function(a){ a.classList.toggle('on', a.getAttribute('data-sec') === active); });
@@ -3829,21 +3850,35 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
     if(Math.abs(sxpTarget - sxpCur) > 0.0003 || sxpParts > 0){ sxpRAF = requestAnimationFrame(sxpTick); }
   }
   function sxpKick(){ if(!sxpRAF) sxpRAF = requestAnimationFrame(sxpTick); }
-  var ticking = false;
+  /* геометрия страницы для прокрутки — из кеша: onScroll писал сдвиг облаков и тут же читал вёрстку (верх финала,
+     высота страницы, верхи секций) — пересчёт стилей посреди кадра, самая дорогая функция на прокрутке (3 % времени).
+     Кеш обновляется, когда меняется высота страницы, и после остановки прокрутки (250 мс) — на перестановки без смены высоты */
+  var pg = { h: 0, tops: [], fin: 0, t: 0 };
+  function pgRead(){
+    pg.h = document.body.scrollHeight;
+    pg.tops = secEls.map(function(sc){ return sc.offsetTop; });
+    pg.fin = finalSec ? finalSec.getBoundingClientRect().top + window.scrollY : 0;
+  }
+  if('ResizeObserver' in window) new ResizeObserver(function(){ pgRead(); }).observe(document.body);
+  window.addEventListener('resize', pgRead);
+  var ticking = false, st = { hide: null, scr: null, bar: null };
   function onScroll(){
     var y = window.scrollY;
+    if(!pg.h) pgRead();
+    clearTimeout(pg.t); pg.t = setTimeout(pgRead, 250);
     if(!reduced && orbsC) orbsC.style.transform = 'translate3d(0,' + (y * -0.08).toFixed(1) + 'px,0)';
+    /* классы — только при смене состояния: add/remove каждый кадр переписывали атрибут class у шапки и панели */
     if(hdr){
-      if(y > 60) hdr.classList.add('hide'); else hdr.classList.remove('hide');
-      if(y > 24) hdr.classList.add('scrolled'); else hdr.classList.remove('scrolled');
+      if((y > 60) !== st.hide){ st.hide = y > 60; hdr.classList.toggle('hide', st.hide); }
+      if((y > 24) !== st.scr){ st.scr = y > 24; hdr.classList.toggle('scrolled', st.scr); }
     }
     /* плашка — когда hero-CTA ушли из кадра; прячется у финального CTA */
     if(ctaBar){
-      var nearFinal = finalSec ? (finalSec.getBoundingClientRect().top < window.innerHeight * 0.8) : false;
-      if(y > 620 && !nearFinal) ctaBar.classList.add('show'); else ctaBar.classList.remove('show');
+      var nearFinal = finalSec ? (pg.fin - y < window.innerHeight * 0.8) : false, barOn = y > 620 && !nearFinal;
+      if(barOn !== st.bar){ st.bar = barOn; ctaBar.classList.toggle('show', barOn); }
     }
     if(sxp){
-      var max = document.body.scrollHeight - window.innerHeight;
+      var max = pg.h - window.innerHeight;
       sxpTarget = max > 0 ? Math.min(1, y / max) : 0;
       if(reduced) sxp.style.transform = 'scaleX(' + sxpTarget.toFixed(4) + ')';
       else sxpKick();
@@ -4159,8 +4194,10 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
     });
     return words;
   }
-  function wsSet(w, y, r, s){ w.el.style.transform = 'translate3d(0,' + (y * 100).toFixed(1) + '%,0) rotate(' + r.toFixed(2) + 'deg) scale(' + s.toFixed(3) + ')'; }
-  function wsHide(words){ words.forEach(function(w){ if(w.acc) wsSet(w, 1.35, -6, .7); else wsSet(w, 1.18, 7, 1); }); }
+  /* 3D-сдвиг (свой слой) — только пока слово летит; спрятанные слова ждут плоским translate: заголовки ниже экрана
+     держали по слою на каждое слово — 40–60 лишних слоёв на сборку каждого кадра */
+  function wsSet(w, y, r, s, flat){ w.el.style.transform = (flat ? 'translate(0,' : 'translate3d(0,') + (y * 100).toFixed(1) + (flat ? '%)' : '%,0)') + ' rotate(' + r.toFixed(2) + 'deg) scale(' + s.toFixed(3) + ')'; }
+  function wsHide(words){ words.forEach(function(w){ if(w.acc) wsSet(w, 1.35, -6, .7, true); else wsSet(w, 1.18, 7, 1, true); }); }
   function wsPlay(words){
     var heads = words.filter(function(w){ return !w.acc; }), accs = words.filter(function(w){ return w.acc; });
     heads.forEach(function(w, i){
@@ -4871,7 +4908,16 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
       a.innerHTML = '<div class="ms-v"><video muted playsinline loop preload="none" aria-hidden="true"></video></div><b></b><span class="ms-t ' + (MS_HERE[d[0]] ? 't-here' : 't-' + d[3]) + '"></span>';
       a.__v = a.querySelector('video'); msLabel(a); msTiles.push(a);
       if(io) io.observe(a); else a.__v.setAttribute('poster', MS_ASSETS + d[0] + '.webp');
+      if(msNear) msPrime(a, 99);
       return a;
+    }
+    /* постер (4 КБ) и первые три петли (по 40 КБ) — за экран до ленты: раньше постер ставился, когда плитка уже
+       на треть в кадре, и рамка 0,3–1,6 с стояла пустой */
+    var msNear = false;
+    function msPrime(a, k){
+      var v = a.__v;
+      if(!v.getAttribute('poster')) v.setAttribute('poster', MS_ASSETS + a.__d[0] + '.webp');
+      if(!reduced && k < 3 && !v.getAttribute('src')){ v.preload = 'auto'; v.setAttribute('src', MS_ASSETS + 'loop/' + a.__d[0] + '.mp4'); }
     }
     function moreCard(){
       var b = document.createElement('button'); b.type = 'button'; b.className = 'ms-more';
@@ -4897,6 +4943,13 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
       });
     }
     add();
+    if(io){
+      var msNearIO = new IntersectionObserver(function(en){
+        if(!en[0].isIntersecting) return;
+        msNearIO.disconnect(); msNear = true; msTiles.forEach(msPrime);
+      }, { rootMargin: '120% 0px' });
+      msNearIO.observe(row);
+    }
     row.__moreText = moreText;
     /* мышью ленту можно тянуть; палец листает нативно */
     var dn = null;
@@ -5037,6 +5090,56 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
       for(i = 0; i < n; i++) res[i] = Math.sqrt(out[i]) - Math.sqrt(inn[i]);
       return res;
     }
+    /* текстура знака из пикселей картинки (размер холста, w×h): R — поле расстояний, G — альфа, B/A — сглаженный наклон;
+       плюс точки сборки — самые далёкие друг от друга точки внутри штрихов (CSS-пиксели, y вниз), плоско [x0, y0, x1, y1…].
+       Чистая функция: считается в фоновом потоке — на телефоне это 260 мс, которые иначе встают на главный поток у подвала */
+    function bakeLogo(px, w, h, d, ndr){
+      var n = w * h, al = new Float32Array(n), ht = new Float32Array(n), gx = new Float32Array(n), gy = new Float32Array(n), i, x, y, B = BC * d, SP = 14 * d;
+      for(i = 0; i < n; i++) al[i] = px[i * 4 + 3] / 255;
+      var sd = sdf(al, w, h);
+      for(i = 0; i < n; i++){ var k = Math.max(0, Math.min(1, -sd[i] / B)); ht[i] = B * Math.sqrt(1 - (1 - k) * (1 - k)); }
+      for(y = 1; y < h - 1; y++) for(x = 1; x < w - 1; x++){ i = y * w + x; gx[i] = (ht[i + 1] - ht[i - 1]) / 2; gy[i] = (ht[i - w] - ht[i + w]) / 2; }
+      var box3 = function(src){
+        var out = new Float32Array(n), yy, xx;
+        for(y = 0; y < h; y++) for(x = 0; x < w; x++){
+          var sum = 0, c = 0;
+          for(yy = Math.max(0, y - 1); yy <= Math.min(h - 1, y + 1); yy++) for(xx = Math.max(0, x - 1); xx <= Math.min(w - 1, x + 1); xx++){ sum += src[yy * w + xx]; c++; }
+          out[y * w + x] = sum / c;
+        }
+        return out;
+      };
+      gx = box3(box3(gx)); gy = box3(box3(gy));
+      var data = new Uint8Array(n * 4), inner = [];
+      for(y = 0; y < h; y++) for(x = 0; x < w; x++){
+        i = y * w + x;
+        var sx = gx[i], sy = gy[i], m = Math.sqrt(sx * sx + sy * sy); if(m > GMAX){ sx *= GMAX / m; sy *= GMAX / m; }
+        data[i * 4] = Math.round(Math.max(0, Math.min(1, .5 + sd[i] / (2 * SP))) * 255); data[i * 4 + 1] = px[i * 4 + 3];
+        data[i * 4 + 2] = Math.round((.5 + sx / (2 * GMAX)) * 255); data[i * 4 + 3] = Math.round((.5 + sy / (2 * GMAX)) * 255);
+        if(sd[i] < -1.2 * d && !(x % 3) && !(y % 3)) inner.push(i);
+      }
+      var an = [];
+      if(inner.length){
+        var pick = [inner[(inner.length / 2) | 0]], dmin = inner.map(function(){ return 1e9; }), j, q;
+        while(pick.length < ndr){
+          var last = pick[pick.length - 1], lxp = last % w, lyp = (last / w) | 0, best = 0, bi = 0;
+          for(j = 0; j < inner.length; j++){ q = inner[j]; var dx = q % w - lxp, dy = ((q / w) | 0) - lyp, dd = dx * dx + dy * dy; if(dd < dmin[j]) dmin[j] = dd; if(dmin[j] > best){ best = dmin[j]; bi = j; } }
+          pick.push(inner[bi]);
+        }
+        pick.sort(function(a, b){ return (a % w) - (b % w); });
+        pick.forEach(function(q){ an.push((q % w) / d, ((q / w) | 0) / d); });
+      }
+      return { data: data, an: an };
+    }
+    /* фоновый поток из исходников тех же функций; нет Worker или он упал — считаем здесь же, как раньше */
+    var bakeWk = null;
+    var mkWk = function(){
+      try{
+        if(window.Worker && window.Blob && window.URL && URL.createObjectURL){
+          bakeWk = new Worker(URL.createObjectURL(new Blob(['var INF=' + INF + ',BC=' + BC + ',GMAX=' + GMAX + ';' + edt1d + sdf + bakeLogo +
+            'onmessage=function(e){var m=e.data,r=bakeLogo(new Uint8ClampedArray(m.px),m.w,m.h,m.d,m.n);postMessage({id:m.id,w:m.w,h:m.h,data:r.data.buffer,an:r.an},[r.data.buffer]);};'], { type: 'text/javascript' })));
+        }
+      }catch(e){ bakeWk = null; }
+    };
     /* ---- сборка из расплава (Роч, 13.10: «логотип собирается жидким металлом при прокрутке вниз и разбирается вверх»):
        прогресс прокрутки p (знак въезжает снизу — 0, поднялся до 70 % экрана — 1, пружина 6/с) ведёт 9 капель ртути,
        рассыпанных вдоль полосы знака, в точки внутри штрихов (каскад 3,5 %); сам знак «отливается» — поле сдвинуто на 10 px и дрожит,
@@ -5095,63 +5198,58 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
       ' gl_FragColor=vec4(c*a,a);',
       '}'
     ].join('\n');
-    var start = function(){
-      if(!img.naturalWidth) return;
-      var cv = document.createElement('canvas'), gl = null;
+    /* контекст и шейдер готовятся заранее; компиляция — в фоне драйвера (KHR_parallel_shader_compile), без него — синхронно
+       (на телефоне это 30–50 мс главного потока прямо на прокрутке к подвалу) */
+    var cv = null, gl = null, pr = null;
+    var prep = function(){
+      if(!img.naturalWidth || gl) return;
+      cv = document.createElement('canvas');
       cv.className = 'foot-cv'; cv.setAttribute('aria-hidden', 'true');
       try{ gl = cv.getContext('webgl', { alpha: true, premultipliedAlpha: true, antialias: false, depth: false, stencil: false }); }catch(e){}
       if(!gl) return;
+      var sh = function(type, src){ var x = gl.createShader(type); gl.shaderSource(x, src); gl.compileShader(x); return x; };
+      pr = gl.createProgram();
+      gl.attachShader(pr, sh(gl.VERTEX_SHADER, 'attribute vec2 a;void main(){gl_Position=vec4(a,0.,1.);}')); gl.attachShader(pr, sh(gl.FRAGMENT_SHADER, FS));
+      gl.linkProgram(pr);
+      var ext = gl.getExtension('KHR_parallel_shader_compile');
+      var poll = function(){ if(gl.isContextLost() || gl.getProgramParameter(pr, ext.COMPLETION_STATUS_KHR)) start(); else setTimeout(poll, 40); };
+      /* фоновый поток — отдельной задачей: контекст 16 мс + поток 26 мс одной задачей давали рывок 55 мс на телефоне */
+      setTimeout(function(){ mkWk(); if(ext) poll(); else start(); }, 0);
+    };
+    var start = function(){
+      if(gl.isContextLost() || !gl.getProgramParameter(pr, gl.LINK_STATUS)) return;
       var oc = document.createElement('canvas'), o = oc.getContext('2d', { willReadFrequently: true });
       try{ oc.width = 1; oc.height = 1; o.drawImage(img, 0, 0); o.getImageData(0, 0, 1, 1); }catch(e){ return; }
       /* холст больше знака — каплям есть где лежать; знак по центру. CW/CH — в CSS-пикселях */
-      var CW = 0, CH = 0, LX = 0, LY = 0, anchors = [], starts = [];
-      /* поле расстояний, альфа и сглаженный наклон считаются в размере холста (без мип-уровней уменьшенная текстура дала бы пунктир) */
+      var CW = 0, CH = 0, LX = 0, LY = 0, anchors = [], starts = [], ready = false, bakeId = 0;
+      /* текстура готова: загрузить, расставить точки сборки и капли (рассыпаны вдоль всей ширины в полосе знака —
+         ниже чипы контактов, на них капли легли бы поверх кнопок) */
+      var apply = function(w, h, data, an){
+        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, w, h, 0, gl.RGBA, gl.UNSIGNED_BYTE, data);
+        anchors = []; starts = [];
+        for(var k = 0; k + 1 < an.length; k += 2) anchors.push({ x: an[k], y: an[k + 1] });
+        for(var i = 0; i < NDR; i++) starts.push({ x: CW * (.05 + .9 * (i + .5) / NDR) + (Math.random() - .5) * 14, y: CH * (.36 + Math.random() * .28), r: 5 + Math.random() * 5, ph: Math.random() * 6.28 });
+        ready = true;
+      };
+      /* поле расстояний, альфа и сглаженный наклон считаются в размере холста (без мип-уровней уменьшенная текстура дала бы пунктир);
+         пока фоновый поток считает — виден обычный знак */
       var build = function(w, h, d){
         oc.width = w; oc.height = h; o.clearRect(0, 0, w, h); o.drawImage(img, LX * d, LY * d, bw * d, bh * d);
-        var px = o.getImageData(0, 0, w, h).data, n = w * h, al = new Float32Array(n), ht = new Float32Array(n), gx = new Float32Array(n), gy = new Float32Array(n), i, x, y, B = BC * d, SP = 14 * d;
-        for(i = 0; i < n; i++) al[i] = px[i * 4 + 3] / 255;
-        var sd = sdf(al, w, h);
-        for(i = 0; i < n; i++){ var k = Math.max(0, Math.min(1, -sd[i] / B)); ht[i] = B * Math.sqrt(1 - (1 - k) * (1 - k)); }
-        for(y = 1; y < h - 1; y++) for(x = 1; x < w - 1; x++){ i = y * w + x; gx[i] = (ht[i + 1] - ht[i - 1]) / 2; gy[i] = (ht[i - w] - ht[i + w]) / 2; }
-        var box3 = function(src){
-          var out = new Float32Array(n), yy, xx;
-          for(y = 0; y < h; y++) for(x = 0; x < w; x++){
-            var sum = 0, c = 0;
-            for(yy = Math.max(0, y - 1); yy <= Math.min(h - 1, y + 1); yy++) for(xx = Math.max(0, x - 1); xx <= Math.min(w - 1, x + 1); xx++){ sum += src[yy * w + xx]; c++; }
-            out[y * w + x] = sum / c;
-          }
-          return out;
-        };
-        gx = box3(box3(gx)); gy = box3(box3(gy));
-        var data = new Uint8Array(n * 4), inner = [];
-        for(y = 0; y < h; y++) for(x = 0; x < w; x++){
-          i = y * w + x;
-          var sx = gx[i], sy = gy[i], m = Math.sqrt(sx * sx + sy * sy); if(m > GMAX){ sx *= GMAX / m; sy *= GMAX / m; }
-          data[i * 4] = Math.round(Math.max(0, Math.min(1, .5 + sd[i] / (2 * SP))) * 255); data[i * 4 + 1] = px[i * 4 + 3];
-          data[i * 4 + 2] = Math.round((.5 + sx / (2 * GMAX)) * 255); data[i * 4 + 3] = Math.round((.5 + sy / (2 * GMAX)) * 255);
-          if(sd[i] < -1.2 * d && !(x % 3) && !(y % 3)) inner.push(i);
-        }
-        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, w, h, 0, gl.RGBA, gl.UNSIGNED_BYTE, data);
-        /* точки сборки — самые далёкие друг от друга точки внутри штрихов (CSS-пиксели, y вниз) */
-        anchors = []; starts = [];
-        if(inner.length){
-          var pick = [inner[(inner.length / 2) | 0]], dmin = inner.map(function(){ return 1e9; }), j, q;
-          while(pick.length < NDR){
-            var last = pick[pick.length - 1], lxp = last % w, lyp = (last / w) | 0, best = 0, bi = 0;
-            for(j = 0; j < inner.length; j++){ q = inner[j]; var dx = q % w - lxp, dy = ((q / w) | 0) - lyp, dd = dx * dx + dy * dy; if(dd < dmin[j]) dmin[j] = dd; if(dmin[j] > best){ best = dmin[j]; bi = j; } }
-            pick.push(inner[bi]);
-          }
-          pick.sort(function(a, b){ return (a % w) - (b % w); });
-          anchors = pick.map(function(q){ return { x: (q % w) / d, y: ((q / w) | 0) / d }; });
-        }
-        /* капли рассыпаны вдоль всей ширины в полосе знака (ниже — чипы контактов, на них капли легли бы поверх кнопок) */
-        for(i = 0; i < NDR; i++) starts.push({ x: CW * (.05 + .9 * (i + .5) / NDR) + (Math.random() - .5) * 14, y: CH * (.36 + Math.random() * .28), r: 5 + Math.random() * 5, ph: Math.random() * 6.28 });
+        var px = o.getImageData(0, 0, w, h).data;
+        ready = false;
+        if(shown){ shown = false; box.classList.remove('lm-on'); }
+        if(bakeWk){ bakeWk.postMessage({ id: ++bakeId, px: px.buffer, w: w, h: h, d: d, n: NDR }, [px.buffer]); return; }
+        var r = bakeLogo(px, w, h, d, NDR); apply(w, h, r.data, r.an);
       };
-      var sh = function(type, src){ var x = gl.createShader(type); gl.shaderSource(x, src); gl.compileShader(x); return gl.getShaderParameter(x, gl.COMPILE_STATUS) ? x : null; };
-      var vs = sh(gl.VERTEX_SHADER, 'attribute vec2 a;void main(){gl_Position=vec4(a,0.,1.);}'), fs = sh(gl.FRAGMENT_SHADER, FS);
-      if(!vs || !fs) return;
-      var pr = gl.createProgram(); gl.attachShader(pr, vs); gl.attachShader(pr, fs); gl.linkProgram(pr);
-      if(!gl.getProgramParameter(pr, gl.LINK_STATUS)) return;
+      if(bakeWk){
+        bakeWk.onmessage = function(e){
+          var m = e.data;
+          if(m.id !== bakeId || m.w !== cv.width || m.h !== cv.height || lost) return;
+          apply(m.w, m.h, new Uint8Array(m.data), m.an);
+          if(vis && !raf) raf = requestAnimationFrame(frame);
+        };
+        bakeWk.onerror = function(){ bakeWk = null; cv.width = 0; if(vis && !raf) raf = requestAnimationFrame(frame); };
+      }
       gl.useProgram(pr);
       var buf = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, buf);
       gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
@@ -5189,6 +5287,7 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
         var d = Math.min(2, window.devicePixelRatio || 1), w = Math.round(CW * d), h = Math.round(CH * d);
         if(w < 2 || h < 2){ raf = requestAnimationFrame(frame); return; }
         if(cv.width !== w || cv.height !== h){ cv.width = w; cv.height = h; build(w, h, d); }
+        if(!ready) return;
         var t = (now - t0) / 1000, dt = lastT ? Math.min(.1, (now - lastT) / 1000) : .016, vh = window.innerHeight || 800; lastT = now;
         var yc = bTop - window.scrollY + bh / 2;
         /* прогресс сборки: знак въезжает снизу — 0, поднялся до 70 % экрана — 1; пружина 6/с */
@@ -5234,11 +5333,36 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
       onSeen(cv, function(on){ vis = on; if(on){ lastInput = performance.now(); if(!raf) raf = requestAnimationFrame(frame); } });
     };
     /* WebGL и шейдер — когда подвал в 600 px от экрана: при загрузке страницы это стоило 123 мс главного потока */
-    var go = function(){ if(img.complete && img.naturalWidth) start(); else img.addEventListener('load', start); };
+    var go = function(){ if(img.complete && img.naturalWidth) prep(); else img.addEventListener('load', prep); };
     if('IntersectionObserver' in window){
       var near = new IntersectionObserver(function(en){ if(en[0].isIntersecting){ near.disconnect(); go(); } }, {rootMargin: '600px 0px'});
       near.observe(box);
     } else go();
+  })();
+
+  /* ---- догрузка за первым экраном: после load и паузы — картинки ближних блоков по порядку страницы, по две за раз.
+     На медленном 4G дуга экранов, обложки коридора и постер шоурила иначе догружались уже в кадре (0,3–2,3 с пустых рамок);
+     до load их не трогаем — канал у скриншотов первого экрана. Экономия трафика или 2G — не догружаем ---- */
+  (function warmBelow(){
+    var c = navigator.connection;
+    if(c && (c.saveData || /2g/.test(c.effectiveType || ''))) return;
+    var go = function(){
+      var q = [].slice.call(document.querySelectorAll('#how img[loading="lazy"], #cases .fp-p img[data-src], #about img[loading="lazy"]')), busy = 0;
+      var next = function(){
+        while(busy < 2 && q.length){
+          var im = q.shift();
+          if(im.complete && im.naturalWidth) continue;
+          busy++;
+          var done = function(){ busy--; next(); };
+          im.addEventListener('load', done, { once: true }); im.addEventListener('error', done, { once: true });
+          if(im.getAttribute('data-src')){ im.src = im.getAttribute('data-src'); im.removeAttribute('data-src'); }
+          else im.loading = 'eager';
+        }
+      };
+      next();
+    };
+    var later = function(){ setTimeout(function(){ if(window.requestIdleCallback) requestIdleCallback(go, { timeout: 2000 }); else go(); }, 1200); };
+    if(document.readyState === 'complete') later(); else window.addEventListener('load', later);
   })();
 
   /* ---- три акта: живая волна голоса, паспорт раскладывается на слои, экраны продуктов дугой ---- */
