@@ -732,6 +732,11 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
   box-shadow:inset 0 1px 0 rgba(255,255,255,.1);
   transition:transform .25s var(--spring), color .2s, border-color .2s}
 .c-chip svg{width:16px;height:16px;stroke:var(--lime);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+/* подвал: Telegram — магнит экрана (заливка), почта и LinkedIn — призраки. Без акцентного действия ярче всего в подвале
+   было меню (прищур 21.10, #1236). Наведение — своё: общее красит текст лаймом, на заливке он бы пропал */
+.c-chip.c-main{color:#0B1409;background:var(--lime);border-color:transparent;
+  box-shadow:0 8px 22px -8px rgba(212,255,79,.6), inset 0 1px 0 rgba(255,255,255,.5)}
+@media (hover:hover) and (pointer:fine){ .c-chip.c-main:hover{color:#0B1409;border-color:transparent;box-shadow:0 10px 26px -8px rgba(212,255,79,.75), inset 0 1px 0 rgba(255,255,255,.5)} }
 .c-chip:active{transform:scale(.95)}
 /* табличные цифры — канон */
 .stat .n,.p-price,.plan-p,.metric,.cta-bar .info b,.modal .m-head .mp{font-variant-numeric:tabular-nums}
@@ -1184,6 +1189,7 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
 .final .bz-alt{display:inline-flex;align-items:center;min-height:44px;margin-top:4px;font-size:14px;font-weight:700;
   color:var(--text2);text-decoration:none;border-bottom:1px solid transparent}
 .c-chip .ico{width:16px;height:16px;color:var(--lime)}
+.c-chip.c-main .ico{color:#0B1409}
 
 @media (prefers-reduced-motion:reduce){
   .tl-rail.nudge .tl-thumb,.tl-hint .ico{animation:none}
@@ -2127,7 +2133,7 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
   </nav>
   <div class="foot-lm"><img class="foot-logo" src="assets/logo-foot.png" width="379" height="160" alt="ROCH"></div>
   <div class="contacts">
-    <a class="c-chip js-tg" href="#" target="_blank" rel="noopener"><i class="ico i-tg"></i>@broch</a>
+    <a class="c-chip c-main js-tg" href="#" target="_blank" rel="noopener"><i class="ico i-tg"></i>@broch</a>
     <a class="c-chip" href="mailto:rc@roch-art.com"><i class="ico i-mail"></i>rc@roch-art.com</a>
     <a class="c-chip" href="https://www.linkedin.com/in/roman-chernyavsky-1b97a1aa/" target="_blank" rel="noopener"><i class="ico i-in"></i>LinkedIn</a>
   </div>
