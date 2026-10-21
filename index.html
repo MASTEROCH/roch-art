@@ -145,7 +145,8 @@ p.lead b{color:var(--text);font-weight:700}
   -webkit-tap-highlight-color:transparent;flex:0 0 auto}
 .lang-tog .lt-o{font-size:11px;font-weight:800;letter-spacing:.03em;padding:3px 8px;border-radius:99px;
   color:var(--text3);line-height:1;transition:color .3s var(--ease), background .3s var(--ease)}
-.lang-tog .lt-o.on{background:var(--lime);color:#0B1409}
+/* выбранный язык — тонировка, не заливка: в подвале «RU» был самым ярким пятном экрана (прищур 21.10, #1236) */
+.lang-tog .lt-o.on{background:rgba(212,255,79,.16);color:var(--lime);box-shadow:inset 0 0 0 1px rgba(212,255,79,.45)}
 .lang-tog:active{transform:scale(.95)}
 header{padding:16px 0 0;position:sticky;top:8px;z-index:50;transition:top .35s var(--ease)}
 header.hide{top:2px}
@@ -185,8 +186,10 @@ header.hide .hud-nav{
 .hud-link svg{width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:1.9;
   stroke-linecap:round;stroke-linejoin:round;transition:stroke .35s var(--ease)}
 .hud-link span{white-space:nowrap;font-size:9.5px;letter-spacing:0}
-.hud-link.on{color:#0B1409;background:var(--lime);
-  box-shadow:0 4px 14px rgba(212,255,79,.35), inset 0 1px 0 rgba(255,255,255,.5)}
+/* активная вкладка — тонировка и контур, а не заливка: лаймовая заливка на экране одна — у целевого действия.
+   Заливка вкладки спорила с «Записаться» в 27 кадрах из 46 и на десктопе перетягивала её (прищур 1,0 против 0,97;
+   critic.mjs, 21.10, #1236). Указатель не должен быть ярче цели */
+.hud-link.on{color:var(--lime);background:rgba(212,255,79,.1);box-shadow:inset 0 0 0 1px rgba(212,255,79,.4)}
 .hud-link:active{opacity:.8}
 .logo{font-weight:900;font-size:19px;letter-spacing:-.02em}
 .logo span{color:var(--lime)}
@@ -743,7 +746,7 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
   .case,.svc,.price{transition:transform .35s var(--spring)}
   .c-chip:hover{color:var(--lime);border-color:rgba(212,255,79,.4);transform:translateY(-2px)}
   .hud-link:hover{color:var(--text)}
-  .hud-link.on:hover{color:#0B1409}
+  .hud-link.on:hover{color:var(--lime)}
   .copy-btn:hover{transform:scale(1.08)}
   .morph-nav:hover{opacity:1;transform:translateY(-50%) scale(1.1)}
   .morph-dot:hover{background:rgba(212,255,79,.55)}
@@ -1047,11 +1050,13 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
 .tl-rail.drag{cursor:grabbing}
 /* бегунок — лаймовая пилюля под активной точкой; тянется пальцем, щёлкает по точкам */
 .tl-thumb{position:absolute;top:4px;bottom:4px;left:calc(4px + var(--pos) * (100% - 8px) / 3);width:calc((100% - 8px) / 3);
-  border-radius:18px;background:var(--lime);pointer-events:none;z-index:0;
-  box-shadow:0 10px 28px rgba(212,255,79,.42), inset 0 1.5px 0 rgba(255,255,255,.65), inset 0 -2px 6px rgba(0,90,40,.25);
+  border-radius:18px;background:rgba(212,255,79,.13);pointer-events:none;z-index:0;
+  box-shadow:inset 0 0 0 1px rgba(212,255,79,.55), inset 0 1px 0 rgba(255,255,255,.12);
   transition:left .5s var(--spring);display:flex;align-items:center;justify-content:space-between;padding:0 7px}
 .tl-rail.drag .tl-thumb{transition:none}
-.tl-thumb .ico{width:11px;height:11px;color:rgba(11,20,9,.55)}
+/* бегунок — тонировка с контуром, как вкладка меню: заливка на экране одна — у «Выбрать … — $…» под ним
+   (прищур 21.10: залитая точка «24 часа» тянула глаз почти как кнопка — 0,97–0,99, #1236) */
+.tl-thumb .ico{width:11px;height:11px;color:rgba(212,255,79,.6)}
 .tl-rail.nudge .tl-thumb{animation:tlNudge 1.3s var(--ease) .2s 1}
 @keyframes tlNudge{0%,100%{transform:none}22%{transform:translateX(-14px)}48%{transform:translateX(12px)}70%{transform:translateX(-5px)}}
 .tl-stop{position:relative;z-index:1;min-height:60px;border:0;background:transparent;cursor:pointer;border-radius:18px;
@@ -1062,8 +1067,8 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
 /* неактивная точка — тусклая, но с кольцом: видно, что её можно включить */
 .tl-stop:not(.on)::before{content:'';position:absolute;inset:6px;border-radius:14px;border:1px dashed rgba(255,255,255,.14);
   transition:border-color .25s var(--ease), background .25s var(--ease)}
-.tl-stop.on{color:#0B1409}
-.tl-stop.on span{color:rgba(11,20,9,.7)}
+.tl-stop.on{color:var(--lime)}
+.tl-stop.on span{color:rgba(212,255,79,.72)}
 .tl-stop:active{transform:scale(.97)}
 .tl-hint{display:flex;align-items:center;justify-content:center;gap:6px;min-height:28px;margin-top:6px;
   font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--text3)}
@@ -3875,6 +3880,17 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
   }
   if('ResizeObserver' in window) new ResizeObserver(function(){ pgRead(); }).observe(document.body);
   window.addEventListener('resize', pgRead);
+  /* панель уступает кнопке блока: пока в кадре своя лаймовая кнопка (выбор пакета, запись, финальный Telegram),
+     «Записаться» снизу прячется — магнит на экране один (#1236; critic.mjs 21.10: «Выбрать Style Core» и «Выбрать Full Build»
+     спорили с панелью поровну, а на десктопе панель ещё и закрывала карточки) */
+  var ctaSeen = 0;
+  if('IntersectionObserver' in window){
+    var ctaIO = new IntersectionObserver(function(en){
+      en.forEach(function(e){ if(!!e.target.__seen !== e.isIntersecting){ e.target.__seen = e.isIntersecting; ctaSeen += e.isIntersecting ? 1 : -1; } });
+      ctaSeen = Math.max(0, ctaSeen); if(!ticking){ ticking = true; requestAnimationFrame(onScroll); }
+    }, { threshold: .6 });
+    Array.prototype.forEach.call(document.querySelectorAll('main .btn:not(.sec)'), function(b){ ctaIO.observe(b); });
+  }
   var ticking = false, st = { hide: null, scr: null, bar: null };
   function onScroll(){
     var y = window.scrollY;
@@ -3888,7 +3904,7 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
     }
     /* плашка — когда hero-CTA ушли из кадра; прячется у финального CTA */
     if(ctaBar){
-      var nearFinal = finalSec ? (pg.fin - y < window.innerHeight * 0.8) : false, barOn = y > 620 && !nearFinal;
+      var nearFinal = finalSec ? (pg.fin - y < window.innerHeight * 0.8) : false, barOn = y > 620 && !nearFinal && !ctaSeen;
       if(barOn !== st.bar){ st.bar = barOn; ctaBar.classList.toggle('show', barOn); }
     }
     if(sxp){
