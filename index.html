@@ -7,14 +7,14 @@
 <meta name="color-scheme" content="dark">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>ROCH 0→1 — ваша идея в продукт: распаковка и упаковка идеи</title>
-<meta name="description" content="Расскажите идею — я распакую её и верну продуктом, который покупают: прототип, приложение, сайт, презентация. Распаковка за $100, упаковка от $500, реализация в AppHub. 10+ лет арт-директором в геймдеве, 700M+ установок.">
+<title>ROCH — готовые приложения для бизнеса за 7 дней</title>
+<meta name="description" content="Готовые приложения для салонов, клиник, ресторанов, отелей, туров, проката и недвижимости. Откройте демо своей ниши: через 7 дней такое же заработает под вашим брендом за $990 и $99 в месяц. Механики удержания — из мобильных игр с 700M+ установок.">
 <link rel="canonical" href="https://roch-art.com/">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://roch-art.com/">
 <meta property="og:site_name" content="ROCH">
-<meta property="og:title" content="ROCH 0→1 — ваша идея в продукт, который покупают">
-<meta property="og:description" content="Распаковка идеи — $100. Петля возврата, геймификация и понятные деньги. NDA до первого звонка.">
+<meta property="og:title" content="Приложение для вашего бизнеса уже готово">
+<meta property="og:description" content="Откройте демо своей ниши. Запуск под вашим брендом за 7 дней: $990 и $99 в месяц. Подбор приложения — бесплатный созвон на 20 минут.">
 <meta property="og:image" content="https://roch-art.com/assets/og-cover.jpg?v=4">
 <meta property="og:locale" content="ru_RU">
 <meta name="twitter:card" content="summary_large_image">
@@ -724,6 +724,10 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
   font-size:11.5px;font-weight:700;color:var(--text3);text-align:center;padding:12px}
 .ph-empty i{font-style:normal;font-size:22px;opacity:.7;animation:livePulse 2.4s ease-in-out 4}
 .proj-btns{display:flex;gap:10px;margin-top:16px}
+/* лист продукта: обещание и цена прямо над кнопкой — тонировка с контуром, заливка одна, у «Хочу такое» (#1236) */
+.pj-offer{margin-top:16px;padding:12px 14px;border-radius:16px;background:rgba(212,255,79,.08);box-shadow:inset 0 0 0 1px rgba(212,255,79,.35)}
+.pj-offer b{display:block;font-size:15px;font-weight:800;letter-spacing:-.01em;color:var(--lime)}
+.pj-offer span{display:block;margin-top:4px;font-size:13px;font-weight:500;line-height:1.45;color:var(--text2)}
 .proj-btns .btn{min-height:50px;font-size:14.5px;padding:13px 16px}
 .contacts{display:flex;justify-content:center;gap:9px;margin:4px 0 20px;flex-wrap:wrap}
 .c-chip{display:inline-flex;align-items:center;gap:8px;padding:10px 15px;border-radius:99px;text-decoration:none;
@@ -864,8 +868,10 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
 .bz-hero .boot.d5{animation-delay:1.15s}
 .bz-hook{display:block;margin-bottom:8px;font-size:clamp(19px,5vw,22px);font-weight:800;letter-spacing:-.02em;line-height:1.25;color:var(--text)}
 .bz-hook .lime{text-shadow:0 0 22px rgba(212,255,79,.35)}
-.bz-cta{display:grid;gap:10px;margin-top:22px}
-.bz-cta .btn{min-height:58px}
+.bz-cta{display:grid;grid-template-columns:minmax(0,1fr);gap:10px;margin-top:22px}
+/* узкий телефон: «Подобрать приложение бесплатно» в 16,5 px шире колонки на 19 px — кнопка упиралась в край экрана */
+@media (max-width:419.98px){ .bz-hero .bz-cta .offer-cta{font-size:15px} }
+.bz-cta .btn{min-height:58px;margin-top:0}
 .bz-cta .btn.sec{font-size:15px}
 .bz-cta .btn .ico{width:18px;height:18px}
 .bz-under{margin-top:14px;display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;font-weight:600;color:var(--text3)}
@@ -1208,7 +1214,7 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
 /* ============ ≥600 / DESKTOP (≥1024px) — мобайл не трогаем ============ */
 @media (min-width:600px){
   .bz-cta{display:flex;flex-wrap:wrap}
-  .bz-cta .btn{width:auto;flex:1 0 auto;padding-left:26px;padding-right:26px}
+  .bz-cta .btn{width:auto;flex:1 0 auto;padding-left:22px;padding-right:22px}
 }
 @media (min-width:1024px){
   /* общий десктоп-каркас — как в index.html */
@@ -1629,21 +1635,21 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
 <main>
 <!-- ============ HERO ============ -->
 <section class="hero bz-hero">
-  <p class="h-code"><i class="h-prompt">❯</i><span>ROCH 0→1 · арт-директор из геймдева</span><i class="h-caret" aria-hidden="true"></i></p>
-  <h1 id="bzH1" aria-label="Ваша идея — в продукт, который покупают.">
+  <p class="h-code"><i class="h-prompt">❯</i><span>ROCH · креативный директор · сооснователь AppHub</span><i class="h-caret" aria-hidden="true"></i></p>
+  <h1 id="bzH1" aria-label="Приложение для вашего бизнеса уже готово.">
     <span class="h-main" aria-hidden="true">
-      <span class="w"><i>Ваша</i></span> <span class="w"><i>идея —</i></span>
-      <span class="w"><i>в продукт,</i></span> <span class="w"><i>который</i></span> <span class="w"><i><span class="hl"><em>покупают.</em></span></i></span>
+      <span class="w"><i>Приложение</i></span> <span class="w"><i>для вашего</i></span>
+      <span class="w"><i>бизнеса</i></span> <span class="w"><i>уже</i></span> <span class="w"><i><span class="hl"><em>готово.</em></span></i></span>
     </span>
     
   </h1>
-  <p class="lead boot d2"><span class="bz-hook">Разработчики просят ТЗ. <span class="lime">Я прошу рассказать.</span></span>Идею, которую вы годами носите в голове, я упакую так же, как 10+ лет упаковывал мобильные игры с 700M+ установок: <b>с петлёй возврата, геймификацией и понятными деньгами.</b></p>
+  <p class="lead boot d2"><span class="bz-hook">Разработку с нуля ждут месяцами. <span class="lime">Готовое приложение запускается за 7 дней.</span></span>Откройте приложение своей ниши — салона, клиники, ресторана, отеля или проката, — и через 7 дней такое же заработает под вашим брендом. <b>Механики, ради которых клиент возвращается, я 10+ лет делал в мобильных играх с 700M+ установок.</b></p>
 
   <div class="bz-cta boot d3">
-    <a class="btn offer-cta" id="heroUnpack" data-tgmsg="Привет, Рома! Хочу распаковку идеи приложения ($100). Мой бизнес: … Идея: …"><span class="oc-txt">Распаковка идеи — $100</span><span class="oc-arr">→</span></a>
-    <a class="btn sec" id="heroAi" href="https://t.me/roch_ai_bot?start=biz" target="_blank" rel="noopener"><i class="ico i-spark"></i><span class="oc-txt">Проверить идею в ROCH AI</span></a>
+    <a class="btn offer-cta" id="heroUnpack" data-tgmsg="Привет, Рома! Хочу подобрать готовое приложение для бизнеса. Мой бизнес: … Город: …"><span class="oc-txt">Подобрать приложение бесплатно</span><span class="oc-arr">→</span></a>
+    <a class="btn sec" id="heroCat" href="#cases"><i class="ico i-grid"></i><span class="oc-txt">Смотреть каталог</span></a>
   </div>
-  <p class="bz-under boot d4"><span>$100 засчитываются в упаковку</span><span>NDA подписываю до первого звонка</span></p>
+  <p class="bz-under boot d4"><span>Созвон на 20 минут, без оплаты</span><span>NDA подписываю до первого звонка</span></p>
 
   <!-- ДО / ПОСЛЕ: идея на словах → продукт. Справа — реальные экраны из портфолио -->
   <div class="morph-wrap bz-morph boot d5">
@@ -1707,7 +1713,7 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
           <div class="up-note"><div class="nt-h">Идея приложения</div><ul><li tabindex="0" role="button" data-scr="assets/cases/m/linkos-5.webp">визитка за пять минут</li><li tabindex="0" role="button" data-scr="assets/cases/m/linkos-7.webp">показать только нужное</li><li tabindex="0" role="button" data-scr="assets/cases/m/linkos-2.webp">заказ в WhatsApp в один тап</li></ul></div>
           <div class="up-phone"><div class="up-fan"></div><div class="up-ph"><div class="up-empty"><i></i><i></i><i></i><i></i><i></i></div></div></div>
         </div>
-        <div class="ex" data-label="Магазин в Telegram" data-res="ROCH Motion — 320 живых механик в мини-приложении, покупка звёздами и пакеты Pro" data-url="https://t.me/ROCH_Motion_Bot?startapp" data-n="4" data-fan="assets/cases/m/rmotion-3.webp,assets/cases/m/rmotion-2.webp">
+        <div class="ex" data-label="Магазин в Telegram" data-res="ROCH Motion — 300 живых механик в мини-приложении, покупка звёздами и пакеты Pro" data-url="https://t.me/ROCH_Motion_Bot?startapp" data-n="4" data-fan="assets/cases/m/rmotion-3.webp,assets/cases/m/rmotion-2.webp">
           <div class="up-note"><div class="nt-h">Идея приложения</div><ul><li tabindex="0" role="button" data-scr="assets/cases/m/rmotion-1.webp">каждая механика живая, как в ленте</li><li tabindex="0" role="button" data-scr="assets/cases/m/rmotion-2.webp">каталог по задачам бизнеса</li><li tabindex="0" role="button" data-scr="assets/cases/m/rmotion-4.webp">покупка звёздами в один тап</li></ul></div>
           <div class="up-phone"><div class="up-fan"></div><div class="up-ph"><div class="up-empty"><i></i><i></i><i></i><i></i><i></i></div></div></div>
         </div>
@@ -1751,15 +1757,15 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
 <section id="how">
   <div class="sec-head reveal">
     <div class="eyebrow">Как это происходит</div>
-    <h2>Вы рассказываете. <span class="grad">Я возвращаю идею живой.</span></h2>
-    <p class="lead">Не ТЗ, не бриф на двадцать страниц и не «пришлите референсы». Три акта — от идеи в голове до экрана в телефоне.</p>
+    <h2>Вы выбираете готовое. <span class="grad">Через 7 дней оно работает под вашим брендом.</span></h2>
+    <p class="lead">Не ТЗ на двадцать страниц и не разработка с нуля. Три шага ведут от созвона до приложения в телефоне ваших клиентов.</p>
   </div>
   <div class="acts">
     <div class="act glass reveal">
       <div class="act-vis" aria-hidden="true"><div class="wave"><i style="--h:22%;--d:-.9s"></i><i style="--h:48%;--d:-.3s"></i><i style="--h:74%;--d:-.7s"></i><i style="--h:36%;--d:-.1s"></i><i style="--h:92%;--d:-.5s"></i><i style="--h:58%;--d:-.8s"></i><i style="--h:80%;--d:-.2s"></i><i style="--h:40%;--d:-.6s"></i><i style="--h:66%;--d:-.4s"></i><i style="--h:28%;--d:-1s"></i><i style="--h:52%;--d:-.35s"></i><i style="--h:18%;--d:-.75s"></i></div></div>
-      <div class="act-k"><span class="act-n">Акт 1</span><span class="ctag act-tag">Распаковка · $100</span></div>
-      <h3>Вы рассказываете</h3>
-      <p>Час по видеосвязи. Как есть: сумбурно, с эмоциями, с «а ещё хочу…». Я задаю 12 вопросов — про клиента, возврат, деньги и запуск.</p>
+      <div class="act-k"><span class="act-n">Шаг 1</span><span class="ctag act-tag">Созвон · бесплатно</span></div>
+      <h3>Вы рассказываете о бизнесе</h3>
+      <p>20 минут по видеосвязи. Вы рассказываете, как сейчас приходят клиенты и где они теряются. Я показываю готовое приложение вашей ниши и честно говорю, подходит ли оно.</p>
     </div>
     <div class="act glass reveal">
       <div class="act-vis xv" aria-hidden="true"><div class="xrig">
@@ -1767,23 +1773,23 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
         <div class="xly"><div class="xcd c3"></div><span class="xbb">Где деньги</span></div>
         <div class="xly"><div class="xcd c2"></div><span class="xbb">Почему вернётся</span></div>
         <div class="xly"><div class="xcd c1"></div><span class="xbb">Кто клиент</span></div>
-        <div class="xly"><div class="pass"><b>Паспорт идеи</b><i></i><i></i><i></i><i></i></div></div>
+        <div class="xly"><div class="pass"><b>Паспорт запуска</b><i></i><i></i><i></i><i></i></div></div>
       </div></div>
-      <div class="act-k"><span class="act-n">Акт 2</span><span class="ctag act-tag">Распаковка · $100</span></div>
-      <h3>Я собираю паспорт идеи</h3>
-      <p>Ваш рассказ — на одной странице: кто ваш клиент, почему он вернётся, где вы заработаете и с чего начать. Его можно показать партнёру и команде.</p>
+      <div class="act-k"><span class="act-n">Шаг 2</span><span class="ctag act-tag">Предоплата · $990</span></div>
+      <h3>Я собираю паспорт запуска</h3>
+      <p>На одной странице я собираю всё, что попадёт в приложение: ваш бренд, услуги, цены и механики, ради которых клиент вернётся. После предоплаты студия начинает запуск.</p>
     </div>
     <div class="act glass reveal">
       <div class="act-vis cbv" aria-hidden="true"><div class="mini-ph cb-fb"><img src="assets/cases/epoch-2.webp" alt="" loading="lazy" decoding="async"></div><div class="cb-w"></div></div>
-      <div class="act-k"><span class="act-n">Акт 3</span><span class="ctag act-tag">Style Core · 24 ч</span></div>
-      <h3>Вы видите её в телефоне</h3>
-      <p>Если идея проходит три «да» — через 24 часа она в вашем телефоне: в вашем бренде, кликабельным прототипом ключевого сценария. Это уже можно показывать клиентам.</p>
+      <div class="act-k"><span class="act-n">Шаг 3</span><span class="ctag act-tag">Запуск · 7 дней</span></div>
+      <h3>Ваши клиенты открывают его в телефоне</h3>
+      <p>Через 7 дней приложение работает под вашим брендом. Дальше вы платите $99 в месяц, а моя студия AppHub следит, чтобы всё работало и обновлялось.</p>
     </div>
   </div>
   <div class="yes3 glass reveal">
     <div>
       <div class="y-h">Правило трёх «да»</div>
-      <p class="y-s">Идея идёт дальше, только если на все три вопроса ответ «да». Нет хотя бы одного — скажу честно.</p>
+      <p class="y-s">Запускаем, только если на все три вопроса ответ «да». Если хотя бы на один ответ «нет», я скажу это честно.</p>
     </div>
     <div class="yes-list">
       <div class="yes"><span class="yk">да</span><p>Понятно, зачем клиент откроет приложение впервые</p></div>
@@ -1808,23 +1814,23 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
     <div class="tl-mid">
       <div class="tl-rail" id="tlRail" role="radiogroup" aria-label="Сколько времени">
         <span class="tl-thumb" id="tlThumb" aria-hidden="true"><i class="ico i-prev"></i><i class="ico i-next"></i></span>
-        <button type="button" class="tl-stop" role="radio" aria-checked="false" tabindex="-1" data-i="0"><b>1 час</b><span>$100</span></button>
-        <button type="button" class="tl-stop on" role="radio" aria-checked="true" tabindex="0" data-i="1"><b>24 часа</b><span>$500</span></button>
-        <button type="button" class="tl-stop" role="radio" aria-checked="false" tabindex="-1" data-i="2"><b>3–4 дня</b><span>$2 500</span></button>
+        <button type="button" class="tl-stop" role="radio" aria-checked="false" tabindex="-1" data-i="0"><b>Сегодня</b><span>бесплатно</span></button>
+        <button type="button" class="tl-stop on" role="radio" aria-checked="true" tabindex="0" data-i="1"><b>7 дней</b><span>$990</span></button>
+        <button type="button" class="tl-stop" role="radio" aria-checked="false" tabindex="-1" data-i="2"><b>Месяц</b><span>$5 000</span></button>
       </div>
       <p class="tl-hint" aria-hidden="true"><i class="ico i-prev"></i><span>двигайте</span><i class="ico i-next"></i></p>
     </div>
     <div class="tl-out" id="tlOut" aria-live="polite">
-      <div class="tl-top"><span class="bi-badge b2" id="tlWhen">✦ Через 24 часа</span><span class="tl-pack" id="tlPack">Style Core</span></div>
-      <div class="tl-price"><b id="tlPrice">$500</b><span id="tlNote">стиль и кликабельный прототип</span></div>
+      <div class="tl-top"><span class="bi-badge b2" id="tlWhen">✦ Через 7 дней</span><span class="tl-pack" id="tlPack">Запуск</span></div>
+      <div class="tl-price"><b id="tlPrice">$990</b><span id="tlNote">+ $99 в месяц</span></div>
       <ul class="bi-list" id="tlList">
-        <li><i class="car" aria-hidden="true">❯</i><span>Продуктовая логика и петля возврата</span></li>
-        <li><i class="car" aria-hidden="true">❯</i><span>Визуальный стиль под ваш бренд</span></li>
-        <li><i class="car" aria-hidden="true">❯</i><span>Кликабельный прототип в телефоне клиента</span></li>
-        <li><i class="car" aria-hidden="true">❯</i><span>План: что делать и сколько это стоит</span></li>
+        <li><i class="car" aria-hidden="true">❯</i><span>Готовое приложение вашей ниши под вашим брендом</span></li>
+        <li><i class="car" aria-hidden="true">❯</i><span>Ваши услуги, цены и контакты внутри</span></li>
+        <li><i class="car" aria-hidden="true">❯</i><span>Механики, ради которых клиент возвращается</span></li>
+        <li><i class="car" aria-hidden="true">❯</i><span>Работа, обновления и поддержка входят в подписку</span></li>
       </ul>
-      <a class="btn offer-cta" id="tlCta" data-tgmsg="Привет, Рома! Хочу пакет «Style Core» ($500) для своего бизнеса. Мой бизнес: … Идея: …"><span class="oc-txt" id="tlCtaTxt">Выбрать Style Core — $500</span><span class="oc-arr">→</span></a>
-      <p class="tl-foot">$100 за распаковку засчитываются в любой пакет.</p>
+      <a class="btn offer-cta" id="tlCta" data-tgmsg="Привет, Рома! Хочу запустить готовое приложение под своим брендом ($990 и $99 в месяц). Мой бизнес: … Город: …"><span class="oc-txt" id="tlCtaTxt">Запустить за $990</span><span class="oc-arr">→</span></a>
+      <p class="tl-foot">Созвон ни к чему не обязывает. Предоплату вы вносите, только когда выбрали приложение.</p>
     </div>
   </div>
 </section>
@@ -1880,9 +1886,9 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
 <!-- ============ КЕЙСЫ ============ -->
 <section id="cases">
   <div class="sec-head reveal">
-    <div class="eyebrow">Так я упаковываю</div>
-    <h2>Живые продукты <span class="grad">для бизнеса</span></h2>
-    <p class="lead">Не картинки для портфолио — приложения, которые открывают клиенты. Тапните проект: внутри экраны.</p>
+    <div class="eyebrow">Каталог</div>
+    <h2>Готовые приложения <span class="grad">по нишам</span></h2>
+    <p class="lead">Каждое приложение живое: откройте его и потрогайте. Если понравилось, через 7 дней такое же заработает под вашим брендом.</p>
   </div>
   <div class="fbar reveal" role="group" aria-label="Фильтр кейсов">
     <button type="button" class="fpill on" data-f="all" aria-pressed="true">Все</button>
@@ -1891,7 +1897,7 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
     <button type="button" class="fpill" data-f="sales" aria-pressed="false">Продажи</button>
   </div>
   <div class="proj-grid" id="projGrid"></div>
-  <button type="button" class="pre-btn more-btn" id="projMore" aria-expanded="false"><i class="ico i-down"></i><span id="projMoreTxt">Показать все проекты</span></button>
+  <button type="button" class="pre-btn more-btn" id="projMore" aria-expanded="false"><i class="ico i-down"></i><span id="projMoreTxt">Показать все приложения</span></button>
 </section>
 
 
@@ -1909,7 +1915,7 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
       </div>
       <div class="me-t">
         <h3>Роман Чернявский · ROCH</h3>
-        <p>10+ лет дизайна в геймдеве — продукты с <b>700M+ установок</b>. Теперь упаковываю продукты бизнеса так же, как свои.</p>
+        <p>10+ лет дизайна в геймдеве — продукты с <b>700M+ установок</b>. Теперь я сооснователь студии AppHub и делаю готовые приложения для бизнеса с той же механикой возврата, что и в играх.</p>
       </div>
       <div class="me-facts"><span><b>10+</b> лет в геймдеве</span><span><b>700M+</b> установок</span><span><b>5</b> студий</span><a class="me-in" href="https://www.linkedin.com/in/roman-chernyavsky-1b97a1aa/" target="_blank" rel="noopener"><i class="ico i-in"></i>LinkedIn<i class="ico i-out"></i></a></div>
     </div>
@@ -1934,25 +1940,25 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
   <div class="ladder">
     <div class="rung glass reveal">
       <div class="num">01</div>
-      <div class="r-top"><h3>ROCH AI</h3><span class="ctag">Старт бесплатно</span></div>
-      <p>Опишите идею моему обученному ИИ в Telegram. Стартовые разборы бесплатно, дальше — $49.99 в месяц.</p>
+      <div class="r-top"><h3>Созвон</h3><span class="ctag">Бесплатно</span></div>
+      <p>За 20 минут мы смотрим ваш бизнес, я показываю готовое приложение вашей ниши и называю срок и цену запуска.</p>
     </div>
     <div class="rung glass reveal here">
       <div class="num">02</div>
-      <div class="r-top"><h3>Распаковка</h3><span class="ctag">$100</span></div>
-      <p>Час со мной: режем лишнее, находим, за что клиенты заплатят, и честно говорим, стоит ли делать.</p>
+      <div class="r-top"><h3>Запуск</h3><span class="ctag">$990 + $99/мес</span></div>
+      <p>Через 7 дней готовое приложение вашей ниши работает под вашим брендом. Подписка покрывает работу, обновления и поддержку.</p>
+      <a class="r-alt" id="rungSelf" href="https://apphub.studio" target="_blank" rel="noopener">или соберите сами в конструкторах LinkOS и BuildOS →</a>
+      <span class="r-who">Делает моя студия AppHub</span>
     </div>
     <div class="rung glass reveal">
       <div class="num">03</div>
-      <div class="r-top"><h3>Упаковка</h3><span class="ctag">от $500</span></div>
-      <p>Стиль и кликабельный прототип ключевого сценария в вашем телефоне. С ним можно идти к клиентам и партнёрам.</p>
+      <div class="r-top"><h3>Сессия и упаковка</h3><span class="ctag">$500 / $2 500</span></div>
+      <p>На сессии за 90 минут мы разбираем ваш продукт, его игровой слой и путь к росту. Упаковка добавляет концепцию, визуальное направление и план запуска.</p>
     </div>
     <div class="rung glass reveal partner">
       <div class="num">04</div>
-      <div class="r-top"><h3>Реализация</h3><span class="ctag">от $1 500</span></div>
-      <p>Рабочее приложение в Telegram от студии-партнёра AppHub. Запуск и поддержка.</p>
-      <a class="r-alt" id="rungSelf" href="https://apphub.studio" target="_blank" rel="noopener">или запустите сами в LinkOS и BuildOS →</a>
-      <span class="r-who">Делает AppHub</span>
+      <div class="r-top"><h3>Креативный директор</h3><span class="ctag">$5 000/мес</span></div>
+      <p>Я веду продукт вместе с вашей командой: две сессии в неделю, ревью всего, что выходит к клиентам, и механики роста.</p>
     </div>
   </div>
 </section>
@@ -1960,15 +1966,16 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
 <section id="vs">
   <div class="sec-head reveal">
     <div class="eyebrow">Чем отличается</div>
-    <h2>Обычно — ТЗ и недели. <span class="grad">Здесь — рассказ и 24 часа.</span></h2>
+    <h2>Обычно приложение делают месяцами. <span class="grad">Здесь готовое запускается за 7 дней.</span></h2>
   </div>
   <div class="vs glass reveal">
-    <div class="vs-hd"><span></span><span>Обычно</span><span class="vs-me">ROCH 0→1</span></div>
-    <div class="vs-row"><b>Начало</b><span class="vs-no">«Пришлите ТЗ»</span><span class="vs-yes"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg><span>Рассказ своими словами</span></span></div>
-    <div class="vs-row"><b>Первый результат</b><span class="vs-no">через недели</span><span class="vs-yes"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg><span>24 часа или быстрее</span></span></div>
-    <div class="vs-row"><b>Что в руках</b><span class="vs-no">макеты в Figma</span><span class="vs-yes"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg><span>прототип в вашем телефоне</span></span></div>
-    <div class="vs-row"><b>Если идея слабая</b><span class="vs-no">сделают всё равно</span><span class="vs-yes"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg><span>скажу до разработки</span></span></div>
-    <div class="vs-row"><b>Цена ошибки</b><span class="vs-no">от $1 500 после запуска</span><span class="vs-yes"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg><span>$100 на распаковке</span></span></div>
+    <div class="vs-hd"><span></span><span>Обычно</span><span class="vs-me">ROCH</span></div>
+    <!-- «от $10 000 у агентства»: Clutch, типичный проект агентства $10 000–49 999 (clutch.co/agencies/ui-ux/pricing, 09.2026) -->
+    <div class="vs-row"><b>Начало</b><span class="vs-no">«Пришлите ТЗ»</span><span class="vs-yes"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg><span>Созвон на 20 минут</span></span></div>
+    <div class="vs-row"><b>Первый результат</b><span class="vs-no">через месяцы</span><span class="vs-yes"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg><span>демо на первом созвоне</span></span></div>
+    <div class="vs-row"><b>Что в руках</b><span class="vs-no">макеты</span><span class="vs-yes"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg><span>работающее приложение под вашим брендом</span></span></div>
+    <div class="vs-row"><b>Запуск</b><span class="vs-no">после месяцев разработки</span><span class="vs-yes"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg><span>через 7 дней</span></span></div>
+    <div class="vs-row"><b>Цена</b><span class="vs-no">от $10 000 у агентства</span><span class="vs-yes"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg><span>$990 и $99 в месяц</span></span></div>
   </div>
 </section>
 
@@ -1982,67 +1989,68 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
 
   <div class="price glass reveal offer">
     <div class="badge gold">Первый шаг</div>
-    <div class="p-diff">Ступень 02 · вход</div>
-    <div class="p-row"><h3>Распаковка</h3><div class="p-price">$100</div></div>
-    <div class="p-time">1 час · лично со мной</div>
+    <div class="p-diff">Шаг 01 · вход</div>
+    <div class="p-row"><h3>Созвон</h3><div class="p-price">Бесплатно</div></div>
+    <div class="p-time">20 минут · лично со мной</div>
     <ul class="p-list">
-      <li>Звонок 60 минут</li>
-      <li>Паспорт идеи — резюме на 1 странице</li>
-      <li>Вердикт по правилу трёх «да»</li>
-      <li><b>Засчитывается</b> в упаковку</li>
+      <li>Смотрим ваш бизнес и где теряются клиенты</li>
+      <li>Показываю готовое приложение вашей ниши</li>
+      <li>Называю срок и цену запуска</li>
+      <li><b>Ни к чему не обязывает</b></li>
     </ul>
+    <!-- «от $10 000»: Clutch, типичный проект агентства $10 000–49 999 (clutch.co/directory/mobile-application-developers/pricing, 09.2026) -->
     <div class="anchor">
-      <span class="an-l">Ошибка в идее после разработки</span><span class="an-v">от $1 500</span>
-      <span class="an-l">Найти её до разработки</span><span class="an-v lime">$100</span>
+      <span class="an-l">Разработка с нуля у агентства</span><span class="an-v">от $10 000</span>
+      <span class="an-l">Готовое приложение под вашим брендом</span><span class="an-v lime">$990</span>
     </div>
-    <a class="btn offer-cta" id="priceUnpack" data-tgmsg="Привет, Рома! Хочу записаться на распаковку идеи ($100). Мой бизнес: … Идея: …"><span class="oc-txt">Записаться</span><span class="oc-arr">→</span></a>
+    <a class="btn offer-cta" id="priceUnpack" data-tgmsg="Привет, Рома! Хочу подобрать готовое приложение для бизнеса. Мой бизнес: … Город: …"><span class="oc-txt">Записаться на созвон</span><span class="oc-arr">→</span></a>
   </div>
 
   <div class="tiers">
     <div class="price glass reveal">
-      <div class="p-diff">Уровень 1 · фундамент</div>
-      <div class="p-row"><h3>Style Core</h3><div class="p-price">$500</div></div>
-      <div class="p-time">24 часа</div>
+      <div class="p-diff">Лично со мной</div>
+      <div class="p-row"><h3>ROCH</h3><div class="p-price">от $500</div></div>
+      <div class="p-time">сессия 90 минут</div>
       <ul class="p-list">
-        <li>Стиль продукта</li>
-        <li>Кликабельный прототип ключевого сценария</li>
-        <li>Продуктовая логика на 1 странице</li>
+        <li><b>Сессия — $500:</b> разбираем продукт, игровой слой и путь к росту</li>
+        <li><b>Упаковка — $2 500:</b> концепция, визуальное направление, план запуска</li>
+        <li><b>Креативный директор — $5 000 в месяц</b></li>
+        <li>Механики из мобильных игр с 700M+ установок</li>
       </ul>
-      <a class="btn sec tier-cta" data-tgmsg="Привет, Рома! Хочу пакет «Style Core» ($500) для своего бизнеса. Мой бизнес: … Идея: …">Выбрать Style Core</a>
+      <a class="btn sec tier-cta" data-tgmsg="Привет, Рома! Хочу сессию с тобой ($500). Мой продукт: …">Записаться на сессию</a>
     </div>
 
     <div class="price glass reveal feat">
       <div class="badge">Чаще всего</div>
-      <div class="p-diff">Уровень 2 · вся упаковка</div>
-      <div class="p-row"><h3>Full Build</h3><div class="p-price">$2 500</div></div>
-      <div class="p-time">3–4 дня</div>
+      <div class="p-diff">Готовое приложение · AppHub</div>
+      <div class="p-row"><h3>Запуск</h3><div class="p-price">$990</div></div>
+      <div class="p-time">7 дней · дальше $99 в месяц</div>
       <ul class="p-list">
-        <li>Полная UI-система</li>
-        <li>Прототип всех сценариев</li>
-        <li>Лендинг для первых клиентов</li>
-        <li>Аудит и план запуска</li>
+        <li>Готовое приложение вашей ниши</li>
+        <li>Ваш бренд, услуги и цены</li>
+        <li>Механики удержания внутри</li>
+        <li>Работа, обновления и поддержка входят в подписку</li>
       </ul>
-      <a class="btn tier-cta" data-tgmsg="Привет, Рома! Хочу пакет «Full Build» ($2 500) для своего бизнеса. Мой бизнес: … Идея: …">Выбрать Full Build</a>
+      <a class="btn tier-cta" data-tgmsg="Привет, Рома! Хочу запустить готовое приложение под своим брендом ($990 и $99 в месяц). Мой бизнес: … Город: …">Запустить за $990</a>
     </div>
 
     <div class="price glass reveal">
-      <div class="p-diff">Уровень 3 · продукт как игра</div>
-      <div class="p-row"><h3>Game Layer</h3><div class="p-price">$5 000</div></div>
-      <div class="p-time">7–10 дней</div>
+      <div class="p-diff">С исходниками · навсегда ваше</div>
+      <div class="p-row"><h3>Выкуп</h3><div class="p-price">$15 000</div></div>
+      <div class="p-time">примерно столько стоят запуск и 12 лет подписки</div>
       <ul class="p-list">
-        <li><b>Всё из Full Build</b></li>
-        <li><b>Разработка приложения под ключ</b></li>
-        <li>Запуск с командой AppHub</li>
-        <li>Геймификация и удержание</li>
-        <li>Механики из топовых игр под ваш бизнес</li>
+        <li>Исходный код приложения</li>
+        <li>Размещение на вашем сервере</li>
+        <li>Без ежемесячной оплаты</li>
+        <li>Доработки оплачиваются отдельно</li>
       </ul>
-      <a class="btn sec tier-cta" data-tgmsg="Привет, Рома! Хочу пакет «Game Layer» ($5 000) для своего бизнеса. Мой бизнес: … Идея: …">Выбрать Game Layer</a>
+      <a class="btn sec tier-cta" data-tgmsg="Привет, Рома! Хочу обсудить выкуп приложения с исходниками ($15 000). Мой бизнес: …">Обсудить выкуп</a>
     </div>
   </div>
 
   <a class="bz-apphub glass reveal" id="apphubLink" href="https://apphub.studio" target="_blank" rel="noopener">
     <span class="ah-ic"><i class="ico i-build"></i></span>
-    <p>Нужна реализация после упаковки — рабочее приложение собирает студия-партнёр <b>AppHub</b>, от $1 500. Оплата 50/50: USDT или банковский перевод.</p>
+    <p>Запуск и поддержку делает моя студия <b>AppHub</b>. Оплатить можно в USDT или банковским переводом.</p>
     <span class="ah-go" aria-hidden="true"><i class="ico i-out"></i></span>
   </a>
 </section>
@@ -2051,29 +2059,29 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
 <section id="trust" class="trust">
   <div class="sec-head reveal">
     <div class="eyebrow">Без риска</div>
-    <h2>Идея остаётся <span class="grad">вашей</span></h2>
+    <h2>Вы видите приложение <span class="grad">до оплаты</span></h2>
   </div>
   <div class="cards">
     <div class="svc glass reveal">
       <div class="head">
         <div class="ic"><i class="ico i-lock"></i></div>
-        <div><div class="sub">◆ Идея остаётся вашей</div><h3>NDA до первого звонка</h3></div>
+        <div><div class="sub">◆ Ваш бизнес остаётся вашим</div><h3>NDA до первого звонка</h3></div>
       </div>
-      <p>Подписываю соглашение о неразглашении до того, как вы расскажете идею. Все файлы и права — ваши после оплаты.</p>
+      <p>Подписываю соглашение о неразглашении до того, как вы расскажете о бизнесе. Ваши данные и бренд принадлежат вам.</p>
     </div>
     <div class="svc glass reveal">
       <div class="head">
         <div class="ic"><i class="ico i-scale"></i></div>
-        <div><div class="sub">◆ Честный вердикт</div><h3>Скажу, если идея не взлетит</h3></div>
+        <div><div class="sub">◆ Честный ответ</div><h3>Скажу, если приложение вам не подходит</h3></div>
       </div>
-      <p>Лучше потратить $100 на распаковку, чем тысячи на разработку того, чем клиенты не будут пользоваться.</p>
+      <p>Если готовое приложение не решит вашу задачу, я скажу это на созвоне. Лучше узнать это бесплатно, чем заплатить за то, чем клиенты не будут пользоваться.</p>
     </div>
     <div class="svc glass reveal">
       <div class="head">
         <div class="ic"><i class="ico i-coin"></i></div>
-        <div><div class="sub">◆ Деньги не сгорают</div><h3>$100 засчитываются</h3></div>
+        <div><div class="sub">◆ Демо до оплаты</div><h3>Платите, когда уже потрогали</h3></div>
       </div>
-      <p>Решите идти дальше — сумма распаковки вычитается из цены упаковки. Не решите — у вас остаются паспорт идеи и план.</p>
+      <p>Вы открываете живое приложение своей ниши до предоплаты. Цена запуска фиксирована: $990 и $99 в месяц. Доработки сверх готового мы обсуждаем отдельно и тоже до оплаты.</p>
     </div>
   </div>
 </section>
@@ -2085,11 +2093,11 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
     <h2>Что спрашивают <span class="grad">перед звонком</span></h2>
   </div>
   <div class="faq glass reveal">
-    <details class="fq"><summary><span>У меня нет ТЗ и дизайна. Это проблема?</span><i class="ico i-down"></i></summary><p>Нет. Распаковка для этого и нужна: за час разбираем идею, после звонка вы получаете паспорт идеи и следующий шаг.</p></details>
-    <details class="fq"><summary><span>А если идея плохая?</span><i class="ico i-down"></i></summary><p>Скажу прямо. Лучше узнать это за $100, чем после разработки.</p></details>
-    <details class="fq"><summary><span>Почему Telegram, а не App Store?</span><i class="ico i-down"></i></summary><p>Клиенту ничего не нужно скачивать: приложение открывается в Telegram по ссылке или QR-коду. Если вашей идее подходит другой формат, скажу на распаковке.</p></details>
-    <details class="fq"><summary><span>Сколько стоит всё под ключ?</span><i class="ico i-down"></i></summary><p>Распаковка — $100, упаковка — от $500, реализация в AppHub — от $1 500. Точную сумму под вашу идею называю после распаковки.</p></details>
-    <details class="fq"><summary><span>Кто будет делать приложение?</span><i class="ico i-down"></i></summary><p>Упаковку — я. Разработку — студия-партнёр AppHub. Файлы и права ваши, так что упаковку можно отдать и своим разработчикам.</p></details>
+    <details class="fq"><summary><span>У меня нет ТЗ и дизайна. Это проблема?</span><i class="ico i-down"></i></summary><p>Нет. Приложение уже готово, поэтому ТЗ не нужно. На созвоне вы рассказываете о бизнесе, а я показываю, как приложение будет выглядеть под вашим брендом.</p></details>
+    <details class="fq"><summary><span>Что входит в $99 в месяц?</span><i class="ico i-down"></i></summary><p>Работа приложения, обновления и поддержка. Если что-то сломается или вы захотите поменять цены и услуги, моя студия AppHub это сделает.</p></details>
+    <details class="fq"><summary><span>Почему Telegram, а не App Store?</span><i class="ico i-down"></i></summary><p>Клиенту ничего не нужно скачивать: приложение открывается в Telegram по ссылке или QR-коду. Если вашему бизнесу подходит другой формат, я скажу это на созвоне.</p></details>
+    <details class="fq"><summary><span>Можно доработать приложение под мой бизнес?</span><i class="ico i-down"></i></summary><p>Да. Доработки сверх готового я оцениваю отдельно, и вы вносите предоплату до начала работы. Если нужна новая механика или игровой слой, это моя упаковка за $2 500.</p></details>
+    <details class="fq"><summary><span>Кто будет делать приложение?</span><i class="ico i-down"></i></summary><p>Подбор, упаковку и игровой слой делаю я. Запуск и поддержку делает моя студия AppHub. Если хотите исходники и свой сервер, есть выкуп за $15 000.</p></details>
   </div>
 </section>
 
@@ -2097,10 +2105,10 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
 <section class="final" id="contact">
   <div class="sec-head reveal" style="margin-bottom:0">
     <div class="eyebrow" style="justify-content:center">Остался один шаг</div>
-    <h2>Покажите идею —<br><span class="grad">я покажу, как её купят</span></h2>
-    <p>Час, $100 и ясный ответ, что делать дальше.</p>
-    <a class="btn offer-cta" id="finalTg" data-tgmsg="Привет, Рома! Пишу с сайта roch-art.com. Хочу показать идею. Мой бизнес: … Идея: …"><i class="ico i-tg"></i><span class="oc-txt">Написать в Telegram</span></a>
-    <p class="final-note">Распаковки провожу лично, поэтому их немного в неделю.</p>
+    <h2>Расскажите о бизнесе,<br><span class="grad">и я покажу ваше приложение</span></h2>
+    <p>За 20 минут бесплатно вы узнаете, какое приложение подходит вашему бизнесу и когда оно заработает.</p>
+    <a class="btn offer-cta" id="finalTg" data-tgmsg="Привет, Рома! Пишу с сайта roch-art.com. Хочу подобрать готовое приложение. Мой бизнес: … Город: …"><i class="ico i-tg"></i><span class="oc-txt">Написать в Telegram</span></a>
+    <p class="final-note">Созвоны провожу лично, поэтому их немного в неделю.</p>
     <a class="bz-alt" id="finalAi" href="https://t.me/roch_ai_bot?start=biz" target="_blank" rel="noopener">или сначала проверьте идею в ROCH AI</a>
   </div>
 </section>
@@ -2137,7 +2145,7 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
     <a class="c-chip" href="mailto:rc@roch-art.com"><i class="ico i-mail"></i>rc@roch-art.com</a>
     <a class="c-chip" href="https://www.linkedin.com/in/roman-chernyavsky-1b97a1aa/" target="_blank" rel="noopener"><i class="ico i-in"></i>LinkedIn</a>
   </div>
-  <p>ROCH 0→1 · распаковка и упаковка идей — Roman Chernyavsky · roch-art.com</p>
+  <p>ROCH · готовые приложения для бизнеса и креативное руководство — Roman Chernyavsky · roch-art.com</p>
 </footer>
 </div>
 
@@ -2152,9 +2160,13 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
     </div>
     <p class="proj-desc" id="pjDesc"></p>
     <div class="proj-shots" id="pjShots"></div>
+    <div class="pj-offer">
+      <b>Такое же приложение будет вашим через 7 дней</b>
+      <span>Запуск под вашим брендом стоит $990, дальше $99 в месяц. Запускает моя студия AppHub.</span>
+    </div>
     <div class="proj-btns">
-      <a class="btn sec" id="pjOpen" href="#" target="_blank" rel="noopener" style="display:none">Открыть продукт</a>
-      <a class="btn" id="pjTg" href="#" target="_blank" rel="noopener">Хочу так же</a>
+      <a class="btn sec" id="pjOpen" href="#" target="_blank" rel="noopener" style="display:none">Открыть демо</a>
+      <a class="btn" id="pjTg" href="#" target="_blank" rel="noopener">Хочу такое — $990</a>
     </div>
   </div>
 </div>
@@ -2183,8 +2195,8 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
 
 <!-- ============ FLOATING TAB BAR ============ -->
 <div class="cta-bar" id="ctaBar">
-  <div class="info"><small>Распаковка идеи</small><b>$100</b></div>
-  <a class="btn" id="barUnpack" data-tgmsg="Привет, Рома! Хочу распаковку идеи приложения ($100). Мой бизнес: … Идея: …"><span class="oc-txt">Записаться</span><span class="oc-arr">→</span></a>
+  <div class="info"><small>Созвон 20 минут</small><b>Бесплатно</b></div>
+  <a class="btn" id="barUnpack" data-tgmsg="Привет, Рома! Хочу подобрать готовое приложение для бизнеса. Мой бизнес: … Город: …"><span class="oc-txt">Записаться</span><span class="oc-arr">→</span></a>
 </div>
 
 <script>
@@ -2193,7 +2205,7 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
 
   /* ===== CONFIG — тот же хендл, что на главной (index.html → TG_USER) ===== */
   var TG_USER = 'broch'; // Telegram username без @
-  var TG_MSG_DEFAULT = 'Привет, Рома! Пишу со страницы «Для бизнеса» — хочу обсудить идею приложения.';
+  var TG_MSG_DEFAULT = 'Привет, Рома! Пишу с сайта roch-art.com — хочу подобрать готовое приложение для бизнеса.';
   var API_BASE = 'https://roch-audit.com';
 
   function tgLink(msg){ return 'https://t.me/' + TG_USER + '?text=' + encodeURIComponent(msg); }
@@ -2490,13 +2502,74 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
     "Привет, Рома! Хочу пакет «Full Build» ($2 500) для своего бизнеса. Мой бизнес: … Идея: …":"Hi Roma! I'd like the Full Build package ($2,500) for my business. My business: … The idea: …",
     "Привет, Рома! Хочу пакет «Game Layer» ($5 000) для своего бизнеса. Мой бизнес: … Идея: …":"Hi Roma! I'd like the Game Layer package ($5,000) for my business. My business: … The idea: …",
     "Привет, Рома! Пишу со страницы «Для бизнеса». Хочу показать идею приложения. Мой бизнес: … Идея: …":"Hi Roma! Writing from the “For business” page. I'd like to show you an app idea. My business: … The idea: …",
-    "Привет, Рома! Пишу со страницы «Для бизнеса» — хочу обсудить идею приложения.":"Hi Roma! Writing from the “For business” page — I'd like to discuss an app idea."
+    "Привет, Рома! Пишу со страницы «Для бизнеса» — хочу обсудить идею приложения.":"Hi Roma! Writing from the “For business” page — I'd like to discuss an app idea.",
+    /* позиционирование 24.10.2026: каталог готовых приложений, созвон бесплатно, запуск $990 + $99/мес, выкуп $15 000, лично ROCH от $500 */
+    "ROCH · креативный директор · сооснователь AppHub":"ROCH · creative director · co-founder of AppHub","Разработку с нуля ждут месяцами.":"Building from scratch takes months.","Готовое приложение запускается за 7 дней.":"A ready app launches in 7 days.",
+    "Откройте приложение своей ниши — салона, клиники, ресторана, отеля или проката, — и через 7 дней такое же заработает под вашим брендом.":"Open the app for your niche — a salon, clinic, restaurant, hotel or car rental — and in 7 days the same app runs under your brand.","Механики, ради которых клиент возвращается, я 10+ лет делал в мобильных играх с 700M+ установок.":"For 10+ years I built the mechanics that bring people back in mobile games with 700M+ installs.","Подобрать приложение — бесплатно":"Find my app — free",
+    "Смотреть готовые приложения":"See ready apps","Созвон на 20 минут, без оплаты":"20-minute call, free","Привет, Рома! Хочу подобрать готовое приложение для бизнеса. Мой бизнес: … Город: …":"Hi Roma! I'd like to find a ready app for my business. My business: … City: …",
+    "Вы выбираете готовое.":"You pick a ready app.","Через 7 дней оно работает под вашим брендом.":"In 7 days it runs under your brand.","Не ТЗ на двадцать страниц и не разработка с нуля. Три шага ведут от созвона до приложения в телефоне ваших клиентов.":"No twenty-page spec and no build from scratch. Three steps take you from a call to an app on your customers' phones.",
+    "Шаг 1":"Step 1","Шаг 2":"Step 2","Шаг 3":"Step 3",
+    "Созвон · бесплатно":"Call · free","Предоплата · $990":"Prepayment · $990","Запуск · 7 дней":"Launch · 7 days",
+    "Вы рассказываете о бизнесе":"You tell me about your business","20 минут по видеосвязи. Вы рассказываете, как сейчас приходят клиенты и где они теряются. Я показываю готовое приложение вашей ниши и честно говорю, подходит ли оно.":"A 20-minute video call. You tell me how customers find you today and where you lose them. I show you the ready app for your niche and tell you honestly whether it fits.","Паспорт запуска":"Launch passport",
+    "Я собираю паспорт запуска":"I put together the launch passport","На одной странице я собираю всё, что попадёт в приложение: ваш бренд, услуги, цены и механики, ради которых клиент вернётся. После предоплаты студия начинает запуск.":"On one page I collect everything that goes into the app: your brand, services, prices and the mechanics that bring customers back. Once you prepay, the studio starts the launch.","Ваши клиенты открывают его в телефоне":"Your customers open it on their phones",
+    "Через 7 дней приложение работает под вашим брендом. Дальше вы платите $99 в месяц, а моя студия AppHub следит, чтобы всё работало и обновлялось.":"In 7 days the app runs under your brand. After that you pay $99 a month, and my studio AppHub keeps it running and up to date.","Запускаем, только если на все три вопроса ответ «да». Если хотя бы на один ответ «нет», я скажу это честно.":"We launch only if all three answers are “yes”. If even one is “no”, I'll tell you straight.","Сегодня":"Today",
+    "бесплатно":"free","7 дней":"7 days","Каждый месяц":"Every month",
+    "$5 000":"$5,000","$2 500":"$2,500","$15 000":"$15,000",
+    "✦ Сегодня":"✦ Today","Созвон":"Call","Бесплатно":"Free",
+    "20 минут на подбор приложения":"20 minutes to find your app","Покажу готовое приложение вашей ниши":"I'll show you the ready app for your niche","Честно скажу, подходит ли оно вашему бизнесу":"I'll tell you honestly whether it fits your business",
+    "Назову срок и цену запуска":"I'll give you the launch date and price","✦ Через 7 дней":"✦ In 7 days","Запуск":"Launch",
+    "+ $99 в месяц":"+ $99 a month","Готовое приложение вашей ниши под вашим брендом":"The ready app for your niche, under your brand","Ваши услуги, цены и контакты внутри":"Your services, prices and contacts inside",
+    "Механики, ради которых клиент возвращается":"The mechanics that bring customers back","Работа, обновления и поддержка входят в подписку":"Hosting, updates and support are in the subscription","Запустить приложение — $990":"Launch my app — $990",
+    "Привет, Рома! Хочу запустить готовое приложение под своим брендом ($990 и $99 в месяц). Мой бизнес: … Город: …":"Hi Roma! I want to launch a ready app under my brand ($990 and $99 a month). My business: … City: …","Созвон ни к чему не обязывает. Предоплату вы вносите, только когда выбрали приложение.":"The call commits you to nothing. You prepay only once you've picked your app.","✦ Каждый месяц":"✦ Every month",
+    "Креативный директор":"Creative director","в месяц, лично со мной":"a month, with me personally","Две сессии в неделю с вашей командой":"Two sessions a week with your team",
+    "Концепция и игровой слой продукта":"Product concept and game layer","Ревью всего, что выходит к клиентам":"Review of everything that ships to customers","Механики роста и удержания на квартал":"Growth and retention mechanics for the quarter",
+    "Обсудить работу со мной":"Discuss working with me","Привет, Рома! Хочу обсудить работу с тобой как с креативным директором ($5 000 в месяц). Мой продукт: …":"Hi Roma! I'd like to discuss working with you as a creative director ($5,000 a month). My product: …","Месяц":"Month",
+    "Каталог":"Catalog","Готовые приложения":"Ready apps","по нишам":"by niche",
+    "Каждое приложение живое: откройте его и потрогайте. Понравилось — через 7 дней такое же заработает под вашим брендом.":"Every app is live: open it and try it. Like it? In 7 days the same app runs under your brand.","Показать все приложения":"Show all apps","Ваше такое же — через 7 дней":"Yours, the same, in 7 days",
+    "Запуск под вашим брендом стоит $990, дальше $99 в месяц. Запускает моя студия AppHub.":"Launching it under your brand costs $990, then $99 a month. My studio AppHub runs the launch.","Открыть демо":"Open demo","Хочу такое — $990":"I want this — $990",
+    "Фитнес: ИИ-тренер ведёт план дня, тренировки и питание":"Fitness: an AI coach runs the daily plan, workouts and nutrition","Приложение для зала и тренера: ИИ-тренер собирает план дня, ведёт тренировку по подходам, считает питание и держит серию. Клиент возвращается, потому что видит свой прогресс каждый день.":"An app for a gym or a coach: the AI coach builds the daily plan, runs the workout set by set, tracks nutrition and keeps the streak going. Clients come back because they see their progress every day.","Фитнес":"Fitness",
+    "ИИ-тренер":"AI coach","Удержание":"Retention","За 20 минут мы смотрим ваш бизнес, я показываю готовое приложение вашей ниши и называю срок и цену запуска.":"In 20 minutes we look at your business, I show you the ready app for your niche and give you the launch date and price.",
+    "$990 + $99/мес":"$990 + $99/mo","Через 7 дней готовое приложение вашей ниши работает под вашим брендом. Подписка покрывает работу, обновления и поддержку.":"In 7 days the ready app for your niche runs under your brand. The subscription covers hosting, updates and support.","или соберите сами в конструкторах LinkOS и BuildOS →":"or build it yourself in the LinkOS and BuildOS builders →",
+    "Делает моя студия AppHub":"Built by my studio AppHub","Сессия и упаковка":"Session and packaging","$500 / $2 500":"$500 / $2,500",
+    "На сессии за 90 минут мы разбираем ваш продукт, его игровой слой и путь к росту. Упаковка добавляет концепцию, визуальное направление и план запуска.":"In a 90-minute session we take apart your product, its game layer and its path to growth. Packaging adds the concept, the visual direction and the launch plan.","$5 000/мес":"$5,000/mo","Я веду продукт вместе с вашей командой: две сессии в неделю, ревью всего, что выходит к клиентам, и механики роста.":"I lead the product with your team: two sessions a week, review of everything that ships to customers, and growth mechanics.",
+    "Обычно — ТЗ и месяцы разработки.":"Usually: a spec and months of development.","Здесь — готовое приложение за 7 дней.":"Here: a ready app in 7 days.","Начало":"Start",
+    "«Пришлите ТЗ»":"“Send us a spec”","Созвон на 20 минут":"A 20-minute call","Первый результат":"First result",
+    "через месяцы":"months later","демо на первом созвоне":"a demo on the first call","Что в руках":"What you hold",
+    "макеты":"mockups","работающее приложение под вашим брендом":"a working app under your brand","после месяцев разработки":"after months of development",
+    "через 7 дней":"in 7 days","Цена":"Price","от $10 000 у агентства":"from $10,000 at an agency",
+    "$990 и $99 в месяц":"$990 and $99 a month","Шаг 01 · вход":"Step 01 · entry","20 минут · лично со мной":"20 minutes · with me personally",
+    "Смотрим ваш бизнес и где теряются клиенты":"We look at your business and where customers drop off","Показываю готовое приложение вашей ниши":"I show you the ready app for your niche","Называю срок и цену запуска":"I give you the launch date and price",
+    "Ни к чему не обязывает":"No commitment","Разработка с нуля у агентства":"Building from scratch at an agency","от $10 000":"from $10,000",
+    "Готовое приложение под вашим брендом":"A ready app under your brand","Записаться на созвон":"Book a call","Лично со мной":"With me personally",
+    "от $500":"from $500","сессия 90 минут":"90-minute session","Сессия — $500:":"Session — $500:",
+    "разбираем продукт, игровой слой и путь к росту":"we take apart the product, its game layer and its path to growth","Упаковка — $2 500:":"Packaging — $2,500:","концепция, визуальное направление, план запуска":"concept, visual direction, launch plan",
+    "Креативный директор — $5 000 в месяц":"Creative director — $5,000 a month","Механики из мобильных игр с 700M+ установок":"Mechanics from mobile games with 700M+ installs","Записаться на сессию":"Book a session",
+    "Готовое приложение · AppHub":"Ready app · AppHub","$990":"$990","7 дней · дальше $99 в месяц":"7 days · then $99 a month",
+    "Готовое приложение вашей ниши":"The ready app for your niche","Ваш бренд, услуги и цены":"Your brand, services and prices","Механики удержания внутри":"Retention mechanics built in",
+    "Запустить за $990":"Launch for $990","С исходниками · навсегда ваше":"With source code · yours for good","Выкуп":"Buyout",
+    "примерно столько стоят запуск и 12 лет подписки":"about what the launch plus 12 years of subscription cost","Исходный код приложения":"The app's source code","Размещение на вашем сервере":"Hosted on your own server",
+    "Без ежемесячной оплаты":"No monthly fee","Доработки оплачиваются отдельно":"Changes are billed separately","Обсудить выкуп":"Discuss a buyout",
+    "Запуск и поддержку делает моя студия":"Launch and support are handled by my studio",". Оплата — USDT или банковский перевод.":". Payment by USDT or bank transfer.","Привет, Рома! Хочу сессию с тобой ($500). Мой продукт: …":"Hi Roma! I'd like a session with you ($500). My product: …",
+    "Привет, Рома! Хочу обсудить выкуп приложения с исходниками ($15 000). Мой бизнес: …":"Hi Roma! I'd like to discuss buying out the app with source code ($15,000). My business: …","Вы видите приложение":"You see the app","до оплаты":"before you pay",
+    "◆ Ваш бизнес остаётся вашим":"◆ Your business stays yours","Подписываю соглашение о неразглашении до того, как вы расскажете о бизнесе. Ваши данные и бренд принадлежат вам.":"I sign an NDA before you tell me about your business. Your data and brand belong to you.","◆ Честный ответ":"◆ An honest answer",
+    "Скажу, если приложение вам не подходит":"I'll tell you if the app doesn't fit","Если готовое приложение не решит вашу задачу, я скажу это на созвоне. Лучше узнать это бесплатно, чем заплатить за то, чем клиенты не будут пользоваться.":"If the ready app won't solve your problem, I'll say so on the call. Better to find out for free than to pay for something your customers won't use.","◆ Демо до оплаты":"◆ Demo before payment",
+    "Платите, когда уже потрогали":"Pay once you've tried it","Вы открываете живое приложение своей ниши до предоплаты. Цена запуска фиксирована: $990 и $99 в месяц. Доработки сверх готового мы обсуждаем отдельно и тоже до оплаты.":"You open the live app for your niche before you prepay. The launch price is fixed: $990 and $99 a month. Changes beyond the ready app are agreed separately, also before payment.","У меня нет ТЗ и дизайна. Это проблема?":"I don't have a spec or a design. Is that a problem?",
+    "Нет. Приложение уже готово, поэтому ТЗ не нужно. На созвоне вы рассказываете о бизнесе, а я показываю, как приложение будет выглядеть под вашим брендом.":"No. The app is already built, so you don't need a spec. On the call you tell me about your business, and I show you how the app will look under your brand.","Что входит в $99 в месяц?":"What does $99 a month include?","Работа приложения, обновления и поддержка. Если что-то сломается или вы захотите поменять цены и услуги, моя студия AppHub это сделает.":"Hosting, updates and support. If something breaks or you want to change prices and services, my studio AppHub takes care of it.",
+    "Если вашему бизнесу подходит другой формат, я скажу это на созвоне.":"If another format suits your business better, I'll tell you on the call.","Клиенту ничего не нужно скачивать: приложение открывается в Telegram по ссылке или QR-коду. Если вашему бизнесу подходит другой формат, я скажу это на созвоне.":"Your customers don't need to download anything: the app opens in Telegram from a link or a QR code. If another format suits your business better, I'll tell you on the call.","Можно доработать приложение под мой бизнес?":"Can the app be adapted to my business?",
+    "Да. Доработки сверх готового я оцениваю отдельно, и вы вносите предоплату до начала работы. Если нужна новая механика или игровой слой, это моя упаковка за $2 500.":"Yes. I quote changes beyond the ready app separately, and you prepay before work starts. If you need a new mechanic or a game layer, that's my packaging at $2,500.","Кто будет делать приложение?":"Who will build the app?","Подбор, упаковку и игровой слой делаю я. Запуск и поддержку делает моя студия AppHub. Если хотите исходники и свой сервер, есть выкуп за $15 000.":"I do the matching, packaging and game layer. My studio AppHub handles the launch and support. If you want the source code and your own server, there's a buyout for $15,000.",
+    "Расскажите о бизнесе —":"Tell me about your business —","я покажу ваше приложение":"I'll show you your app","За 20 минут бесплатно вы узнаете, какое приложение подходит вашему бизнесу и когда оно заработает.":"In 20 free minutes you'll find out which app fits your business and when it will go live.",
+    "Привет, Рома! Пишу с сайта roch-art.com. Хочу подобрать готовое приложение. Мой бизнес: … Город: …":"Hi Roma! Writing from roch-art.com. I'd like to find a ready app. My business: … City: …","Созвоны провожу лично, поэтому их немного в неделю.":"I take the calls myself, so there are only a few each week.","Созвон 20 минут":"20-minute call",
+    "Привет, Рома! Пишу с сайта roch-art.com — хочу подобрать готовое приложение для бизнеса.":"Hi Roma! Writing from roch-art.com — I'd like to find a ready app for my business.","ROCH Motion — 300 живых механик в мини-приложении, покупка звёздами и пакеты Pro":"ROCH Motion — 300 live mechanics in a mini app, paid with Stars, plus Pro packs",". Теперь я сооснователь студии AppHub и делаю готовые приложения для бизнеса с той же механикой возврата, что и в играх.":". Now I'm a co-founder of the AppHub studio and build ready apps for businesses with the same return mechanics as in games.",
+    "ROCH · готовые приложения для бизнеса и креативное руководство — Roman Chernyavsky · roch-art.com":"ROCH · ready apps for business and creative direction — Roman Chernyavsky · roch-art.com",
+    "Обычно приложение делают месяцами.":"Apps usually take months to build.","Здесь готовое запускается за 7 дней.":"Here a ready one launches in 7 days.","Каждое приложение живое: откройте его и потрогайте. Если понравилось, через 7 дней такое же заработает под вашим брендом.":"Every app is live: open it and try it. If you like it, in 7 days the same app runs under your brand.","Такое же приложение будет вашим через 7 дней":"The same app can be yours in 7 days","Расскажите о бизнесе,":"Tell me about your business,","и я покажу ваше приложение":"and I'll show you your app",". Оплатить можно в USDT или банковским переводом.":". You can pay in USDT or by bank transfer.",
+    "Смотреть каталог":"See the catalog","Подобрать приложение":"Find my app","Обсудить работу":"Let's talk",
+    "Подобрать приложение бесплатно":"Find my app \u2014 free",
   };
   /* проекты: тексты берутся из index.html и портфолио-бота (build) */
   (function(sup){ for(var k in sup){ I18N_EN[k] = sup[k]; } })({"Цветочный магазин, где букет подбирают словами": "A flower shop where you pick a bouquet with words", "«Маме, нежное, до 150 ₾» — и ИИ-флорист за 10 секунд предлагает три букета из того, что есть сегодня. Свой букет из поштучных цветов, фото перед отправкой, курьер на карте и каждый 6-й букет в подарок. Флорист ведёт заказы в канбане — клиент сразу видит статус.": "“For mom, something gentle, under 150 ₾” — and the AI florist offers three bouquets from today’s stock in 10 seconds. Build-your-own bouquets from single stems, a photo before dispatch, the courier on the map and every 6th bouquet free. The florist runs orders on a kanban board, and the customer sees the status instantly.", "Цветы": "Flowers", "ИИ-букет": "AI bouquet", "Доставка за 60 мин": "60-min delivery", "Кабинет косметолога: процедуры, запись, лояльность": "Cosmetologist cabinet: procedures, booking, loyalty", "Telegram Mini App косметолога Анжелики: каталог процедур с ценами, онлайн-запись с выбором времени и мастера, паспорт кожи, клуб лояльности с баллами, магазин домашнего ухода ANZH.store и AI-ассистент. Petrol-luxe — изумруд и золото на глубоком тёмном.": "Angelika's cosmetologist Telegram Mini App: a procedure catalog with prices, online booking with time and specialist selection, a skin passport, a loyalty club with points, the ANZH.store home-care shop, and an AI assistant. Petrol-luxe — emerald and gold on deep dark.", "Beauty": "Beauty", "TMA": "TMA", "Лояльность": "Loyalty", "Ресторан: меню, бронь и бонусы гостям": "Restaurant: menu, table booking, guest bonuses", "Ресторан в Батуми: меню с фото и корзиной, бронь стола по шагам, бонусные уровни и QR-карта гостя, три языка. Плюс панель управления: KPI смены в реальном времени, заказы по залу, подтверждение броней и редактор меню на 319 блюд.": "A restaurant in Batumi: a photo menu with a cart, step-by-step table booking, bonus tiers and a guest QR card, three languages. Plus a control panel: live shift KPIs, orders by table, booking confirmations and a menu editor for 319 dishes.", "HoReCa": "HoReCa", "Бронь": "Booking", "Клиника: прайс, запись к врачу, кабинет клиники": "Clinic: price list, doctor booking, clinic dashboard", "Клиника антивозрастной медицины: прайс на сотни позиций, запись с выбором врача и времени, 11 специалистов, результаты «до и после». Внутри — и приложение пациента, и кабинет клиники: выручка, средний чек, база пациентов с LTV, автоподтверждение записи.": "An anti-aging clinic: a price list of hundreds of items, booking with doctor and time choice, 11 specialists, before-and-after results. Inside — both the patient app and the clinic dashboard: revenue, average check, patient base with LTV, automatic booking confirmation.", "Медицина": "Medicine", "Запись": "Booking", "Мебель: своя кухня в комнате до замера": "Furniture: your kitchen in your room before measuring", "Мебельный центр: соберите кухню и увидьте её в своей комнате по фотографии. Магазин материалов, корзина, услуги собственного цеха. В админке — воронка заявок по этапам, очередь цеха раскроя и каталог с фото и ценами с выгрузкой с сайта.": "A furniture center: build a kitchen and see it in your own room from a photo. A materials shop, a cart, the company's own workshop services. In the admin — a lead funnel by stage, the cutting-shop queue and a catalog with photos and prices synced from the website.", "Ритейл": "Retail", "Конфигуратор": "Configurator", "Заявки": "Leads", "Тур за четыре вопроса вместо переписки": "A tour in four questions instead of a long chat", "Клуб путешествий: подбор тура за четыре вопроса, горящие направления, консьерж-сервис, бонусный счёт и уровни с кэшбэком, чек-лист поездки. В админке — ИИ-сводка по бизнесу, воронка сделок, задачи и календарь вылетов.": "A travel club: a tour picked in four questions, hot destinations, a concierge service, a bonus account and cashback tiers, a trip checklist. In the admin — an AI business summary, a deal funnel, tasks and a departures calendar.", "Туризм": "Tourism", "ИИ": "AI", "Медцентр: онлайн-запись к врачу, 16 направлений": "Medical center: online doctor booking, 16 specialties", "Приложение медцентра «Dr. Hilling»: онлайн-запись к врачу за минуту, 16 направлений с ценами, каталог из 25 врачей, детальные экраны направлений, личный кабинет пациента с медкартой и баллами, маскот «Хилли». Светлое navy + gold liquid glass.": "The «Dr. Hilling» medical-center app: book a doctor in a minute, 16 specialties with prices, a 25-doctor catalog, detailed specialty screens, a patient cabinet with a medical card and points, and the dr.Hilly mascot. Light navy + gold liquid glass.", "Dr. Hilling": "Dr. Hilling", "Новостройка: 3D-шахматка и статусы квартир": "New build: 3D unit grid and apartment statuses", "Продажа новостройки в Telegram: 3D-шахматка дома, статусы квартир, планировки, цены в USD и GEL, ход стройки. Три языка. Готовый пресет — разворачивается под конкретный жилой комплекс.": "Selling a new build in Telegram: a 3D unit grid of the building, apartment statuses, floor plans, prices in USD and GEL, construction progress. Three languages. A ready preset that deploys for a specific residential complex.", "Недвижимость": "Real estate", "3D": "3D", "Детский праздник за три минуты": "A kids' party in three minutes", "Детский праздник за три минуты: десятки программ и героев, банкетный стол и смета, которая пересчитывается на лету. Родитель собирает праздник сам и сразу видит цену.": "A kids' party in three minutes: dozens of programs and characters, a banquet table and an estimate that recalculates on the fly. Parents build the party themselves and see the price right away.", "Детям": "Kids", "Конструктор": "Builder", "Смета": "Estimate", "Лояльность ресторана: меню, баллы, лиги гостей": "Restaurant loyalty: menu, points, guest leagues", "Ресторанная система лояльности в Telegram: меню и заказ, баллы за визиты, лиги гостей (бронза → золото), награды и купоны. Гость возвращается — ресторан растит средний чек.": "A restaurant loyalty system in Telegram: menu and ordering, points for visits, guest leagues (bronze → gold), rewards and coupons. Guests keep coming back — the restaurant grows its average check.", "Dine": "Dine", "Загородный гостевой дом: бронь, визы, загрузка": "A country guest house: booking, visas, occupancy", "Загородный гостевой дом с ретро-атмосферой: номера и А-фреймы у воды, бани и чаны, визы гостей и история места. В хозяйской панели — заявки на визу, календарь занятости объектов, задачи команды и прайс.": "A country guest house with a retro feel: rooms and A-frames by the water, saunas and hot tubs, guest visas and the story of the place. In the owner's panel — visa requests, an occupancy calendar, team tasks and the price list.", "Отель": "Hotel", "Админка": "Admin", "Личный повар за пару вопросов": "A personal chef in a couple of questions", "Кулинарный сервис в Telegram: подбор личного повара за пару вопросов, ИИ-помощник «Ишка», книга рецептов, уровни и челлендж недели. Живой кейс — бот работает и принимает заказы.": "A culinary service in Telegram: a personal chef matched in a couple of questions, the AI helper “Ishka”, a recipe book, levels and a weekly challenge. A live case — the bot runs and takes orders.", "ИИ-помощник": "AI helper", "Презентация ЖК, которую пересылают в чат": "A residential complex pitch people forward in chats", "Презентация жилого комплекса: форматы квартир, 3D-планировка с доходностью, инфраструктура, ход стройки, инвест-условия и заявка на просмотр. Двуязычная версия — русская и английская.": "A residential complex presentation: apartment formats, a 3D layout with yield, infrastructure, construction progress, investment terms and a viewing request. Bilingual — Russian and English.", "Инвестиции": "Investment", "2 языка": "2 languages", "CarRent: премиум-аренда авто с неон-витриной": "CarRent: premium car rental with a neon showroom", "Аренда авто в Батуми: неоновая витрина с Porsche-вайбом, перки Street King, бронь с таймером обратного отсчёта. Дорогой продукт — дорогая подача.": "Car rentals in Batumi: a neon storefront with Porsche vibes, Street King perks, booking with a countdown timer. A premium product — premium presentation.", "Batumi Neon": "Batumi Neon", "Авто": "Auto", "Аренда": "Rental", "Premium": "Premium", "AI-прораб: калькуляторы стройматериалов": "AI foreman: building-materials calculators", "Каталог-чертёж стройматериалов: калькуляторы перегородок и кладки, смета за секунды, AI-прораб отвечает как бригадир. Blueprint-эстетика в тёмном стекле.": "A blueprint-style building-materials catalog: calculators for partitions and masonry, an estimate in seconds, an AI foreman that answers like a site boss. Blueprint aesthetics in dark glass.", "Korob-ka": "Korob-ka", "Стройка": "Construction", "AI": "AI", "E-com": "E-com", "Жилой дом: платежи, заявки, голосования": "A residential building: payments, requests, votes", "Приложение жилого дома на 217 соседей: взносы и платежи, заявки в управляющую компанию, голосования, чат дома по темам и ИИ-консьерж Альма. Прототип городского слоя экосистемы — дом как отдельное Mini App.": "An app for a residential building with 217 neighbors: fees and payments, requests to the management company, votes, a topic-based building chat and the AI concierge Alma. A prototype of the ecosystem's city layer — the building as its own Mini App.", "Сервис дома": "Home service", "ИИ-консьерж": "AI concierge", "Цифровая визитка бизнеса за несколько минут": "A digital business card in a few minutes", "Конструктор цифровых визиток внутри Telegram: блоки, темы оформления, публикация за Stars, личный кабинет и редактор QR-кода. Собственный продукт студии — визитка собирается по анкете за несколько минут, без дизайнера и разработчика.": "A digital business card builder inside Telegram: blocks, themes, publishing for Stars, a personal dashboard and a QR editor. The studio's own product — a card is built from a short form in a few minutes, no designer or developer needed.", "Продукт студии": "Studio product", "Stars": "Stars", "Furniturum": "Furniturum", "Hotelito": "Hotelito"});
 
-  var HERO_EN = ['Your', 'idea —', 'into a product', 'people', 'buy.'];
-  var HERO_ARIA = { ru: 'Ваша идея — в продукт, который покупают.', en: 'Your idea — into a product people buy.' };
+  var HERO_EN = ['Your', 'business app', 'is', 'already', 'built.'];
+  var HERO_ARIA = { ru: 'Приложение для вашего бизнеса уже готово.', en: 'Your business app is already built.' };
 
   var LANG = 'ru';
   try{ LANG = localStorage.getItem('roch_lang') || 'ru'; }catch(e){}
@@ -3263,7 +3336,7 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
   }
 
   /* ===== КЕЙСЫ: данные — из index.html (опубликованные) + портфолио-бот (свежие) ===== */
-  var PROJECTS = [{"name": "PEONIA", "c": "#FF4F8B", "icon": "assets/covers/peonia.jpg", "raw": true, "cat": "sales", "s": "Цветочный магазин, где букет подбирают словами", "d": "«Маме, нежное, до 150 ₾» — и ИИ-флорист за 10 секунд предлагает три букета из того, что есть сегодня. Свой букет из поштучных цветов, фото перед отправкой, курьер на карте и каждый 6-й букет в подарок. Флорист ведёт заказы в канбане — клиент сразу видит статус.", "tags": ["Цветы", "ИИ-букет", "Доставка за 60 мин"], "shots": ["peonia-1.webp", "peonia-2.webp", "peonia-3.webp", "peonia-9.webp", "peonia-4.webp", "peonia-5.webp", "peonia-6.webp", "peonia-7.webp", "peonia-8.webp"], "url": "https://peonia-batumi.vercel.app", "pos": "20%"}, {"name": "ANZH Beauty", "c": "#12C088", "icon": "assets/covers/anzhtma.jpg", "raw": true, "s": "Кабинет косметолога: процедуры, запись, лояльность", "d": "Telegram Mini App косметолога Анжелики: каталог процедур с ценами, онлайн-запись с выбором времени и мастера, паспорт кожи, клуб лояльности с баллами, магазин домашнего ухода ANZH.store и AI-ассистент. Petrol-luxe — изумруд и золото на глубоком тёмном.", "tags": ["Beauty", "TMA", "Лояльность"], "shots": ["anzhtma-1.jpg", "anzhtma-2.jpg", "anzhtma-3.jpg", "anzhtma-4.jpg", "anzhtma-5.jpg", "anzhtma-6.jpg", "anzhtma-7.jpg", "anzhtma-8.jpg"], "url": "", "cat": "book"}, {"name": "EPOCH", "c": "#FF6B9D", "icon": "assets/covers/epoch.jpg", "raw": true, "cat": "leisure", "s": "Ресторан: меню, бронь и бонусы гостям", "d": "Ресторан в Батуми: меню с фото и корзиной, бронь стола по шагам, бонусные уровни и QR-карта гостя, три языка. Плюс панель управления: KPI смены в реальном времени, заказы по залу, подтверждение броней и редактор меню на 319 блюд.", "tags": ["HoReCa", "Бронь", "Лояльность"], "shots": ["epoch-1.webp", "epoch-2.webp", "epoch-3.webp", "epoch-4.webp", "epoch-5.webp", "epoch-6.webp", "epoch-7.webp", "epoch-8.webp"], "url": "https://epoch-client-lovat.vercel.app"}, {"name": "Butyfly", "c": "#00E0C7", "icon": "assets/covers/butyfly.jpg", "raw": true, "cat": "book", "s": "Клиника: прайс, запись к врачу, кабинет клиники", "d": "Клиника антивозрастной медицины: прайс на сотни позиций, запись с выбором врача и времени, 11 специалистов, результаты «до и после». Внутри — и приложение пациента, и кабинет клиники: выручка, средний чек, база пациентов с LTV, автоподтверждение записи.", "tags": ["Медицина", "Запись", "TMA"], "shots": ["butyfly-1.webp", "butyfly-2.webp", "butyfly-3.webp", "butyfly-4.webp", "butyfly-5.webp", "butyfly-6.webp", "butyfly-7.webp", "butyfly-8.webp"], "url": "https://butyfly-v9k3.vercel.app"}, {"name": "Furniturum", "c": "#FF6347", "icon": "assets/covers/furniturum.jpg", "raw": true, "cat": "sales", "s": "Мебель: своя кухня в комнате до замера", "d": "Мебельный центр: соберите кухню и увидьте её в своей комнате по фотографии. Магазин материалов, корзина, услуги собственного цеха. В админке — воронка заявок по этапам, очередь цеха раскроя и каталог с фото и ценами с выгрузкой с сайта.", "tags": ["Ритейл", "Конфигуратор", "Заявки"], "shots": ["furniturum-1.webp", "furniturum-2.webp", "furniturum-3.webp", "furniturum-4.webp", "furniturum-5.webp", "furniturum-6.webp", "furniturum-7.webp", "furniturum-8.webp"], "url": "https://furniturum-m5t1.vercel.app"}, {"name": "Paratravel Club", "c": "#38BDF8", "icon": "assets/covers/paratravel.jpg", "raw": true, "cat": "leisure", "s": "Тур за четыре вопроса вместо переписки", "d": "Клуб путешествий: подбор тура за четыре вопроса, горящие направления, консьерж-сервис, бонусный счёт и уровни с кэшбэком, чек-лист поездки. В админке — ИИ-сводка по бизнесу, воронка сделок, задачи и календарь вылетов.", "tags": ["Туризм", "Лояльность", "ИИ"], "shots": ["paratravel-1.webp", "paratravel-2.webp", "paratravel-3.webp", "paratravel-4.webp", "paratravel-5.webp", "paratravel-6.webp", "paratravel-7.webp", "paratravel-8.webp"], "url": "https://paratravel-club.vercel.app"}, {"name": "Dr. Hilling", "c": "#2E6BE6", "icon": "assets/covers/drhilling.jpg", "raw": true, "s": "Медцентр: онлайн-запись к врачу, 16 направлений", "d": "Приложение медцентра «Dr. Hilling»: онлайн-запись к врачу за минуту, 16 направлений с ценами, каталог из 25 врачей, детальные экраны направлений, личный кабинет пациента с медкартой и баллами, маскот «Хилли». Светлое navy + gold liquid glass.", "tags": ["Медицина", "Запись", "TMA"], "shots": ["drhilling-1.jpg", "drhilling-2.jpg", "drhilling-3.jpg", "drhilling-4.jpg", "drhilling-5.jpg", "drhilling-6.jpg", "drhilling-7.jpg"], "url": "https://drhilling-q2n6.vercel.app", "cat": "book"}, {"name": "Realty Preset", "c": "#A78BFF", "icon": "assets/covers/realty-preset.jpg", "raw": true, "cat": "sales", "s": "Новостройка: 3D-шахматка и статусы квартир", "d": "Продажа новостройки в Telegram: 3D-шахматка дома, статусы квартир, планировки, цены в USD и GEL, ход стройки. Три языка. Готовый пресет — разворачивается под конкретный жилой комплекс.", "tags": ["Недвижимость", "3D", "TMA"], "shots": ["realty-preset-1.webp", "realty-preset-2.webp", "realty-preset-3.webp", "realty-preset-4.webp", "realty-preset-5.webp"], "url": "https://t.me/RealtyPreset_AIbot?startapp=ref_mareaunitu502"}, {"name": "BabyLand", "c": "#FFB547", "icon": "assets/covers/babyland.jpg", "raw": true, "cat": "leisure", "s": "Детский праздник за три минуты", "d": "Детский праздник за три минуты: десятки программ и героев, банкетный стол и смета, которая пересчитывается на лету. Родитель собирает праздник сам и сразу видит цену.", "tags": ["Детям", "Конструктор", "Смета"], "shots": ["babyland-1.webp", "babyland-2.webp", "babyland-3.webp", "babyland-4.webp", "babyland-5.webp", "babyland-6.webp", "babyland-7.webp"], "url": "https://babyland-c3x7.vercel.app"}, {"name": "Dine", "c": "#9fdc3f", "icon": "assets/covers/dine.jpg", "raw": false, "s": "Лояльность ресторана: меню, баллы, лиги гостей", "d": "Ресторанная система лояльности в Telegram: меню и заказ, баллы за визиты, лиги гостей (бронза → золото), награды и купоны. Гость возвращается — ресторан растит средний чек.", "tags": ["HoReCa", "Лояльность", "TMA"], "shots": ["dine-s3.jpg", "dine-s4.jpg", "dine-s8.jpg", "dine-s6.jpg", "dine-s5.jpg", "dine-s14.jpg", "dine-s7.jpg", "dine-s17.jpg", "dine-s9.jpg", "dine-s10.jpg", "dine-s11.jpg", "dine-s18.jpg", "dine-s13.jpg", "dine-s19.jpg", "dine-s20.jpg", "dine-s21.jpg", "dine-s15.jpg", "dine-s12.jpg", "dine-s1.jpg", "dine-s2.jpg", "dine-a1.jpg", "dine-a2.jpg", "dine-a3.jpg", "dine-a4.jpg"], "url": "", "cat": "leisure"}, {"name": "Hotelito", "c": "#8B6BFF", "icon": "assets/covers/hotelito.jpg", "raw": true, "cat": "leisure", "s": "Загородный гостевой дом: бронь, визы, загрузка", "d": "Загородный гостевой дом с ретро-атмосферой: номера и А-фреймы у воды, бани и чаны, визы гостей и история места. В хозяйской панели — заявки на визу, календарь занятости объектов, задачи команды и прайс.", "tags": ["Отель", "Бронь", "Админка"], "shots": ["hotelito-1.webp", "hotelito-2.webp", "hotelito-3.webp", "hotelito-4.webp", "hotelito-5.webp", "hotelito-6.webp", "hotelito-7.webp", "hotelito-8.webp"], "url": "https://hotelito-r4w8.vercel.app"}, {"name": "Dolce Eda", "c": "#FF8A5B", "icon": "assets/covers/dolce.jpg", "raw": true, "cat": "leisure", "s": "Личный повар за пару вопросов", "d": "Кулинарный сервис в Telegram: подбор личного повара за пару вопросов, ИИ-помощник «Ишка», книга рецептов, уровни и челлендж недели. Живой кейс — бот работает и принимает заказы.", "tags": ["HoReCa", "ИИ-помощник", "TMA"], "shots": ["dolce-1.webp", "dolce-2.webp", "dolce-3.webp", "dolce-4.webp", "dolce-5.webp", "dolce-6.webp"], "url": "https://t.me/DolceEda_aiBot?startapp=8E41ADF7"}, {"name": "Alliance Centropolis", "c": "#5B7CFF", "icon": "assets/covers/alliance.jpg", "raw": true, "cat": "sales", "s": "Презентация ЖК, которую пересылают в чат", "d": "Презентация жилого комплекса: форматы квартир, 3D-планировка с доходностью, инфраструктура, ход стройки, инвест-условия и заявка на просмотр. Двуязычная версия — русская и английская.", "tags": ["Недвижимость", "Инвестиции", "2 языка"], "shots": ["alliance-1.webp", "alliance-2.webp", "alliance-3.webp", "alliance-4.webp", "alliance-5.webp", "alliance-6.webp"], "url": "https://masteroch.github.io/alliance-centropolis/?v=5"}, {"name": "Batumi Neon", "c": "#FF006E", "icon": "assets/covers/neon.jpg", "raw": true, "s": "CarRent: премиум-аренда авто с неон-витриной", "d": "Аренда авто в Батуми: неоновая витрина с Porsche-вайбом, перки Street King, бронь с таймером обратного отсчёта. Дорогой продукт — дорогая подача.", "tags": ["Авто", "Аренда", "Premium"], "shots": ["neon-1.webp", "neon-2.webp", "neon-3.webp", "neon-4.webp", "neon-5.webp", "neon-6.webp", "neon-7.webp"], "url": "https://batumi-neon-v2.vercel.app", "cat": "book"}, {"name": "Korob-ka", "c": "#5bc0eb", "icon": "assets/covers/korobka.jpg", "raw": false, "s": "AI-прораб: калькуляторы стройматериалов", "d": "Каталог-чертёж стройматериалов: калькуляторы перегородок и кладки, смета за секунды, AI-прораб отвечает как бригадир. Blueprint-эстетика в тёмном стекле.", "tags": ["Стройка", "AI", "E-com"], "shots": ["korobka-s1.jpg", "korobka-s2.jpg", "korobka-s4.jpg", "korobka-s3.jpg", "korobka-s5.jpg", "korobka-s6.jpg", "korobka-s7.jpg", "korobka-s8.jpg"], "url": "", "cat": "sales"}, {"name": "AL MARE Batumi", "c": "#00C2E0", "icon": "assets/covers/almare.jpg", "raw": true, "cat": "book", "s": "Жилой дом: платежи, заявки, голосования", "d": "Приложение жилого дома на 217 соседей: взносы и платежи, заявки в управляющую компанию, голосования, чат дома по темам и ИИ-консьерж Альма. Прототип городского слоя экосистемы — дом как отдельное Mini App.", "tags": ["Сервис дома", "ИИ-консьерж", "TMA"], "shots": ["almare-1.webp", "almare-2.webp", "almare-3.webp", "almare-4.webp", "almare-5.webp", "almare-6.webp"], "url": ""}, {"name": "LinkOS", "c": "#4DA3FF", "icon": "assets/covers/linkos.jpg", "raw": true, "cat": "sales", "s": "Цифровая визитка бизнеса за несколько минут", "d": "Конструктор цифровых визиток внутри Telegram: блоки, темы оформления, публикация за Stars, личный кабинет и редактор QR-кода. Собственный продукт студии — визитка собирается по анкете за несколько минут, без дизайнера и разработчика.", "tags": ["Продукт студии", "Stars", "TMA"], "shots": ["linkos-1.webp", "linkos-2.webp", "linkos-3.webp", "linkos-4.webp", "linkos-5.webp", "linkos-6.webp", "linkos-7.webp", "linkos-8.webp"], "url": "https://t.me/Linkos_AppHub_bot"}];
+  var PROJECTS = [{"name": "PEONIA", "c": "#FF4F8B", "icon": "assets/covers/peonia.jpg", "raw": true, "cat": "sales", "s": "Цветочный магазин, где букет подбирают словами", "d": "«Маме, нежное, до 150 ₾» — и ИИ-флорист за 10 секунд предлагает три букета из того, что есть сегодня. Свой букет из поштучных цветов, фото перед отправкой, курьер на карте и каждый 6-й букет в подарок. Флорист ведёт заказы в канбане — клиент сразу видит статус.", "tags": ["Цветы", "ИИ-букет", "Доставка за 60 мин"], "shots": ["peonia-1.webp", "peonia-2.webp", "peonia-3.webp", "peonia-9.webp", "peonia-4.webp", "peonia-5.webp", "peonia-6.webp", "peonia-7.webp", "peonia-8.webp"], "url": "https://peonia-batumi.vercel.app", "pos": "20%"}, {"name": "ANZH Beauty", "c": "#12C088", "icon": "assets/covers/anzhtma.jpg", "raw": true, "s": "Кабинет косметолога: процедуры, запись, лояльность", "d": "Telegram Mini App косметолога Анжелики: каталог процедур с ценами, онлайн-запись с выбором времени и мастера, паспорт кожи, клуб лояльности с баллами, магазин домашнего ухода ANZH.store и AI-ассистент. Petrol-luxe — изумруд и золото на глубоком тёмном.", "tags": ["Beauty", "TMA", "Лояльность"], "shots": ["anzhtma-1.jpg", "anzhtma-2.jpg", "anzhtma-3.jpg", "anzhtma-4.jpg", "anzhtma-5.jpg", "anzhtma-6.jpg", "anzhtma-7.jpg", "anzhtma-8.jpg"], "url": "https://beauty-tma-prototype.vercel.app", "cat": "book"}, {"name": "KING Fit", "c": "#E3C58A", "icon": "assets/covers/kingfit.jpg", "raw": true, "cat": "book", "s": "Фитнес: ИИ-тренер ведёт план дня, тренировки и питание", "d": "Приложение для зала и тренера: ИИ-тренер собирает план дня, ведёт тренировку по подходам, считает питание и держит серию. Клиент возвращается, потому что видит свой прогресс каждый день.", "tags": ["Фитнес", "ИИ-тренер", "Удержание"], "shots": ["kingfit-1.webp", "kingfit-2.webp", "kingfit-3.webp", "kingfit-4.webp", "kingfit-5.webp", "kingfit-6.webp", "kingfit-7.webp"], "url": "https://king-fit.vercel.app"}, {"name": "EPOCH", "c": "#FF6B9D", "icon": "assets/covers/epoch.jpg", "raw": true, "cat": "leisure", "s": "Ресторан: меню, бронь и бонусы гостям", "d": "Ресторан в Батуми: меню с фото и корзиной, бронь стола по шагам, бонусные уровни и QR-карта гостя, три языка. Плюс панель управления: KPI смены в реальном времени, заказы по залу, подтверждение броней и редактор меню на 319 блюд.", "tags": ["HoReCa", "Бронь", "Лояльность"], "shots": ["epoch-1.webp", "epoch-2.webp", "epoch-3.webp", "epoch-4.webp", "epoch-5.webp", "epoch-6.webp", "epoch-7.webp", "epoch-8.webp"], "url": "https://epoch-client-lovat.vercel.app"}, {"name": "Butyfly", "c": "#00E0C7", "icon": "assets/covers/butyfly.jpg", "raw": true, "cat": "book", "s": "Клиника: прайс, запись к врачу, кабинет клиники", "d": "Клиника антивозрастной медицины: прайс на сотни позиций, запись с выбором врача и времени, 11 специалистов, результаты «до и после». Внутри — и приложение пациента, и кабинет клиники: выручка, средний чек, база пациентов с LTV, автоподтверждение записи.", "tags": ["Медицина", "Запись", "TMA"], "shots": ["butyfly-1.webp", "butyfly-2.webp", "butyfly-3.webp", "butyfly-4.webp", "butyfly-5.webp", "butyfly-6.webp", "butyfly-7.webp", "butyfly-8.webp"], "url": "https://butyfly-v9k3.vercel.app"}, {"name": "Furniturum", "c": "#FF6347", "icon": "assets/covers/furniturum.jpg", "raw": true, "cat": "sales", "s": "Мебель: своя кухня в комнате до замера", "d": "Мебельный центр: соберите кухню и увидьте её в своей комнате по фотографии. Магазин материалов, корзина, услуги собственного цеха. В админке — воронка заявок по этапам, очередь цеха раскроя и каталог с фото и ценами с выгрузкой с сайта.", "tags": ["Ритейл", "Конфигуратор", "Заявки"], "shots": ["furniturum-1.webp", "furniturum-2.webp", "furniturum-3.webp", "furniturum-4.webp", "furniturum-5.webp", "furniturum-6.webp", "furniturum-7.webp", "furniturum-8.webp"], "url": "https://furniturum-m5t1.vercel.app"}, {"name": "Paratravel Club", "c": "#38BDF8", "icon": "assets/covers/paratravel.jpg", "raw": true, "cat": "leisure", "s": "Тур за четыре вопроса вместо переписки", "d": "Клуб путешествий: подбор тура за четыре вопроса, горящие направления, консьерж-сервис, бонусный счёт и уровни с кэшбэком, чек-лист поездки. В админке — ИИ-сводка по бизнесу, воронка сделок, задачи и календарь вылетов.", "tags": ["Туризм", "Лояльность", "ИИ"], "shots": ["paratravel-1.webp", "paratravel-2.webp", "paratravel-3.webp", "paratravel-4.webp", "paratravel-5.webp", "paratravel-6.webp", "paratravel-7.webp", "paratravel-8.webp"], "url": "https://paratravel-club.vercel.app"}, {"name": "Dr. Hilling", "c": "#2E6BE6", "icon": "assets/covers/drhilling.jpg", "raw": true, "s": "Медцентр: онлайн-запись к врачу, 16 направлений", "d": "Приложение медцентра «Dr. Hilling»: онлайн-запись к врачу за минуту, 16 направлений с ценами, каталог из 25 врачей, детальные экраны направлений, личный кабинет пациента с медкартой и баллами, маскот «Хилли». Светлое navy + gold liquid glass.", "tags": ["Медицина", "Запись", "TMA"], "shots": ["drhilling-1.jpg", "drhilling-2.jpg", "drhilling-3.jpg", "drhilling-4.jpg", "drhilling-5.jpg", "drhilling-6.jpg", "drhilling-7.jpg"], "url": "https://drhilling-q2n6.vercel.app", "cat": "book"}, {"name": "Realty Preset", "c": "#A78BFF", "icon": "assets/covers/realty-preset.jpg", "raw": true, "cat": "sales", "s": "Новостройка: 3D-шахматка и статусы квартир", "d": "Продажа новостройки в Telegram: 3D-шахматка дома, статусы квартир, планировки, цены в USD и GEL, ход стройки. Три языка. Готовый пресет — разворачивается под конкретный жилой комплекс.", "tags": ["Недвижимость", "3D", "TMA"], "shots": ["realty-preset-1.webp", "realty-preset-2.webp", "realty-preset-3.webp", "realty-preset-4.webp", "realty-preset-5.webp"], "url": "https://t.me/RealtyPreset_AIbot?startapp=ref_mareaunitu502"}, {"name": "BabyLand", "c": "#FFB547", "icon": "assets/covers/babyland.jpg", "raw": true, "cat": "leisure", "s": "Детский праздник за три минуты", "d": "Детский праздник за три минуты: десятки программ и героев, банкетный стол и смета, которая пересчитывается на лету. Родитель собирает праздник сам и сразу видит цену.", "tags": ["Детям", "Конструктор", "Смета"], "shots": ["babyland-1.webp", "babyland-2.webp", "babyland-3.webp", "babyland-4.webp", "babyland-5.webp", "babyland-6.webp", "babyland-7.webp"], "url": "https://babyland-c3x7.vercel.app"}, {"name": "Dine", "c": "#9fdc3f", "icon": "assets/covers/dine.jpg", "raw": false, "s": "Лояльность ресторана: меню, баллы, лиги гостей", "d": "Ресторанная система лояльности в Telegram: меню и заказ, баллы за визиты, лиги гостей (бронза → золото), награды и купоны. Гость возвращается — ресторан растит средний чек.", "tags": ["HoReCa", "Лояльность", "TMA"], "shots": ["dine-s3.jpg", "dine-s4.jpg", "dine-s8.jpg", "dine-s6.jpg", "dine-s5.jpg", "dine-s14.jpg", "dine-s7.jpg", "dine-s17.jpg", "dine-s9.jpg", "dine-s10.jpg", "dine-s11.jpg", "dine-s18.jpg", "dine-s13.jpg", "dine-s19.jpg", "dine-s20.jpg", "dine-s21.jpg", "dine-s15.jpg", "dine-s12.jpg", "dine-s1.jpg", "dine-s2.jpg", "dine-a1.jpg", "dine-a2.jpg", "dine-a3.jpg", "dine-a4.jpg"], "url": "https://dine-gilt-omega.vercel.app", "cat": "leisure"}, {"name": "Hotelito", "c": "#8B6BFF", "icon": "assets/covers/hotelito.jpg", "raw": true, "cat": "leisure", "s": "Загородный гостевой дом: бронь, визы, загрузка", "d": "Загородный гостевой дом с ретро-атмосферой: номера и А-фреймы у воды, бани и чаны, визы гостей и история места. В хозяйской панели — заявки на визу, календарь занятости объектов, задачи команды и прайс.", "tags": ["Отель", "Бронь", "Админка"], "shots": ["hotelito-1.webp", "hotelito-2.webp", "hotelito-3.webp", "hotelito-4.webp", "hotelito-5.webp", "hotelito-6.webp", "hotelito-7.webp", "hotelito-8.webp"], "url": "https://hotelito-r4w8.vercel.app"}, {"name": "Dolce Eda", "c": "#FF8A5B", "icon": "assets/covers/dolce.jpg", "raw": true, "cat": "leisure", "s": "Личный повар за пару вопросов", "d": "Кулинарный сервис в Telegram: подбор личного повара за пару вопросов, ИИ-помощник «Ишка», книга рецептов, уровни и челлендж недели. Живой кейс — бот работает и принимает заказы.", "tags": ["HoReCa", "ИИ-помощник", "TMA"], "shots": ["dolce-1.webp", "dolce-2.webp", "dolce-3.webp", "dolce-4.webp", "dolce-5.webp", "dolce-6.webp"], "url": "https://dolce-eda.vercel.app"}, {"name": "Alliance Centropolis", "c": "#5B7CFF", "icon": "assets/covers/alliance.jpg", "raw": true, "cat": "sales", "s": "Презентация ЖК, которую пересылают в чат", "d": "Презентация жилого комплекса: форматы квартир, 3D-планировка с доходностью, инфраструктура, ход стройки, инвест-условия и заявка на просмотр. Двуязычная версия — русская и английская.", "tags": ["Недвижимость", "Инвестиции", "2 языка"], "shots": ["alliance-1.webp", "alliance-2.webp", "alliance-3.webp", "alliance-4.webp", "alliance-5.webp", "alliance-6.webp"], "url": "https://masteroch.github.io/alliance-centropolis/?v=5"}, {"name": "Batumi Neon", "c": "#FF006E", "icon": "assets/covers/neon.jpg", "raw": true, "s": "CarRent: премиум-аренда авто с неон-витриной", "d": "Аренда авто в Батуми: неоновая витрина с Porsche-вайбом, перки Street King, бронь с таймером обратного отсчёта. Дорогой продукт — дорогая подача.", "tags": ["Авто", "Аренда", "Premium"], "shots": ["neon-1.webp", "neon-2.webp", "neon-3.webp", "neon-4.webp", "neon-5.webp", "neon-6.webp", "neon-7.webp"], "url": "https://batumi-neon-v2.vercel.app", "cat": "book"}, {"name": "Korob-ka", "c": "#5bc0eb", "icon": "assets/covers/korobka.jpg", "raw": false, "s": "AI-прораб: калькуляторы стройматериалов", "d": "Каталог-чертёж стройматериалов: калькуляторы перегородок и кладки, смета за секунды, AI-прораб отвечает как бригадир. Blueprint-эстетика в тёмном стекле.", "tags": ["Стройка", "AI", "E-com"], "shots": ["korobka-s1.jpg", "korobka-s2.jpg", "korobka-s4.jpg", "korobka-s3.jpg", "korobka-s5.jpg", "korobka-s6.jpg", "korobka-s7.jpg", "korobka-s8.jpg"], "url": "https://korob-ka.vercel.app", "cat": "sales"}, {"name": "AL MARE Batumi", "c": "#00C2E0", "icon": "assets/covers/almare.jpg", "raw": true, "cat": "book", "s": "Жилой дом: платежи, заявки, голосования", "d": "Приложение жилого дома на 217 соседей: взносы и платежи, заявки в управляющую компанию, голосования, чат дома по темам и ИИ-консьерж Альма. Прототип городского слоя экосистемы — дом как отдельное Mini App.", "tags": ["Сервис дома", "ИИ-консьерж", "TMA"], "shots": ["almare-1.webp", "almare-2.webp", "almare-3.webp", "almare-4.webp", "almare-5.webp", "almare-6.webp"], "url": "https://almare-batumi.vercel.app"}, {"name": "LinkOS", "c": "#4DA3FF", "icon": "assets/covers/linkos.jpg", "raw": true, "cat": "sales", "s": "Цифровая визитка бизнеса за несколько минут", "d": "Конструктор цифровых визиток внутри Telegram: блоки, темы оформления, публикация за Stars, личный кабинет и редактор QR-кода. Собственный продукт студии — визитка собирается по анкете за несколько минут, без дизайнера и разработчика.", "tags": ["Продукт студии", "Stars", "TMA"], "shots": ["linkos-1.webp", "linkos-2.webp", "linkos-3.webp", "linkos-4.webp", "linkos-5.webp", "linkos-6.webp", "linkos-7.webp", "linkos-8.webp"], "url": "https://t.me/Linkos_AppHub_bot"}];
   var FIRST = 8;
   var grid = document.getElementById('projGrid');
   var moreBtn = document.getElementById('projMore');
@@ -3362,7 +3435,7 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
       moreBtn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
       if(moreTxt){
         if(moreTxt.__src !== undefined) delete moreTxt.__src;
-        moreTxt.textContent = expanded ? t('Свернуть') : (t('Показать все проекты') + ' · ' + total);
+        moreTxt.textContent = expanded ? t('Свернуть') : (t('Показать все приложения') + ' · ' + total);
       }
     }
   }
@@ -3544,8 +3617,8 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
     var pjOpen = document.getElementById('pjOpen');
     if(p.url){ pjOpen.style.display = ''; pjOpen.href = p.url; } else { pjOpen.style.display = 'none'; }
     var msg = LANG === 'en'
-      ? 'Hi Roma! I saw “' + p.name + '” in your portfolio — I want the same for my business.'
-      : 'Привет, Рома! Видел «' + p.name + '» в портфолио — хочу так же для своего бизнеса.';
+      ? 'Hi Roma! I want an app like “' + p.name + '” under my brand ($990 and $99 a month). My business: … City: …'
+      : 'Привет, Рома! Хочу такое же приложение, как «' + p.name + '», под своим брендом ($990 и $99 в месяц). Мой бизнес: … Город: …';
     document.getElementById('pjTg').href = tgLink(msg);
     localizeTree(back);
     back.classList.add('open');
@@ -3637,15 +3710,15 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
 
   /* ===== СКОЛЬКО ЖДАТЬ: бегунок 1 час / 24 часа / 3–4 дня. Сроки и цены — те же, что в тарифах ===== */
   var TL = [
-    { when:'✦ Через 1 час', pack:'Распаковка', price:'$100', note:'звонок и паспорт идеи',
-      items:['Паспорт идеи на 1 странице', 'Вердикт по правилу трёх «да»', 'Следующий шаг и бюджет'],
-      cta:'Записаться на распаковку — $100', msg:'Привет, Рома! Хочу распаковку идеи ($100). Мой бизнес: … Идея: …' },
-    { when:'✦ Через 24 часа', pack:'Style Core', price:'$500', note:'стиль и кликабельный прототип',
-      items:['Продуктовая логика и петля возврата', 'Визуальный стиль под ваш бренд', 'Кликабельный прототип в телефоне клиента', 'План: что делать и сколько это стоит'],
-      cta:'Выбрать Style Core — $500', msg:'Привет, Рома! Хочу пакет «Style Core» ($500) для своего бизнеса. Мой бизнес: … Идея: …' },
-    { when:'✦ Через 3–4 дня', pack:'Full Build', price:'$2 500', note:'прототип и лендинг',
-      items:['Всё из Style Core', 'Полная UI-система', 'Прототип всех сценариев', 'Лендинг для первых клиентов', 'Аудит и план запуска'],
-      cta:'Выбрать Full Build — $2 500', msg:'Привет, Рома! Хочу пакет «Full Build» ($2 500) для своего бизнеса. Мой бизнес: … Идея: …' }
+    { when:'✦ Сегодня', pack:'Созвон', price:'Бесплатно', note:'20 минут на подбор приложения',
+      items:['Покажу готовое приложение вашей ниши', 'Честно скажу, подходит ли оно вашему бизнесу', 'Назову срок и цену запуска'],
+      cta:'Подобрать приложение', msg:'Привет, Рома! Хочу подобрать готовое приложение для бизнеса. Мой бизнес: … Город: …' },
+    { when:'✦ Через 7 дней', pack:'Запуск', price:'$990', note:'+ $99 в месяц',
+      items:['Готовое приложение вашей ниши под вашим брендом', 'Ваши услуги, цены и контакты внутри', 'Механики, ради которых клиент возвращается', 'Работа, обновления и поддержка входят в подписку'],
+      cta:'Запустить за $990', msg:'Привет, Рома! Хочу запустить готовое приложение под своим брендом ($990 и $99 в месяц). Мой бизнес: … Город: …' },
+    { when:'✦ Каждый месяц', pack:'Креативный директор', price:'$5 000', note:'в месяц, лично со мной',
+      items:['Две сессии в неделю с вашей командой', 'Концепция и игровой слой продукта', 'Ревью всего, что выходит к клиентам', 'Механики роста и удержания на квартал'],
+      cta:'Обсудить работу', msg:'Привет, Рома! Хочу обсудить работу с тобой как с креативным директором ($5 000 в месяц). Мой продукт: …' }
   ];
   var tlBox = document.getElementById('tl');
   var tlRail = document.getElementById('tlRail');
@@ -3660,7 +3733,7 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
       var d = TL[tlIdx];
       document.getElementById('tlWhen').textContent = t(d.when);
       document.getElementById('tlPack').textContent = t(d.pack);
-      rollPrice(document.getElementById('tlPrice'), tlPrice(d.price));
+      rollPrice(document.getElementById('tlPrice'), tlPrice(t(d.price)));
       document.getElementById('tlNote').textContent = t(d.note);
       document.getElementById('tlList').innerHTML = d.items.map(function(it){
         return '<li><i class="car" aria-hidden="true">❯</i><span>' + t(it) + '</span></li>';
