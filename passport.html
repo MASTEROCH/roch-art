@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Паспорт идеи · Hotelito — пример упаковки ROCH 0→1</title>
+<meta name="description" content="Пример паспорта идеи из упаковки ROCH 0→1 на проекте Hotelito: кто клиент, почему он вернётся, где деньги, игровой слой и план запуска.">
+<link rel="canonical" href="https://roch-art.com/passport.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Паспорт идеи · Hotelito — пример упаковки ROCH 0→1">
+<meta property="og:description" content="Так выглядит паспорт идеи, который вы получаете в упаковке за $1 490: клиент, возврат, деньги, игровой слой и план запуска.">
+<meta property="og:image" content="https://roch-art.com/assets/og-cover.jpg?v=5">
+<meta name="theme-color" content="#171210">
+<link rel="icon" href="assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;0,900;1,400&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Паспорт идеи — образец упаковки ROCH 0→1 на тёмной теме Hotelito (токены из живого приложения hotelito-r4w8.vercel.app):
+   бумага #171210, карточка #221a15, крем #f0e6d6, латунь #c9a468, кирпич #c05b3b, мох #8a9a6e; Merriweather + IBM Plex Sans.
+   Всё про Hotelito — из его прототипа (цены, механики, экраны); ROCH возвращается только в шапке и финальной кнопке. */
+:root{
+  color-scheme:dark;
+  --paper:#171210;--paper-2:#100c0a;--card:#221a15;--card-2:#2a2019;
+  --ink:#f0e6d6;--ink-2:#c2b29d;--ink-3:#8d7d6b;
+  --brass:#c9a468;--brass-hi:#e2c48d;--brass-text:#d3b078;--brick:#c05b3b;--brick-hi:#d76e4b;--moss:#8a9a6e;
+  --line:rgba(240,230,214,.12);--line-2:rgba(240,230,214,.2);
+  --lime:#D4FF4F;
+  --serif:"Merriweather",Georgia,serif;--sans:"IBM Plex Sans",-apple-system,system-ui,sans-serif;
+  --eo:cubic-bezier(.16,1,.3,1);--es:cubic-bezier(.34,1.56,.64,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;
+  background-image:radial-gradient(70% 40% at 50% 0%,rgba(201,164,104,.12),transparent 70%),radial-gradient(60% 40% at 50% 100%,rgba(192,91,59,.08),transparent 70%)}
+a{color:inherit}
+[hidden]{display:none!important}
+
+.bar{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:12px;padding:calc(12px + env(safe-area-inset-top)) 16px 12px;
+  background:rgba(16,12,10,.82);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.bar .back{display:inline-flex;align-items:center;gap:6px;min-height:40px;font-size:14px;font-weight:600;color:var(--ink-2);text-decoration:none;white-space:nowrap}
+.bar .back b{color:var(--lime);font-weight:700}
+.bar .tag{margin-left:auto;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);white-space:nowrap}
+.bar .lt{margin-left:auto}
+.bar .tag + .lt{margin-left:0}
+@media (max-width:559px){.bar .tag{display:none}.bar .tag + .lt{margin-left:auto}}
+.lt{display:flex;gap:2px;padding:3px;border-radius:99px;background:rgba(240,230,214,.06);box-shadow:inset 0 0 0 1px var(--line)}
+.lt button{min-width:40px;min-height:32px;padding:0 10px;border:0;border-radius:99px;background:none;color:var(--ink-3);font:600 12px var(--sans);letter-spacing:.06em;cursor:pointer}
+.lt button.on{color:var(--paper);background:var(--brass)}
+
+/* переключатель образцов: Hotelito · BabyLand · EPOCH */
+.cases{display:flex;align-items:center;gap:6px;max-width:760px;margin:0 auto;padding:12px 16px 0;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.cases::-webkit-scrollbar{display:none}
+.cases .cl{flex:0 0 auto;max-width:84px;margin-right:4px;font:600 10.5px/1.15 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.cases a{flex:0 0 auto;display:inline-flex;align-items:center;min-height:32px;padding:0 12px;border-radius:99px;font:500 13px var(--sans);text-decoration:none;white-space:nowrap;
+  color:var(--ink-2);background:rgba(240,230,214,.05);box-shadow:inset 0 0 0 1px var(--line-2)}
+.cases a[aria-current]{color:var(--paper);font-weight:600;background:var(--brass);box-shadow:0 8px 24px -10px rgba(201,164,104,.55)}
+
+.doc{max-width:760px;margin:0 auto;padding:22px 16px 60px}
+
+/* обложка паспорта */
+.cover{position:relative;z-index:2;padding:30px 22px 64px;border-radius:26px;text-align:center;
+  background:linear-gradient(180deg,#2a2019,#1c1612);box-shadow:0 30px 70px -20px rgba(0,0,0,.7),inset 0 0 0 1px var(--line-2)}
+.cover::before{content:'';position:absolute;inset:9px;border-radius:19px;border:1px solid rgba(201,164,104,.35);pointer-events:none}
+.cover::after{content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:.22;
+  background-image:radial-gradient(rgba(240,230,214,.18) .6px,transparent .7px);background-size:4px 4px}
+.cover .logo{width:min(240px,62%);height:auto;margin:6px auto 0;display:block}
+.cover .kind{margin-top:20px;font:700 13px var(--sans);letter-spacing:.32em;text-transform:uppercase;color:var(--brass-text)}
+.cover h1{margin-top:10px;font:900 clamp(30px,8vw,44px)/1.08 var(--serif);letter-spacing:-.01em}
+.cover h1 em{font-style:italic;font-weight:400;color:var(--brass-hi);white-space:nowrap}
+.cover .no{margin-top:12px;font:500 13px/1.4 ui-monospace,Menlo,monospace;letter-spacing:.08em;color:var(--ink-3)}
+.cover .sample{display:inline-flex;margin-top:16px;padding:7px 12px;border-radius:99px;font-size:12px;font-weight:600;color:var(--ink-2);text-wrap:balance;
+  background:rgba(240,230,214,.06);box-shadow:inset 0 0 0 1px var(--line)}
+
+/* штамп «правило трёх да пройдено» — ложится с ударом, как виза в самом приложении */
+.stamp{position:absolute;right:14px;bottom:-46px;width:104px;height:104px;transform:rotate(-14deg);color:var(--brick-hi);opacity:.92;z-index:2;pointer-events:none}
+.stamp svg{width:100%;height:100%;overflow:visible}
+.js .stamp{opacity:0;transform:rotate(-34deg) scale(2.1)}
+.js .stamp.hit{animation:stampHit .62s var(--eo) forwards}
+@keyframes stampHit{0%{opacity:0;transform:rotate(-34deg) scale(2.1)}55%{opacity:.95;transform:rotate(-12deg) scale(.94)}75%{transform:rotate(-14deg) scale(1.03)}100%{opacity:.92;transform:rotate(-14deg) scale(1)}}
+.cover.thud{animation:thud .28s ease-out .33s}
+@keyframes thud{0%{transform:none}35%{transform:translateY(2px) scale(.996)}100%{transform:none}}
+
+/* поля паспорта */
+.fields{margin-top:16px;padding:6px 18px;border-radius:22px;background:var(--card);box-shadow:inset 0 0 0 1px var(--line)}
+.f{display:grid;grid-template-columns:1fr;gap:3px;padding:13px 0;border-bottom:1px dashed var(--line-2)}
+.f:last-child{border-bottom:0}
+.f dt{font:600 11px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--brass-text)}
+.f dd{font:400 16px/1.5 var(--serif);color:var(--ink)}
+.f dd.big{font-size:19px;font-style:italic;color:var(--ink)}
+
+/* разделы */
+.sec{margin-top:34px}
+.sec h2{display:flex;align-items:baseline;gap:12px;font:900 clamp(22px,5.6vw,28px)/1.2 var(--serif)}
+.sec h2 i{font:italic 400 15px var(--serif);color:var(--brass);min-width:28px}
+.sec > p{margin-top:10px;color:var(--ink-2)}
+.card{margin-top:14px;padding:18px;border-radius:22px;background:var(--card);box-shadow:inset 0 0 0 1px var(--line),0 14px 34px -14px rgba(0,0,0,.55)}
+
+.money{width:100%;border-collapse:collapse;margin-top:14px}
+.money td{padding:12px 0;border-bottom:1px dashed var(--line-2);vertical-align:top}
+.money tr:last-child td{border-bottom:0}
+.money td:last-child{text-align:right;white-space:nowrap;font:700 17px var(--serif);color:var(--brass-hi)}
+.money small{display:block;font-size:13px;color:var(--ink-3)}
+.note{margin-top:10px;font-size:13px;color:var(--ink-3)}
+
+.game{display:grid;gap:12px;margin-top:14px}
+.game .card{margin-top:0;position:relative;padding-left:62px}
+.game .ic{position:absolute;left:16px;top:18px;width:32px;height:32px;border-radius:10px;display:grid;place-items:center;
+  color:var(--brass-hi);background:rgba(201,164,104,.12);box-shadow:inset 0 0 0 1px rgba(201,164,104,.3)}
+.game .ic svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.game h3{font:700 17px var(--serif)}
+.game p{margin-top:4px;font-size:15px;color:var(--ink-2)}
+
+.yes{display:grid;gap:10px;margin-top:14px}
+.yes div{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;padding:14px 16px;border-radius:18px;background:var(--card);box-shadow:inset 0 0 0 1px var(--line)}
+.yes b{display:grid;place-items:center;min-width:44px;height:28px;padding:0 8px;border-radius:99px;font:700 12px var(--sans);letter-spacing:.08em;text-transform:uppercase;
+  color:var(--moss);background:rgba(138,154,110,.14);box-shadow:inset 0 0 0 1px rgba(138,154,110,.4)}
+.yes span{font-size:15px;color:var(--ink)}
+
+.shots{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;margin:14px -16px 0;padding:4px 16px 14px;scrollbar-width:none}
+.shots::-webkit-scrollbar{display:none}
+.shots img{flex:0 0 auto;width:min(46vw,190px);aspect-ratio:860/1864;object-fit:cover;object-position:top;border-radius:20px;scroll-snap-align:start;
+  box-shadow:0 18px 40px -14px rgba(0,0,0,.7),0 0 0 1px var(--line-2);background:var(--card)}
+
+.plan{list-style:none;margin-top:14px;display:grid;gap:0;position:relative}
+.plan li{position:relative;padding:0 0 18px 30px}
+.plan li::before{content:'';position:absolute;left:6px;top:8px;width:9px;height:9px;border-radius:50%;background:var(--brass);box-shadow:0 0 0 4px rgba(201,164,104,.16)}
+.plan li::after{content:'';position:absolute;left:10px;top:20px;bottom:0;width:1px;background:var(--line-2)}
+.plan li:last-child::after{display:none}
+.plan b{display:block;font:700 13px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--brass-text)}
+.plan span{display:block;margin-top:2px;font-size:15.5px;color:var(--ink)}
+
+/* финал — возвращаемся в ROCH: лаймовая кнопка */
+.fin{margin-top:40px;padding:26px 20px;border-radius:26px;text-align:center;background:#0B0F0C;box-shadow:inset 0 0 0 1px rgba(212,255,79,.18)}
+.fin p{font:900 clamp(22px,5.6vw,28px)/1.25 var(--serif);color:var(--ink)}
+.fin p em{font-style:italic;font-weight:400;color:var(--lime)}
+.fin small{display:block;margin-top:8px;font-size:14px;color:var(--ink-2)}
+.cta{display:grid;gap:10px;margin-top:20px}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;min-height:56px;padding:14px 20px;border-radius:99px;font:700 16px var(--sans);text-decoration:none;
+  color:#0B1409;background:var(--lime);box-shadow:0 14px 40px -10px rgba(212,255,79,.45)}
+.btn.sec{color:var(--ink);background:rgba(240,230,214,.06);box-shadow:inset 0 0 0 1px var(--line-2)}
+.foot{margin-top:28px;text-align:center;font-size:12.5px;color:var(--ink-3)}
+
+.rv{opacity:1}
+.js .rv{opacity:0;transform:translateY(16px);transition:opacity .6s var(--eo),transform .7s var(--eo)}
+.js .rv.in{opacity:1;transform:none}
+
+@media (min-width:760px){
+  .doc{padding-top:34px}
+  .cover{padding:40px 40px 34px}
+  .stamp{bottom:auto}
+  .stamp{right:18px;top:16px;width:136px;height:136px}
+  .cover h1 em{display:block}
+  .f{grid-template-columns:200px 1fr;gap:18px;align-items:baseline}
+  .game{grid-template-columns:repeat(3,1fr)}
+  .game .card{padding:58px 18px 18px}
+  .game .ic{top:16px;left:18px}
+  .cta{grid-template-columns:1.3fr 1fr}
+}
+/* на широком экране переключатель образцов садится внутрь липкой шапки, по центру */
+@media (min-width:900px){
+  .cases{position:sticky;top:0;z-index:21;width:max-content;height:65px;margin:-65px auto 0;padding:0;overflow:visible}
+  .cases .cl{max-width:none;white-space:nowrap;font-size:11px}
+}
+@media (prefers-reduced-motion:reduce){
+  .js .stamp,.js .stamp.hit{animation:none;opacity:.92;transform:rotate(-14deg)}
+  .cover.thud{animation:none}
+  .js .rv{opacity:1;transform:none;transition:none}
+}
+</style>
+</head>
+<body>
+<header class="bar">
+  <a class="back" href="/"><span aria-hidden="true">←</span><span><b>ROCH 0→1</b></span></a>
+  <span class="tag" data-ru="Пример упаковки" data-en="Packaging sample">Пример упаковки</span>
+  <div class="lt" role="group" aria-label="Язык"><button type="button" data-l="ru" class="on">RU</button><button type="button" data-l="en">EN</button></div>
+</header>
+<nav class="cases" aria-label="Примеры паспортов" data-ru-label="Примеры паспортов" data-en-label="Sample passports">
+  <span class="cl" data-ru="Примеры паспортов" data-en="Sample passports">Примеры паспортов</span>
+  <a href="passport.html" aria-current="page">Hotelito</a>
+  <a href="passport-babyland.html">BabyLand</a>
+  <a href="passport-epoch.html">EPOCH</a>
+</nav>
+
+<!-- ===================== RU ===================== -->
+<main class="doc" lang="ru" data-lang="ru">
+  <section class="cover" id="cover">
+    <img class="logo" src="assets/passport/hotelito-logo.svg" alt="Hotelito" width="208" height="64">
+    <div class="kind">Паспорт идеи</div>
+    <h1>Медленный отдых <em>у старой мельницы</em></h1>
+    <div class="no">№ 1909 · 05 · ROCH 0→1</div>
+    <span class="sample">Это пример. Ваш паспорт будет про вашу идею.</span>
+    <div class="stamp" aria-label="Правило трёх «да» пройдено"><svg viewBox="0 0 160 160" aria-hidden="true">
+      <defs><path id="sr" d="M80,80 m-58,0 a58,58 0 1,1 116,0 a58,58 0 1,1 -116,0"/></defs>
+      <circle cx="80" cy="80" r="74" fill="none" stroke="currentColor" stroke-width="3"/>
+      <circle cx="80" cy="80" r="44" fill="none" stroke="currentColor" stroke-width="1.6"/>
+      <text font-family="IBM Plex Sans, sans-serif" font-size="12.5" font-weight="700" letter-spacing="2.6" fill="currentColor"><textPath href="#sr">ПРАВИЛО ТРЁХ «ДА» · ПРОЙДЕНО ·</textPath></text>
+      <text x="80" y="77" text-anchor="middle" font-family="Merriweather, serif" font-size="15" font-weight="900" fill="currentColor">ОДОБРЕНО</text>
+      <text x="80" y="95" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="10" font-weight="700" letter-spacing="1.5" fill="currentColor">ROCH 0→1</text>
+    </svg></div>
+  </section>
+
+  <dl class="fields rv">
+    <div class="f"><dt>Идея одной фразой</dt><dd class="big">Гость приезжает не в номер, а в историю дома мельника 1909 года и хочет прожить её снова.</dd></div>
+    <div class="f"><dt>Хозяева</dt><dd>Алина и Глеб Ветровы</dd></div>
+    <div class="f"><dt>Место</dt><dd>Деревня у старой мельницы, 40 минут от аэропорта, до 30 гостей</dd></div>
+    <div class="f"><dt>Формат</dt><dd>Приложение в Telegram для гостей и панель хозяина</dd></div>
+  </dl>
+
+  <section class="sec rv">
+    <h2><i>I</i>Кто клиент</h2>
+    <p>Пары и семьи из города, которые устали от одинаковых отелей и ищут медленный отдых у воды. Компании до 30 человек на выходные. Фотографы и продакшны, которым нужна локация с историей.</p>
+  </section>
+
+  <section class="sec rv">
+    <h2><i>II</i>Почему он вернётся</h2>
+    <p>Гость получает «визу» в усадьбу и становится своим. Баня у воды, чаны и вечер при свечах превращают ночёвку в ритуал, а сезонные предложения и туры полного погружения дают повод приехать снова.</p>
+  </section>
+
+  <section class="sec rv">
+    <h2><i>III</i>Где деньги</h2>
+    <div class="card">
+      <table class="money">
+        <tr><td>Гостевой дом целиком<small>до 12 человек, ночь</small></td><td>49 000 ₽</td></tr>
+        <tr><td>Половина дома<small>до 6 человек, ночь</small></td><td>22 000 ₽</td></tr>
+        <tr><td>Дом от двух ночей<small>весеннее предложение, за ночь</small></td><td>33 000 ₽</td></tr>
+        <tr><td>А-фреймы у воды<small>до 4 гостей</small></td><td>от 10 900 ₽</td></tr>
+        <tr><td>Баня и чан<small>комплекс на 3 часа</small></td><td>6 500 ₽</td></tr>
+        <tr><td>Съёмки в Доме мельника<small>локация 1909 года</small></td><td>от 220 000 ₽</td></tr>
+      </table>
+      <p class="note">Цены взяты из прототипа Hotelito.</p>
+    </div>
+  </section>
+
+  <section class="sec rv">
+    <h2><i>IV</i>Игровой слой</h2>
+    <p>Механики из мобильных игр, ради которых в приложение возвращаются.</p>
+    <div class="game">
+      <div class="card"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M8.5 12.5l2.3 2.2 4.7-5"/></svg></span><h3>Виза в усадьбу</h3><p>Анкета гостя превращается в визу со штампом. Скучная форма становится началом приключения, а хозяева знают гостя до приезда.</p></div>
+      <div class="card"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 3c2 3 3 4.6 3 6.5A3 3 0 0 1 9 9.5C9 7.6 10 6 12 3z"/><path d="M9 14h6v7H9z"/></svg></span><h3>Вечер при свечах</h3><p>Приложение меняет настроение на тёплый тёмный режим, как свет в доме вечером.</p></div>
+      <div class="card"><span class="ic"><svg viewBox="0 0 24 24"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z"/><path d="M5 17a3 3 0 0 1 3-3h11"/></svg></span><h3>История дома мельника</h3><p>Лента истории места с 1909 года до сегодня: гость едет не в отель, а в дом с прошлым.</p></div>
+    </div>
+  </section>
+
+  <section class="sec rv">
+    <h2><i>V</i>Правило трёх «да»</h2>
+    <div class="yes">
+      <div><b>да</b><span>Понятно, зачем открыть приложение впервые: выбрать, где жить, и увидеть усадьбу до приезда.</span></div>
+      <div><b>да</b><span>Понятно, почему гость вернётся: виза, сезонные предложения и ритуал бани у воды.</span></div>
+      <div><b>да</b><span>Понятно, где деньги: бронь дома, А-фреймов, бань и съёмок без звонков.</span></div>
+    </div>
+  </section>
+
+  <section class="sec rv">
+    <h2><i>VI</i>Ключевые экраны</h2>
+    <p>Живой прототип в телефоне: его можно показать партнёру и первым гостям.</p>
+    <div class="shots" aria-label="Экраны Hotelito">
+      <img src="assets/cases/hotelito-1.webp" alt="Главный экран усадьбы" loading="lazy" decoding="async">
+      <img src="assets/cases/hotelito-3.webp" alt="Где вы будете жить" loading="lazy" decoding="async">
+      <img src="assets/cases/hotelito-4.webp" alt="Цены и предложения" loading="lazy" decoding="async">
+      <img src="assets/cases/hotelito-5.webp" alt="Бани и чаны" loading="lazy" decoding="async">
+      <img src="assets/cases/hotelito-6.webp" alt="История дома мельника" loading="lazy" decoding="async">
+      <img src="assets/cases/hotelito-8.webp" alt="Виза одобрена" loading="lazy" decoding="async">
+    </div>
+  </section>
+
+  <section class="sec rv">
+    <h2><i>VII</i>С чего начать и план запуска</h2>
+    <p>Первая версия: витрина жилья и бань с ценами, бронь без звонков, «виза» гостя и панель хозяина с заявками, календарём занятости, задачами команды и прайсом.</p>
+    <ol class="plan">
+      <li><b>Дни 1–2</b><span>Паспорт идеи и игровой слой</span></li>
+      <li><b>Дни 3–4</b><span>Живой прототип ключевых сценариев в телефоне</span></li>
+      <li><b>День 5</b><span>Показ, план запуска и смета разработки</span></li>
+      <li><b>Дальше</b><span>Разработка в моей студии AppHub по смете или вашей командой: файлы и права ваши</span></li>
+    </ol>
+  </section>
+
+  <section class="fin rv">
+    <p>Хотите такой же <em>про свою идею?</em></p>
+    <small>Упаковка за 5 дней стоит $1 490. Первые 30 минут бесплатно.</small>
+    <div class="cta">
+      <a class="btn" target="_blank" rel="noopener" href="https://t.me/broch?text=%D0%9F%D1%80%D0%B8%D0%B2%D0%B5%D1%82%2C%20%D0%A0%D0%BE%D0%BC%D0%B0!%20%D0%A3%D0%B2%D0%B8%D0%B4%D0%B5%D0%BB%20%D0%BF%D0%B0%D1%81%D0%BF%D0%BE%D1%80%D1%82%20%D0%B8%D0%B4%D0%B5%D0%B8%20Hotelito.%20%D0%A5%D0%BE%D1%87%D1%83%20%D1%83%D0%BF%D0%B0%D0%BA%D0%BE%D0%B2%D0%B0%D1%82%D1%8C%20%D1%81%D0%B2%D0%BE%D1%8E%20%D0%B8%D0%B4%D0%B5%D1%8E%20%D0%B7%D0%B0%20%241%20490.%20%D0%98%D0%B4%D0%B5%D1%8F%3A%20%E2%80%A6">Упаковать мою идею — $1 490</a>
+      <a class="btn sec" href="/#contact">Рассказать идею бесплатно</a>
+    </div>
+  </section>
+  <p class="foot">ROCH 0→1 · распаковка и упаковка идей · roch-art.com</p>
+</main>
+
+<!-- ===================== EN ===================== -->
+<main class="doc" lang="en" data-lang="en" hidden>
+  <section class="cover" id="coverEn">
+    <img class="logo" src="assets/passport/hotelito-logo.svg" alt="Hotelito" width="208" height="64">
+    <div class="kind">Idea passport</div>
+    <h1>Slow rest <em>by the old mill</em></h1>
+    <div class="no">No. 1909 · 05 · ROCH 0→1</div>
+    <span class="sample">This is a sample. Yours will be about your idea.</span>
+    <div class="stamp" aria-label="Three-yes rule passed"><svg viewBox="0 0 160 160" aria-hidden="true">
+      <defs><path id="srEn" d="M80,80 m-58,0 a58,58 0 1,1 116,0 a58,58 0 1,1 -116,0"/></defs>
+      <circle cx="80" cy="80" r="74" fill="none" stroke="currentColor" stroke-width="3"/>
+      <circle cx="80" cy="80" r="44" fill="none" stroke="currentColor" stroke-width="1.6"/>
+      <text font-family="IBM Plex Sans, sans-serif" font-size="12.5" font-weight="700" letter-spacing="1.6" fill="currentColor"><textPath href="#srEn" textLength="356" lengthAdjust="spacing">THREE-YES RULE · PASSED · THREE-YES RULE ·</textPath></text>
+      <text x="80" y="77" text-anchor="middle" font-family="Merriweather, serif" font-size="15" font-weight="900" fill="currentColor">APPROVED</text>
+      <text x="80" y="95" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="10" font-weight="700" letter-spacing="1.5" fill="currentColor">ROCH 0→1</text>
+    </svg></div>
+  </section>
+
+  <dl class="fields rv">
+    <div class="f"><dt>The idea in one line</dt><dd class="big">Guests come not to a room but to the story of a miller’s house from 1909, and want to live it again.</dd></div>
+    <div class="f"><dt>Hosts</dt><dd>Alina and Gleb Vetrov</dd></div>
+    <div class="f"><dt>Place</dt><dd>A village by an old mill, 40 minutes from the airport, up to 30 guests</dd></div>
+    <div class="f"><dt>Format</dt><dd>A Telegram app for guests and a host dashboard</dd></div>
+  </dl>
+
+  <section class="sec rv">
+    <h2><i>I</i>Who the customer is</h2>
+    <p>Couples and families from the city who are tired of identical hotels and want slow rest by the water. Groups of up to 30 for a weekend. Photographers and production teams who need a location with a story.</p>
+  </section>
+
+  <section class="sec rv">
+    <h2><i>II</i>Why they come back</h2>
+    <p>A guest gets a “visa” to the estate and becomes one of the family. A sauna by the water, hot tubs and an evening by candlelight turn a night’s stay into a ritual, and seasonal offers and immersive tours give a reason to return.</p>
+  </section>
+
+  <section class="sec rv">
+    <h2><i>III</i>Where the money is</h2>
+    <div class="card">
+      <table class="money">
+        <tr><td>The whole guest house<small>up to 12 people, per night</small></td><td>49,000 ₽</td></tr>
+        <tr><td>Half of the house<small>up to 6 people, per night</small></td><td>22,000 ₽</td></tr>
+        <tr><td>House for two nights or more<small>spring offer, per night</small></td><td>33,000 ₽</td></tr>
+        <tr><td>A-frames by the water<small>up to 4 guests</small></td><td>from 10,900 ₽</td></tr>
+        <tr><td>Sauna and hot tub<small>3-hour set</small></td><td>6,500 ₽</td></tr>
+        <tr><td>Shoots in the Miller’s House<small>a location from 1909</small></td><td>from 220,000 ₽</td></tr>
+      </table>
+      <p class="note">Prices are taken from the Hotelito prototype.</p>
+    </div>
+  </section>
+
+  <section class="sec rv">
+    <h2><i>IV</i>Game layer</h2>
+    <p>Mechanics from mobile games that bring people back to the app.</p>
+    <div class="game">
+      <div class="card"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M8.5 12.5l2.3 2.2 4.7-5"/></svg></span><h3>A visa to the estate</h3><p>The guest form turns into a stamped visa. A boring form becomes the start of an adventure, and the hosts know the guest before arrival.</p></div>
+      <div class="card"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 3c2 3 3 4.6 3 6.5A3 3 0 0 1 9 9.5C9 7.6 10 6 12 3z"/><path d="M9 14h6v7H9z"/></svg></span><h3>Evening by candlelight</h3><p>The app switches its mood to a warm dark mode, like the light in the house at night.</p></div>
+      <div class="card"><span class="ic"><svg viewBox="0 0 24 24"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z"/><path d="M5 17a3 3 0 0 1 3-3h11"/></svg></span><h3>The miller’s house story</h3><p>A timeline of the place from 1909 to today: the guest travels not to a hotel but to a house with a past.</p></div>
+    </div>
+  </section>
+
+  <section class="sec rv">
+    <h2><i>V</i>The three-yes rule</h2>
+    <div class="yes">
+      <div><b>yes</b><span>It is clear why someone opens the app the first time: to choose where to stay and see the estate before arriving.</span></div>
+      <div><b>yes</b><span>It is clear why the guest comes back: the visa, seasonal offers and the sauna ritual by the water.</span></div>
+      <div><b>yes</b><span>It is clear where the money is: booking the house, A-frames, saunas and shoots without phone calls.</span></div>
+    </div>
+  </section>
+
+  <section class="sec rv">
+    <h2><i>VI</i>Key screens</h2>
+    <p>A live prototype on your phone that you can show to a partner and your first guests.</p>
+    <div class="shots" aria-label="Hotelito screens">
+      <img src="assets/cases/hotelito-1.webp" alt="Estate home screen" loading="lazy" decoding="async">
+      <img src="assets/cases/hotelito-3.webp" alt="Where you will stay" loading="lazy" decoding="async">
+      <img src="assets/cases/hotelito-4.webp" alt="Prices and offers" loading="lazy" decoding="async">
+      <img src="assets/cases/hotelito-5.webp" alt="Saunas and hot tubs" loading="lazy" decoding="async">
+      <img src="assets/cases/hotelito-6.webp" alt="The miller’s house story" loading="lazy" decoding="async">
+      <img src="assets/cases/hotelito-8.webp" alt="Visa approved" loading="lazy" decoding="async">
+    </div>
+  </section>
+
+  <section class="sec rv">
+    <h2><i>VII</i>Where to start and the launch plan</h2>
+    <p>The first version: a showcase of stays and saunas with prices, booking without calls, the guest “visa”, and a host dashboard with requests, an occupancy calendar, team tasks and the price list.</p>
+    <ol class="plan">
+      <li><b>Days 1–2</b><span>Idea passport and game layer</span></li>
+      <li><b>Days 3–4</b><span>A live prototype of the key flows on your phone</span></li>
+      <li><b>Day 5</b><span>Walkthrough, launch plan and development estimate</span></li>
+      <li><b>Then</b><span>Development at my studio AppHub by the estimate, or by your own team: the files and rights are yours</span></li>
+    </ol>
+  </section>
+
+  <section class="fin rv">
+    <p>Want one like this <em>for your idea?</em></p>
+    <small>Packaging in 5 days costs $1,490. The first 30 minutes are free.</small>
+    <div class="cta">
+      <a class="btn" target="_blank" rel="noopener" href="https://t.me/broch?text=Hi%20Roma!%20I%20saw%20the%20Hotelito%20idea%20passport.%20I%20want%20my%20idea%20packaged%20for%20%241%2C490.%20The%20idea%3A%20%E2%80%A6">Package my idea — $1,490</a>
+      <a class="btn sec" href="/#contact">Share your idea for free</a>
+    </div>
+  </section>
+  <p class="foot">ROCH 0→1 · idea unpacking and packaging · roch-art.com</p>
+</main>
+
+<script>
+(function(){
+  'use strict';
+  var root = document.documentElement; root.classList.add('js');
+  var reduced = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var LS = 'roch_lang', lang = 'ru';
+  try{ lang = localStorage.getItem(LS) === 'en' ? 'en' : 'ru'; }catch(e){}
+  var swaps = document.querySelectorAll('body > header [data-ru], body > nav [data-ru]');
+  var nav = document.querySelector('nav.cases');
+  var apply = function(l){
+    lang = l; root.lang = l;
+    Array.prototype.forEach.call(document.querySelectorAll('main[data-lang]'), function(m){ m.hidden = m.getAttribute('data-lang') !== l; });
+    Array.prototype.forEach.call(document.querySelectorAll('.lt button'), function(b){ b.classList.toggle('on', b.getAttribute('data-l') === l); });
+    Array.prototype.forEach.call(swaps, function(el){ el.textContent = el.getAttribute('data-' + l); });
+    if(nav) nav.setAttribute('aria-label', nav.getAttribute('data-' + l + '-label'));
+    document.title = l === 'en' ? 'Idea passport · Hotelito — ROCH 0→1 packaging sample' : 'Паспорт идеи · Hotelito — пример упаковки ROCH 0→1';
+    stampIn();
+  };
+  Array.prototype.forEach.call(document.querySelectorAll('.lt button'), function(b){
+    b.addEventListener('click', function(){ var l = b.getAttribute('data-l'); try{ localStorage.setItem(LS, l); }catch(e){} apply(l); });
+  });
+  /* штамп ложится один раз на видимую обложку: удар, лёгкая отдача карточки */
+  var stampIn = function(){
+    var cov = document.querySelector('main[data-lang="' + lang + '"] .cover'), st = cov && cov.querySelector('.stamp');
+    if(!st || st.classList.contains('hit')) return;
+    if(reduced){ st.classList.add('hit'); return; }
+    setTimeout(function(){ st.classList.add('hit'); cov.classList.add('thud'); }, 450);
+  };
+  if('IntersectionObserver' in window && !reduced){
+    var io = new IntersectionObserver(function(en){ en.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } }); }, { rootMargin: '0px 0px -8% 0px' });
+    Array.prototype.forEach.call(document.querySelectorAll('.rv'), function(el){ io.observe(el); });
+  } else Array.prototype.forEach.call(document.querySelectorAll('.rv'), function(el){ el.classList.add('in'); });
+  apply(lang);
+})();
+</script>
+</body>
+</html>

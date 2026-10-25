@@ -1,0 +1,445 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Паспорт идеи · BabyLand — пример упаковки ROCH 0→1</title>
+<meta name="description" content="Пример паспорта идеи из упаковки ROCH 0→1 на проекте BabyLand: кто клиент, почему он вернётся, где деньги, игровой слой и план запуска.">
+<link rel="canonical" href="https://roch-art.com/passport-babyland.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Паспорт идеи · BabyLand — пример упаковки ROCH 0→1">
+<meta property="og:description" content="Так выглядит паспорт идеи, который вы получаете в упаковке за $1 490: клиент, возврат, деньги, игровой слой и план запуска.">
+<meta property="og:image" content="https://roch-art.com/assets/og-cover.jpg?v=5">
+<meta name="theme-color" content="#fff7ef">
+<link rel="icon" href="assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* Паспорт идеи — образец упаковки ROCH 0→1 на светлой теме BabyLand (токены из живого приложения babyland-c3x7.vercel.app):
+   крем #fff7ef, чернила #2e231c / #655648 / #7c6152, розовый #ff6f9c и его чернила #c43c6b (цена в приложении), мята #35c6ab / #12836e,
+   солнце #ffb427, сирень #a481e6, коралл #ff7a4d; стекло радиусом 28; Baloo 2 + Nunito (кириллицу Baloo не рисует, её берёт Nunito, как в самом приложении).
+   Всё про BabyLand — из его прототипа (цены, механики, экраны); ROCH возвращается только в шапке и финальном тёмном блоке. */
+:root{
+  color-scheme:light;
+  --paper:#fff7ef;--paper-2:#fdeee0;--card:#ffffff;
+  --ink:#2e231c;--ink-2:#655648;--ink-3:#7c6152;
+  --pink:#ff6f9c;--pink-ink:#c43c6b;--pink-deep:#b02f5c;--pink-soft:#ffe1ea;--coral:#ff7a4d;
+  --mint:#35c6ab;--mint-ink:#12836e;--mint-deep:#0d6e5c;--mint-soft:#d3f4ec;
+  --sun:#ffb427;--sun-soft:#fff0cd;--lilac:#a481e6;--lilac-soft:#ece1ff;--sky-soft:#dcefff;
+  --line:rgba(46,35,28,.09);--line-2:rgba(46,35,28,.16);
+  --shadow:0 8px 32px -8px rgba(122,92,70,.18),0 2px 8px -2px rgba(122,92,70,.1);
+  --shadow-lg:0 24px 60px -16px rgba(122,92,70,.28),0 6px 18px -6px rgba(122,92,70,.12);
+  --lime:#D4FF4F;--roch:#0B0F0C;
+  --display:"Baloo 2","Nunito",system-ui,sans-serif;--sans:"Nunito",-apple-system,system-ui,sans-serif;
+  --eo:cubic-bezier(.16,1,.3,1);--es:cubic-bezier(.34,1.56,.64,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;background:var(--paper)}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;font-weight:500;line-height:1.55;-webkit-font-smoothing:antialiased;
+  background-image:radial-gradient(60% 34% at 0% 0%,rgba(255,111,156,.16),transparent 70%),radial-gradient(55% 30% at 100% 12%,rgba(53,198,171,.13),transparent 70%),
+    radial-gradient(60% 30% at 100% 70%,rgba(164,129,230,.12),transparent 70%),radial-gradient(60% 30% at 0% 100%,rgba(255,180,39,.12),transparent 70%)}
+a{color:inherit}
+[hidden]{display:none!important}
+
+.bar{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:12px;padding:calc(12px + env(safe-area-inset-top)) 16px 12px;
+  background:rgba(255,247,239,.84);-webkit-backdrop-filter:blur(14px) saturate(160%);backdrop-filter:blur(14px) saturate(160%);border-bottom:1px solid var(--line)}
+.bar .back{display:inline-flex;align-items:center;gap:8px;min-height:40px;font-size:14px;font-weight:700;color:var(--ink-2);text-decoration:none;white-space:nowrap}
+.bar .back b{padding:3px 8px;border-radius:8px;color:var(--lime);background:var(--roch);font-weight:800;letter-spacing:.01em}
+.bar .tag{margin-left:auto;font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);white-space:nowrap}
+.bar .lt{margin-left:auto}
+.bar .tag + .lt{margin-left:0}
+@media (max-width:559px){.bar .tag{display:none}.bar .tag + .lt{margin-left:auto}}
+.lt{display:flex;gap:2px;padding:3px;border-radius:99px;background:rgba(255,255,255,.7);box-shadow:inset 0 0 0 1px var(--line)}
+.lt button{min-width:40px;min-height:32px;padding:0 10px;border:0;border-radius:99px;background:none;color:var(--ink-3);font:800 12px var(--sans);letter-spacing:.06em;cursor:pointer}
+.lt button.on{color:#fff;background:var(--pink-ink)}
+
+/* переключатель образцов: Hotelito · BabyLand · EPOCH */
+.cases{display:flex;align-items:center;gap:6px;max-width:760px;margin:0 auto;padding:12px 16px 0;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.cases::-webkit-scrollbar{display:none}
+.cases .cl{flex:0 0 auto;max-width:84px;margin-right:4px;font:800 10.5px/1.15 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.cases a{flex:0 0 auto;display:inline-flex;align-items:center;min-height:32px;padding:0 12px;border-radius:99px;font:700 13px var(--sans);text-decoration:none;white-space:nowrap;
+  color:var(--ink-2);background:rgba(255,255,255,.72);box-shadow:inset 0 0 0 1px var(--line)}
+.cases a[aria-current]{color:#fff;background:var(--pink-ink);box-shadow:0 6px 16px -8px rgba(196,60,107,.7)}
+
+.doc{max-width:760px;margin:0 auto;padding:18px 16px 60px}
+
+/* обложка паспорта — как билет на праздник: пунктир по краю, розовая крапинка */
+.cover{position:relative;z-index:2;padding:30px 22px 64px;border-radius:28px;text-align:center;
+  background:linear-gradient(180deg,#ffffff,#fffaf4);box-shadow:var(--shadow-lg),inset 0 0 0 1px rgba(255,255,255,.9)}
+.cover::before{content:'';position:absolute;inset:9px;border-radius:21px;border:1.5px dashed rgba(196,60,107,.3);pointer-events:none}
+.cover::after{content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:.5;
+  background-image:radial-gradient(rgba(255,111,156,.22) .7px,transparent .8px);background-size:5px 5px;
+  -webkit-mask-image:radial-gradient(90% 70% at 50% 0%,#000,transparent 75%);mask-image:radial-gradient(90% 70% at 50% 0%,#000,transparent 75%)}
+.cover .logo{width:min(250px,66%);height:auto;margin:8px auto 0;display:block;position:relative;z-index:1}
+.cover .kind{position:relative;z-index:1;margin-top:20px;font:800 13px var(--sans);letter-spacing:.32em;text-transform:uppercase;color:var(--pink-ink)}
+.cover h1{position:relative;z-index:1;margin-top:8px;font:800 clamp(32px,8.6vw,48px)/1.06 var(--display);letter-spacing:-.015em;color:var(--ink)}
+.cover h1 span,.cover h1 em{white-space:nowrap}
+.cover h1 em{font-style:normal;background:linear-gradient(90deg,#d63b73,#e2582f);-webkit-background-clip:text;background-clip:text;color:transparent}
+.cover .no{position:relative;z-index:1;margin-top:12px;font:600 13px/1.4 ui-monospace,Menlo,monospace;letter-spacing:.08em;color:var(--ink-3)}
+.cover .sample{position:relative;z-index:1;display:inline-flex;margin-top:16px;padding:7px 12px;border-radius:99px;font-size:12px;font-weight:700;text-wrap:balance;color:var(--ink-2);
+  background:var(--paper);box-shadow:inset 0 0 0 1px var(--line)}
+
+/* штамп «правило трёх да пройдено» — ложится с ударом, малиновые чернила цены из приложения */
+.stamp{position:absolute;right:14px;bottom:-46px;width:104px;height:104px;transform:rotate(-14deg);color:var(--pink-ink);opacity:.9;z-index:3;pointer-events:none;mix-blend-mode:multiply}
+.stamp svg{width:100%;height:100%;overflow:visible}
+.js .stamp{opacity:0;transform:rotate(-34deg) scale(2.1)}
+.js .stamp.hit{animation:stampHit .62s var(--eo) forwards}
+@keyframes stampHit{0%{opacity:0;transform:rotate(-34deg) scale(2.1)}55%{opacity:.95;transform:rotate(-12deg) scale(.94)}75%{transform:rotate(-14deg) scale(1.03)}100%{opacity:.9;transform:rotate(-14deg) scale(1)}}
+.cover.thud{animation:thud .28s ease-out .33s}
+@keyframes thud{0%{transform:none}35%{transform:translateY(2px) scale(.996)}100%{transform:none}}
+
+/* поля паспорта */
+.fields{margin-top:16px;padding:6px 18px;border-radius:24px;background:var(--card);box-shadow:var(--shadow)}
+.f{display:grid;grid-template-columns:1fr;gap:3px;padding:13px 0;border-bottom:1.5px dashed var(--line-2)}
+.f:last-child{border-bottom:0}
+.f dt{font:800 11px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--pink-ink)}
+.f dd{font:600 16px/1.5 var(--sans);color:var(--ink)}
+.f dd.big{font-size:18.5px;font-weight:800;line-height:1.42;color:var(--ink)}
+
+/* разделы */
+.sec{margin-top:36px}
+.sec h2{display:flex;align-items:center;gap:10px;font:800 clamp(23px,6vw,30px)/1.18 var(--display);letter-spacing:-.01em;text-wrap:balance}
+.sec h2 i{flex:0 0 auto;display:inline-grid;place-items:center;min-width:34px;height:26px;padding:0 8px;border-radius:99px;font:800 12.5px var(--sans);font-style:normal;letter-spacing:.04em;
+  color:var(--pink-deep);background:var(--pink-soft)}
+.sec > p{margin-top:10px;color:var(--ink-2)}
+.card{margin-top:14px;padding:18px;border-radius:24px;background:var(--card);box-shadow:var(--shadow)}
+
+.money{width:100%;border-collapse:collapse;margin-top:2px}
+.money td{padding:12px 0;border-bottom:1.5px dashed var(--line-2);vertical-align:top;font-weight:700}
+.money tr:last-child td{border-bottom:0}
+.money td:last-child{text-align:right;white-space:nowrap;padding-left:12px;font:800 18px/1.35 var(--display);color:var(--pink-ink)}
+.money small{display:block;font-size:13px;font-weight:600;color:var(--ink-3)}
+.note{margin-top:10px;font-size:13px;font-weight:600;color:var(--ink-3)}
+
+.game{display:grid;gap:12px;margin-top:14px}
+.game .card{margin-top:0;position:relative;padding-left:66px}
+.game .ic{position:absolute;left:16px;top:18px;width:36px;height:36px;border-radius:12px;display:grid;place-items:center;color:#fff;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 6px 14px -6px rgba(122,92,70,.45)}
+.game .ic.sun{background:linear-gradient(135deg,#ffe0a0,#ffb427)}
+.game .ic.mint{background:linear-gradient(135deg,#a8ecdc,#35c6ab)}
+.game .ic.lilac{background:linear-gradient(135deg,#d8c6ff,#a481e6)}
+.game .ic svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:2.1;stroke-linecap:round;stroke-linejoin:round}
+.game h3{font:800 18px/1.3 var(--display)}
+.game p{margin-top:4px;font-size:15px;color:var(--ink-2)}
+
+.yes{display:grid;gap:10px;margin-top:14px}
+.yes div{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;padding:14px 16px;border-radius:20px;background:var(--card);box-shadow:var(--shadow)}
+.yes b{display:grid;place-items:center;min-width:44px;height:28px;padding:0 8px;border-radius:99px;font:800 12px var(--sans);letter-spacing:.08em;text-transform:uppercase;
+  color:var(--mint-deep);background:var(--mint-soft)}
+.yes span{font-size:15px;font-weight:600;color:var(--ink)}
+
+.shots{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;margin:14px -16px 0;padding:6px 16px 22px;scrollbar-width:none}
+.shots::-webkit-scrollbar{display:none}
+.shots img{flex:0 0 auto;width:min(46vw,190px);aspect-ratio:860/1864;object-fit:cover;object-position:top;border-radius:22px;scroll-snap-align:start;
+  box-shadow:0 18px 36px -16px rgba(122,92,70,.45),0 0 0 1px rgba(46,35,28,.08);background:var(--paper-2)}
+
+.plan{list-style:none;margin-top:14px;display:grid;gap:0;position:relative}
+.plan li{position:relative;padding:0 0 18px 30px}
+.plan li::before{content:'';position:absolute;left:6px;top:8px;width:10px;height:10px;border-radius:50%;background:var(--pink);box-shadow:0 0 0 4px var(--pink-soft)}
+.plan li::after{content:'';position:absolute;left:10.5px;top:22px;bottom:0;width:1.5px;background:var(--line-2)}
+.plan li:last-child::after{display:none}
+.plan b{display:block;font:800 13px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--pink-ink)}
+.plan span{display:block;margin-top:2px;font-size:15.5px;font-weight:600;color:var(--ink)}
+
+/* финал — намеренный переход в ROCH: тёмный блок и лаймовая кнопка */
+.fin{margin-top:40px;padding:28px 20px;border-radius:28px;text-align:center;background:var(--roch);
+  box-shadow:0 30px 60px -24px rgba(11,15,12,.6),inset 0 0 0 1px rgba(212,255,79,.18)}
+.fin p{font:800 clamp(23px,6vw,30px)/1.22 var(--display);color:#f4f1ea;text-wrap:balance}
+.fin p em{font-style:normal;color:var(--lime)}
+.fin small{display:block;margin-top:8px;font-size:14px;font-weight:600;color:rgba(244,241,234,.72);text-wrap:balance}
+.cta{display:grid;gap:10px;margin-top:20px}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;min-height:56px;padding:14px 20px;border-radius:99px;font:800 16px var(--sans);text-decoration:none;
+  color:#0B1409;background:var(--lime);box-shadow:0 14px 40px -10px rgba(212,255,79,.45)}
+.btn.sec{color:#f4f1ea;background:rgba(255,255,255,.06);box-shadow:inset 0 0 0 1px rgba(255,255,255,.18)}
+.foot{margin-top:28px;text-align:center;font-size:12.5px;font-weight:600;color:var(--ink-3)}
+
+.rv{opacity:1}
+.js .rv{opacity:0;transform:translateY(16px);transition:opacity .6s var(--eo),transform .7s var(--eo)}
+.js .rv.in{opacity:1;transform:none}
+
+@media (min-width:760px){
+  .doc{padding-top:26px}
+  .cover{padding:40px 40px 36px}
+  .stamp{bottom:auto;right:18px;top:16px;width:132px;height:132px}
+  .cover .logo{width:290px}
+  .cover .kind{margin-top:24px}
+  .cover h1 em{display:block}
+  .f{grid-template-columns:200px 1fr;gap:18px;align-items:baseline}
+  .game{grid-template-columns:repeat(3,1fr)}
+  .game .card{padding:62px 18px 18px}
+  .game .ic{top:16px;left:18px}
+  .cta{grid-template-columns:1.3fr 1fr}
+}
+/* на широком экране переключатель образцов садится внутрь липкой шапки, по центру */
+@media (min-width:900px){
+  .cases{position:sticky;top:0;z-index:21;width:max-content;height:65px;margin:-65px auto 0;padding:0;overflow:visible}
+  .cases .cl{max-width:none;white-space:nowrap;font-size:11px}
+}
+@media (prefers-reduced-motion:reduce){
+  .js .stamp,.js .stamp.hit{animation:none;opacity:.9;transform:rotate(-14deg)}
+  .cover.thud{animation:none}
+  .js .rv{opacity:1;transform:none;transition:none}
+}
+</style>
+</head>
+<body>
+<header class="bar">
+  <a class="back" href="/"><span aria-hidden="true">←</span><span><b>ROCH 0→1</b></span></a>
+  <span class="tag" data-ru="Пример упаковки" data-en="Packaging sample">Пример упаковки</span>
+  <div class="lt" role="group" aria-label="Язык"><button type="button" data-l="ru" class="on">RU</button><button type="button" data-l="en">EN</button></div>
+</header>
+<nav class="cases" aria-label="Примеры паспортов" data-ru-label="Примеры паспортов" data-en-label="Sample passports">
+  <span class="cl" data-ru="Примеры паспортов" data-en="Sample passports">Примеры паспортов</span>
+  <a href="passport.html">Hotelito</a>
+  <a href="passport-babyland.html" aria-current="page">BabyLand</a>
+  <a href="passport-epoch.html">EPOCH</a>
+</nav>
+
+<!-- ===================== RU ===================== -->
+<main class="doc" lang="ru" data-lang="ru">
+  <section class="cover" id="cover">
+    <img class="logo" src="assets/passport/babyland-logo.svg" alt="BabyLand" width="302" height="64">
+    <div class="kind">Паспорт идеи</div>
+    <h1><span>Праздник</span> <span>для ребёнка</span> <em>за три минуты</em></h1>
+    <div class="no">№ 2470 · 05 · ROCH 0→1</div>
+    <span class="sample">Это пример. Ваш паспорт будет про вашу идею.</span>
+    <div class="stamp" aria-label="Правило трёх «да» пройдено"><svg viewBox="0 0 160 160" aria-hidden="true">
+      <defs><path id="sr" d="M80,80 m-58,0 a58,58 0 1,1 116,0 a58,58 0 1,1 -116,0"/></defs>
+      <circle cx="80" cy="80" r="74" fill="none" stroke="currentColor" stroke-width="3"/>
+      <circle cx="80" cy="80" r="44" fill="none" stroke="currentColor" stroke-width="1.6"/>
+      <text font-family="Nunito, sans-serif" font-size="12.5" font-weight="900" letter-spacing="1" fill="currentColor"><textPath href="#sr" textLength="356" lengthAdjust="spacing">ПРАВИЛО ТРЁХ «ДА» · ПРОЙДЕНО ·</textPath></text>
+      <text x="80" y="77" text-anchor="middle" font-family="Nunito, sans-serif" font-size="13.5" font-weight="900" fill="currentColor">ОДОБРЕНО</text>
+      <text x="80" y="95" text-anchor="middle" font-family="Nunito, sans-serif" font-size="10" font-weight="900" letter-spacing="1.5" fill="currentColor">ROCH 0→1</text>
+    </svg></div>
+  </section>
+
+  <dl class="fields rv">
+    <div class="f"><dt>Идея одной фразой</dt><dd class="big">Родитель собирает день рождения в телефоне сам и видит итоговую цену раньше, чем пишет менеджеру.</dd></div>
+    <div class="f"><dt>Владелец</dt><dd>Детский центр с игровой зоной и банкетным залом</dd></div>
+    <div class="f"><dt>Место</dt><dd>Центр города: 12 игровых зон, банкетный зал и своя комната на праздник до 30 детей</dd></div>
+    <div class="f"><dt>Формат</dt><dd>Приложение в Telegram для родителей на пяти языках</dd></div>
+  </dl>
+
+  <section class="sec rv">
+    <h2><i>I</i>Кто клиент</h2>
+    <p>Родители детей от трёх лет до подросткового возраста, которые готовят день рождения и не хотят неделю переписываться в WhatsApp. Семьи из других стран, которым удобнее читать каталог на своём языке. Мамы и папы, которые приводят детей в игровую зону на выходных и уже знают центр.</p>
+  </section>
+
+  <section class="sec rv">
+    <h2><i>II</i>Почему он вернётся</h2>
+    <p>Родитель копит звёзды клуба за праздник в центре, отзыв, приглашённого друга и подарочную коробку, которая открывается раз в день. Звёзды он сам меняет на пиньяту, залп конфетти или половину цены фотографа. Скидка в день рождения и один билет на весь день дают семье повод прийти снова.</p>
+  </section>
+
+  <section class="sec rv">
+    <h2><i>III</i>Где деньги</h2>
+    <p>Родитель сам складывает смету из стола, программы, героев и дополнений, и сумма пересчитывается после каждого нажатия. В прототипе праздник на девять детей вышел в 1 560 GEL, это около 173 GEL на ребёнка. Фотографа смета предлагает сама, потому что через час никто из родителей снимать уже не будет.</p>
+    <div class="card">
+      <table class="money">
+        <tr><td>Аниматор на праздник<small>1 час, до 10 гостей</small></td><td>240 GEL</td></tr>
+        <tr><td>Квест<small>60 минут, два ведущих</small></td><td>420 GEL</td></tr>
+        <tr><td>Научное шоу с азотом<small>30 минут, до 15 зрителей</small></td><td>470 GEL</td></tr>
+        <tr><td>Банкетный стол<small>готовые наборы на 5–15 гостей</small></td><td>от 275 GEL</td></tr>
+        <tr><td>Игровая зона<small>с ребёнка, имениннику −30&nbsp;%</small></td><td>28 GEL</td></tr>
+        <tr><td>Фото- и видеосъёмка<small>час съёмки и ролик на 30 секунд</small></td><td>380 GEL</td></tr>
+      </table>
+      <p class="note">Цены взяты из прототипа BabyLand.</p>
+    </div>
+  </section>
+
+  <section class="sec rv">
+    <h2><i>IV</i>Игровой слой</h2>
+    <p>Механики из мобильных игр, ради которых в приложение возвращаются.</p>
+    <div class="game">
+      <div class="card"><span class="ic sun"><svg viewBox="0 0 24 24"><rect x="4" y="9" width="16" height="11" rx="2"/><path d="M3 9h18M12 9v11"/><path d="M12 9c-1.6-3.4-5.6-4-5.6-1.6C6.4 9 12 9 12 9zm0 0c1.6-3.4 5.6-4 5.6-1.6C17.6 9 12 9 12 9z"/></svg></span><h3>Коробка раз в день</h3><p>Подарочная коробка открывается раз в сутки, внутри звёзды клуба. Привычка заглядывать в приложение появляется задолго до следующего дня рождения.</p></div>
+      <div class="card"><span class="ic mint"><svg viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/></svg></span><h3>Уровни клуба</h3><p>Звёзды поднимают семью от Ростка через Бамбук и Звезду до Легенды. На уровне Бамбук родитель получает приоритет на популярные даты.</p></div>
+      <div class="card"><span class="ic lilac"><svg viewBox="0 0 24 24"><circle cx="6.5" cy="7" r="2.6"/><circle cx="17.5" cy="7" r="2.6"/><circle cx="12" cy="13.5" r="6.5"/><path d="M9.6 13h.01M14.4 13h.01M10.6 16.2c.8.6 2 .6 2.8 0"/></svg></span><h3>Панда Бу</h3><p>Маскот задаёт три вопроса: сколько лет имениннику, сколько детей ждём и какой праздник хочется. В ответ он собирает стол, программу и героев с примерной ценой.</p></div>
+    </div>
+  </section>
+
+  <section class="sec rv">
+    <h2><i>V</i>Правило трёх «да»</h2>
+    <div class="yes">
+      <div><b>да</b><span>Понятно, зачем открыть приложение впервые: собрать праздник и увидеть цену без переписки с менеджером.</span></div>
+      <div><b>да</b><span>Понятно, почему родитель вернётся: коробка раз в день, звёзды клуба и скидка в день рождения.</span></div>
+      <div><b>да</b><span>Понятно, где деньги: стол, программы и дополнения складываются в одну смету и уходят в заявку.</span></div>
+    </div>
+  </section>
+
+  <section class="sec rv">
+    <h2><i>VI</i>Ключевые экраны</h2>
+    <p>Живой прототип в телефоне: его можно показать партнёру и первым родителям.</p>
+    <div class="shots" aria-label="Экраны BabyLand">
+      <img src="assets/cases/babyland-1.webp" alt="Главный экран: собрать праздник" loading="lazy" decoding="async">
+      <img src="assets/cases/babyland-3.webp" alt="Программы и шоу" loading="lazy" decoding="async">
+      <img src="assets/cases/babyland-4.webp" alt="Каталог героев" loading="lazy" decoding="async">
+      <img src="assets/cases/babyland-5.webp" alt="Карточка героя" loading="lazy" decoding="async">
+      <img src="assets/cases/babyland-6.webp" alt="Банкетный стол" loading="lazy" decoding="async">
+      <img src="assets/cases/babyland-7.webp" alt="Смета праздника" loading="lazy" decoding="async">
+    </div>
+  </section>
+
+  <section class="sec rv">
+    <h2><i>VII</i>С чего начать и план запуска</h2>
+    <p>Первая версия: каталог программ, героев и столов с ценами, смета, которая пересчитывается на лету, клуб со звёздами и заявка, которая уходит в Telegram-бот центра. Цены, программы и фото администратор меняет сам, без разработчика.</p>
+    <ol class="plan">
+      <li><b>Дни 1–2</b><span>Паспорт идеи и игровой слой</span></li>
+      <li><b>Дни 3–4</b><span>Живой прототип ключевых сценариев в телефоне</span></li>
+      <li><b>День 5</b><span>Показ, план запуска и смета разработки</span></li>
+      <li><b>Дальше</b><span>Разработка в моей студии AppHub по смете или вашей командой: файлы и права ваши</span></li>
+    </ol>
+  </section>
+
+  <section class="fin rv">
+    <p>Хотите такой же <em>про свою идею?</em></p>
+    <small>Упаковка за 5 дней стоит $1 490. Первые 30 минут бесплатно.</small>
+    <div class="cta">
+      <a class="btn" target="_blank" rel="noopener" href="https://t.me/broch?text=%D0%9F%D1%80%D0%B8%D0%B2%D0%B5%D1%82%2C%20%D0%A0%D0%BE%D0%BC%D0%B0%21%20%D0%A3%D0%B2%D0%B8%D0%B4%D0%B5%D0%BB%20%D0%BF%D0%B0%D1%81%D0%BF%D0%BE%D1%80%D1%82%20%D0%B8%D0%B4%D0%B5%D0%B8%20BabyLand.%20%D0%A5%D0%BE%D1%87%D1%83%20%D1%83%D0%BF%D0%B0%D0%BA%D0%BE%D0%B2%D0%B0%D1%82%D1%8C%20%D1%81%D0%B2%D0%BE%D1%8E%20%D0%B8%D0%B4%D0%B5%D1%8E%20%D0%B7%D0%B0%20%241%20490.%20%D0%98%D0%B4%D0%B5%D1%8F%3A%20%E2%80%A6">Упаковать мою идею — $1 490</a>
+      <a class="btn sec" href="/#contact">Рассказать идею бесплатно</a>
+    </div>
+  </section>
+  <p class="foot">ROCH 0→1 · распаковка и упаковка идей · roch-art.com</p>
+</main>
+
+<!-- ===================== EN ===================== -->
+<main class="doc" lang="en" data-lang="en" hidden>
+  <section class="cover" id="coverEn">
+    <img class="logo" src="assets/passport/babyland-logo.svg" alt="BabyLand" width="302" height="64">
+    <div class="kind">Idea passport</div>
+    <h1><span>A kids’ party</span> <em>in three minutes</em></h1>
+    <div class="no">No. 2470 · 05 · ROCH 0→1</div>
+    <span class="sample">This is a sample. Yours will be about your idea.</span>
+    <div class="stamp" aria-label="Three-yes rule passed"><svg viewBox="0 0 160 160" aria-hidden="true">
+      <defs><path id="srEn" d="M80,80 m-58,0 a58,58 0 1,1 116,0 a58,58 0 1,1 -116,0"/></defs>
+      <circle cx="80" cy="80" r="74" fill="none" stroke="currentColor" stroke-width="3"/>
+      <circle cx="80" cy="80" r="44" fill="none" stroke="currentColor" stroke-width="1.6"/>
+      <text font-family="Nunito, sans-serif" font-size="12.5" font-weight="900" letter-spacing="1" fill="currentColor"><textPath href="#srEn" textLength="356" lengthAdjust="spacing">THREE-YES RULE · PASSED · ROCH 0→1 ·</textPath></text>
+      <text x="80" y="77" text-anchor="middle" font-family="Nunito, sans-serif" font-size="14" font-weight="900" fill="currentColor">APPROVED</text>
+      <text x="80" y="95" text-anchor="middle" font-family="Nunito, sans-serif" font-size="10" font-weight="900" letter-spacing="1.5" fill="currentColor">ROCH 0→1</text>
+    </svg></div>
+  </section>
+
+  <dl class="fields rv">
+    <div class="f"><dt>The idea in one line</dt><dd class="big">Parents build the birthday party on their phone themselves and see the final price before they ever message a manager.</dd></div>
+    <div class="f"><dt>Owner</dt><dd>A kids’ centre with a play area and a banquet room</dd></div>
+    <div class="f"><dt>Place</dt><dd>City centre: 12 play zones, a banquet room and a private party room for up to 30 children</dd></div>
+    <div class="f"><dt>Format</dt><dd>A Telegram app for parents in five languages</dd></div>
+  </dl>
+
+  <section class="sec rv">
+    <h2><i>I</i>Who the customer is</h2>
+    <p>Parents of children from three years old to their early teens who are planning a birthday and do not want to spend a week messaging on WhatsApp. Families from other countries who would rather read the catalogue in their own language. Mums and dads who bring their kids to the play area at weekends and already know the centre.</p>
+  </section>
+
+  <section class="sec rv">
+    <h2><i>II</i>Why they come back</h2>
+    <p>Parents collect club stars for a party at the centre, a review, an invited friend and a gift box that opens once a day. They spend the stars themselves on a piñata, a confetti blast or half the price of a photographer. The birthday discount and one ticket for the whole day give the family a reason to come back.</p>
+  </section>
+
+  <section class="sec rv">
+    <h2><i>III</i>Where the money is</h2>
+    <p>Parents put the quote together themselves from the table, the programme, the characters and the extras, and the total updates after every tap. In the prototype a party for nine children came to 1,560 GEL, about 173 GEL per child. The quote suggests a photographer on its own, because an hour in, none of the parents will be filming any more.</p>
+    <div class="card">
+      <table class="money">
+        <tr><td>Party entertainer<small>1 hour, up to 10 guests</small></td><td>240 GEL</td></tr>
+        <tr><td>Quest<small>60 minutes, two hosts</small></td><td>420 GEL</td></tr>
+        <tr><td>Science show with liquid nitrogen<small>30 minutes, up to 15 spectators</small></td><td>470 GEL</td></tr>
+        <tr><td>Banquet table<small>ready-made sets for 5–15 guests</small></td><td>from 275 GEL</td></tr>
+        <tr><td>Play area<small>per child, 30% off for the birthday&nbsp;child</small></td><td>28 GEL</td></tr>
+        <tr><td>Photo and video<small>one hour of shooting and a 30-second clip</small></td><td>380 GEL</td></tr>
+      </table>
+      <p class="note">Prices are taken from the BabyLand prototype.</p>
+    </div>
+  </section>
+
+  <section class="sec rv">
+    <h2><i>IV</i>Game layer</h2>
+    <p>Mechanics from mobile games that bring people back to the app.</p>
+    <div class="game">
+      <div class="card"><span class="ic sun"><svg viewBox="0 0 24 24"><rect x="4" y="9" width="16" height="11" rx="2"/><path d="M3 9h18M12 9v11"/><path d="M12 9c-1.6-3.4-5.6-4-5.6-1.6C6.4 9 12 9 12 9zm0 0c1.6-3.4 5.6-4 5.6-1.6C17.6 9 12 9 12 9z"/></svg></span><h3>A box once a day</h3><p>A gift box opens once every 24 hours with club stars inside. The habit of checking the app forms long before the next birthday.</p></div>
+      <div class="card"><span class="ic mint"><svg viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/></svg></span><h3>Club levels</h3><p>Stars lift the family from Sprout through Bamboo and Star to Legend. At Bamboo, parents get priority on popular dates.</p></div>
+      <div class="card"><span class="ic lilac"><svg viewBox="0 0 24 24"><circle cx="6.5" cy="7" r="2.6"/><circle cx="17.5" cy="7" r="2.6"/><circle cx="12" cy="13.5" r="6.5"/><path d="M9.6 13h.01M14.4 13h.01M10.6 16.2c.8.6 2 .6 2.8 0"/></svg></span><h3>Boo the panda</h3><p>The mascot asks three questions: how old the birthday child is, how many children are coming and what kind of party they want. Then it puts together a table, a programme and characters with an estimated price.</p></div>
+    </div>
+  </section>
+
+  <section class="sec rv">
+    <h2><i>V</i>The three-yes rule</h2>
+    <div class="yes">
+      <div><b>yes</b><span>It is clear why someone opens the app the first time: to build a party and see the price without messaging a manager.</span></div>
+      <div><b>yes</b><span>It is clear why the parent comes back: the daily box, club stars and the birthday discount.</span></div>
+      <div><b>yes</b><span>It is clear where the money is: the table, programmes and extras add up to one quote that goes out as a request.</span></div>
+    </div>
+  </section>
+
+  <section class="sec rv">
+    <h2><i>VI</i>Key screens</h2>
+    <p>A live prototype on your phone that you can show to a partner and your first parents.</p>
+    <div class="shots" aria-label="BabyLand screens">
+      <img src="assets/cases/babyland-1.webp" alt="Home screen: build a party" loading="lazy" decoding="async">
+      <img src="assets/cases/babyland-3.webp" alt="Programmes and shows" loading="lazy" decoding="async">
+      <img src="assets/cases/babyland-4.webp" alt="Character catalogue" loading="lazy" decoding="async">
+      <img src="assets/cases/babyland-5.webp" alt="Character card" loading="lazy" decoding="async">
+      <img src="assets/cases/babyland-6.webp" alt="Banquet table" loading="lazy" decoding="async">
+      <img src="assets/cases/babyland-7.webp" alt="Party quote" loading="lazy" decoding="async">
+    </div>
+  </section>
+
+  <section class="sec rv">
+    <h2><i>VII</i>Where to start and the launch plan</h2>
+    <p>The first version: a catalogue of programmes, characters and tables with prices, a quote that updates on the fly, a club with stars, and requests that go straight to the centre’s Telegram bot. The administrator changes prices, programmes and photos without a developer.</p>
+    <ol class="plan">
+      <li><b>Days 1–2</b><span>Idea passport and game layer</span></li>
+      <li><b>Days 3–4</b><span>A live prototype of the key flows on your phone</span></li>
+      <li><b>Day 5</b><span>Walkthrough, launch plan and development estimate</span></li>
+      <li><b>Then</b><span>Development at my studio AppHub by the estimate, or by your own team: the files and rights are yours</span></li>
+    </ol>
+  </section>
+
+  <section class="fin rv">
+    <p>Want one like this <em>for your idea?</em></p>
+    <small>Packaging in 5 days costs $1,490. The first 30 minutes are free.</small>
+    <div class="cta">
+      <a class="btn" target="_blank" rel="noopener" href="https://t.me/broch?text=Hi%20Roma%21%20I%20saw%20the%20BabyLand%20idea%20passport.%20I%20want%20my%20idea%20packaged%20for%20%241%2C490.%20The%20idea%3A%20%E2%80%A6">Package my idea — $1,490</a>
+      <a class="btn sec" href="/#contact">Share your idea for free</a>
+    </div>
+  </section>
+  <p class="foot">ROCH 0→1 · idea unpacking and packaging · roch-art.com</p>
+</main>
+
+<script>
+(function(){
+  'use strict';
+  var root = document.documentElement; root.classList.add('js');
+  var reduced = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var LS = 'roch_lang', lang = 'ru';
+  try{ lang = localStorage.getItem(LS) === 'en' ? 'en' : 'ru'; }catch(e){}
+  var swaps = document.querySelectorAll('body > header [data-ru], body > nav [data-ru]');
+  var nav = document.querySelector('nav.cases');
+  var apply = function(l){
+    lang = l; root.lang = l;
+    Array.prototype.forEach.call(document.querySelectorAll('main[data-lang]'), function(m){ m.hidden = m.getAttribute('data-lang') !== l; });
+    Array.prototype.forEach.call(document.querySelectorAll('.lt button'), function(b){ b.classList.toggle('on', b.getAttribute('data-l') === l); });
+    Array.prototype.forEach.call(swaps, function(el){ el.textContent = el.getAttribute('data-' + l); });
+    if(nav) nav.setAttribute('aria-label', nav.getAttribute('data-' + l + '-label'));
+    document.title = l === 'en' ? 'Idea passport · BabyLand — ROCH 0→1 packaging sample' : 'Паспорт идеи · BabyLand — пример упаковки ROCH 0→1';
+    stampIn();
+  };
+  Array.prototype.forEach.call(document.querySelectorAll('.lt button'), function(b){
+    b.addEventListener('click', function(){ var l = b.getAttribute('data-l'); try{ localStorage.setItem(LS, l); }catch(e){} apply(l); });
+  });
+  /* штамп ложится один раз на видимую обложку: удар, лёгкая отдача карточки */
+  var stampIn = function(){
+    var cov = document.querySelector('main[data-lang="' + lang + '"] .cover'), st = cov && cov.querySelector('.stamp');
+    if(!st || st.classList.contains('hit')) return;
+    if(reduced){ st.classList.add('hit'); return; }
+    setTimeout(function(){ st.classList.add('hit'); cov.classList.add('thud'); }, 450);
+  };
+  if('IntersectionObserver' in window && !reduced){
+    var io = new IntersectionObserver(function(en){ en.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } }); }, { rootMargin: '0px 0px -8% 0px' });
+    Array.prototype.forEach.call(document.querySelectorAll('.rv'), function(el){ io.observe(el); });
+  } else Array.prototype.forEach.call(document.querySelectorAll('.rv'), function(el){ el.classList.add('in'); });
+  apply(lang);
+})();
+</script>
+</body>
+</html>

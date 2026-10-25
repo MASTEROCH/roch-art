@@ -1,0 +1,442 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Паспорт идеи · EPOCH — пример упаковки ROCH 0→1</title>
+<meta name="description" content="Пример паспорта идеи из упаковки ROCH 0→1 на проекте EPOCH: кто клиент, почему он вернётся, где деньги, игровой слой и план запуска.">
+<link rel="canonical" href="https://roch-art.com/passport-epoch.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Паспорт идеи · EPOCH — пример упаковки ROCH 0→1">
+<meta property="og:description" content="Так выглядит паспорт идеи, который вы получаете в упаковке за $1 490: клиент, возврат, деньги, игровой слой и план запуска.">
+<meta property="og:image" content="https://roch-art.com/assets/og-cover.jpg?v=5">
+<meta name="theme-color" content="#0B0A08">
+<link rel="icon" href="assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Паспорт идеи — образец упаковки ROCH 0→1 на тёмной теме EPOCH (токены из живого приложения epoch-client-lovat.vercel.app):
+   фон #0B0A08 с оливковым, золотым и винным свечением, карточки rgba(255,252,244,.045), текст rgba(255,251,243,.96) / .63 / .52,
+   олива #A3BE81 · #C2D7A6 · #51683C, золото #D9B36C · #F0D9A8, вино #8E2436 · #B8394E; радиусы 10 / 16 / 22; Cormorant Garamond + Inter.
+   Всё про EPOCH — из его прототипа (цены, механики, экраны); ROCH возвращается только в шапке и финальной кнопке. */
+:root{
+  color-scheme:dark;
+  --paper:#0B0A08;--paper-2:#070605;
+  --card:rgba(255,252,244,.045);--card-2:rgba(255,252,244,.075);
+  --ink:rgba(255,251,243,.96);--ink-2:rgba(244,238,226,.66);--ink-3:rgba(244,238,226,.52);
+  --green:#A3BE81;--green-hi:#C2D7A6;--green-deep:#51683C;--on-green:#16200E;
+  --gold:#D9B36C;--gold-hi:#F0D9A8;--wine:#8E2436;--wine-hi:#B8394E;
+  --line:rgba(255,250,238,.085);--line-2:rgba(255,250,238,.15);
+  --shadow-card:0 1px 0 rgba(255,252,244,.045) inset,0 8px 24px -10px rgba(0,0,0,.66);
+  --lime:#D4FF4F;
+  --serif:"Cormorant Garamond","Noto Serif Georgian",Georgia,serif;--sans:"Inter",-apple-system,system-ui,sans-serif;
+  --eo:cubic-bezier(.16,1,.3,1);--es:cubic-bezier(.34,1.56,.64,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;background:var(--paper)}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;
+  background-image:radial-gradient(100% 50% at 50% -6%,rgba(81,104,60,.24),transparent 62%),radial-gradient(70% 40% at 100% 100%,rgba(217,179,108,.09),transparent 62%),
+    radial-gradient(60% 40% at 0% 42%,rgba(142,36,54,.07),transparent 62%)}
+a{color:inherit}
+[hidden]{display:none!important}
+
+.bar{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:12px;padding:calc(12px + env(safe-area-inset-top)) 16px 12px;
+  background:rgba(11,10,8,.74);-webkit-backdrop-filter:blur(24px) saturate(180%);backdrop-filter:blur(24px) saturate(180%);border-bottom:1px solid var(--line)}
+.bar .back{display:inline-flex;align-items:center;gap:6px;min-height:40px;font-size:14px;font-weight:600;color:var(--ink-2);text-decoration:none;white-space:nowrap}
+.bar .back b{color:var(--lime);font-weight:700}
+.bar .tag{margin-left:auto;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);white-space:nowrap}
+.bar .lt{margin-left:auto}
+.bar .tag + .lt{margin-left:0}
+@media (max-width:559px){.bar .tag{display:none}.bar .tag + .lt{margin-left:auto}}
+.lt{display:flex;gap:2px;padding:3px;border-radius:99px;background:rgba(255,252,244,.05);box-shadow:inset 0 0 0 1px var(--line)}
+.lt button{min-width:40px;min-height:32px;padding:0 10px;border:0;border-radius:99px;background:none;color:var(--ink-3);font:600 12px var(--sans);letter-spacing:.06em;cursor:pointer}
+.lt button.on{color:var(--on-green);background:var(--green)}
+
+/* переключатель образцов: Hotelito · BabyLand · EPOCH */
+.cases{display:flex;align-items:center;gap:6px;max-width:760px;margin:0 auto;padding:12px 16px 0;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.cases::-webkit-scrollbar{display:none}
+.cases .cl{flex:0 0 auto;max-width:84px;margin-right:4px;font:600 10.5px/1.15 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.cases a{flex:0 0 auto;display:inline-flex;align-items:center;min-height:32px;padding:0 12px;border-radius:99px;font:500 13px var(--sans);text-decoration:none;white-space:nowrap;
+  color:var(--ink-2);background:var(--card);box-shadow:inset 0 0 0 1px var(--line-2)}
+.cases a[aria-current]{color:var(--on-green);font-weight:600;background:var(--green);box-shadow:0 8px 24px -10px rgba(163,190,129,.55)}
+
+.doc{max-width:760px;margin:0 auto;padding:18px 16px 60px}
+
+/* обложка паспорта — тёмная олива с золотой рамкой, как меню в кожаной папке */
+.cover{position:relative;z-index:2;padding:30px 22px 66px;border-radius:26px;text-align:center;
+  background:radial-gradient(120% 70% at 50% 0%,rgba(81,104,60,.42),transparent 62%),linear-gradient(180deg,#161812,#0e0d0a);
+  box-shadow:0 30px 70px -20px rgba(0,0,0,.8),inset 0 0 0 1px var(--line-2)}
+.cover::before{content:'';position:absolute;inset:9px;border-radius:19px;border:1px solid rgba(217,179,108,.32);pointer-events:none}
+.cover::after{content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:.2;
+  background-image:radial-gradient(rgba(255,251,243,.2) .6px,transparent .7px);background-size:4px 4px}
+.cover .logo{width:min(138px,40%);height:auto;margin:8px auto 0;display:block;position:relative;z-index:1}
+.cover .kind{position:relative;z-index:1;margin-top:22px;font:600 12.5px var(--sans);letter-spacing:.34em;text-transform:uppercase;color:var(--gold)}
+.cover h1{position:relative;z-index:1;margin-top:10px;font:600 clamp(34px,9.1vw,58px)/1.04 var(--serif);font-variant-numeric:lining-nums;letter-spacing:-.005em;color:var(--ink);text-wrap:balance}
+.cover h1 span{white-space:nowrap}
+.cover h1 em{display:inline-block}
+.cover h1 em{font-style:italic;font-weight:500;color:var(--green)}
+.cover .no{position:relative;z-index:1;margin-top:14px;font:500 13px/1.4 ui-monospace,Menlo,monospace;letter-spacing:.08em;color:var(--ink-3)}
+.cover .sample{position:relative;z-index:1;display:inline-flex;margin-top:16px;padding:7px 13px;border-radius:99px;font-size:12px;font-weight:500;color:var(--ink-2);text-wrap:balance;
+  background:rgba(255,252,244,.05);box-shadow:inset 0 0 0 1px var(--line)}
+
+/* штамп «правило трёх да пройдено» — винные чернила EPOCH, ложится с ударом */
+.stamp{position:absolute;right:14px;bottom:-46px;width:104px;height:104px;transform:rotate(-14deg);color:#C4475C;opacity:.94;z-index:3;pointer-events:none}
+.stamp svg{width:100%;height:100%;overflow:visible}
+.js .stamp{opacity:0;transform:rotate(-34deg) scale(2.1)}
+.js .stamp.hit{animation:stampHit .62s var(--eo) forwards}
+@keyframes stampHit{0%{opacity:0;transform:rotate(-34deg) scale(2.1)}55%{opacity:.98;transform:rotate(-12deg) scale(.94)}75%{transform:rotate(-14deg) scale(1.03)}100%{opacity:.94;transform:rotate(-14deg) scale(1)}}
+.cover.thud{animation:thud .28s ease-out .33s}
+@keyframes thud{0%{transform:none}35%{transform:translateY(2px) scale(.996)}100%{transform:none}}
+
+/* поля паспорта */
+.fields{position:relative;margin-top:16px;padding:6px 18px;border-radius:22px;background:var(--card);box-shadow:inset 0 0 0 1px var(--line),var(--shadow-card)}
+.f{display:grid;grid-template-columns:1fr;gap:3px;padding:13px 0;border-bottom:1px dashed var(--line-2)}
+.f:last-child{border-bottom:0}
+.f dt{font:600 11px var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
+.f dd{font:500 19.5px/1.38 var(--serif);font-variant-numeric:lining-nums;color:var(--ink)}
+.f dd.big{font-size:23px;font-style:italic;line-height:1.3}
+
+/* разделы */
+.sec{margin-top:38px}
+.sec h2{display:flex;align-items:baseline;gap:12px;font:600 clamp(27px,7vw,36px)/1.12 var(--serif);font-variant-numeric:lining-nums;text-wrap:balance}
+.sec h2 i{font:italic 500 19px var(--serif);color:var(--gold);min-width:28px}
+.sec > p{margin-top:10px;color:var(--ink-2)}
+.card{margin-top:14px;padding:18px;border-radius:22px;background:var(--card);box-shadow:inset 0 0 0 1px var(--line),var(--shadow-card)}
+
+.money{width:100%;border-collapse:collapse;margin-top:2px}
+.money td{padding:12px 0;border-bottom:1px dashed var(--line-2);vertical-align:top;font-weight:500}
+.money tr:last-child td{border-bottom:0}
+.money td:last-child{text-align:right;white-space:nowrap;padding-left:12px;font:700 17px/1.5 var(--sans);color:var(--green)}
+.money small{display:block;font-size:13px;font-weight:400;color:var(--ink-3)}
+.note{margin-top:10px;font-size:13px;color:var(--ink-3)}
+
+.game{display:grid;gap:12px;margin-top:14px}
+.game .card{margin-top:0;position:relative;padding-left:64px}
+.game .ic{position:absolute;left:16px;top:18px;width:34px;height:34px;border-radius:10px;display:grid;place-items:center;
+  color:var(--green-hi);background:rgba(163,190,129,.12);box-shadow:inset 0 0 0 1px rgba(163,190,129,.3)}
+.game .ic svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.game h3{font:600 22px/1.2 var(--serif)}
+.game p{margin-top:5px;font-size:15px;color:var(--ink-2)}
+
+.yes{display:grid;gap:10px;margin-top:14px}
+.yes div{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;padding:14px 16px;border-radius:16px;background:var(--card);box-shadow:inset 0 0 0 1px var(--line)}
+.yes b{display:grid;place-items:center;min-width:44px;height:28px;padding:0 8px;border-radius:99px;font:600 12px var(--sans);letter-spacing:.08em;text-transform:uppercase;
+  color:var(--green);background:rgba(163,190,129,.12);box-shadow:inset 0 0 0 1px rgba(163,190,129,.35)}
+.yes span{font-size:15px;color:var(--ink)}
+
+.shots{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;margin:14px -16px 0;padding:4px 16px 18px;scrollbar-width:none}
+.shots::-webkit-scrollbar{display:none}
+.shots img{flex:0 0 auto;width:min(46vw,190px);aspect-ratio:860/1864;object-fit:cover;object-position:top;border-radius:22px;scroll-snap-align:start;
+  box-shadow:0 18px 40px -14px rgba(0,0,0,.8),0 0 0 1px var(--line-2);background:var(--card-2)}
+
+.plan{list-style:none;margin-top:14px;display:grid;gap:0;position:relative}
+.plan li{position:relative;padding:0 0 18px 30px}
+.plan li::before{content:'';position:absolute;left:6px;top:8px;width:9px;height:9px;border-radius:50%;background:var(--green);box-shadow:0 0 0 4px rgba(163,190,129,.16)}
+.plan li::after{content:'';position:absolute;left:10px;top:20px;bottom:0;width:1px;background:var(--line-2)}
+.plan li:last-child::after{display:none}
+.plan b{display:block;font:600 12.5px var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+.plan span{display:block;margin-top:2px;font-size:15.5px;color:var(--ink)}
+
+/* финал — возвращаемся в ROCH: лаймовая кнопка */
+.fin{margin-top:42px;padding:28px 20px;border-radius:26px;text-align:center;background:linear-gradient(180deg,#10150f,#0B0F0C);
+  box-shadow:inset 0 0 0 1px rgba(212,255,79,.2),0 30px 60px -30px rgba(212,255,79,.18)}
+.fin p{font:600 clamp(27px,7vw,36px)/1.15 var(--serif);color:var(--ink);text-wrap:balance}
+.fin p em{font-style:italic;font-weight:500;color:var(--lime)}
+.fin small{display:block;margin-top:8px;font-size:14px;color:var(--ink-2);text-wrap:balance}
+.cta{display:grid;gap:10px;margin-top:20px}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;min-height:56px;padding:14px 20px;border-radius:99px;font:600 16px var(--sans);text-decoration:none;
+  color:#0B1409;background:var(--lime);box-shadow:0 14px 40px -10px rgba(212,255,79,.45)}
+.btn.sec{color:var(--ink);background:rgba(255,252,244,.06);box-shadow:inset 0 0 0 1px var(--line-2)}
+.foot{margin-top:28px;text-align:center;font-size:12.5px;color:var(--ink-3)}
+
+.rv{opacity:1}
+.js .rv{opacity:0;transform:translateY(16px);transition:opacity .6s var(--eo),transform .7s var(--eo)}
+.js .rv.in{opacity:1;transform:none}
+
+@media (min-width:760px){
+  .doc{padding-top:26px}
+  .cover{padding:40px 40px 38px}
+  .cover .logo{width:158px}
+  .cover h1 em{display:block}
+  .stamp{bottom:auto;right:18px;top:16px;width:132px;height:132px}
+  .f{grid-template-columns:200px 1fr;gap:18px;align-items:baseline}
+  .game{grid-template-columns:repeat(3,1fr)}
+  .game .card{padding:60px 18px 18px}
+  .game .ic{top:16px;left:18px}
+  .cta{grid-template-columns:1.3fr 1fr}
+}
+/* на широком экране переключатель образцов садится внутрь липкой шапки, по центру */
+@media (min-width:900px){
+  .cases{position:sticky;top:0;z-index:21;width:max-content;height:65px;margin:-65px auto 0;padding:0;overflow:visible}
+  .cases .cl{max-width:none;white-space:nowrap;font-size:11px}
+}
+@media (prefers-reduced-motion:reduce){
+  .js .stamp,.js .stamp.hit{animation:none;opacity:.94;transform:rotate(-14deg)}
+  .cover.thud{animation:none}
+  .js .rv{opacity:1;transform:none;transition:none}
+}
+</style>
+</head>
+<body>
+<header class="bar">
+  <a class="back" href="/"><span aria-hidden="true">←</span><span><b>ROCH 0→1</b></span></a>
+  <span class="tag" data-ru="Пример упаковки" data-en="Packaging sample">Пример упаковки</span>
+  <div class="lt" role="group" aria-label="Язык"><button type="button" data-l="ru" class="on">RU</button><button type="button" data-l="en">EN</button></div>
+</header>
+<nav class="cases" aria-label="Примеры паспортов" data-ru-label="Примеры паспортов" data-en-label="Sample passports">
+  <span class="cl" data-ru="Примеры паспортов" data-en="Sample passports">Примеры паспортов</span>
+  <a href="passport.html">Hotelito</a>
+  <a href="passport-babyland.html">BabyLand</a>
+  <a href="passport-epoch.html" aria-current="page">EPOCH</a>
+</nav>
+
+<!-- ===================== RU ===================== -->
+<main class="doc" lang="ru" data-lang="ru">
+  <section class="cover" id="cover">
+    <img class="logo" src="assets/passport/epoch-logo.png" alt="EPOCH Restaurant" width="420" height="397">
+    <div class="kind">Паспорт идеи</div>
+    <h1><span>Здесь отмечают</span> <em>то, что запоминается</em></h1>
+    <div class="no">№ 0020 · 05 · ROCH 0→1</div>
+    <span class="sample">Это пример. Ваш паспорт будет про вашу идею.</span>
+    <div class="stamp" aria-label="Правило трёх «да» пройдено"><svg viewBox="0 0 160 160" aria-hidden="true">
+      <defs><path id="sr" d="M80,80 m-58,0 a58,58 0 1,1 116,0 a58,58 0 1,1 -116,0"/></defs>
+      <circle cx="80" cy="80" r="74" fill="none" stroke="currentColor" stroke-width="3"/>
+      <circle cx="80" cy="80" r="44" fill="none" stroke="currentColor" stroke-width="1.6"/>
+      <text font-family="Inter, sans-serif" font-size="12" font-weight="700" letter-spacing="1" fill="currentColor"><textPath href="#sr" textLength="356" lengthAdjust="spacing">ПРАВИЛО ТРЁХ «ДА» · ПРОЙДЕНО ·</textPath></text>
+      <text x="80" y="78" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="15" font-weight="700" fill="currentColor">ОДОБРЕНО</text>
+      <text x="80" y="95" text-anchor="middle" font-family="Inter, sans-serif" font-size="9.5" font-weight="700" letter-spacing="1.5" fill="currentColor">ROCH 0→1</text>
+    </svg></div>
+  </section>
+
+  <dl class="fields rv">
+    <div class="f"><dt>Идея одной фразой</dt><dd class="big">Банкет приводит гостя впервые, а QR-карта со штампами и баллами превращает его в постоянного.</dd></div>
+    <div class="f"><dt>Заведение</dt><dd>Ресторан и банкетный зал EPOCH, грузинская и европейская кухня</dd></div>
+    <div class="f"><dt>Место</dt><dd>Батуми, Airport Highway N20. Открыто каждый день с 11:00 до 22:00, есть VIP-зал на 8–24 человека</dd></div>
+    <div class="f"><dt>Формат</dt><dd>Приложение в Telegram для гостей на трёх языках и панель управления для команды</dd></div>
+  </dl>
+
+  <section class="sec rv">
+    <h2><i>I</i>Кто клиент</h2>
+    <p>Пары и семьи Батуми, которые ищут зал на свадьбу, юбилей, день рождения или предложение руки и сердца. Туристы, которым нужно меню на понятном языке и стол на вечер без звонка. Компании, которые собираются на ужин в VIP-зале до 24 человек.</p>
+  </section>
+
+  <section class="sec rv">
+    <h2><i>II</i>Почему он вернётся</h2>
+    <p>Каждый визит оставляет след. Официант сканирует QR-код гостя и ставит штамп, а десятый штамп приносит бесплатный десерт. Баллы начисляются за каждый лари и ведут гостя от серебра к золоту, а друг по приглашению приносит бонусы обоим. Меню запоминает аллергии и диету и подсвечивает блюда, которые гостю подходят.</p>
+  </section>
+
+  <section class="sec rv">
+    <h2><i>III</i>Где деньги</h2>
+    <p>Деньги приходят с трёх сторон: заказ из меню в зале и с собой, вечер по брони стола и событие в банкетном зале. Корзина сразу предлагает чаевые 10, 15 или 20&nbsp;% и принимает оплату картой у стола, наличными или в TON из кошелька в Telegram.</p>
+    <div class="card">
+      <table class="money">
+        <tr><td>Грузинский салат<small>закуски</small></td><td>14 ₾</td></tr>
+        <tr><td>Мегрельский хачапури<small>хачапури и выпечка</small></td><td>26 ₾</td></tr>
+        <tr><td>Чакапули<small>супы</small></td><td>35 ₾</td></tr>
+        <tr><td>Дорадо на мангале<small>горячее</small></td><td>38 ₾</td></tr>
+        <tr><td>Royal Хванчкара<small>вино из бара</small></td><td>110 ₾</td></tr>
+        <tr><td>Свадьба, юбилей или предложение<small>зал и меню под событие</small></td><td>по запросу</td></tr>
+      </table>
+      <p class="note">Цены взяты из прототипа EPOCH, в меню больше трёхсот позиций.</p>
+    </div>
+  </section>
+
+  <section class="sec rv">
+    <h2><i>IV</i>Игровой слой</h2>
+    <p>Механики из мобильных игр, ради которых в приложение возвращаются.</p>
+    <div class="game">
+      <div class="card"><span class="ic"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 8h3v3H8zM13 8h3M13 11h3M8 13h3M8 16h3M14 14h2v2h-2z"/></svg></span><h3>Карта штампов</h3><p>Официант сканирует QR-код гостя и ставит штамп за визит. Десятый штамп приносит бесплатный десерт, и гость сам считает, сколько осталось.</p></div>
+      <div class="card"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="9" r="5"/><path d="M9 13.5L7.5 21l4.5-2.5 4.5 2.5-1.5-7.5"/></svg></span><h3>Серебро и золото</h3><p>Баллы копятся за каждый лари, и гость видит, сколько осталось до следующего уровня. Друг, приглашённый по QR-коду, приносит бонусные баллы обоим.</p></div>
+      <div class="card"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg></span><h3>Событие по шагам</h3><p>Гость выбирает повод: день рождения со столом, тортом и музыкой или предложение руки и сердца со стеной из роз и неоном «Marry Me». Праздник собирается в приложении, а не в переписке с администратором.</p></div>
+    </div>
+  </section>
+
+  <section class="sec rv">
+    <h2><i>V</i>Правило трёх «да»</h2>
+    <div class="yes">
+      <div><b>да</b><span>Понятно, зачем открыть приложение впервые: посмотреть меню с фото и ценами, забронировать стол или собрать событие.</span></div>
+      <div><b>да</b><span>Понятно, почему гость вернётся: штампы по QR-коду, баллы, уровни и десерт за десятый визит.</span></div>
+      <div><b>да</b><span>Понятно, где деньги: заказ из меню, бронь стола и банкеты, а владелец видит выручку смены в панели.</span></div>
+    </div>
+  </section>
+
+  <section class="sec rv">
+    <h2><i>VI</i>Ключевые экраны</h2>
+    <p>Живой прототип в телефоне и панель управления: их можно показать партнёру и команде зала.</p>
+    <div class="shots" aria-label="Экраны EPOCH">
+      <img src="assets/cases/epoch-1.webp" alt="Главный экран ресторана" loading="lazy" decoding="async">
+      <img src="assets/cases/epoch-2.webp" alt="Меню с фото и ценами" loading="lazy" decoding="async">
+      <img src="assets/cases/epoch-3.webp" alt="Корзина и чаевые" loading="lazy" decoding="async">
+      <img src="assets/cases/epoch-4.webp" alt="Бронь стола по шагам" loading="lazy" decoding="async">
+      <img src="assets/cases/epoch-5.webp" alt="Событие в банкетном зале" loading="lazy" decoding="async">
+      <img src="assets/cases/epoch-7.webp" alt="Панель управления: кто заходит" loading="lazy" decoding="async">
+      <img src="assets/cases/epoch-8.webp" alt="Панель управления: сегодня" loading="lazy" decoding="async">
+    </div>
+  </section>
+
+  <section class="sec rv">
+    <h2><i>VII</i>С чего начать и план запуска</h2>
+    <p>Первая версия: меню с фото и корзиной на трёх языках, бронь стола за пять шагов, сборка события и QR-карта гостя. Для команды панель с ролями владельца, управляющего и официанта, где видны выручка и заказы смены, брони на подтверждение и редактор меню.</p>
+    <ol class="plan">
+      <li><b>Дни 1–2</b><span>Паспорт идеи и игровой слой</span></li>
+      <li><b>Дни 3–4</b><span>Живой прототип ключевых сценариев в телефоне</span></li>
+      <li><b>День 5</b><span>Показ, план запуска и смета разработки</span></li>
+      <li><b>Дальше</b><span>Разработка в моей студии AppHub по смете или вашей командой: файлы и права ваши</span></li>
+    </ol>
+  </section>
+
+  <section class="fin rv">
+    <p>Хотите такой же <em>про свою идею?</em></p>
+    <small>Упаковка за 5 дней стоит $1 490. Первые 30 минут бесплатно.</small>
+    <div class="cta">
+      <a class="btn" target="_blank" rel="noopener" href="https://t.me/broch?text=%D0%9F%D1%80%D0%B8%D0%B2%D0%B5%D1%82%2C%20%D0%A0%D0%BE%D0%BC%D0%B0%21%20%D0%A3%D0%B2%D0%B8%D0%B4%D0%B5%D0%BB%20%D0%BF%D0%B0%D1%81%D0%BF%D0%BE%D1%80%D1%82%20%D0%B8%D0%B4%D0%B5%D0%B8%20EPOCH.%20%D0%A5%D0%BE%D1%87%D1%83%20%D1%83%D0%BF%D0%B0%D0%BA%D0%BE%D0%B2%D0%B0%D1%82%D1%8C%20%D1%81%D0%B2%D0%BE%D1%8E%20%D0%B8%D0%B4%D0%B5%D1%8E%20%D0%B7%D0%B0%20%241%20490.%20%D0%98%D0%B4%D0%B5%D1%8F%3A%20%E2%80%A6">Упаковать мою идею — $1 490</a>
+      <a class="btn sec" href="/#contact">Рассказать идею бесплатно</a>
+    </div>
+  </section>
+  <p class="foot">ROCH 0→1 · распаковка и упаковка идей · roch-art.com</p>
+</main>
+
+<!-- ===================== EN ===================== -->
+<main class="doc" lang="en" data-lang="en" hidden>
+  <section class="cover" id="coverEn">
+    <img class="logo" src="assets/passport/epoch-logo.png" alt="EPOCH Restaurant" width="420" height="397">
+    <div class="kind">Idea passport</div>
+    <h1><span>Evenings</span> <em>people remember</em></h1>
+    <div class="no">No. 0020 · 05 · ROCH 0→1</div>
+    <span class="sample">This is a sample. Yours will be about your idea.</span>
+    <div class="stamp" aria-label="Three-yes rule passed"><svg viewBox="0 0 160 160" aria-hidden="true">
+      <defs><path id="srEn" d="M80,80 m-58,0 a58,58 0 1,1 116,0 a58,58 0 1,1 -116,0"/></defs>
+      <circle cx="80" cy="80" r="74" fill="none" stroke="currentColor" stroke-width="3"/>
+      <circle cx="80" cy="80" r="44" fill="none" stroke="currentColor" stroke-width="1.6"/>
+      <text font-family="Inter, sans-serif" font-size="12" font-weight="700" letter-spacing="1" fill="currentColor"><textPath href="#srEn" textLength="356" lengthAdjust="spacing">THREE-YES RULE · PASSED · ROCH 0→1 ·</textPath></text>
+      <text x="80" y="78" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="15.5" font-weight="700" fill="currentColor">APPROVED</text>
+      <text x="80" y="95" text-anchor="middle" font-family="Inter, sans-serif" font-size="9.5" font-weight="700" letter-spacing="1.5" fill="currentColor">ROCH 0→1</text>
+    </svg></div>
+  </section>
+
+  <dl class="fields rv">
+    <div class="f"><dt>The idea in one line</dt><dd class="big">A banquet brings a guest in for the first time, and a QR card with stamps and points turns them into a regular.</dd></div>
+    <div class="f"><dt>Venue</dt><dd>EPOCH restaurant and banquet hall, Georgian and European cuisine</dd></div>
+    <div class="f"><dt>Place</dt><dd>Batumi, Airport Highway N20. Open daily from 11:00 to 22:00, with a VIP room for 8–24 people</dd></div>
+    <div class="f"><dt>Format</dt><dd>A Telegram app for guests in three languages and a control panel for the team</dd></div>
+  </dl>
+
+  <section class="sec rv">
+    <h2><i>I</i>Who the customer is</h2>
+    <p>Couples and families in Batumi looking for a hall for a wedding, an anniversary, a birthday or a proposal. Tourists who need a menu in a language they read and a table for tonight without a phone call. Groups who meet for dinner in the VIP room for up to 24 people.</p>
+  </section>
+
+  <section class="sec rv">
+    <h2><i>II</i>Why they come back</h2>
+    <p>Every visit leaves a mark. The waiter scans the guest’s QR code and adds a stamp, and the tenth stamp brings a free dessert. Points build up with every lari and move the guest from silver to gold, and a friend who joins by invitation brings bonuses to both. The menu remembers allergies and diet and highlights the dishes that suit the guest.</p>
+  </section>
+
+  <section class="sec rv">
+    <h2><i>III</i>Where the money is</h2>
+    <p>The money comes from three places: orders from the menu at the table and to take away, evenings booked by table, and events in the banquet hall. The cart offers a 10, 15 or 20% tip right away and takes payment by card at the table, in cash or in TON from a Telegram wallet.</p>
+    <div class="card">
+      <table class="money">
+        <tr><td>Georgian salad<small>starters</small></td><td>14 ₾</td></tr>
+        <tr><td>Megrelian khachapuri<small>khachapuri and bakery</small></td><td>26 ₾</td></tr>
+        <tr><td>Chakapuli<small>soups</small></td><td>35 ₾</td></tr>
+        <tr><td>Grilled dorado<small>hot dishes</small></td><td>38 ₾</td></tr>
+        <tr><td>Royal Khvanchkara<small>wine from the bar</small></td><td>110 ₾</td></tr>
+        <tr><td>Wedding, anniversary or proposal<small>hall and menu for the occasion</small></td><td>on request</td></tr>
+      </table>
+      <p class="note">Prices are taken from the EPOCH prototype, and the menu has over three hundred dishes.</p>
+    </div>
+  </section>
+
+  <section class="sec rv">
+    <h2><i>IV</i>Game layer</h2>
+    <p>Mechanics from mobile games that bring people back to the app.</p>
+    <div class="game">
+      <div class="card"><span class="ic"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 8h3v3H8zM13 8h3M13 11h3M8 13h3M8 16h3M14 14h2v2h-2z"/></svg></span><h3>Stamp card</h3><p>The waiter scans the guest’s QR code and adds a stamp for the visit. The tenth stamp brings a free dessert, so guests keep count themselves.</p></div>
+      <div class="card"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="9" r="5"/><path d="M9 13.5L7.5 21l4.5-2.5 4.5 2.5-1.5-7.5"/></svg></span><h3>Silver and gold</h3><p>Points build up with every lari, and the guest sees how far it is to the next level. A friend invited through the QR code brings bonus points to both of them.</p></div>
+      <div class="card"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg></span><h3>An event step by step</h3><p>The guest picks the occasion: a birthday with a table, a cake and music, or a proposal with a wall of roses and a “Marry Me” neon sign. The celebration comes together in the app, not in a chat with the manager.</p></div>
+    </div>
+  </section>
+
+  <section class="sec rv">
+    <h2><i>V</i>The three-yes rule</h2>
+    <div class="yes">
+      <div><b>yes</b><span>It is clear why someone opens the app the first time: to see the menu with photos and prices, book a table or plan an event.</span></div>
+      <div><b>yes</b><span>It is clear why the guest comes back: stamps on the QR code, points, levels and a dessert on the tenth visit.</span></div>
+      <div><b>yes</b><span>It is clear where the money is: menu orders, table bookings and banquets, and the owner sees the shift’s revenue in the panel.</span></div>
+    </div>
+  </section>
+
+  <section class="sec rv">
+    <h2><i>VI</i>Key screens</h2>
+    <p>A live prototype on your phone and a control panel that you can show to a partner and the floor team.</p>
+    <div class="shots" aria-label="EPOCH screens">
+      <img src="assets/cases/epoch-1.webp" alt="Restaurant home screen" loading="lazy" decoding="async">
+      <img src="assets/cases/epoch-2.webp" alt="Menu with photos and prices" loading="lazy" decoding="async">
+      <img src="assets/cases/epoch-3.webp" alt="Cart and tips" loading="lazy" decoding="async">
+      <img src="assets/cases/epoch-4.webp" alt="Step-by-step table booking" loading="lazy" decoding="async">
+      <img src="assets/cases/epoch-5.webp" alt="An event in the banquet hall" loading="lazy" decoding="async">
+      <img src="assets/cases/epoch-7.webp" alt="Control panel: who is signing in" loading="lazy" decoding="async">
+      <img src="assets/cases/epoch-8.webp" alt="Control panel: today" loading="lazy" decoding="async">
+    </div>
+  </section>
+
+  <section class="sec rv">
+    <h2><i>VII</i>Where to start and the launch plan</h2>
+    <p>The first version: a menu with photos and a cart in three languages, table booking in five steps, event planning and the guest QR card. For the team, a panel with roles for the owner, the manager and the waiter, showing the shift’s revenue and orders, bookings to confirm and a menu editor.</p>
+    <ol class="plan">
+      <li><b>Days 1–2</b><span>Idea passport and game layer</span></li>
+      <li><b>Days 3–4</b><span>A live prototype of the key flows on your phone</span></li>
+      <li><b>Day 5</b><span>Walkthrough, launch plan and development estimate</span></li>
+      <li><b>Then</b><span>Development at my studio AppHub by the estimate, or by your own team: the files and rights are yours</span></li>
+    </ol>
+  </section>
+
+  <section class="fin rv">
+    <p>Want one like this <em>for your idea?</em></p>
+    <small>Packaging in 5 days costs $1,490. The first 30 minutes are free.</small>
+    <div class="cta">
+      <a class="btn" target="_blank" rel="noopener" href="https://t.me/broch?text=Hi%20Roma%21%20I%20saw%20the%20EPOCH%20idea%20passport.%20I%20want%20my%20idea%20packaged%20for%20%241%2C490.%20The%20idea%3A%20%E2%80%A6">Package my idea — $1,490</a>
+      <a class="btn sec" href="/#contact">Share your idea for free</a>
+    </div>
+  </section>
+  <p class="foot">ROCH 0→1 · idea unpacking and packaging · roch-art.com</p>
+</main>
+
+<script>
+(function(){
+  'use strict';
+  var root = document.documentElement; root.classList.add('js');
+  var reduced = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var LS = 'roch_lang', lang = 'ru';
+  try{ lang = localStorage.getItem(LS) === 'en' ? 'en' : 'ru'; }catch(e){}
+  var swaps = document.querySelectorAll('body > header [data-ru], body > nav [data-ru]');
+  var nav = document.querySelector('nav.cases');
+  var apply = function(l){
+    lang = l; root.lang = l;
+    Array.prototype.forEach.call(document.querySelectorAll('main[data-lang]'), function(m){ m.hidden = m.getAttribute('data-lang') !== l; });
+    Array.prototype.forEach.call(document.querySelectorAll('.lt button'), function(b){ b.classList.toggle('on', b.getAttribute('data-l') === l); });
+    Array.prototype.forEach.call(swaps, function(el){ el.textContent = el.getAttribute('data-' + l); });
+    if(nav) nav.setAttribute('aria-label', nav.getAttribute('data-' + l + '-label'));
+    document.title = l === 'en' ? 'Idea passport · EPOCH — ROCH 0→1 packaging sample' : 'Паспорт идеи · EPOCH — пример упаковки ROCH 0→1';
+    stampIn();
+  };
+  Array.prototype.forEach.call(document.querySelectorAll('.lt button'), function(b){
+    b.addEventListener('click', function(){ var l = b.getAttribute('data-l'); try{ localStorage.setItem(LS, l); }catch(e){} apply(l); });
+  });
+  /* штамп ложится один раз на видимую обложку: удар, лёгкая отдача карточки */
+  var stampIn = function(){
+    var cov = document.querySelector('main[data-lang="' + lang + '"] .cover'), st = cov && cov.querySelector('.stamp');
+    if(!st || st.classList.contains('hit')) return;
+    if(reduced){ st.classList.add('hit'); return; }
+    setTimeout(function(){ st.classList.add('hit'); cov.classList.add('thud'); }, 450);
+  };
+  if('IntersectionObserver' in window && !reduced){
+    var io = new IntersectionObserver(function(en){ en.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } }); }, { rootMargin: '0px 0px -8% 0px' });
+    Array.prototype.forEach.call(document.querySelectorAll('.rv'), function(el){ io.observe(el); });
+  } else Array.prototype.forEach.call(document.querySelectorAll('.rv'), function(el){ el.classList.add('in'); });
+  apply(lang);
+})();
+</script>
+</body>
+</html>
