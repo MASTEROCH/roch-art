@@ -8,13 +8,13 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>ROCH — готовые приложения для бизнеса за 7 дней</title>
-<meta name="description" content="Готовые приложения для салонов, клиник, ресторанов, отелей, туров, проката и недвижимости. Откройте демо своей ниши: через 7 дней такое же заработает под вашим брендом за $990 и $99 в месяц. Механики удержания — из мобильных игр с 700M+ установок.">
+<meta name="description" content="Готовые приложения для салонов, клиник, ресторанов, отелей, туров, проката и недвижимости. Откройте демо своей ниши: через 7 дней такое же заработает под вашим брендом за $1 490 и $99 в месяц. Механики удержания — из мобильных игр с 700M+ установок.">
 <link rel="canonical" href="https://roch-art.com/">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://roch-art.com/">
 <meta property="og:site_name" content="ROCH">
 <meta property="og:title" content="Приложение для вашего бизнеса уже готово">
-<meta property="og:description" content="Откройте демо своей ниши. Запуск под вашим брендом за 7 дней: $990 и $99 в месяц. Подбор приложения — бесплатный созвон на 20 минут.">
+<meta property="og:description" content="Откройте демо своей ниши. Запуск под вашим брендом за 7 дней: $1 490 и $99 в месяц. Подбор приложения — бесплатный созвон на 20 минут.">
 <meta property="og:image" content="https://roch-art.com/assets/og-cover.jpg?v=4">
 <meta property="og:locale" content="ru_RU">
 <meta name="twitter:card" content="summary_large_image">
@@ -772,7 +772,7 @@ footer p{font-size:12.5px;font-weight:500;color:var(--text3)}
   h1 .w,h1 .w i{transform:none;opacity:1;filter:none}
   .h-caret{display:none}
   .hl::before{transform:rotate(-1.2deg)}
-  .cta-bar{transform:none}
+  /* плашка прячется и при reduced: переходы уже выключены, поэтому появляется без движения (было transform:none — висела поверх hero-CTA) */
   html{scroll-behavior:auto}
 }
 :focus-visible{outline:2px solid var(--lime);outline-offset:3px;border-radius:8px}
@@ -917,10 +917,20 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
 .up-empty i:nth-child(3){width:82%}.up-empty i:nth-child(4){width:64%}
 .up-empty i:nth-child(5){height:34px;border-radius:12px;margin-top:8px}
 /* перетекание каркаса в разметку первого экрана: силуэты снимаются с сетки и едут в блоки экрана (JS) */
-.up-empty.up-flow i{position:absolute;margin:0}
 /* веер: ось ниже карты — карты расходятся снизу вверх, как рука в карточной игре; притушены затемнением, не opacity */
 .up-card{z-index:1;transform-origin:50% 130%;visibility:hidden}
 .up-card::after{content:'';position:absolute;inset:0;background:rgba(4,8,5,.38);opacity:var(--dim,1)}
+/* луч сканера печатает экран сверху вниз: хвост — лаймовое послесвечение по готовому, кромка — белая нить с ореолом */
+.up-scan{position:absolute;left:0;right:0;top:-84px;height:84px;z-index:5;pointer-events:none;will-change:transform;
+  background:linear-gradient(180deg,rgba(212,255,79,0) 0%,rgba(212,255,79,.07) 50%,rgba(212,255,79,.26) 90%,rgba(244,255,208,.7) 100%);
+  mix-blend-mode:screen;transition:opacity .28s var(--ease)}
+.up-scan::after{content:'';position:absolute;left:0;right:0;bottom:-1px;height:2px;background:#F6FFD9;
+  box-shadow:0 0 12px 2px rgba(212,255,79,.85),0 0 36px 8px rgba(212,255,79,.32)}
+.up-scan.out{opacity:0}
+.up-shine{position:absolute;inset:0;z-index:5;pointer-events:none;transform:translateX(-110%);
+  background:linear-gradient(105deg,transparent 34%,rgba(255,255,255,.2) 46%,rgba(255,255,255,.04) 54%,transparent 64%);
+  animation:upShine .74s cubic-bezier(.22,1,.36,1) forwards}
+@keyframes upShine{to{transform:translateX(110%)}}
 .up-ring{position:absolute;z-index:3;width:60px;height:60px;margin:-30px 0 0 -30px;border-radius:50%;pointer-events:none;
   border:2px solid var(--lime);box-shadow:0 0 22px rgba(212,255,79,.55)}
 .up-fly{position:absolute;left:0;top:0;z-index:8;pointer-events:none;white-space:nowrap;padding:6px 12px;border-radius:99px;
@@ -1636,10 +1646,10 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
 <!-- ============ HERO ============ -->
 <section class="hero bz-hero">
   <p class="h-code"><i class="h-prompt">❯</i><span>ROCH · креативный директор · сооснователь AppHub</span><i class="h-caret" aria-hidden="true"></i></p>
-  <h1 id="bzH1" aria-label="Приложение для вашего бизнеса уже готово.">
+  <h1 id="bzH1" aria-label="Ваша идея — в продукт, который покупают.">
     <span class="h-main" aria-hidden="true">
-      <span class="w"><i>Приложение</i></span> <span class="w"><i>для вашего</i></span>
-      <span class="w"><i>бизнеса</i></span> <span class="w"><i>уже</i></span> <span class="w"><i><span class="hl"><em>готово.</em></span></i></span>
+      <span class="w"><i>Ваша</i></span> <span class="w"><i>идея —</i></span>
+      <span class="w"><i>в продукт,</i></span> <span class="w"><i>который</i></span> <span class="w"><i><span class="hl"><em>покупают.</em></span></i></span>
     </span>
     
   </h1>
@@ -1775,7 +1785,7 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
         <div class="xly"><div class="xcd c1"></div><span class="xbb">Кто клиент</span></div>
         <div class="xly"><div class="pass"><b>Паспорт запуска</b><i></i><i></i><i></i><i></i></div></div>
       </div></div>
-      <div class="act-k"><span class="act-n">Шаг 2</span><span class="ctag act-tag">Предоплата · $990</span></div>
+      <div class="act-k"><span class="act-n">Шаг 2</span><span class="ctag act-tag">Предоплата · $1 490</span></div>
       <h3>Я собираю паспорт запуска</h3>
       <p>На одной странице я собираю всё, что попадёт в приложение: ваш бренд, услуги, цены и механики, ради которых клиент вернётся. После предоплаты студия начинает запуск.</p>
     </div>
@@ -1815,21 +1825,21 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
       <div class="tl-rail" id="tlRail" role="radiogroup" aria-label="Сколько времени">
         <span class="tl-thumb" id="tlThumb" aria-hidden="true"><i class="ico i-prev"></i><i class="ico i-next"></i></span>
         <button type="button" class="tl-stop" role="radio" aria-checked="false" tabindex="-1" data-i="0"><b>Сегодня</b><span>бесплатно</span></button>
-        <button type="button" class="tl-stop on" role="radio" aria-checked="true" tabindex="0" data-i="1"><b>7 дней</b><span>$990</span></button>
+        <button type="button" class="tl-stop on" role="radio" aria-checked="true" tabindex="0" data-i="1"><b>7 дней</b><span>$1 490</span></button>
         <button type="button" class="tl-stop" role="radio" aria-checked="false" tabindex="-1" data-i="2"><b>Месяц</b><span>$5 000</span></button>
       </div>
       <p class="tl-hint" aria-hidden="true"><i class="ico i-prev"></i><span>двигайте</span><i class="ico i-next"></i></p>
     </div>
     <div class="tl-out" id="tlOut" aria-live="polite">
       <div class="tl-top"><span class="bi-badge b2" id="tlWhen">✦ Через 7 дней</span><span class="tl-pack" id="tlPack">Запуск</span></div>
-      <div class="tl-price"><b id="tlPrice">$990</b><span id="tlNote">+ $99 в месяц</span></div>
+      <div class="tl-price"><b id="tlPrice">$1 490</b><span id="tlNote">+ $99 в месяц</span></div>
       <ul class="bi-list" id="tlList">
         <li><i class="car" aria-hidden="true">❯</i><span>Готовое приложение вашей ниши под вашим брендом</span></li>
         <li><i class="car" aria-hidden="true">❯</i><span>Ваши услуги, цены и контакты внутри</span></li>
         <li><i class="car" aria-hidden="true">❯</i><span>Механики, ради которых клиент возвращается</span></li>
         <li><i class="car" aria-hidden="true">❯</i><span>Работа, обновления и поддержка входят в подписку</span></li>
       </ul>
-      <a class="btn offer-cta" id="tlCta" data-tgmsg="Привет, Рома! Хочу запустить готовое приложение под своим брендом ($990 и $99 в месяц). Мой бизнес: … Город: …"><span class="oc-txt" id="tlCtaTxt">Запустить за $990</span><span class="oc-arr">→</span></a>
+      <a class="btn offer-cta" id="tlCta" data-tgmsg="Привет, Рома! Хочу запустить готовое приложение под своим брендом ($1 490 и $99 в месяц). Мой бизнес: … Город: …"><span class="oc-txt" id="tlCtaTxt">Запустить за $1 490</span><span class="oc-arr">→</span></a>
       <p class="tl-foot">Созвон ни к чему не обязывает. Предоплату вы вносите, только когда выбрали приложение.</p>
     </div>
   </div>
@@ -1945,7 +1955,7 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
     </div>
     <div class="rung glass reveal here">
       <div class="num">02</div>
-      <div class="r-top"><h3>Запуск</h3><span class="ctag">$990 + $99/мес</span></div>
+      <div class="r-top"><h3>Запуск</h3><span class="ctag">$1 490 + $99/мес</span></div>
       <p>Через 7 дней готовое приложение вашей ниши работает под вашим брендом. Подписка покрывает работу, обновления и поддержку.</p>
       <a class="r-alt" id="rungSelf" href="https://apphub.studio" target="_blank" rel="noopener">или соберите сами в конструкторах LinkOS и BuildOS →</a>
       <span class="r-who">Делает моя студия AppHub</span>
@@ -1975,7 +1985,7 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
     <div class="vs-row"><b>Первый результат</b><span class="vs-no">через месяцы</span><span class="vs-yes"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg><span>демо на первом созвоне</span></span></div>
     <div class="vs-row"><b>Что в руках</b><span class="vs-no">макеты</span><span class="vs-yes"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg><span>работающее приложение под вашим брендом</span></span></div>
     <div class="vs-row"><b>Запуск</b><span class="vs-no">после месяцев разработки</span><span class="vs-yes"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg><span>через 7 дней</span></span></div>
-    <div class="vs-row"><b>Цена</b><span class="vs-no">от $10 000 у агентства</span><span class="vs-yes"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg><span>$990 и $99 в месяц</span></span></div>
+    <div class="vs-row"><b>Цена</b><span class="vs-no">от $10 000 у агентства</span><span class="vs-yes"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg><span>$1 490 и $99 в месяц</span></span></div>
   </div>
 </section>
 
@@ -2001,7 +2011,7 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
     <!-- «от $10 000»: Clutch, типичный проект агентства $10 000–49 999 (clutch.co/directory/mobile-application-developers/pricing, 09.2026) -->
     <div class="anchor">
       <span class="an-l">Разработка с нуля у агентства</span><span class="an-v">от $10 000</span>
-      <span class="an-l">Готовое приложение под вашим брендом</span><span class="an-v lime">$990</span>
+      <span class="an-l">Готовое приложение под вашим брендом</span><span class="an-v lime">$1 490</span>
     </div>
     <a class="btn offer-cta" id="priceUnpack" data-tgmsg="Привет, Рома! Хочу подобрать готовое приложение для бизнеса. Мой бизнес: … Город: …"><span class="oc-txt">Записаться на созвон</span><span class="oc-arr">→</span></a>
   </div>
@@ -2023,7 +2033,7 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
     <div class="price glass reveal feat">
       <div class="badge">Чаще всего</div>
       <div class="p-diff">Готовое приложение · AppHub</div>
-      <div class="p-row"><h3>Запуск</h3><div class="p-price">$990</div></div>
+      <div class="p-row"><h3>Запуск</h3><div class="p-price">$1 490</div></div>
       <div class="p-time">7 дней · дальше $99 в месяц</div>
       <ul class="p-list">
         <li>Готовое приложение вашей ниши</li>
@@ -2031,13 +2041,13 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
         <li>Механики удержания внутри</li>
         <li>Работа, обновления и поддержка входят в подписку</li>
       </ul>
-      <a class="btn tier-cta" data-tgmsg="Привет, Рома! Хочу запустить готовое приложение под своим брендом ($990 и $99 в месяц). Мой бизнес: … Город: …">Запустить за $990</a>
+      <a class="btn tier-cta" data-tgmsg="Привет, Рома! Хочу запустить готовое приложение под своим брендом ($1 490 и $99 в месяц). Мой бизнес: … Город: …">Запустить за $1 490</a>
     </div>
 
     <div class="price glass reveal">
       <div class="p-diff">С исходниками · навсегда ваше</div>
       <div class="p-row"><h3>Выкуп</h3><div class="p-price">$15 000</div></div>
-      <div class="p-time">примерно столько стоят запуск и 12 лет подписки</div>
+      <div class="p-time">примерно столько стоят запуск и 11 лет подписки</div>
       <ul class="p-list">
         <li>Исходный код приложения</li>
         <li>Размещение на вашем сервере</li>
@@ -2081,7 +2091,7 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
         <div class="ic"><i class="ico i-coin"></i></div>
         <div><div class="sub">◆ Демо до оплаты</div><h3>Платите, когда уже потрогали</h3></div>
       </div>
-      <p>Вы открываете живое приложение своей ниши до предоплаты. Цена запуска фиксирована: $990 и $99 в месяц. Доработки сверх готового мы обсуждаем отдельно и тоже до оплаты.</p>
+      <p>Вы открываете живое приложение своей ниши до предоплаты. Цена запуска фиксирована: $1 490 и $99 в месяц. Доработки сверх готового мы обсуждаем отдельно и тоже до оплаты.</p>
     </div>
   </div>
 </section>
@@ -2162,11 +2172,11 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
     <div class="proj-shots" id="pjShots"></div>
     <div class="pj-offer">
       <b>Такое же приложение будет вашим через 7 дней</b>
-      <span>Запуск под вашим брендом стоит $990, дальше $99 в месяц. Запускает моя студия AppHub.</span>
+      <span>Запуск под вашим брендом стоит $1 490, дальше $99 в месяц. Запускает моя студия AppHub.</span>
     </div>
     <div class="proj-btns">
       <a class="btn sec" id="pjOpen" href="#" target="_blank" rel="noopener" style="display:none">Открыть демо</a>
-      <a class="btn" id="pjTg" href="#" target="_blank" rel="noopener">Хочу такое — $990</a>
+      <a class="btn" id="pjTg" href="#" target="_blank" rel="noopener">Хочу такое — $1 490</a>
     </div>
   </div>
 </div>
@@ -2509,7 +2519,7 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
     "Смотреть готовые приложения":"See ready apps","Созвон на 20 минут, без оплаты":"20-minute call, free","Привет, Рома! Хочу подобрать готовое приложение для бизнеса. Мой бизнес: … Город: …":"Hi Roma! I'd like to find a ready app for my business. My business: … City: …",
     "Вы выбираете готовое.":"You pick a ready app.","Через 7 дней оно работает под вашим брендом.":"In 7 days it runs under your brand.","Не ТЗ на двадцать страниц и не разработка с нуля. Три шага ведут от созвона до приложения в телефоне ваших клиентов.":"No twenty-page spec and no build from scratch. Three steps take you from a call to an app on your customers' phones.",
     "Шаг 1":"Step 1","Шаг 2":"Step 2","Шаг 3":"Step 3",
-    "Созвон · бесплатно":"Call · free","Предоплата · $990":"Prepayment · $990","Запуск · 7 дней":"Launch · 7 days",
+    "Созвон · бесплатно":"Call · free","Предоплата · $1 490":"Prepayment · $1,490","Запуск · 7 дней":"Launch · 7 days",
     "Вы рассказываете о бизнесе":"You tell me about your business","20 минут по видеосвязи. Вы рассказываете, как сейчас приходят клиенты и где они теряются. Я показываю готовое приложение вашей ниши и честно говорю, подходит ли оно.":"A 20-minute video call. You tell me how customers find you today and where you lose them. I show you the ready app for your niche and tell you honestly whether it fits.","Паспорт запуска":"Launch passport",
     "Я собираю паспорт запуска":"I put together the launch passport","На одной странице я собираю всё, что попадёт в приложение: ваш бренд, услуги, цены и механики, ради которых клиент вернётся. После предоплаты студия начинает запуск.":"On one page I collect everything that goes into the app: your brand, services, prices and the mechanics that bring customers back. Once you prepay, the studio starts the launch.","Ваши клиенты открывают его в телефоне":"Your customers open it on their phones",
     "Через 7 дней приложение работает под вашим брендом. Дальше вы платите $99 в месяц, а моя студия AppHub следит, чтобы всё работало и обновлялось.":"In 7 days the app runs under your brand. After that you pay $99 a month, and my studio AppHub keeps it running and up to date.","Запускаем, только если на все три вопроса ответ «да». Если хотя бы на один ответ «нет», я скажу это честно.":"We launch only if all three answers are “yes”. If even one is “no”, I'll tell you straight.","Сегодня":"Today",
@@ -2519,17 +2529,17 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
     "20 минут на подбор приложения":"20 minutes to find your app","Покажу готовое приложение вашей ниши":"I'll show you the ready app for your niche","Честно скажу, подходит ли оно вашему бизнесу":"I'll tell you honestly whether it fits your business",
     "Назову срок и цену запуска":"I'll give you the launch date and price","✦ Через 7 дней":"✦ In 7 days","Запуск":"Launch",
     "+ $99 в месяц":"+ $99 a month","Готовое приложение вашей ниши под вашим брендом":"The ready app for your niche, under your brand","Ваши услуги, цены и контакты внутри":"Your services, prices and contacts inside",
-    "Механики, ради которых клиент возвращается":"The mechanics that bring customers back","Работа, обновления и поддержка входят в подписку":"Hosting, updates and support are in the subscription","Запустить приложение — $990":"Launch my app — $990",
-    "Привет, Рома! Хочу запустить готовое приложение под своим брендом ($990 и $99 в месяц). Мой бизнес: … Город: …":"Hi Roma! I want to launch a ready app under my brand ($990 and $99 a month). My business: … City: …","Созвон ни к чему не обязывает. Предоплату вы вносите, только когда выбрали приложение.":"The call commits you to nothing. You prepay only once you've picked your app.","✦ Каждый месяц":"✦ Every month",
+    "Механики, ради которых клиент возвращается":"The mechanics that bring customers back","Работа, обновления и поддержка входят в подписку":"Hosting, updates and support are in the subscription","Запустить приложение — $1 490":"Launch my app — $1,490",
+    "Привет, Рома! Хочу запустить готовое приложение под своим брендом ($1 490 и $99 в месяц). Мой бизнес: … Город: …":"Hi Roma! I want to launch a ready app under my brand ($1,490 and $99 a month). My business: … City: …","Созвон ни к чему не обязывает. Предоплату вы вносите, только когда выбрали приложение.":"The call commits you to nothing. You prepay only once you've picked your app.","✦ Каждый месяц":"✦ Every month",
     "Креативный директор":"Creative director","в месяц, лично со мной":"a month, with me personally","Две сессии в неделю с вашей командой":"Two sessions a week with your team",
     "Концепция и игровой слой продукта":"Product concept and game layer","Ревью всего, что выходит к клиентам":"Review of everything that ships to customers","Механики роста и удержания на квартал":"Growth and retention mechanics for the quarter",
     "Обсудить работу со мной":"Discuss working with me","Привет, Рома! Хочу обсудить работу с тобой как с креативным директором ($5 000 в месяц). Мой продукт: …":"Hi Roma! I'd like to discuss working with you as a creative director ($5,000 a month). My product: …","Месяц":"Month",
     "Каталог":"Catalog","Готовые приложения":"Ready apps","по нишам":"by niche",
     "Каждое приложение живое: откройте его и потрогайте. Понравилось — через 7 дней такое же заработает под вашим брендом.":"Every app is live: open it and try it. Like it? In 7 days the same app runs under your brand.","Показать все приложения":"Show all apps","Ваше такое же — через 7 дней":"Yours, the same, in 7 days",
-    "Запуск под вашим брендом стоит $990, дальше $99 в месяц. Запускает моя студия AppHub.":"Launching it under your brand costs $990, then $99 a month. My studio AppHub runs the launch.","Открыть демо":"Open demo","Хочу такое — $990":"I want this — $990",
+    "Запуск под вашим брендом стоит $1 490, дальше $99 в месяц. Запускает моя студия AppHub.":"Launching it under your brand costs $1,490, then $99 a month. My studio AppHub runs the launch.","Открыть демо":"Open demo","Хочу такое — $1 490":"I want this — $1,490",
     "Фитнес: ИИ-тренер ведёт план дня, тренировки и питание":"Fitness: an AI coach runs the daily plan, workouts and nutrition","Приложение для зала и тренера: ИИ-тренер собирает план дня, ведёт тренировку по подходам, считает питание и держит серию. Клиент возвращается, потому что видит свой прогресс каждый день.":"An app for a gym or a coach: the AI coach builds the daily plan, runs the workout set by set, tracks nutrition and keeps the streak going. Clients come back because they see their progress every day.","Фитнес":"Fitness",
     "ИИ-тренер":"AI coach","Удержание":"Retention","За 20 минут мы смотрим ваш бизнес, я показываю готовое приложение вашей ниши и называю срок и цену запуска.":"In 20 minutes we look at your business, I show you the ready app for your niche and give you the launch date and price.",
-    "$990 + $99/мес":"$990 + $99/mo","Через 7 дней готовое приложение вашей ниши работает под вашим брендом. Подписка покрывает работу, обновления и поддержку.":"In 7 days the ready app for your niche runs under your brand. The subscription covers hosting, updates and support.","или соберите сами в конструкторах LinkOS и BuildOS →":"or build it yourself in the LinkOS and BuildOS builders →",
+    "$1 490 + $99/мес":"$1,490 + $99/mo","Через 7 дней готовое приложение вашей ниши работает под вашим брендом. Подписка покрывает работу, обновления и поддержку.":"In 7 days the ready app for your niche runs under your brand. The subscription covers hosting, updates and support.","или соберите сами в конструкторах LinkOS и BuildOS →":"or build it yourself in the LinkOS and BuildOS builders →",
     "Делает моя студия AppHub":"Built by my studio AppHub","Сессия и упаковка":"Session and packaging","$500 / $2 500":"$500 / $2,500",
     "На сессии за 90 минут мы разбираем ваш продукт, его игровой слой и путь к росту. Упаковка добавляет концепцию, визуальное направление и план запуска.":"In a 90-minute session we take apart your product, its game layer and its path to growth. Packaging adds the concept, the visual direction and the launch plan.","$5 000/мес":"$5,000/mo","Я веду продукт вместе с вашей командой: две сессии в неделю, ревью всего, что выходит к клиентам, и механики роста.":"I lead the product with your team: two sessions a week, review of everything that ships to customers, and growth mechanics.",
     "Обычно — ТЗ и месяцы разработки.":"Usually: a spec and months of development.","Здесь — готовое приложение за 7 дней.":"Here: a ready app in 7 days.","Начало":"Start",
@@ -2537,23 +2547,23 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
     "через месяцы":"months later","демо на первом созвоне":"a demo on the first call","Что в руках":"What you hold",
     "макеты":"mockups","работающее приложение под вашим брендом":"a working app under your brand","после месяцев разработки":"after months of development",
     "через 7 дней":"in 7 days","Цена":"Price","от $10 000 у агентства":"from $10,000 at an agency",
-    "$990 и $99 в месяц":"$990 and $99 a month","Шаг 01 · вход":"Step 01 · entry","20 минут · лично со мной":"20 minutes · with me personally",
+    "$1 490 и $99 в месяц":"$1,490 and $99 a month","Шаг 01 · вход":"Step 01 · entry","20 минут · лично со мной":"20 minutes · with me personally",
     "Смотрим ваш бизнес и где теряются клиенты":"We look at your business and where customers drop off","Показываю готовое приложение вашей ниши":"I show you the ready app for your niche","Называю срок и цену запуска":"I give you the launch date and price",
     "Ни к чему не обязывает":"No commitment","Разработка с нуля у агентства":"Building from scratch at an agency","от $10 000":"from $10,000",
     "Готовое приложение под вашим брендом":"A ready app under your brand","Записаться на созвон":"Book a call","Лично со мной":"With me personally",
     "от $500":"from $500","сессия 90 минут":"90-minute session","Сессия — $500:":"Session — $500:",
     "разбираем продукт, игровой слой и путь к росту":"we take apart the product, its game layer and its path to growth","Упаковка — $2 500:":"Packaging — $2,500:","концепция, визуальное направление, план запуска":"concept, visual direction, launch plan",
     "Креативный директор — $5 000 в месяц":"Creative director — $5,000 a month","Механики из мобильных игр с 700M+ установок":"Mechanics from mobile games with 700M+ installs","Записаться на сессию":"Book a session",
-    "Готовое приложение · AppHub":"Ready app · AppHub","$990":"$990","7 дней · дальше $99 в месяц":"7 days · then $99 a month",
+    "Готовое приложение · AppHub":"Ready app · AppHub","$1 490":"$1,490","7 дней · дальше $99 в месяц":"7 days · then $99 a month",
     "Готовое приложение вашей ниши":"The ready app for your niche","Ваш бренд, услуги и цены":"Your brand, services and prices","Механики удержания внутри":"Retention mechanics built in",
-    "Запустить за $990":"Launch for $990","С исходниками · навсегда ваше":"With source code · yours for good","Выкуп":"Buyout",
-    "примерно столько стоят запуск и 12 лет подписки":"about what the launch plus 12 years of subscription cost","Исходный код приложения":"The app's source code","Размещение на вашем сервере":"Hosted on your own server",
+    "Запустить за $1 490":"Launch for $1,490","С исходниками · навсегда ваше":"With source code · yours for good","Выкуп":"Buyout",
+    "примерно столько стоят запуск и 11 лет подписки":"about what the launch plus 11 years of subscription cost","Исходный код приложения":"The app's source code","Размещение на вашем сервере":"Hosted on your own server",
     "Без ежемесячной оплаты":"No monthly fee","Доработки оплачиваются отдельно":"Changes are billed separately","Обсудить выкуп":"Discuss a buyout",
     "Запуск и поддержку делает моя студия":"Launch and support are handled by my studio",". Оплата — USDT или банковский перевод.":". Payment by USDT or bank transfer.","Привет, Рома! Хочу сессию с тобой ($500). Мой продукт: …":"Hi Roma! I'd like a session with you ($500). My product: …",
     "Привет, Рома! Хочу обсудить выкуп приложения с исходниками ($15 000). Мой бизнес: …":"Hi Roma! I'd like to discuss buying out the app with source code ($15,000). My business: …","Вы видите приложение":"You see the app","до оплаты":"before you pay",
     "◆ Ваш бизнес остаётся вашим":"◆ Your business stays yours","Подписываю соглашение о неразглашении до того, как вы расскажете о бизнесе. Ваши данные и бренд принадлежат вам.":"I sign an NDA before you tell me about your business. Your data and brand belong to you.","◆ Честный ответ":"◆ An honest answer",
     "Скажу, если приложение вам не подходит":"I'll tell you if the app doesn't fit","Если готовое приложение не решит вашу задачу, я скажу это на созвоне. Лучше узнать это бесплатно, чем заплатить за то, чем клиенты не будут пользоваться.":"If the ready app won't solve your problem, I'll say so on the call. Better to find out for free than to pay for something your customers won't use.","◆ Демо до оплаты":"◆ Demo before payment",
-    "Платите, когда уже потрогали":"Pay once you've tried it","Вы открываете живое приложение своей ниши до предоплаты. Цена запуска фиксирована: $990 и $99 в месяц. Доработки сверх готового мы обсуждаем отдельно и тоже до оплаты.":"You open the live app for your niche before you prepay. The launch price is fixed: $990 and $99 a month. Changes beyond the ready app are agreed separately, also before payment.","У меня нет ТЗ и дизайна. Это проблема?":"I don't have a spec or a design. Is that a problem?",
+    "Платите, когда уже потрогали":"Pay once you've tried it","Вы открываете живое приложение своей ниши до предоплаты. Цена запуска фиксирована: $1 490 и $99 в месяц. Доработки сверх готового мы обсуждаем отдельно и тоже до оплаты.":"You open the live app for your niche before you prepay. The launch price is fixed: $1,490 and $99 a month. Changes beyond the ready app are agreed separately, also before payment.","У меня нет ТЗ и дизайна. Это проблема?":"I don't have a spec or a design. Is that a problem?",
     "Нет. Приложение уже готово, поэтому ТЗ не нужно. На созвоне вы рассказываете о бизнесе, а я показываю, как приложение будет выглядеть под вашим брендом.":"No. The app is already built, so you don't need a spec. On the call you tell me about your business, and I show you how the app will look under your brand.","Что входит в $99 в месяц?":"What does $99 a month include?","Работа приложения, обновления и поддержка. Если что-то сломается или вы захотите поменять цены и услуги, моя студия AppHub это сделает.":"Hosting, updates and support. If something breaks or you want to change prices and services, my studio AppHub takes care of it.",
     "Если вашему бизнесу подходит другой формат, я скажу это на созвоне.":"If another format suits your business better, I'll tell you on the call.","Клиенту ничего не нужно скачивать: приложение открывается в Telegram по ссылке или QR-коду. Если вашему бизнесу подходит другой формат, я скажу это на созвоне.":"Your customers don't need to download anything: the app opens in Telegram from a link or a QR code. If another format suits your business better, I'll tell you on the call.","Можно доработать приложение под мой бизнес?":"Can the app be adapted to my business?",
     "Да. Доработки сверх готового я оцениваю отдельно, и вы вносите предоплату до начала работы. Если нужна новая механика или игровой слой, это моя упаковка за $2 500.":"Yes. I quote changes beyond the ready app separately, and you prepay before work starts. If you need a new mechanic or a game layer, that's my packaging at $2,500.","Кто будет делать приложение?":"Who will build the app?","Подбор, упаковку и игровой слой делаю я. Запуск и поддержку делает моя студия AppHub. Если хотите исходники и свой сервер, есть выкуп за $15 000.":"I do the matching, packaging and game layer. My studio AppHub handles the launch and support. If you want the source code and your own server, there's a buyout for $15,000.",
@@ -2568,8 +2578,8 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
   /* проекты: тексты берутся из index.html и портфолио-бота (build) */
   (function(sup){ for(var k in sup){ I18N_EN[k] = sup[k]; } })({"Цветочный магазин, где букет подбирают словами": "A flower shop where you pick a bouquet with words", "«Маме, нежное, до 150 ₾» — и ИИ-флорист за 10 секунд предлагает три букета из того, что есть сегодня. Свой букет из поштучных цветов, фото перед отправкой, курьер на карте и каждый 6-й букет в подарок. Флорист ведёт заказы в канбане — клиент сразу видит статус.": "“For mom, something gentle, under 150 ₾” — and the AI florist offers three bouquets from today’s stock in 10 seconds. Build-your-own bouquets from single stems, a photo before dispatch, the courier on the map and every 6th bouquet free. The florist runs orders on a kanban board, and the customer sees the status instantly.", "Цветы": "Flowers", "ИИ-букет": "AI bouquet", "Доставка за 60 мин": "60-min delivery", "Кабинет косметолога: процедуры, запись, лояльность": "Cosmetologist cabinet: procedures, booking, loyalty", "Telegram Mini App косметолога Анжелики: каталог процедур с ценами, онлайн-запись с выбором времени и мастера, паспорт кожи, клуб лояльности с баллами, магазин домашнего ухода ANZH.store и AI-ассистент. Petrol-luxe — изумруд и золото на глубоком тёмном.": "Angelika's cosmetologist Telegram Mini App: a procedure catalog with prices, online booking with time and specialist selection, a skin passport, a loyalty club with points, the ANZH.store home-care shop, and an AI assistant. Petrol-luxe — emerald and gold on deep dark.", "Beauty": "Beauty", "TMA": "TMA", "Лояльность": "Loyalty", "Ресторан: меню, бронь и бонусы гостям": "Restaurant: menu, table booking, guest bonuses", "Ресторан в Батуми: меню с фото и корзиной, бронь стола по шагам, бонусные уровни и QR-карта гостя, три языка. Плюс панель управления: KPI смены в реальном времени, заказы по залу, подтверждение броней и редактор меню на 319 блюд.": "A restaurant in Batumi: a photo menu with a cart, step-by-step table booking, bonus tiers and a guest QR card, three languages. Plus a control panel: live shift KPIs, orders by table, booking confirmations and a menu editor for 319 dishes.", "HoReCa": "HoReCa", "Бронь": "Booking", "Клиника: прайс, запись к врачу, кабинет клиники": "Clinic: price list, doctor booking, clinic dashboard", "Клиника антивозрастной медицины: прайс на сотни позиций, запись с выбором врача и времени, 11 специалистов, результаты «до и после». Внутри — и приложение пациента, и кабинет клиники: выручка, средний чек, база пациентов с LTV, автоподтверждение записи.": "An anti-aging clinic: a price list of hundreds of items, booking with doctor and time choice, 11 specialists, before-and-after results. Inside — both the patient app and the clinic dashboard: revenue, average check, patient base with LTV, automatic booking confirmation.", "Медицина": "Medicine", "Запись": "Booking", "Мебель: своя кухня в комнате до замера": "Furniture: your kitchen in your room before measuring", "Мебельный центр: соберите кухню и увидьте её в своей комнате по фотографии. Магазин материалов, корзина, услуги собственного цеха. В админке — воронка заявок по этапам, очередь цеха раскроя и каталог с фото и ценами с выгрузкой с сайта.": "A furniture center: build a kitchen and see it in your own room from a photo. A materials shop, a cart, the company's own workshop services. In the admin — a lead funnel by stage, the cutting-shop queue and a catalog with photos and prices synced from the website.", "Ритейл": "Retail", "Конфигуратор": "Configurator", "Заявки": "Leads", "Тур за четыре вопроса вместо переписки": "A tour in four questions instead of a long chat", "Клуб путешествий: подбор тура за четыре вопроса, горящие направления, консьерж-сервис, бонусный счёт и уровни с кэшбэком, чек-лист поездки. В админке — ИИ-сводка по бизнесу, воронка сделок, задачи и календарь вылетов.": "A travel club: a tour picked in four questions, hot destinations, a concierge service, a bonus account and cashback tiers, a trip checklist. In the admin — an AI business summary, a deal funnel, tasks and a departures calendar.", "Туризм": "Tourism", "ИИ": "AI", "Медцентр: онлайн-запись к врачу, 16 направлений": "Medical center: online doctor booking, 16 specialties", "Приложение медцентра «Dr. Hilling»: онлайн-запись к врачу за минуту, 16 направлений с ценами, каталог из 25 врачей, детальные экраны направлений, личный кабинет пациента с медкартой и баллами, маскот «Хилли». Светлое navy + gold liquid glass.": "The «Dr. Hilling» medical-center app: book a doctor in a minute, 16 specialties with prices, a 25-doctor catalog, detailed specialty screens, a patient cabinet with a medical card and points, and the dr.Hilly mascot. Light navy + gold liquid glass.", "Dr. Hilling": "Dr. Hilling", "Новостройка: 3D-шахматка и статусы квартир": "New build: 3D unit grid and apartment statuses", "Продажа новостройки в Telegram: 3D-шахматка дома, статусы квартир, планировки, цены в USD и GEL, ход стройки. Три языка. Готовый пресет — разворачивается под конкретный жилой комплекс.": "Selling a new build in Telegram: a 3D unit grid of the building, apartment statuses, floor plans, prices in USD and GEL, construction progress. Three languages. A ready preset that deploys for a specific residential complex.", "Недвижимость": "Real estate", "3D": "3D", "Детский праздник за три минуты": "A kids' party in three minutes", "Детский праздник за три минуты: десятки программ и героев, банкетный стол и смета, которая пересчитывается на лету. Родитель собирает праздник сам и сразу видит цену.": "A kids' party in three minutes: dozens of programs and characters, a banquet table and an estimate that recalculates on the fly. Parents build the party themselves and see the price right away.", "Детям": "Kids", "Конструктор": "Builder", "Смета": "Estimate", "Лояльность ресторана: меню, баллы, лиги гостей": "Restaurant loyalty: menu, points, guest leagues", "Ресторанная система лояльности в Telegram: меню и заказ, баллы за визиты, лиги гостей (бронза → золото), награды и купоны. Гость возвращается — ресторан растит средний чек.": "A restaurant loyalty system in Telegram: menu and ordering, points for visits, guest leagues (bronze → gold), rewards and coupons. Guests keep coming back — the restaurant grows its average check.", "Dine": "Dine", "Загородный гостевой дом: бронь, визы, загрузка": "A country guest house: booking, visas, occupancy", "Загородный гостевой дом с ретро-атмосферой: номера и А-фреймы у воды, бани и чаны, визы гостей и история места. В хозяйской панели — заявки на визу, календарь занятости объектов, задачи команды и прайс.": "A country guest house with a retro feel: rooms and A-frames by the water, saunas and hot tubs, guest visas and the story of the place. In the owner's panel — visa requests, an occupancy calendar, team tasks and the price list.", "Отель": "Hotel", "Админка": "Admin", "Личный повар за пару вопросов": "A personal chef in a couple of questions", "Кулинарный сервис в Telegram: подбор личного повара за пару вопросов, ИИ-помощник «Ишка», книга рецептов, уровни и челлендж недели. Живой кейс — бот работает и принимает заказы.": "A culinary service in Telegram: a personal chef matched in a couple of questions, the AI helper “Ishka”, a recipe book, levels and a weekly challenge. A live case — the bot runs and takes orders.", "ИИ-помощник": "AI helper", "Презентация ЖК, которую пересылают в чат": "A residential complex pitch people forward in chats", "Презентация жилого комплекса: форматы квартир, 3D-планировка с доходностью, инфраструктура, ход стройки, инвест-условия и заявка на просмотр. Двуязычная версия — русская и английская.": "A residential complex presentation: apartment formats, a 3D layout with yield, infrastructure, construction progress, investment terms and a viewing request. Bilingual — Russian and English.", "Инвестиции": "Investment", "2 языка": "2 languages", "CarRent: премиум-аренда авто с неон-витриной": "CarRent: premium car rental with a neon showroom", "Аренда авто в Батуми: неоновая витрина с Porsche-вайбом, перки Street King, бронь с таймером обратного отсчёта. Дорогой продукт — дорогая подача.": "Car rentals in Batumi: a neon storefront with Porsche vibes, Street King perks, booking with a countdown timer. A premium product — premium presentation.", "Batumi Neon": "Batumi Neon", "Авто": "Auto", "Аренда": "Rental", "Premium": "Premium", "AI-прораб: калькуляторы стройматериалов": "AI foreman: building-materials calculators", "Каталог-чертёж стройматериалов: калькуляторы перегородок и кладки, смета за секунды, AI-прораб отвечает как бригадир. Blueprint-эстетика в тёмном стекле.": "A blueprint-style building-materials catalog: calculators for partitions and masonry, an estimate in seconds, an AI foreman that answers like a site boss. Blueprint aesthetics in dark glass.", "Korob-ka": "Korob-ka", "Стройка": "Construction", "AI": "AI", "E-com": "E-com", "Жилой дом: платежи, заявки, голосования": "A residential building: payments, requests, votes", "Приложение жилого дома на 217 соседей: взносы и платежи, заявки в управляющую компанию, голосования, чат дома по темам и ИИ-консьерж Альма. Прототип городского слоя экосистемы — дом как отдельное Mini App.": "An app for a residential building with 217 neighbors: fees and payments, requests to the management company, votes, a topic-based building chat and the AI concierge Alma. A prototype of the ecosystem's city layer — the building as its own Mini App.", "Сервис дома": "Home service", "ИИ-консьерж": "AI concierge", "Цифровая визитка бизнеса за несколько минут": "A digital business card in a few minutes", "Конструктор цифровых визиток внутри Telegram: блоки, темы оформления, публикация за Stars, личный кабинет и редактор QR-кода. Собственный продукт студии — визитка собирается по анкете за несколько минут, без дизайнера и разработчика.": "A digital business card builder inside Telegram: blocks, themes, publishing for Stars, a personal dashboard and a QR editor. The studio's own product — a card is built from a short form in a few minutes, no designer or developer needed.", "Продукт студии": "Studio product", "Stars": "Stars", "Furniturum": "Furniturum", "Hotelito": "Hotelito"});
 
-  var HERO_EN = ['Your', 'business app', 'is', 'already', 'built.'];
-  var HERO_ARIA = { ru: 'Приложение для вашего бизнеса уже готово.', en: 'Your business app is already built.' };
+  var HERO_EN = ['Your', 'idea —', 'into a product', 'people', 'buy.'];
+  var HERO_ARIA = { ru: 'Ваша идея — в продукт, который покупают.', en: 'Your idea — into a product people buy.' };
 
   var LANG = 'ru';
   try{ LANG = localStorage.getItem('roch_lang') || 'ru'; }catch(e){}
@@ -2692,7 +2702,7 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
       return { x: a.left - b.left, y: a.top - b.top, w: a.width, h: a.height };
     };
     var sweep = function(){
-      Array.prototype.forEach.call(morph.querySelectorAll('.up-fly,.up-ring'), function(e){ e.parentNode.removeChild(e); });
+      Array.prototype.forEach.call(morph.querySelectorAll('.up-fly,.up-ring,.up-scan,.up-shine'), function(e){ e.parentNode.removeChild(e); });
     };
     var preload = function(ex){
       if(!ex || ex.__pre) return; ex.__pre = true;
@@ -2728,10 +2738,33 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
       up.lis.forEach(function(li){ li.classList.remove('up-mark'); li.classList.remove('up-lift'); li.classList.remove('up-done'); li.classList.remove('up-dust'); });
       swP = [];
       up.layers.forEach(function(im){ if(im.parentNode) im.parentNode.removeChild(im); });
-      up.layers = []; up.fanOpen = false; up.ex.classList.remove('up-fanned'); unflow(up);
+      up.layers = []; up.fanOpen = false; up.ex.classList.remove('up-fanned');
       if(up.hand){ up.hand.dead = true; up.hand = null; }
       up.cards.forEach(function(c){ c.style.visibility = 'hidden'; c.style.transform = 'translateX(-50%)'; c.style.zIndex = ''; c.style.removeProperty('--dim'); });
       sweep(); upCount.classList.remove('on');
+    };
+    /* ---- луч печатает экран: рой сел — сверху вниз проходит луч сканера; над ним уже чёткий готовый экран, под ним
+       ещё чертёж или прошлый экран. Промежуточных кадров нет: мозаика из частиц читалась как JPEG, который грузится
+       (Роч 25.10). Луч стартует только после decode() — недогруженный экран не показывается. Финиш — блик по стеклу. ---- */
+    var scan = function(up, im, done){
+      var my = upRun, H = up.ph.clientHeight;
+      var cut = function(q){ var c = 'inset(0 0 ' + ((1 - q) * 100).toFixed(2) + '% 0)'; im.style.webkitClipPath = c; im.style.clipPath = c; };
+      cut(0);
+      var run = function(){
+        if(my !== upRun) return;
+        var beam = document.createElement('i'); beam.className = 'up-scan'; up.ph.appendChild(beam);
+        tween(660, function(q){
+          cut(q); beam.style.transform = 'translate3d(0,' + (q * H).toFixed(1) + 'px,0)';
+          if(q >= 1){ im.style.webkitClipPath = ''; im.style.clipPath = ''; }
+        }, function(){
+          beam.classList.add('out'); later(280, function(){ if(beam.parentNode) beam.parentNode.removeChild(beam); });
+          var sh = document.createElement('i'); sh.className = 'up-shine'; up.ph.appendChild(sh);
+          later(760, function(){ if(sh.parentNode) sh.parentNode.removeChild(sh); });
+          done();
+        });
+      };
+      var ok = im.decode ? im.decode() : null;
+      if(ok) ok.then(run, run); else run();
     };
     /* экран проявляется кругом из точки посадки — «долетело и засчиталось» видно там, куда летело */
     var showScreen = function(up, src, at){
@@ -2739,111 +2772,11 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
       var trim = function(){ while(up.layers.length > 2){ var o = up.layers.shift(); if(o.parentNode) o.parentNode.removeChild(o); } };
       up.ph.appendChild(im); up.layers.push(im);
       if(!at || reduced){ trim(); return; }
-      if(at === 'parts' && burst(up, im, src, trim)) return;
-      if(at === 'rim' || at === 'parts'){
-        /* экран рождается из рамки: маска-ирис сходится от краёв к центру (мягкий край 14 %) */
-        var iris = function(q){ var r = 100 - 114 * q, m = 'radial-gradient(ellipse farthest-corner at 50% 50%, transparent ' + r.toFixed(1) + '%, #000 ' + (r + 14).toFixed(1) + '%)'; im.style.webkitMaskImage = m; im.style.maskImage = m; };
-        iris(0);
-        tween(680, function(q){ iris(q); if(q >= 1){ im.style.webkitMaskImage = ''; im.style.maskImage = ''; } }, trim);
-        return;
-      }
+      if(at === 'rim' || at === 'parts'){ scan(up, im, trim); return; }
       var w = up.ph.clientWidth, h = up.ph.clientHeight, R = Math.sqrt(w * w + h * h);
       var clip = function(r){ var s = 'circle(' + r.toFixed(1) + 'px at ' + at.x.toFixed(1) + 'px ' + at.y.toFixed(1) + 'px)'; im.style.webkitClipPath = s; im.style.clipPath = s; };
       clip(0);
       tween(760, function(p){ clip(p * R); if(p >= 1){ im.style.webkitClipPath = ''; im.style.clipPath = ''; } }, trim);
-    };
-    /* ---- «Чертёж становится продуктом»: каркас телефона перед первым экраном перетекает в его разметку.
-       Экран заранее читается в сетку 72×156. Подложка — самый частый цвет экрана и доминанта своей строки (так
-       градиентный фон и карточки не сливаются в одну массу): остаётся то, из чего сделан сам каркас — заголовки,
-       картинки, строки, кнопки. Строки с контентом склеиваются в блоки, лишние сливаются по самому узкому зазору
-       до семи. Пять силуэтов едут в блоки и берут их цвет, недостающие отпочковываются от ближайшего; фон каркаса
-       темнеет к фону тёмного экрана (у светлого — нет: серая плита хуже тёмной). Рой садится уже в готовую форму,
-       круг проявляет экран поверх неё. Главное событие — рой: перетекание короче (420 мс, каскад 30 мс), без
-       размытия, α ≤ .3, и подчинено ему — стартует за 230 мс до первой волны прилёта, форма садится вместе с роем. ---- */
-    var upLay = {};
-    var readLayout = function(im){
-      var GW = 72, GH = Math.round(GW * 1777 / 820), c = document.createElement('canvas'), g = c.getContext('2d', { willReadFrequently: true }), d, i, x, y, k;
-      c.width = GW; c.height = GH;
-      var iw = im.naturalWidth || im.width, ih = im.naturalHeight || im.height, sc = Math.max(GW / iw, GH / ih), dw = iw * sc;
-      g.drawImage(im, (GW - dw) / 2, 0, dw, ih * sc);
-      try{ d = g.getImageData(0, 0, GW, GH).data; }catch(e){ return null; }
-      var q4 = function(j){ return (d[j * 4] >> 4) * 256 + (d[j * 4 + 1] >> 4) * 16 + (d[j * 4 + 2] >> 4); };
-      var rgb = function(key){ return [(key >> 8) * 16 + 8, ((key >> 4) & 15) * 16 + 8, (key & 15) * 16 + 8]; };
-      var far = function(j, cc){ var r = d[j * 4] - cc[0], gg = d[j * 4 + 1] - cc[1], b = d[j * 4 + 2] - cc[2]; return r * r + gg * gg + b * b > 900; };
-      var hist = {}, best = 0, bg = 0;
-      for(i = 0; i < GW * GH; i++){ k = q4(i); hist[k] = (hist[k] || 0) + 1; if(hist[k] > best){ best = hist[k]; bg = k; } }
-      var BGC = rgb(bg), y0 = Math.round(GH * .05), bl = [], cur = null, on = [];
-      /* верхние 5 % — статус-бар телефона, не разметка */
-      for(y = y0; y < GH; y++){
-        var rh = {}, rb = 0, rk = -1, cnt = 0;
-        for(x = 0; x < GW; x++){ k = q4(y * GW + x); rh[k] = (rh[k] || 0) + 1; if(rh[k] > rb){ rb = rh[k]; rk = k; } }
-        var RC = rb > GW * .5 ? rgb(rk) : BGC;
-        for(x = 0; x < GW; x++){ i = y * GW + x; on[i] = far(i, BGC) && far(i, RC); if(on[i]) cnt++; }
-        if(cnt / GW <= .05) continue;
-        if(cur && y - cur.y1 <= 1){ cur.y1 = y + 1; cur.n += cnt; } else { cur = { y0: y, y1: y + 1, n: cnt }; bl.push(cur); }
-      }
-      bl = bl.filter(function(q){ return q.n >= 6; });
-      if(!bl.length) return null;
-      while(bl.length > 7){
-        var m = 0, gap = 1e9;
-        for(i = 0; i < bl.length - 1; i++){ var gp = bl[i + 1].y0 - bl[i].y1; if(gp < gap){ gap = gp; m = i; } }
-        bl[m].y1 = bl[m + 1].y1; bl.splice(m + 1, 1);
-      }
-      var lum = (.2126 * BGC[0] + .7152 * BGC[1] + .0722 * BGC[2]) / 255;
-      return { bg: BGC, bgA: .35 * Math.max(0, 1 - lum * 2.2), b: bl.map(function(q){
-        var x0 = GW, x1 = 0, r = 0, gg = 0, b = 0, n = 0;
-        for(y = q.y0; y < q.y1; y++) for(x = 0; x < GW; x++){ var j = y * GW + x; if(on[j]){ x0 = Math.min(x0, x); x1 = Math.max(x1, x + 1); r += d[j * 4]; gg += d[j * 4 + 1]; b += d[j * 4 + 2]; n++; } }
-        return { x: x0 / GW, y: q.y0 / GH, w: Math.max(1, x1 - x0) / GW, h: (q.y1 - q.y0) / GH, c: [Math.round(r / n), Math.round(gg / n), Math.round(b / n)] };
-      }) };
-    };
-    var layoutOf = function(src, done){
-      if(upLay[src] !== undefined){ done(upLay[src]); return; }
-      bmOf(src).then(function(bm){
-        var im = imgOf(src);
-        if(upLay[src] === undefined) upLay[src] = bm ? readLayout(bm) : (im.complete && im.naturalWidth ? readLayout(im) : null);
-        done(upLay[src]);
-      });
-    };
-    var flow = function(up, src, wait){
-      var sk = up.ph.querySelector('.up-empty'), my = upRun;
-      if(!sk || reduced || up.layers.length) return;
-      layoutOf(src, function(L){
-        if(!L || my !== upRun || up.layers.length) return;
-        Array.prototype.forEach.call(sk.querySelectorAll('.up-x'), function(e){ sk.removeChild(e); });
-        var bars = Array.prototype.slice.call(sk.children), W = up.ph.clientWidth, H = up.ph.clientHeight, nb = L.b.length, ns = bars.length;
-        var from = bars.map(function(b){
-          var cs = getComputedStyle(b);
-          return { x: b.offsetLeft, y: b.offsetTop, w: b.offsetWidth, h: b.offsetHeight, r: parseFloat(cs.borderTopLeftRadius) || 0, a: parseFloat(cs.borderTopWidth) || 0 };
-        });
-        /* пары силуэт → блок: блоков меньше — силуэты сливаются в ближайший, больше — лишние отпочковываются */
-        var pairs = [], used = [], j;
-        if(nb >= ns){ for(j = 0; j < nb; j++){ var si = nb > 1 ? Math.round(j * (ns - 1) / (nb - 1)) : 0; pairs.push({ s: si, q: L.b[j], born: !!used[si] }); used[si] = true; } }
-        else { for(j = 0; j < ns; j++) pairs.push({ s: j, q: L.b[Math.round(j * (nb - 1) / (ns - 1))], born: false }); }
-        sk.classList.add('up-flow');
-        pairs.forEach(function(pr, k){
-          var f = from[pr.s], q = pr.q, b = bars[pr.s];
-          if(pr.born){ b = document.createElement('i'); b.className = 'up-x'; sk.appendChild(b); }
-          var tx = q.x * W, ty = q.y * H, tw = q.w * W, th = Math.max(4, q.h * H), tr = Math.min(12, th / 2), c = q.c.join(','), born = pr.born;
-          var put = function(e){
-            b.style.left = (f.x + (tx - f.x) * e).toFixed(1) + 'px'; b.style.top = (f.y + (ty - f.y) * e).toFixed(1) + 'px';
-            b.style.width = (f.w + (tw - f.w) * e).toFixed(1) + 'px'; b.style.height = (f.h + (th - f.h) * e).toFixed(1) + 'px';
-            b.style.borderRadius = (f.r + (tr - f.r) * e).toFixed(1) + 'px';
-            b.style.background = 'rgba(' + c + ',' + (.3 * e).toFixed(3) + ')';
-            b.style.boxShadow = 'inset 0 0 0 1px rgba(255,255,255,' + (.06 * (1 - e)).toFixed(3) + ')';
-            if(born) b.style.opacity = e.toFixed(3);
-            else if(f.a) b.style.borderColor = 'rgba(255,255,255,' + (.14 * (1 - e)).toFixed(3) + ')';
-          };
-          put(0);
-          later(wait + Math.min(k, 6) * 30, function(){ tween(420, put); });
-        });
-        if(L.bgA > .01) later(wait, function(){ tween(420, function(e){ sk.style.background = 'rgba(' + L.bg.join(',') + ',' + (L.bgA * e).toFixed(3) + ')'; }); });
-      });
-    };
-    var unflow = function(up){
-      var sk = up.ph.querySelector('.up-empty'); if(!sk) return;
-      sk.classList.remove('up-flow'); sk.style.background = '';
-      Array.prototype.forEach.call(sk.querySelectorAll('.up-x'), function(e){ sk.removeChild(e); });
-      Array.prototype.forEach.call(sk.children, function(b){ b.removeAttribute('style'); });
     };
     var ring = function(x, y){
       var r = document.createElement('i'); r.className = 'up-ring';
@@ -2881,75 +2814,14 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
     };
     /* ---- рой садится в рамку мокапа: точки по периметру по часовой от верхней середины в порядке прилёта —
        рамка заряжается лаймом, как кольцо загрузки; замкнулась — вспышка 160 мс и угасание ease-in 400 мс,
-       экран рождается из рамки ирисом к центру. К нижней части рамки точки заходят снаружи, огибая телефон сбоку. ---- */
-    var swRim = null, swImg = null, swBox = null, tlHold = 0, tiltRest = function(){};
+       экран печатает луч сверху вниз. К нижней части рамки точки заходят снаружи, огибая телефон сбоку. ---- */
+    var swRim = null, tlHold = 0, tiltRest = function(){};
     var upImgs = {};
     /* картинки экранов декодируются заранее и вне главного потока: иначе JPEG декодируется синхронно в первом drawImage */
     var imgOf = function(src){ var im = upImgs[src]; if(!im){ im = upImgs[src] = new Image(); im.decoding = 'async'; im.src = src; im.__ok = im.decode ? im.decode() : null; if(im.__ok) im.__ok.catch(function(){}); } return im; };
-    /* битмап экрана: декод из блоба (fetch → createImageBitmap) вне главного потока; drawImage(<img>) в холст и
-       createImageBitmap(<img>) декодировали JPEG синхронно — 50–140 мс на телефоне. Файл уже в HTTP-кеше после предзагрузки */
-    var upBm = {};
-    var bmOf = function(src){
-      if(!upBm[src]) upBm[src] = (window.createImageBitmap && window.fetch)
-        ? fetch(src).then(function(r){ return r.blob(); }).then(function(b){ return createImageBitmap(b); }).then(null, function(){ return null; })
-        : { then: function(f){ f(null); } };
-      return upBm[src];
-    };
-    var idle = function(fn){ if(window.requestIdleCallback) requestIdleCallback(fn, { timeout: 2000 }); else setTimeout(fn, 200); };
-    /* скелетон и мозаика для экранов примера — в простое браузера, а не посреди полёта роя */
+    /* экраны примера декодируются заранее — луч стартует только по готовой картинке */
     var warm = function(ex){
-      Array.prototype.forEach.call(ex.querySelectorAll('.up-note li'), function(li, i){
-        var src = li.getAttribute('data-scr'), im = imgOf(src);
-        /* размер телефона читается в простое: при загрузке offsetWidth заставлял считать вёрстку всей страницы (77 мс) */
-        var go = function(){ bmOf(src).then(function(bm){ idle(function(){
-          var ph = morph.querySelector('.ex.active .up-ph') || ex.querySelector('.up-ph'), P = ph && ph.offsetWidth ? { w: ph.offsetWidth, h: ph.offsetHeight } : null;
-          if(P) prepBurst(src, P, bm); if(i === 0) layoutOf(src, function(){});
-        }); }); };
-        if(im.__ok) im.__ok.then(go, function(){}); else if(im.complete) go(); else im.addEventListener('load', go);
-      });
-    };
-    /* ---- экран из частиц: рамка вспыхивает и вихрем выпускает внутрь ~3 000 частиц цвета пикселей скриншота.
-       Путь от рамки к своему пикселю — по прямой с закруткой 0 → .35 рад → 0 (старт и посадка точно на месте, иначе угол
-       высокого телефона уезжает за рамку), ease-out, длительность ∝ расстоянию:
-       ближние к краю садятся первыми, экран собирается мозаикой от рамки к центру. Настоящий скриншот
-       проявляется сквозь оседающие частицы на последних 40 % (мелкий текст из точек нечитаем), частицы гаснут
-       ease-in за 220 мс. Рисуются пачками по цвету (5 бит на канал) — один fillStyle на пачку, а не на частицу. ---- */
-    var upPrep = {};
-    /* частицы экрана считаются заранее (через 200 мс полёта роя) и кешируются: координаты — от центра телефона */
-    var prepBurst = function(src, P, bm){
-      var key = src + '|' + Math.round(P.w) + 'x' + Math.round(P.h), pic = bm || imgOf(src);
-      if(upPrep[key]) return upPrep[key];
-      var iw = pic.naturalWidth || pic.width, ih = pic.naturalHeight || pic.height;
-      if(!bm && !pic.complete || !iw) return null;
-      var st = Math.max(4, Math.ceil(Math.sqrt(P.w * P.h / 3000))), gw = Math.round(P.w / st), gh = Math.round(P.h / st);
-      var c = document.createElement('canvas'), g = c.getContext('2d', { willReadFrequently: true }), d, i, j;
-      c.width = gw; c.height = gh;
-      var k = Math.max(gw / iw, gh / ih), dw = iw * k;
-      g.drawImage(pic, (gw - dw) / 2, 0, dw, ih * k);
-      try{ d = g.getImageData(0, 0, gw, gh).data; }catch(e){ return null; }
-      var hw = P.w / 2, hh = P.h / 2, bk = {}, len = 0;
-      for(j = 0; j < gh; j++) for(i = 0; i < gw; i++){
-        var o = (j * gw + i) * 4, dx = (i + .5) * st - hw, dy = (j + .5) * st - hh, dl = Math.sqrt(dx * dx + dy * dy);
-        if(dl < 1){ var ra = Math.random() * 6.2832; dx = Math.cos(ra); dy = Math.sin(ra); dl = 1; }
-        /* старт — на рамке по лучу из центра через свой пиксель */
-        var f = Math.min(hw / Math.max(1e-3, Math.abs(dx)), hh / Math.max(1e-3, Math.abs(dy))) * (1 + Math.random() * .04);
-        var q = { sx: dx * f, sy: dy * f, ex: dx, ey: dy, dl: Math.random() * 140, dur: 280 + (f - 1) * dl * 2.2 };
-        len = Math.max(len, q.dl + q.dur);
-        var kk = (d[o] >> 3) * 1024 + (d[o + 1] >> 3) * 32 + (d[o + 2] >> 3);
-        (bk[kk] || (bk[kk] = { c: 'rgb(' + (d[o] | 4) + ',' + (d[o + 1] | 4) + ',' + (d[o + 2] | 4) + ')', p: [] })).p.push(q);
-      }
-      return (upPrep[key] = { st: st, bk: bk, len: len });
-    };
-    var burst = function(up, im, src, done){
-      /* мозаика — только из готового кеша; без createImageBitmap (старый Safari) — из <img> на месте */
-      var P = swBox, R = P && swCx ? (upPrep[src + '|' + Math.round(P.w) + 'x' + Math.round(P.h)] || (!window.createImageBitmap ? prepBurst(src, P) : null)) : null;
-      if(!R) return false;
-      if(swImg && swImg.im !== im) swImg.im.style.opacity = '';
-      im.style.opacity = '0';
-      swImg = { im: im, cx: P.x + P.w / 2, cy: P.y + P.h / 2, st: R.st, bk: R.bk, t0: performance.now(), len: R.len, done: done, rim: swRim ? swRim.pts : null };
-      later(R.len + 900, function(){ if(swImg && swImg.im === im){ im.style.opacity = ''; swImg = null; if(done) done(); } });
-      if(!swOn){ swOn = true; requestAnimationFrame(swLoop); }
-      return true;
+      Array.prototype.forEach.call(ex.querySelectorAll('.up-note li'), function(li){ imgOf(li.getAttribute('data-scr')); });
     };
     /* скруглённый прямоугольник рамки → n+1 точек по длине дуги, по часовой от верхней середины */
     var rimPath = function(p, r, n){
@@ -2975,7 +2847,7 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
       return out;
     };
     var swLoop = function(){
-      if(swRun !== upRun){ swP = []; swRim = null; if(swImg){ swImg.im.style.opacity = ''; swImg = null; } }
+      if(swRun !== upRun){ swP = []; swRim = null; }
       var now = performance.now(), W = swW, H = swH, R = swRim, fade = 1, flash = 0;
       /* хвосты: прошлый кадр не стирается, а гаснет — рой летит кометами */
       swCx.globalCompositeOperation = 'destination-out'; swCx.fillStyle = 'rgba(0,0,0,.3)'; swCx.fillRect(0, 0, W, H);
@@ -3014,31 +2886,8 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
         }
       }
       swCx.globalCompositeOperation = 'source-over';
-      /* мозаика экрана: частицы вихрем от рамки к своим пикселям, сквозь них проявляется настоящий скриншот */
-      var M = swImg;
-      if(M){
-        var el = now - M.t0, out = el > M.len ? Math.min(1, (el - M.len) / 220) : 0, ma = 1 - out * out, hs = M.st - .5;
-        M.im.style.opacity = Math.max(0, Math.min(1, (el / M.len - .6) / .4)).toFixed(3);
-        if(ma > 0){
-          /* вихрь крутится внутри рамки: она — граница экрана, а не точка, мимо которой летят */
-          swCx.save();
-          if(M.rim){ swCx.beginPath(); swCx.moveTo(M.rim[0][0], M.rim[0][1]); for(var rp = 1; rp < M.rim.length; rp++) swCx.lineTo(M.rim[rp][0], M.rim[rp][1]); swCx.closePath(); swCx.clip(); }
-          swCx.globalAlpha = ma;
-          for(var key in M.bk){
-            var B = M.bk[key]; swCx.fillStyle = B.c;
-            for(var n = 0; n < B.p.length; n++){
-              var z = B.p[n], tt = (el - z.dl) / z.dur;
-              if(tt < 0) continue;
-              var ez = tt >= 1 ? 1 : 1 - Math.pow(1 - tt, 3), rx = z.sx + (z.ex - z.sx) * ez, ry = z.sy + (z.ey - z.sy) * ez;
-              var th = 1.4 * ez * (1 - ez), co = Math.cos(th), si = Math.sin(th), sz = hs * (.55 + .45 * ez);
-              swCx.fillRect(M.cx + rx * co - ry * si - sz / 2, M.cy + rx * si + ry * co - sz / 2, sz, sz);
-            }
-          }
-          swCx.restore();
-        } else { M.im.style.opacity = ''; swImg = null; if(M.done) M.done(); }
-      }
       swP = alive;
-      if(swP.length || (R && fade > 0) || swImg) requestAnimationFrame(swLoop); else { swOn = false; swRim = null; swCx.clearRect(0, 0, W, H); }
+      if(swP.length || (R && fade > 0)) requestAnimationFrame(swLoop); else { swOn = false; swRim = null; swCx.clearRect(0, 0, W, H); }
     };
     var swarm = function(li, p, landed){
       swSize(); swRun = upRun;
@@ -3049,7 +2898,7 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
         q0.land = q0.t0 + q0.dur; qs.push(q0);
       }
       var scr = li.getAttribute('data-scr');
-      swBox = p; imgOf(scr); bmOf(scr).then(function(bm){ if(bm) prepBurst(scr, p, bm); });
+      imgOf(scr);
       if(!qs.length){ landed('parts'); return 300; }
       /* место на рамке — по порядку прилёта: рамка заполняется по часовой без разрывов */
       qs.sort(function(a, b){ return a.land - b.land; });
@@ -3134,11 +2983,10 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
         };
         if(reduced){ landed(); return; }
         swPh = up.ph;
-        var eta = (window.HTMLCanvasElement && document.createRange) ? swarm(li, p, landed) : (fly(li, p.x + at.x, p.y + at.y, landed), 520);
-        flow(up, li.getAttribute('data-scr'), Math.max(0, eta - 300));
+        if(window.HTMLCanvasElement && document.createRange) swarm(li, p, landed); else fly(li, p.x + at.x, p.y + at.y, landed);
       });
     };
-    /* распаковку проскроллили мимо — прогон останавливается, пример сразу в финале: рой, мозаика и веер
+    /* распаковку проскроллили мимо — прогон останавливается, пример сразу в финале: рой, луч и веер
        не крутятся за экраном. Вернулись — через 1.5 с играет следующий пример */
     var settle = function(){
       var up = exListEls[exIdx] && exListEls[exIdx].__up; if(!up) return;
@@ -3283,7 +3131,7 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
       var next = function(){
         if(i < up.lis.length){ var k = i++; later(k === 0 ? 450 : 240, function(){ unpack(up, k, next); }); return; }
         later(180, function(){ finale(up); });
-        /* нагрев: подряд без касания — не больше трёх примеров (рой и мозаика тяжёлые), дальше витрина ждёт касания или нового входа */
+        /* нагрев: подряд без касания — не больше трёх примеров (рой тяжёлый), дальше витрина ждёт касания или нового входа */
         later(4600, function(){ if(exVisible && !document.hidden && Date.now() - exAutoLast > 8000 && exAutoN < 3){ exAutoN++; goEx(exIdx + 1); } });
       };
       next();
@@ -3617,8 +3465,8 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
     var pjOpen = document.getElementById('pjOpen');
     if(p.url){ pjOpen.style.display = ''; pjOpen.href = p.url; } else { pjOpen.style.display = 'none'; }
     var msg = LANG === 'en'
-      ? 'Hi Roma! I want an app like “' + p.name + '” under my brand ($990 and $99 a month). My business: … City: …'
-      : 'Привет, Рома! Хочу такое же приложение, как «' + p.name + '», под своим брендом ($990 и $99 в месяц). Мой бизнес: … Город: …';
+      ? 'Hi Roma! I want an app like “' + p.name + '” under my brand ($1,490 and $99 a month). My business: … City: …'
+      : 'Привет, Рома! Хочу такое же приложение, как «' + p.name + '», под своим брендом ($1 490 и $99 в месяц). Мой бизнес: … Город: …';
     document.getElementById('pjTg').href = tgLink(msg);
     localizeTree(back);
     back.classList.add('open');
@@ -3713,9 +3561,9 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
     { when:'✦ Сегодня', pack:'Созвон', price:'Бесплатно', note:'20 минут на подбор приложения',
       items:['Покажу готовое приложение вашей ниши', 'Честно скажу, подходит ли оно вашему бизнесу', 'Назову срок и цену запуска'],
       cta:'Подобрать приложение', msg:'Привет, Рома! Хочу подобрать готовое приложение для бизнеса. Мой бизнес: … Город: …' },
-    { when:'✦ Через 7 дней', pack:'Запуск', price:'$990', note:'+ $99 в месяц',
+    { when:'✦ Через 7 дней', pack:'Запуск', price:'$1 490', note:'+ $99 в месяц',
       items:['Готовое приложение вашей ниши под вашим брендом', 'Ваши услуги, цены и контакты внутри', 'Механики, ради которых клиент возвращается', 'Работа, обновления и поддержка входят в подписку'],
-      cta:'Запустить за $990', msg:'Привет, Рома! Хочу запустить готовое приложение под своим брендом ($990 и $99 в месяц). Мой бизнес: … Город: …' },
+      cta:'Запустить за $1 490', msg:'Привет, Рома! Хочу запустить готовое приложение под своим брендом ($1 490 и $99 в месяц). Мой бизнес: … Город: …' },
     { when:'✦ Каждый месяц', pack:'Креативный директор', price:'$5 000', note:'в месяц, лично со мной',
       items:['Две сессии в неделю с вашей командой', 'Концепция и игровой слой продукта', 'Ревью всего, что выходит к клиентам', 'Механики роста и удержания на квартал'],
       cta:'Обсудить работу', msg:'Привет, Рома! Хочу обсудить работу с тобой как с креативным директором ($5 000 в месяц). Мой продукт: …' }
