@@ -285,15 +285,23 @@ h1 .w i{animation-delay:var(--wd)}
 .bn-tag{color:#FFB38A;background:rgba(255,110,120,.12);box-shadow:inset 0 0 0 1px rgba(255,120,150,.32)}
 .bn-top h3{margin:12px 0 6px;font-size:clamp(20px,5.4vw,26px);font-weight:800;letter-spacing:-.025em;line-height:1.15;text-wrap:balance}
 .bn-rule{font-size:14px;line-height:1.45;color:var(--text2)}
-.bn-card{position:relative;margin:16px 0;height:clamp(230px,62vw,270px);border-radius:20px;overflow:hidden;cursor:pointer;outline:none;
+.bn-card{position:relative;margin:16px 0;border-radius:20px;overflow:hidden;cursor:pointer;outline:none;
   background:radial-gradient(120% 90% at 50% 8%,rgba(255,110,120,.26),transparent 62%),radial-gradient(90% 70% at 50% 100%,rgba(150,80,255,.24),transparent 70%),#10071A;
   box-shadow:inset 0 0 0 1px rgba(255,120,160,.3),0 18px 60px rgba(150,80,255,.2)}
 .bn-card:focus-visible{box-shadow:0 0 0 2px #FF7FA8}
-.bn-under{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;padding:18px 22px;text-align:center;
-  opacity:0;transform:scale(.92);filter:blur(10px)}
+.bn-under{position:relative;display:flex;flex-direction:column;opacity:0;transform:scale(.92);filter:blur(10px)}
+/* ролик ROCH Motion: 10 с, два встречных ряда живых механик и пять крупных планов; кадр 16:9 — целиком на любой ширине */
+.bn-media{position:relative;aspect-ratio:16/9;overflow:hidden;background:#0B0610}
+.bn-vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.bn-media::after{content:'';position:absolute;inset:auto 0 0;height:38%;background:linear-gradient(transparent,rgba(16,7,26,.92));pointer-events:none}
+.bn-media .bn-eb{position:absolute;left:12px;top:12px;z-index:1;padding:6px 10px;border-radius:99px;background:rgba(12,5,20,.72);
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);box-shadow:inset 0 0 0 1px rgba(255,140,170,.35)}
+.bn-info{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:4px 14px;padding:4px 18px 18px;margin-top:-14px;position:relative}
+.bn-info .bn-sub{flex-basis:100%;max-width:none}
+@media (max-width:599px){ .bn-media{aspect-ratio:4/3} }
 .bn-card.open .bn-under{opacity:1;transform:none;filter:none;transition:opacity .45s var(--ease),transform .8s var(--spring),filter .55s var(--ease)}
 .bn-eb{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#FFB38A}
-.bn-gift{font-size:clamp(30px,8.4vw,42px);font-weight:900;letter-spacing:-.035em;line-height:1;color:#fff;text-shadow:0 0 34px rgba(255,90,150,.55)}
+.bn-gift{font-size:clamp(26px,7.4vw,36px);font-weight:900;letter-spacing:-.035em;line-height:1;color:#fff;text-shadow:0 0 34px rgba(255,90,150,.55)}
 .bn-sub{max-width:430px;font-size:14px;line-height:1.42;color:var(--text2)}
 .bn-price{display:flex;align-items:baseline;gap:10px;font-variant-numeric:tabular-nums}
 .bn-price s{font-size:15px;color:var(--text3)}
@@ -309,7 +317,7 @@ h1 .w i{animation-delay:var(--wd)}
 .bn-cta{width:100%}
 @media (min-width:1024px){
   .bonus{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);grid-template-areas:"top card" "cta card";column-gap:30px;align-items:center;padding:30px}
-  .bn-top{grid-area:top;align-self:end}.bn-card{grid-area:card;height:280px;margin:0}.bn-cta{grid-area:cta;align-self:start;width:auto;justify-self:start;margin-top:18px}
+  .bn-top{grid-area:top;align-self:end}.bn-card{grid-area:card;margin:0}.bn-cta{grid-area:cta;align-self:start;width:auto;justify-self:start;margin-top:18px}
 }
 /* hero: хук-переписка — серое «ТЗ» разработчиков и лаймовое «расскажите» ROCH; сообщения приходят по очереди */
 .bz-chat{display:flex;flex-direction:column;gap:8px;max-width:460px;margin:22px 0 14px}
@@ -455,19 +463,28 @@ footer .foot-links span{color:var(--text3)}
   border-radius:22px;overflow:hidden;background:#0b0f0c!important;box-shadow:0 30px 90px rgba(0,0,0,.6),inset 0 0 0 1px rgba(212,255,79,.18)}
 .calendly-overlay .calendly-popup .calendly-popup-content{background:#0b0f0c!important}
 /* после раскрытия: код подарка и выбор механик — подарок становится осязаемым */
-.bn-wink{color:var(--text3);text-decoration:none;border-bottom:1px dashed rgba(255,150,180,.45);pointer-events:auto}
+.bn-wink{width:fit-content;color:var(--text3);text-decoration:none;border-bottom:1px dashed rgba(255,150,180,.45);pointer-events:auto}
 .bn-wink::after{content:' →'}
 .bn-after{margin:0 0 14px;display:grid;gap:10px;opacity:0;transform:translateY(8px);transition:opacity .45s var(--ease),transform .55s var(--spring)}
 .bn-after.in{opacity:1;transform:none}
 .bn-code{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 12px 12px 16px;border-radius:16px;
   background:rgba(255,110,140,.08);box-shadow:inset 0 0 0 1px rgba(255,130,170,.35)}
 .bn-code small{display:block;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#FFB38A}
-.bn-code b{display:block;margin-top:2px;font:800 20px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.06em;color:#fff}
-.bn-copy{min-height:40px;padding:0 14px;border:0;border-radius:99px;cursor:pointer;font:700 13px var(--font);color:#fff;
+.bn-code b{display:block;margin-top:2px;font:800 clamp(17px,5.4vw,20px) ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.06em;white-space:nowrap;color:#fff}
+.bn-copy{flex:none;min-height:40px;padding:0 14px;border:0;border-radius:99px;cursor:pointer;font:700 13px var(--font);color:#fff;
   background:rgba(255,255,255,.08);box-shadow:inset 0 0 0 1px rgba(255,255,255,.2)}
 .bn-pick{display:inline-flex;align-items:center;gap:6px;width:fit-content;font-size:14px;font-weight:700;text-decoration:none;color:#FF9ABA;border-bottom:1px solid rgba(255,154,186,.4)}
 .bn-pick::after{content:'→'}
 @media (min-width:1024px){ .bonus{grid-template-areas:"top card" "after card" "cta card"} .bn-after{grid-area:after;margin:16px 0 0} }
+@media (max-width:359px){ .bn-code{gap:8px;padding-left:12px} .bn-code b{font-size:16px} .bn-copy{padding:0 10px;font-size:12px} }
+/* ROCH AI · «проверьте идею сами» — призрачная кнопка: магнит экрана остаётся у главного действия */
+.try-ai{margin-top:16px;padding:20px;border-radius:24px;display:grid;gap:16px}
+.ta-eb{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--lime)}
+.try-ai h3{margin-top:6px;font-size:20px;font-weight:800;letter-spacing:-.02em}
+.try-ai p{margin-top:6px;font-size:15px;line-height:1.5;color:var(--text2)}
+.try-ai .ta-btn{margin:0}
+.try-ai[hidden],.fq[hidden]{display:none}
+@media (min-width:1024px){ .try-ai{grid-template-columns:1fr auto;align-items:center;column-gap:32px;padding:24px 28px} }
 .morph-wrap{margin-top:34px}
 .morph-head{display:flex;align-items:center;gap:8px;margin-bottom:12px;padding:0 2px}
 .morph-badge{display:flex;align-items:center;gap:7px;font-size:11px;font-weight:800;letter-spacing:.08em;
@@ -2008,6 +2025,16 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
       <div class="yes"><span class="yk">да</span><p>Понятно, где вы заработаете</p></div>
     </div>
   </div>
+  <!-- ROCH AI · режим «Идея словами»: бесплатный черновик паспорта без созвона — ценность до заказа, не временем Роча -->
+  <!-- ROCH-AI-OFF: скрыто до рабочего ключа Anthropic на проде roch-ai (401 с 26.10); включить — убрать hidden здесь и у вопроса FAQ, вернуть ссылку finalAi -->
+  <div class="try-ai glass reveal" hidden>
+    <div class="ta-t">
+      <div class="ta-eb">ROCH AI · бесплатно</div>
+      <h3>Проверьте свою идею сами</h3>
+      <p>Опишите её словами, и ROCH AI за минуту соберёт черновик паспорта: кто клиент, почему он вернётся, где деньги и вердикт по правилу трёх «да».</p>
+    </div>
+    <a class="btn sec ta-btn" href="/rochai?intake=idea" target="_blank" rel="noopener"><span class="oc-txt">Собрать черновик паспорта</span><span class="oc-arr">→</span></a>
+  </div>
 </section>
 
 <!-- ============ СКОЛЬКО ЖДАТЬ: бегунок времени 1 час / 24 часа / 3–4 дня ============ -->
@@ -2269,11 +2296,15 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
     </div>
     <div class="bn-card" id="bnCard" role="button" tabindex="0" aria-label="Открыть секретный бонус">
       <div class="bn-under" id="bnUnder" aria-hidden="true">
-        <span class="bn-eb">Открыто для вас</span>
-        <b class="bn-gift">ROCH Motion Pro</b>
-        <span class="bn-sub">30 живых механик на выбор: награды, кнопки, карточки и переходы для вашего прототипа. Каждая остаётся вашей навсегда.</span>
-        <span class="bn-price"><s>590 ★</s><b>0 ★</b></span>
-        <a class="bn-wink" href="https://t.me/ROCH_Motion_Bot?startapp=w__f_pixel-reveal" target="_blank" rel="noopener">Эффект, который вы только что открыли, — один из них</a>
+        <div class="bn-media">
+          <video class="bn-vid" id="bnVid" muted playsinline loop preload="none" aria-hidden="true" data-src="assets/motion/roch-motion-gift.mp4" data-poster="assets/motion/roch-motion-gift.webp"></video>
+          <span class="bn-eb">Открыто для вас</span>
+        </div>
+        <div class="bn-info">
+          <b class="bn-gift">ROCH Motion Pro</b>
+          <span class="bn-price"><s>590 ★</s><b>0 ★</b></span>
+          <span class="bn-sub">ROCH Motion — это живые эффекты для приложений. Вы выбираете 30 для своего прототипа, и они остаются вашими навсегда.</span>
+        </div>
       </div>
       <canvas class="bn-cv" id="bnCv" aria-hidden="true"></canvas>
       <span class="bn-lock" id="bnLock"><i class="ico i-lock"></i><b>Нажмите, чтобы открыть</b></span>
@@ -2281,6 +2312,7 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
     <div class="bn-after" id="bnAfter" hidden>
       <div class="bn-code"><span><small>Ваш код подарка</small><b id="bnCode">ROCH-0000</b></span><button type="button" class="bn-copy" id="bnCopy">Скопировать</button></div>
       <a class="bn-pick" href="https://t.me/ROCH_Motion_Bot?startapp=w" target="_blank" rel="noopener">Выбрать свои 30 механик в ROCH Motion</a>
+      <a class="bn-wink" href="https://t.me/ROCH_Motion_Bot?startapp=w__f_pixel-reveal" target="_blank" rel="noopener">Эффект, который вы только что открыли, — один из них</a>
     </div>
     <a class="btn sec bn-cta" data-gift data-tgmsg="Привет, Рома! Хочу упаковку идеи за $1 490 с бонусом ROCH Motion Pro. Идея: …"><span class="oc-txt">Упаковать за $1 490 с бонусом</span><span class="oc-arr">→</span></a>
   </div>
@@ -2290,7 +2322,7 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
     <p>Разработку упакованной идеи делает моя студия <b>AppHub</b>.</p>
     <span class="ah-go" aria-hidden="true"><i class="ico i-out"></i></span>
   </a>
-  <p class="terms-line reveal">Оплата на счёт ИП или в USDT, 50 % до начала работы. <a href="/terms">Условия работы и оплаты</a></p>
+  <p class="terms-line reveal">Оплата на счёт ИП или в USDT, 50 % до начала работы. <a href="/terms">Условия работы и оплаты</a> · <a href="/pay">Реквизиты для оплаты</a></p>
 </section>
 
 <!-- ============ БЕЗ РИСКА ============ -->
@@ -2335,7 +2367,8 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
     <details class="fq"><summary><span>Что я получу за $1 490?</span><i class="ico i-down"></i></summary><p>Паспорт идеи на одной странице, концепцию и игровой слой, живой прототип ключевых сценариев в вашем телефоне, визуальный стиль, план запуска и смету разработки. Всё это ваше, и с этим можно идти к партнёрам и инвесторам. <a class="pp-link in" href="/passport">Смотреть пример</a></p></details>
     <details class="fq"><summary><span>Почему первые 30 минут бесплатно?</span><i class="ico i-down"></i></summary><p>За 30 минут я понимаю, могу ли помочь, а вы понимаете, нужен ли я вам. Если идея не проходит правило трёх «да», я скажу это сразу, и вы ничего не платите.</p></details>
     <details class="fq"><summary><span>Кто будет разрабатывать приложение?</span><i class="ico i-down"></i></summary><p>Упаковку делаю я. Разработку делает моя студия AppHub: цену и срок она называет по смете из упаковки. Файлы и права ваши, поэтому упаковку можно отдать и своим разработчикам.</p></details>
-    <details class="fq"><summary><span>Как оплатить?</span><i class="ico i-down"></i></summary><p>На счёт ИП по выставленному счёту или в USDT. Упаковку вы оплачиваете двумя частями: 50 % до начала работы и 50 % после того, как приняли прототип. <a class="pp-link in" href="/terms">Все условия</a></p></details>
+    <details class="fq" hidden><summary><span>Можно сначала попробовать без созвона?</span><i class="ico i-down"></i></summary><p>Да. Опишите идею в ROCH AI, и за минуту он соберёт черновик паспорта с вердиктом по правилу трёх «да». Это бесплатно, а на созвоне мы доведём черновик до решения. <a class="pp-link in" href="/rochai?intake=idea" target="_blank" rel="noopener">Собрать черновик</a></p></details>
+    <details class="fq"><summary><span>Как оплатить?</span><i class="ico i-down"></i></summary><p>На счёт ИП по выставленному счёту или в USDT. Упаковку вы оплачиваете двумя частями: 50 % до начала работы и 50 % после того, как приняли прототип. <a class="pp-link in" href="/pay">Реквизиты для оплаты</a> <a class="pp-link in" href="/terms">Все условия</a></p></details>
     <details class="fq"><summary><span>Почему Telegram, а не App Store?</span><i class="ico i-down"></i></summary><p>Прототип открывается в Telegram по ссылке или QR-коду, скачивать ничего не нужно. Если вашей идее подходит другой формат, я скажу это на созвоне.</p></details>
   </div>
 </section>
@@ -2388,7 +2421,7 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
     <a class="c-chip" href="mailto:rc@roch-art.com"><i class="ico i-mail"></i>rc@roch-art.com</a>
     <a class="c-chip" href="https://www.linkedin.com/in/roman-chernyavsky-1b97a1aa/" target="_blank" rel="noopener"><i class="ico i-in"></i>LinkedIn</a>
   </div>
-  <p class="foot-links"><a href="/terms">Условия работы и оплаты</a><span aria-hidden="true">·</span><a href="/passport">Пример паспорта идеи</a></p>
+  <p class="foot-links"><a href="/terms">Условия работы и оплаты</a><span aria-hidden="true">·</span><a href="/pay">Оплата</a><span aria-hidden="true">·</span><a href="/passport">Пример паспорта идеи</a></p>
   <p>ROCH 0→1 · распаковка и упаковка идей, креативное руководство — Roman Chernyavsky · roch-art.com</p>
 </footer>
 </div>
@@ -2905,7 +2938,7 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
     "Он ваш, если вы заказываете упаковку в течение 48 часов после созвона.":"It is yours if you order packaging within 48 hours after the call.",
     "Открыть секретный бонус":"Open the secret bonus",
     "Открыто для вас":"Unlocked for you",
-    "30 живых механик на выбор: награды, кнопки, карточки и переходы для вашего прототипа. Каждая остаётся вашей навсегда.":"30 live mechanics of your choice: rewards, buttons, cards and transitions for your prototype. Each one stays yours forever.",
+    "ROCH Motion — это живые эффекты для приложений. Вы выбираете 30 для своего прототипа, и они остаются вашими навсегда.":"ROCH Motion is a library of live effects for apps. You pick 30 for your prototype, and they stay yours forever.",
     "Эффект, который вы только что открыли, — один из них.":"The effect you just opened is one of them.",
     "Нажмите, чтобы открыть":"Tap to open",
     "Упаковать за $1 490 с бонусом":"$1,490 packaging + bonus",
@@ -2923,6 +2956,8 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
     "Смотреть пример":"See a sample",
     "Оплата на счёт ИП или в USDT, 50 % до начала работы.":"Payment to my sole-proprietor account or in USDT, 50% before work starts.",
     "Условия работы и оплаты":"Terms and payment",
+    "Реквизиты для оплаты":"Payment details",
+    "Оплата":"Payment",
     "Как оплатить?":"How do I pay?",
     "На счёт ИП по выставленному счёту или в USDT. Упаковку вы оплачиваете двумя частями: 50 % до начала работы и 50 % после того, как приняли прототип.":"By invoice to my sole-proprietor account or in USDT. Packaging is paid in two parts: 50% before work starts and 50% after you accept the prototype.",
     "Все условия":"All terms",
@@ -2932,7 +2967,15 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
     "Ваш код подарка":"Your gift code",
     "Скопировать":"Copy",
     "Скопировано":"Copied",
-    "Выбрать свои 30 механик в ROCH Motion":"Pick your 30 mechanics in ROCH Motion"
+    "Выбрать свои 30 механик в ROCH Motion":"Pick your 30 mechanics in ROCH Motion",
+    "ROCH AI · бесплатно":"ROCH AI · free",
+    "Проверьте свою идею сами":"Check your idea yourself",
+    "Опишите её словами, и ROCH AI за минуту соберёт черновик паспорта: кто клиент, почему он вернётся, где деньги и вердикт по правилу трёх «да».":"Describe it in your own words, and in a minute ROCH AI will put together a draft passport: who the customer is, why they come back, where the money is, and a verdict by the three-yes rule.",
+    "Собрать черновик паспорта":"Build a draft passport",
+    "или опишите идею, и ROCH AI бесплатно соберёт черновик паспорта":"or describe your idea, and ROCH AI will build a draft passport for free",
+    "Можно сначала попробовать без созвона?":"Can I try it before a call?",
+    "Да. Опишите идею в ROCH AI, и за минуту он соберёт черновик паспорта с вердиктом по правилу трёх «да». Это бесплатно, а на созвоне мы доведём черновик до решения.":"Yes. Describe your idea in ROCH AI, and in a minute it will build a draft passport with a verdict by the three-yes rule. It's free, and on the call we'll take the draft to a decision.",
+    "Собрать черновик":"Build a draft"
   };
   /* проекты: тексты берутся из index.html и портфолио-бота (build) */
   (function(sup){ for(var k in sup){ I18N_EN[k] = sup[k]; } })({"Цветочный магазин, где букет подбирают словами": "A flower shop where you pick a bouquet with words", "«Маме, нежное, до 150 ₾» — и ИИ-флорист за 10 секунд предлагает три букета из того, что есть сегодня. Свой букет из поштучных цветов, фото перед отправкой, курьер на карте и каждый 6-й букет в подарок. Флорист ведёт заказы в канбане — клиент сразу видит статус.": "“For mom, something gentle, under 150 ₾” — and the AI florist offers three bouquets from today’s stock in 10 seconds. Build-your-own bouquets from single stems, a photo before dispatch, the courier on the map and every 6th bouquet free. The florist runs orders on a kanban board, and the customer sees the status instantly.", "Цветы": "Flowers", "ИИ-букет": "AI bouquet", "Доставка за 60 мин": "60-min delivery", "Кабинет косметолога: процедуры, запись, лояльность": "Cosmetologist cabinet: procedures, booking, loyalty", "Telegram Mini App косметолога Анжелики: каталог процедур с ценами, онлайн-запись с выбором времени и мастера, паспорт кожи, клуб лояльности с баллами, магазин домашнего ухода ANZH.store и AI-ассистент. Petrol-luxe — изумруд и золото на глубоком тёмном.": "Angelika's cosmetologist Telegram Mini App: a procedure catalog with prices, online booking with time and specialist selection, a skin passport, a loyalty club with points, the ANZH.store home-care shop, and an AI assistant. Petrol-luxe — emerald and gold on deep dark.", "Beauty": "Beauty", "TMA": "TMA", "Лояльность": "Loyalty", "Ресторан: меню, бронь и бонусы гостям": "Restaurant: menu, table booking, guest bonuses", "Ресторан в Батуми: меню с фото и корзиной, бронь стола по шагам, бонусные уровни и QR-карта гостя, три языка. Плюс панель управления: KPI смены в реальном времени, заказы по залу, подтверждение броней и редактор меню на 319 блюд.": "A restaurant in Batumi: a photo menu with a cart, step-by-step table booking, bonus tiers and a guest QR card, three languages. Plus a control panel: live shift KPIs, orders by table, booking confirmations and a menu editor for 319 dishes.", "HoReCa": "HoReCa", "Бронь": "Booking", "Клиника: прайс, запись к врачу, кабинет клиники": "Clinic: price list, doctor booking, clinic dashboard", "Клиника антивозрастной медицины: прайс на сотни позиций, запись с выбором врача и времени, 11 специалистов, результаты «до и после». Внутри — и приложение пациента, и кабинет клиники: выручка, средний чек, база пациентов с LTV, автоподтверждение записи.": "An anti-aging clinic: a price list of hundreds of items, booking with doctor and time choice, 11 specialists, before-and-after results. Inside — both the patient app and the clinic dashboard: revenue, average check, patient base with LTV, automatic booking confirmation.", "Медицина": "Medicine", "Запись": "Booking", "Мебель: своя кухня в комнате до замера": "Furniture: your kitchen in your room before measuring", "Мебельный центр: соберите кухню и увидьте её в своей комнате по фотографии. Магазин материалов, корзина, услуги собственного цеха. В админке — воронка заявок по этапам, очередь цеха раскроя и каталог с фото и ценами с выгрузкой с сайта.": "A furniture center: build a kitchen and see it in your own room from a photo. A materials shop, a cart, the company's own workshop services. In the admin — a lead funnel by stage, the cutting-shop queue and a catalog with photos and prices synced from the website.", "Ритейл": "Retail", "Конфигуратор": "Configurator", "Заявки": "Leads", "Тур за четыре вопроса вместо переписки": "A tour in four questions instead of a long chat", "Клуб путешествий: подбор тура за четыре вопроса, горящие направления, консьерж-сервис, бонусный счёт и уровни с кэшбэком, чек-лист поездки. В админке — ИИ-сводка по бизнесу, воронка сделок, задачи и календарь вылетов.": "A travel club: a tour picked in four questions, hot destinations, a concierge service, a bonus account and cashback tiers, a trip checklist. In the admin — an AI business summary, a deal funnel, tasks and a departures calendar.", "Туризм": "Tourism", "ИИ": "AI", "Медцентр: онлайн-запись к врачу, 16 направлений": "Medical center: online doctor booking, 16 specialties", "Приложение медцентра «Dr. Hilling»: онлайн-запись к врачу за минуту, 16 направлений с ценами, каталог из 25 врачей, детальные экраны направлений, личный кабинет пациента с медкартой и баллами, маскот «Хилли». Светлое navy + gold liquid glass.": "The «Dr. Hilling» medical-center app: book a doctor in a minute, 16 specialties with prices, a 25-doctor catalog, detailed specialty screens, a patient cabinet with a medical card and points, and the dr.Hilly mascot. Light navy + gold liquid glass.", "Dr. Hilling": "Dr. Hilling", "Новостройка: 3D-шахматка и статусы квартир": "New build: 3D unit grid and apartment statuses", "Продажа новостройки в Telegram: 3D-шахматка дома, статусы квартир, планировки, цены в USD и GEL, ход стройки. Три языка. Готовый пресет — разворачивается под конкретный жилой комплекс.": "Selling a new build in Telegram: a 3D unit grid of the building, apartment statuses, floor plans, prices in USD and GEL, construction progress. Three languages. A ready preset that deploys for a specific residential complex.", "Недвижимость": "Real estate", "3D": "3D", "Детский праздник за три минуты": "A kids' party in three minutes", "Детский праздник за три минуты: десятки программ и героев, банкетный стол и смета, которая пересчитывается на лету. Родитель собирает праздник сам и сразу видит цену.": "A kids' party in three minutes: dozens of programs and characters, a banquet table and an estimate that recalculates on the fly. Parents build the party themselves and see the price right away.", "Детям": "Kids", "Конструктор": "Builder", "Смета": "Estimate", "Лояльность ресторана: меню, баллы, лиги гостей": "Restaurant loyalty: menu, points, guest leagues", "Ресторанная система лояльности в Telegram: меню и заказ, баллы за визиты, лиги гостей (бронза → золото), награды и купоны. Гость возвращается — ресторан растит средний чек.": "A restaurant loyalty system in Telegram: menu and ordering, points for visits, guest leagues (bronze → gold), rewards and coupons. Guests keep coming back — the restaurant grows its average check.", "Dine": "Dine", "Загородный гостевой дом: бронь, визы, загрузка": "A country guest house: booking, visas, occupancy", "Загородный гостевой дом с ретро-атмосферой: номера и А-фреймы у воды, бани и чаны, визы гостей и история места. В хозяйской панели — заявки на визу, календарь занятости объектов, задачи команды и прайс.": "A country guest house with a retro feel: rooms and A-frames by the water, saunas and hot tubs, guest visas and the story of the place. In the owner's panel — visa requests, an occupancy calendar, team tasks and the price list.", "Отель": "Hotel", "Админка": "Admin", "Личный повар за пару вопросов": "A personal chef in a couple of questions", "Кулинарный сервис в Telegram: подбор личного повара за пару вопросов, ИИ-помощник «Ишка», книга рецептов, уровни и челлендж недели. Живой кейс — бот работает и принимает заказы.": "A culinary service in Telegram: a personal chef matched in a couple of questions, the AI helper “Ishka”, a recipe book, levels and a weekly challenge. A live case — the bot runs and takes orders.", "ИИ-помощник": "AI helper", "Презентация ЖК, которую пересылают в чат": "A residential complex pitch people forward in chats", "Презентация жилого комплекса: форматы квартир, 3D-планировка с доходностью, инфраструктура, ход стройки, инвест-условия и заявка на просмотр. Двуязычная версия — русская и английская.": "A residential complex presentation: apartment formats, a 3D layout with yield, infrastructure, construction progress, investment terms and a viewing request. Bilingual — Russian and English.", "Инвестиции": "Investment", "2 языка": "2 languages", "CarRent: премиум-аренда авто с неон-витриной": "CarRent: premium car rental with a neon showroom", "Аренда авто в Батуми: неоновая витрина с Porsche-вайбом, перки Street King, бронь с таймером обратного отсчёта. Дорогой продукт — дорогая подача.": "Car rentals in Batumi: a neon storefront with Porsche vibes, Street King perks, booking with a countdown timer. A premium product — premium presentation.", "Batumi Neon": "Batumi Neon", "Авто": "Auto", "Аренда": "Rental", "Premium": "Premium", "AI-прораб: калькуляторы стройматериалов": "AI foreman: building-materials calculators", "Каталог-чертёж стройматериалов: калькуляторы перегородок и кладки, смета за секунды, AI-прораб отвечает как бригадир. Blueprint-эстетика в тёмном стекле.": "A blueprint-style building-materials catalog: calculators for partitions and masonry, an estimate in seconds, an AI foreman that answers like a site boss. Blueprint aesthetics in dark glass.", "Korob-ka": "Korob-ka", "Стройка": "Construction", "AI": "AI", "E-com": "E-com", "Жилой дом: платежи, заявки, голосования": "A residential building: payments, requests, votes", "Приложение жилого дома на 217 соседей: взносы и платежи, заявки в управляющую компанию, голосования, чат дома по темам и ИИ-консьерж Альма. Прототип городского слоя экосистемы — дом как отдельное Mini App.": "An app for a residential building with 217 neighbors: fees and payments, requests to the management company, votes, a topic-based building chat and the AI concierge Alma. A prototype of the ecosystem's city layer — the building as its own Mini App.", "Сервис дома": "Home service", "ИИ-консьерж": "AI concierge", "Цифровая визитка бизнеса за несколько минут": "A digital business card in a few minutes", "Конструктор цифровых визиток внутри Telegram: блоки, темы оформления, публикация за Stars, личный кабинет и редактор QR-кода. Собственный продукт студии — визитка собирается по анкете за несколько минут, без дизайнера и разработчика.": "A digital business card builder inside Telegram: blocks, themes, publishing for Stars, a personal dashboard and a QR editor. The studio's own product — a card is built from a short form in a few minutes, no designer or developer needed.", "Продукт студии": "Studio product", "Stars": "Stars", "Furniturum": "Furniturum", "Hotelito": "Hotelito"});
@@ -4270,10 +4313,15 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
           g.beginPath(); g.arc(ring.x, ring.y, 8 + rp * Math.max(W, H) * 1.15, 0, 6.2832); g.stroke();
         } else ring = null;
       }
-      if(opening && t > maxT * 0.55 && !card.classList.contains('open')){ card.classList.add('open'); under.removeAttribute('aria-hidden'); }
+      if(opening && t > maxT * 0.55 && !card.classList.contains('open')){ card.classList.add('open'); under.removeAttribute('aria-hidden'); vidPlay(); }
       if(opening && t > maxT + DUR && !ring){ state = 'shown'; g.clearRect(0, 0, W, H); cv.style.display = 'none'; return false; }
       return true;
     };
+    /* ролик под мозаикой: src — когда карточка у экрана (2 МБ не грузятся тем, кто сюда не долистал), play — с раскрытия,
+       пауза вне экрана; reduced-motion — первый кадр-постер без движения */
+    var vid = document.getElementById('bnVid');
+    var vidLoad = function(){ if(!vid || vid.src) return; vid.poster = vid.getAttribute('data-poster'); if(reduced) return; vid.preload = 'auto'; vid.src = vid.getAttribute('data-src'); };
+    var vidPlay = function(){ if(!vid || reduced) return; vidLoad(); var p = vid.play(); if(p && p.catch) p.catch(function(){}); };
     /* код подарка: ROCH- + 4 знака без похожих (0/O, 1/I); тот же при повторном заходе — по нему Роч узнаёт, кто открыл бонус */
     var giftOpen = function(){
       if(!GIFT){
@@ -4311,7 +4359,7 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
     var reveal = function(ox, oy){
       if(state !== 'hidden') return;
       if(!built) build();
-      if(reduced){ state = 'shown'; card.classList.add('open'); under.removeAttribute('aria-hidden'); cv.style.display = 'none'; giftOpen(); return; }
+      if(reduced){ state = 'shown'; card.classList.add('open'); under.removeAttribute('aria-hidden'); cv.style.display = 'none'; vidLoad(); giftOpen(); return; }
       state = 'opening'; t0 = performance.now(); maxT = 0; mx = -999; ring = { x: ox, y: oy, t: t0 }; giftOpen();
       var i, k, d, dx, dy;
       for(i = 0; i < cells.length; i++){
@@ -4335,7 +4383,8 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
     if('IntersectionObserver' in window){
       new IntersectionObserver(function(en){
         vis = en[0].isIntersecting;
-        if(vis){ if(!built){ build(); tS = performance.now(); draw(tS); } kick(); }
+        if(vis){ vidLoad(); if(!built){ build(); tS = performance.now(); draw(tS); } kick(); }
+        if(vid && vid.src && card.classList.contains('open')){ if(vis) vidPlay(); else vid.pause(); }
       }, { rootMargin: '40px 0px' }).observe(card);
     } else { vis = true; build(); tS = performance.now(); draw(tS); kick(); }
     window.addEventListener('resize', function(){ if(state === 'hidden' && built){ built = false; build(); draw(performance.now()); } });

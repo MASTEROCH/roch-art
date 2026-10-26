@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Оплата — ROCH 0→1</title>
+<meta name="description" content="Как оплатить работу ROCH 0→1: банковский перевод в долларах на счёт ИП в TBC Bank или USDT в сети TRON (TRC-20).">
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://roch-art.com/pay">
+<meta property="og:title" content="Оплата — ROCH 0→1">
+<meta property="og:description" content="Банковский перевод в долларах или USDT (TRC-20). Реквизиты копируются одним касанием.">
+<meta property="og:image" content="https://roch-art.com/assets/og-cover.jpg?v=5">
+<meta name="theme-color" content="#050706">
+<link rel="icon" href="assets/favicon.png">
+<style>
+/* Оплата — тот же документ ROCH, что «Условия»: тёмный фон, лайм только на главном. Человек выбирает, что оплачивает, и способ;
+   реквизиты копируются касанием по строке; сумма в нижней плашке меняется вместе с выбором и уходит в сообщение подтверждения.
+   Публикуются только платёжные реквизиты ИП: без личного номера, ВНЖ и домашнего адреса */
+:root{color-scheme:dark;--bg:#050706;--card:#0E1410;--card2:#131B15;--text:rgba(255,255,255,.96);--text2:rgba(234,244,238,.74);--text3:rgba(234,244,238,.48);
+  --lime:#D4FF4F;--line:rgba(255,255,255,.1);--warn:#FFC857;--font:-apple-system,BlinkMacSystemFont,"SF Pro Text",Inter,"Helvetica Neue",sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,monospace;--ease:cubic-bezier(.16,1,.3,1)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;
+  background-image:radial-gradient(70% 36% at 50% 0%,rgba(212,255,79,.08),transparent 70%)}
+a{color:var(--lime)}
+button{font:inherit;color:inherit}
+[hidden]{display:none!important}
+.bar{position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:12px;padding:calc(12px + env(safe-area-inset-top)) 16px 12px;
+  background:rgba(5,7,6,.8);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.bar .back{display:inline-flex;align-items:center;gap:6px;min-height:40px;font-size:14px;font-weight:700;color:var(--lime);text-decoration:none}
+.lt{margin-left:auto;display:flex;gap:2px;padding:3px;border-radius:99px;background:rgba(255,255,255,.05);box-shadow:inset 0 0 0 1px var(--line)}
+.lt button{min-width:40px;min-height:32px;padding:0 10px;border:0;border-radius:99px;background:none;color:var(--text3);font:700 12px var(--font);letter-spacing:.06em;cursor:pointer}
+.lt button.on{color:#0B1409;background:var(--lime)}
+main{max-width:640px;margin:0 auto;padding:28px 16px calc(120px + env(safe-area-inset-bottom))}
+.eb{font:600 12px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--lime)}
+h1{margin-top:10px;font-size:clamp(30px,8vw,44px);line-height:1.08;font-weight:900;letter-spacing:-.035em}
+.lead{margin-top:12px;font-size:17px;color:var(--text2)}
+section{margin-top:30px}
+h2{font-size:19px;font-weight:800;letter-spacing:-.02em}
+h2 i{font-style:normal;color:var(--lime);margin-right:8px;font-weight:900}
+.hint{margin-top:4px;font-size:14px;color:var(--text3)}
+
+/* что оплачиваем: три карточки-радио */
+.amt{display:grid;gap:8px;margin-top:12px}
+.amt label{position:relative;display:grid;grid-template-columns:22px 1fr auto;align-items:center;gap:12px;padding:14px 16px;border-radius:18px;cursor:pointer;
+  background:var(--card);box-shadow:inset 0 0 0 1px var(--line);transition:box-shadow .25s var(--ease),background .25s var(--ease)}
+.amt input{position:absolute;opacity:0;pointer-events:none}
+.amt .dot{width:22px;height:22px;border-radius:50%;box-shadow:inset 0 0 0 2px rgba(255,255,255,.22);transition:box-shadow .25s var(--ease)}
+.amt b{display:block;font-size:16px;line-height:1.3}
+.amt small{display:block;font-size:13px;color:var(--text3)}
+.amt em{font-style:normal;font-weight:900;font-size:18px;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.amt input:checked + .dot{box-shadow:inset 0 0 0 7px var(--lime)}
+.amt label:has(input:checked){background:var(--card2);box-shadow:inset 0 0 0 1.5px rgba(212,255,79,.55)}
+.amt input:focus-visible + .dot{outline:2px solid var(--lime);outline-offset:3px}
+
+/* способ: сегменты */
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-top:12px;padding:4px;border-radius:18px;background:rgba(255,255,255,.05);box-shadow:inset 0 0 0 1px var(--line)}
+.seg button{min-height:52px;padding:6px 10px;border:0;border-radius:14px;background:none;cursor:pointer;line-height:1.2;color:var(--text2);transition:background .25s var(--ease),color .25s var(--ease)}
+.seg button b{display:block;font-size:15px}
+.seg button span{display:block;margin-top:2px;font-size:12px;color:var(--text3)}
+.seg button.on{background:var(--card2);color:var(--text);box-shadow:inset 0 0 0 1px rgba(212,255,79,.4)}
+.seg button.on span{color:var(--lime)}
+
+/* реквизиты: вся строка — кнопка «скопировать»; после касания лайм проходит слева направо */
+.rq{display:grid;margin-top:12px;border-radius:20px;overflow:hidden;background:var(--card);box-shadow:inset 0 0 0 1px var(--line)}
+.rq button{position:relative;display:grid;grid-template-columns:1fr auto;align-items:center;gap:12px;width:100%;min-height:62px;padding:11px 16px;border:0;
+  background:none;text-align:left;cursor:pointer;overflow:hidden}
+.rq button + button{border-top:1px solid var(--line)}
+.rq button::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(212,255,79,.16),rgba(212,255,79,.04));transform:translateX(-101%)}
+.rq button.ok::before{animation:sweep .9s var(--ease)}
+@keyframes sweep{0%{transform:translateX(-101%)}45%{transform:none}100%{transform:none;opacity:0}}
+.rq small{position:relative;display:block;font-size:12px;color:var(--text3)}
+.rq b{position:relative;display:block;margin-top:1px;font-size:16px;font-weight:700;line-height:1.35;word-break:break-word}
+.rq b.m{font:700 16px var(--mono);letter-spacing:.02em}
+.rq .cp{position:relative;display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:var(--text3);white-space:nowrap}
+.rq .cp svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.rq button.ok .cp{color:var(--lime)}
+@media (max-width:479px){ .rq .cp span{display:none} .rq button{gap:10px} }
+.rq button:focus-visible{outline:2px solid var(--lime);outline-offset:-2px}
+
+/* USDT: QR на белой карточке (тёмные модули на светлом читает любой кошелёк) + адрес с подсвеченными краями для сверки */
+.usdt{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:center;margin-top:12px;padding:16px;border-radius:20px;background:var(--card);box-shadow:inset 0 0 0 1px var(--line)}
+.qr{width:132px;height:132px;padding:10px;border-radius:16px;background:#fff;box-shadow:0 12px 40px -14px rgba(212,255,79,.45)}
+.qr svg{display:block;width:100%;height:100%}
+.usdt .net{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:99px;font-size:12px;font-weight:800;color:#0B1409;background:var(--lime)}
+.usdt p{margin-top:8px;font-size:14px;color:var(--text2);line-height:1.45}
+.addr{font:700 15px var(--mono);letter-spacing:.01em;word-break:break-all}
+.addr i{font-style:normal;color:var(--lime)}
+@media (max-width:420px){ .usdt{grid-template-columns:1fr;justify-items:center;text-align:center} .qr{width:168px;height:168px} }
+
+.note{display:grid;gap:8px;margin-top:12px}
+.note p{position:relative;padding-left:20px;font-size:14.5px;color:var(--text2);line-height:1.5}
+.note p::before{content:'';position:absolute;left:2px;top:.6em;width:7px;height:7px;border-radius:50%;background:var(--lime);opacity:.85}
+.note p.w::before{background:var(--warn)}
+.note b{color:var(--text)}
+
+.done{margin-top:30px;padding:20px 18px;border-radius:24px;background:var(--card);box-shadow:inset 0 0 0 1px rgba(212,255,79,.2)}
+.done p{margin-top:6px;font-size:15px;color:var(--text2)}
+.gift{display:inline-flex;margin-top:10px;padding:6px 12px;border-radius:99px;font:700 13px var(--mono);letter-spacing:.06em;color:#FFB38A;background:rgba(255,110,140,.08);box-shadow:inset 0 0 0 1px rgba(255,130,170,.35)}
+.foot{margin-top:24px;text-align:center;font-size:12.5px;color:var(--text3)}
+.foot a{color:var(--text2)}
+
+/* нижняя плашка: сумма к оплате и единственная лаймовая кнопка */
+.pbar{position:fixed;left:0;right:0;bottom:0;z-index:20;padding:12px 16px calc(12px + env(safe-area-inset-bottom));
+  background:rgba(5,7,6,.86);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border-top:1px solid var(--line)}
+.pbar .in{display:flex;align-items:center;gap:14px;max-width:640px;margin:0 auto}
+.pbar .sm{min-width:0}
+.pbar small{display:block;font-size:12px;color:var(--text3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pbar strong{display:block;font-size:24px;font-weight:900;letter-spacing:-.03em;line-height:1.1;font-variant-numeric:tabular-nums}
+.pbar strong.tick{animation:tick .5s var(--ease)}
+@keyframes tick{0%{transform:translateY(6px);opacity:.2}100%{transform:none;opacity:1}}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;min-height:52px;margin-left:auto;padding:0 20px;border-radius:99px;font-weight:800;font-size:15px;
+  text-decoration:none;color:#0B1409;background:var(--lime);box-shadow:0 14px 40px -12px rgba(212,255,79,.5);white-space:nowrap}
+@media (max-width:359px){ .btn{padding:0 14px;font-size:14px} .pbar strong{font-size:21px} }
+@media (min-width:720px){ main{padding-top:44px} }
+@media (prefers-reduced-motion:reduce){ .rq button.ok::before,.pbar strong.tick{animation:none} .rq button.ok::before{transform:none;opacity:.6} }
+</style>
+</head>
+<body>
+<header class="bar">
+  <a class="back" href="/"><span aria-hidden="true">←</span>ROCH 0→1</a>
+  <div class="lt" role="group" aria-label="Язык"><button type="button" data-l="ru" class="on">RU</button><button type="button" data-l="en">EN</button></div>
+</header>
+
+<main lang="ru" data-lang="ru">
+  <div class="eb">Оплата</div>
+  <h1>Как оплатить работу</h1>
+  <p class="lead">Выберите, что оплачиваете, и удобный способ. Каждая строка реквизитов копируется касанием. После перевода пришлите подтверждение в Telegram, и я напишу, когда деньги придут.</p>
+
+  <section>
+    <h2><i>01</i>Что вы оплачиваете</h2>
+    <div class="amt" role="radiogroup">
+      <label><input type="radio" name="amt-ru" value="745" data-item="предоплата за упаковку" checked><span class="dot"></span><span><b>Предоплата за упаковку</b><small>50 % до начала работы</small></span><em>$745</em></label>
+      <label><input type="radio" name="amt-ru" value="745" data-item="остаток за упаковку"><span class="dot"></span><span><b>Остаток за упаковку</b><small>50 % после того, как вы приняли прототип</small></span><em>$745</em></label>
+      <label><input type="radio" name="amt-ru" value="5000" data-item="креативный директор, месяц"><span class="dot"></span><span><b>Креативный директор</b><small>месяц работы вперёд</small></span><em>$5 000</em></label>
+    </div>
+  </section>
+
+  <section>
+    <h2><i>02</i>Способ оплаты</h2>
+    <div class="seg" role="tablist">
+      <button type="button" role="tab" data-m="bank" class="on" aria-selected="true"><b>Банк</b><span>перевод в долларах</span></button>
+      <button type="button" role="tab" data-m="usdt" aria-selected="false"><b>USDT</b><span>сеть TRC-20</span></button>
+    </div>
+
+    <div class="pm" data-m="bank">
+      <div class="rq">
+        <button type="button" data-copy="Individual Entrepreneur Raman Charniauski"><span><small>Получатель</small><b>Individual Entrepreneur Raman Charniauski</b></span><span class="cp"></span></button>
+        <button type="button" data-copy="GE92TB7452936110100009"><span><small>IBAN, счёт в долларах США</small><b class="m">GE92 TB74 5293 6110 1000 09</b></span><span class="cp"></span></button>
+        <button type="button" data-copy="JSC TBC Bank"><span><small>Банк получателя</small><b>JSC TBC Bank, Тбилиси, Грузия</b></span><span class="cp"></span></button>
+        <button type="button" data-copy="TBCBGE22"><span><small>SWIFT</small><b class="m">TBCBGE22</b></span><span class="cp"></span></button>
+        <button type="button" data-copy-sum><span><small>Сумма, USD</small><b class="m" data-sum>745.00</b></span><span class="cp"></span></button>
+        <button type="button" data-copy="Payment for design services"><span><small>Назначение платежа</small><b>Payment for design services</b></span><span class="cp"></span></button>
+      </div>
+      <div class="note">
+        <p>Перед оплатой я пришлю счёт. В нём есть его номер и адрес получателя, если банк их спросит. Номер счёта можно добавить в назначение платежа.</p>
+        <p>Если банк спросит, кто платит комиссию, выберите <b>OUR</b>: тогда на счёт придёт полная сумма.</p>
+        <p>Перевод из-за рубежа обычно идёт от одного до трёх рабочих дней.</p>
+      </div>
+    </div>
+
+    <div class="pm" data-m="usdt" hidden>
+      <div class="usdt">
+        <div class="qr" aria-label="QR-код адреса USDT"><svg viewBox="0 0 29 29" shape-rendering="crispEdges" aria-hidden="true"><path stroke="#0b1409" d="M0 0.5h7m5 0h1m1 0h1m2 0h1m1 0h2m1 0h7m-29 1h1m5 0h1m1 0h1m2 0h3m3 0h1m1 0h1m2 0h1m5 0h1m-29 1h1m1 0h3m1 0h1m2 0h4m2 0h1m2 0h1m1 0h1m1 0h1m1 0h3m1 0h1m-29 1h1m1 0h3m1 0h1m4 0h1m1 0h1m3 0h4m1 0h1m1 0h3m1 0h1m-29 1h1m1 0h3m1 0h1m1 0h1m2 0h3m2 0h1m1 0h2m2 0h1m1 0h3m1 0h1m-29 1h1m5 0h1m2 0h1m1 0h1m2 0h2m1 0h1m1 0h1m2 0h1m5 0h1m-29 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-19 1h1m1 0h1m2 0h1m1 0h3m-20 1h1m1 0h1m1 0h1m1 0h1m2 0h1m1 0h2m3 0h1m2 0h1m4 0h1m2 0h1m-27 1h1m1 0h1m1 0h1m1 0h3m2 0h2m1 0h1m1 0h2m2 0h2m2 0h1m2 0h1m-29 1h2m1 0h1m1 0h2m2 0h1m2 0h1m1 0h1m1 0h2m2 0h1m2 0h1m2 0h3m-28 1h4m2 0h1m1 0h1m3 0h2m1 0h4m3 0h1m4 0h1m-29 1h2m2 0h3m5 0h1m1 0h3m2 0h1m2 0h1m2 0h1m2 0h1m-29 1h2m6 0h4m2 0h3m5 0h1m5 0h1m-28 1h2m3 0h1m1 0h1m1 0h1m2 0h1m2 0h2m2 0h1m1 0h5m1 0h1m-29 1h1m1 0h1m2 0h1m3 0h1m6 0h2m5 0h3m1 0h2m-29 1h3m1 0h1m1 0h2m1 0h1m1 0h2m4 0h4m1 0h1m2 0h1m-25 1h1m5 0h1m2 0h1m1 0h2m2 0h3m1 0h1m1 0h1m2 0h1m1 0h1m-28 1h1m1 0h2m1 0h2m1 0h1m5 0h1m1 0h1m1 0h1m2 0h2m2 0h4m-28 1h1m3 0h1m1 0h5m1 0h2m1 0h4m1 0h1m1 0h2m2 0h1m-28 1h1m3 0h1m1 0h4m4 0h1m2 0h1m2 0h6m1 0h2m-21 1h2m1 0h2m1 0h4m1 0h2m3 0h1m-25 1h7m2 0h1m1 0h1m1 0h1m3 0h1m1 0h2m1 0h1m1 0h1m1 0h3m-29 1h1m5 0h1m2 0h1m5 0h1m1 0h2m1 0h1m3 0h1m2 0h2m-29 1h1m1 0h3m1 0h1m1 0h4m3 0h1m1 0h1m2 0h5m3 0h1m-29 1h1m1 0h3m1 0h1m2 0h1m2 0h1m7 0h1m2 0h1m2 0h3m-29 1h1m1 0h3m1 0h1m1 0h2m1 0h3m7 0h1m1 0h4m1 0h1m-29 1h1m5 0h1m3 0h2m1 0h2m2 0h3m7 0h1m-28 1h7m1 0h4m2 0h1m1 0h1m2 0h2m2 0h1m3 0h2"/></svg></div>
+        <div>
+          <span class="net">USDT · TRON (TRC-20)</span>
+          <p>Отсканируйте код кошельком или скопируйте адрес ниже.</p>
+        </div>
+      </div>
+      <div class="rq">
+        <button type="button" data-copy="TJ3pu1tmmJici14vKaj88p8AWN1gmC9VvN"><span><small>Адрес USDT в сети TRON (TRC-20)</small><b class="addr"><i>TJ3p</i>u1tmmJici14vKaj88p8AWN1gmC<i>9VvN</i></b></span><span class="cp"></span></button>
+        <button type="button" data-copy-sum><span><small>Сумма, USDT</small><b class="m" data-sum>745.00</b></span><span class="cp"></span></button>
+      </div>
+      <div class="note">
+        <p class="w">Отправляйте <b>только USDT и только в сети TRON (TRC-20)</b>. Перевод в другой сети не дойдёт, и вернуть его не получится.</p>
+        <p class="w">Перед отправкой сверьте начало и конец адреса: <b>TJ3p</b> … <b>9VvN</b>.</p>
+        <p>Если выводите с биржи, проверьте, что к получению стоит полная сумма: биржа может вычесть свою комиссию из перевода.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="done">
+    <h2><i>03</i>Пришлите подтверждение</h2>
+    <p>Пришлите в Telegram скриншот перевода или хеш транзакции. Сообщение уже собрано: в нём сумма, способ и код подарка, если вы открыли бонус на сайте.</p>
+    <span class="gift" data-gift hidden></span>
+  </section>
+
+  <p class="foot"><a href="/terms">Условия работы и оплаты</a> · <a href="mailto:rc@roch-art.com">rc@roch-art.com</a></p>
+</main>
+
+<main lang="en" data-lang="en" hidden>
+  <div class="eb">Payment</div>
+  <h1>How to pay</h1>
+  <p class="lead">Choose what you are paying for and a convenient method. Tap any line of the details to copy it. After the transfer, send a confirmation on Telegram, and I will let you know when the money arrives.</p>
+
+  <section>
+    <h2><i>01</i>What you are paying for</h2>
+    <div class="amt" role="radiogroup">
+      <label><input type="radio" name="amt-en" value="745" data-item="packaging prepayment" checked><span class="dot"></span><span><b>Packaging prepayment</b><small>50% before work starts</small></span><em>$745</em></label>
+      <label><input type="radio" name="amt-en" value="745" data-item="packaging balance"><span class="dot"></span><span><b>Packaging balance</b><small>50% after you accept the prototype</small></span><em>$745</em></label>
+      <label><input type="radio" name="amt-en" value="5000" data-item="creative director, one month"><span class="dot"></span><span><b>Creative director</b><small>one month in advance</small></span><em>$5,000</em></label>
+    </div>
+  </section>
+
+  <section>
+    <h2><i>02</i>Payment method</h2>
+    <div class="seg" role="tablist">
+      <button type="button" role="tab" data-m="bank" class="on" aria-selected="true"><b>Bank</b><span>transfer in USD</span></button>
+      <button type="button" role="tab" data-m="usdt" aria-selected="false"><b>USDT</b><span>TRC-20 network</span></button>
+    </div>
+
+    <div class="pm" data-m="bank">
+      <div class="rq">
+        <button type="button" data-copy="Individual Entrepreneur Raman Charniauski"><span><small>Beneficiary</small><b>Individual Entrepreneur Raman Charniauski</b></span><span class="cp"></span></button>
+        <button type="button" data-copy="GE92TB7452936110100009"><span><small>IBAN, US dollar account</small><b class="m">GE92 TB74 5293 6110 1000 09</b></span><span class="cp"></span></button>
+        <button type="button" data-copy="JSC TBC Bank"><span><small>Beneficiary bank</small><b>JSC TBC Bank, Tbilisi, Georgia</b></span><span class="cp"></span></button>
+        <button type="button" data-copy="TBCBGE22"><span><small>SWIFT</small><b class="m">TBCBGE22</b></span><span class="cp"></span></button>
+        <button type="button" data-copy-sum><span><small>Amount, USD</small><b class="m" data-sum>745.00</b></span><span class="cp"></span></button>
+        <button type="button" data-copy="Payment for design services"><span><small>Payment reference</small><b>Payment for design services</b></span><span class="cp"></span></button>
+      </div>
+      <div class="note">
+        <p>I send an invoice before you pay. It has its number and the beneficiary address, in case your bank asks for them. You can add the invoice number to the payment reference.</p>
+        <p>If your bank asks who pays the fees, choose <b>OUR</b>, so the full amount arrives.</p>
+        <p>An international transfer usually takes one to three business days.</p>
+      </div>
+    </div>
+
+    <div class="pm" data-m="usdt" hidden>
+      <div class="usdt">
+        <div class="qr" aria-label="QR code of the USDT address"><svg viewBox="0 0 29 29" shape-rendering="crispEdges" aria-hidden="true"><path stroke="#0b1409" d="M0 0.5h7m5 0h1m1 0h1m2 0h1m1 0h2m1 0h7m-29 1h1m5 0h1m1 0h1m2 0h3m3 0h1m1 0h1m2 0h1m5 0h1m-29 1h1m1 0h3m1 0h1m2 0h4m2 0h1m2 0h1m1 0h1m1 0h1m1 0h3m1 0h1m-29 1h1m1 0h3m1 0h1m4 0h1m1 0h1m3 0h4m1 0h1m1 0h3m1 0h1m-29 1h1m1 0h3m1 0h1m1 0h1m2 0h3m2 0h1m1 0h2m2 0h1m1 0h3m1 0h1m-29 1h1m5 0h1m2 0h1m1 0h1m2 0h2m1 0h1m1 0h1m2 0h1m5 0h1m-29 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-19 1h1m1 0h1m2 0h1m1 0h3m-20 1h1m1 0h1m1 0h1m1 0h1m2 0h1m1 0h2m3 0h1m2 0h1m4 0h1m2 0h1m-27 1h1m1 0h1m1 0h1m1 0h3m2 0h2m1 0h1m1 0h2m2 0h2m2 0h1m2 0h1m-29 1h2m1 0h1m1 0h2m2 0h1m2 0h1m1 0h1m1 0h2m2 0h1m2 0h1m2 0h3m-28 1h4m2 0h1m1 0h1m3 0h2m1 0h4m3 0h1m4 0h1m-29 1h2m2 0h3m5 0h1m1 0h3m2 0h1m2 0h1m2 0h1m2 0h1m-29 1h2m6 0h4m2 0h3m5 0h1m5 0h1m-28 1h2m3 0h1m1 0h1m1 0h1m2 0h1m2 0h2m2 0h1m1 0h5m1 0h1m-29 1h1m1 0h1m2 0h1m3 0h1m6 0h2m5 0h3m1 0h2m-29 1h3m1 0h1m1 0h2m1 0h1m1 0h2m4 0h4m1 0h1m2 0h1m-25 1h1m5 0h1m2 0h1m1 0h2m2 0h3m1 0h1m1 0h1m2 0h1m1 0h1m-28 1h1m1 0h2m1 0h2m1 0h1m5 0h1m1 0h1m1 0h1m2 0h2m2 0h4m-28 1h1m3 0h1m1 0h5m1 0h2m1 0h4m1 0h1m1 0h2m2 0h1m-28 1h1m3 0h1m1 0h4m4 0h1m2 0h1m2 0h6m1 0h2m-21 1h2m1 0h2m1 0h4m1 0h2m3 0h1m-25 1h7m2 0h1m1 0h1m1 0h1m3 0h1m1 0h2m1 0h1m1 0h1m1 0h3m-29 1h1m5 0h1m2 0h1m5 0h1m1 0h2m1 0h1m3 0h1m2 0h2m-29 1h1m1 0h3m1 0h1m1 0h4m3 0h1m1 0h1m2 0h5m3 0h1m-29 1h1m1 0h3m1 0h1m2 0h1m2 0h1m7 0h1m2 0h1m2 0h3m-29 1h1m1 0h3m1 0h1m1 0h2m1 0h3m7 0h1m1 0h4m1 0h1m-29 1h1m5 0h1m3 0h2m1 0h2m2 0h3m7 0h1m-28 1h7m1 0h4m2 0h1m1 0h1m2 0h2m2 0h1m3 0h2"/></svg></div>
+        <div>
+          <span class="net">USDT · TRON (TRC-20)</span>
+          <p>Scan the code with your wallet or copy the address below.</p>
+        </div>
+      </div>
+      <div class="rq">
+        <button type="button" data-copy="TJ3pu1tmmJici14vKaj88p8AWN1gmC9VvN"><span><small>USDT address on TRON (TRC-20)</small><b class="addr"><i>TJ3p</i>u1tmmJici14vKaj88p8AWN1gmC<i>9VvN</i></b></span><span class="cp"></span></button>
+        <button type="button" data-copy-sum><span><small>Amount, USDT</small><b class="m" data-sum>745.00</b></span><span class="cp"></span></button>
+      </div>
+      <div class="note">
+        <p class="w">Send <b>only USDT and only on the TRON network (TRC-20)</b>. A transfer on another network will not arrive and cannot be returned.</p>
+        <p class="w">Before sending, check the start and the end of the address: <b>TJ3p</b> … <b>9VvN</b>.</p>
+        <p>If you withdraw from an exchange, make sure the amount to be received is the full sum: the exchange may deduct its fee from the transfer.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="done">
+    <h2><i>03</i>Send a confirmation</h2>
+    <p>Send a screenshot of the transfer or the transaction hash on Telegram. The message is ready: it has the amount, the method and your gift code if you opened the bonus on the site.</p>
+    <span class="gift" data-gift hidden></span>
+  </section>
+
+  <p class="foot"><a href="/terms">Terms and payment</a> · <a href="mailto:rc@roch-art.com">rc@roch-art.com</a></p>
+</main>
+
+<div class="pbar">
+  <div class="in">
+    <div class="sm"><small id="pbItem">К оплате</small><strong id="pbSum">$745</strong></div>
+    <a class="btn" id="pbGo" target="_blank" rel="noopener" href="https://t.me/broch">Прислать чек</a>
+  </div>
+</div>
+
+<script>
+(function(){
+  var LS = 'roch_lang', l = 'ru', method = 'bank';
+  var GIFT = ''; try{ var g = JSON.parse(localStorage.getItem('roch_gift') || 'null'); if(g && g.c) GIFT = g.c; }catch(e){}
+  var TX = {
+    ru: { title: 'Оплата — ROCH 0→1', go: 'Прислать чек', pay: 'К оплате', copy: 'Скопировать', ok: 'Скопировано', bank: 'банковский перевод', usdt: 'USDT (TRC-20)', gift: 'Код подарка: ' },
+    en: { title: 'Payment — ROCH 0→1', go: 'Send receipt', pay: 'To pay', copy: 'Copy', ok: 'Copied', bank: 'bank transfer', usdt: 'USDT (TRC-20)', gift: 'Gift code: ' }
+  };
+  var ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="3"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg>';
+  var CHECK = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+  var cur = function(){ return document.querySelector('main[data-lang="' + l + '"]'); };
+  var picked = function(){ return cur().querySelector('.amt input:checked'); };
+  var money = function(n){ return l === 'en' ? '$' + Number(n).toLocaleString('en-US') : '$' + String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ' '); };
+  /* сумма и сообщение подтверждения собираются из выбора; первая строка сообщения — то, что Роч видит в уведомлении */
+  var sync = function(tick){
+    var r = picked(), n = r.value, item = r.getAttribute('data-item'), tx = TX[l];
+    document.getElementById('pbItem').textContent = tx.pay + (method === 'usdt' ? ' · USDT' : '');
+    var s = document.getElementById('pbSum'); s.textContent = money(n);
+    if(tick){ s.classList.remove('tick'); void s.offsetWidth; s.classList.add('tick'); }
+    [].forEach.call(cur().querySelectorAll('[data-sum]'), function(b){ b.textContent = Number(n).toFixed(2); });
+    var msg = l === 'en'
+      ? 'Hi Roma! Sending a payment confirmation: ' + item + ', ' + money(n) + ', ' + tx[method] + '. ' + (GIFT ? tx.gift + GIFT + '. ' : '') + 'Screenshot or transaction hash attached.'
+      : 'Привет, Рома! Отправляю подтверждение оплаты: ' + item + ', ' + money(n) + ', ' + tx[method] + '. ' + (GIFT ? tx.gift + GIFT + '. ' : '') + 'Скриншот или хеш транзакции прикладываю.';
+    var go = document.getElementById('pbGo'); go.href = 'https://t.me/broch?text=' + encodeURIComponent(msg); go.textContent = tx.go;
+  };
+  var setMethod = function(m){
+    method = m;
+    [].forEach.call(document.querySelectorAll('.seg button'), function(b){ var on = b.getAttribute('data-m') === m; b.classList.toggle('on', on); b.setAttribute('aria-selected', on); });
+    [].forEach.call(document.querySelectorAll('.pm'), function(p){ p.hidden = p.getAttribute('data-m') !== m; });
+    sync(false);
+  };
+  var apply = function(x){
+    var prev = l === x ? null : cur(); l = x; document.documentElement.lang = x;
+    /* выбор суммы переносится между языками: индекс отмеченной карточки */
+    if(prev){ var idx = [].indexOf.call(prev.querySelectorAll('.amt input'), prev.querySelector('.amt input:checked')); var ins = cur().querySelectorAll('.amt input'); if(ins[idx]) ins[idx].checked = true; }
+    [].forEach.call(document.querySelectorAll('main[data-lang]'), function(m){ m.hidden = m.getAttribute('data-lang') !== x; });
+    [].forEach.call(document.querySelectorAll('.lt button'), function(b){ b.classList.toggle('on', b.getAttribute('data-l') === x); });
+    [].forEach.call(document.querySelectorAll('.rq .cp'), function(c){ if(!c.parentNode.classList.contains('ok')) c.innerHTML = ICON + '<span>' + TX[x].copy + '</span>'; });
+    document.title = TX[x].title;
+    setMethod(method);
+  };
+  [].forEach.call(document.querySelectorAll('.lt button'), function(b){
+    b.addEventListener('click', function(){ var x = b.getAttribute('data-l'); try{ localStorage.setItem(LS, x); }catch(e){} apply(x); });
+  });
+  [].forEach.call(document.querySelectorAll('.seg button'), function(b){ b.addEventListener('click', function(){ setMethod(b.getAttribute('data-m')); }); });
+  [].forEach.call(document.querySelectorAll('.amt input'), function(r){ r.addEventListener('change', function(){ sync(true); }); });
+  /* копирование: строка целиком — кнопка; без clipboard API — выделение текста, чтобы скопировать вручную */
+  [].forEach.call(document.querySelectorAll('.rq button'), function(btn){
+    btn.addEventListener('click', function(){
+      var v = btn.hasAttribute('data-copy-sum') ? Number(picked().value).toFixed(2) : btn.getAttribute('data-copy'), cp = btn.querySelector('.cp');
+      var done = function(){
+        btn.classList.remove('ok'); void btn.offsetWidth; btn.classList.add('ok');
+        cp.innerHTML = CHECK + '<span>' + TX[l].ok + '</span>';
+        clearTimeout(btn._t); btn._t = setTimeout(function(){ btn.classList.remove('ok'); cp.innerHTML = ICON + '<span>' + TX[l].copy + '</span>'; }, 1800);
+      };
+      var manual = function(){ var b = btn.querySelector('b'), s = window.getSelection(), rg = document.createRange(); rg.selectNodeContents(b); s.removeAllRanges(); s.addRange(rg); };
+      if(navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(v).then(done, manual); else manual();
+    });
+  });
+  if(GIFT) [].forEach.call(document.querySelectorAll('[data-gift]'), function(s){ s.textContent = (s.closest('main').getAttribute('data-lang') === 'en' ? TX.en.gift : TX.ru.gift) + GIFT; s.hidden = false; });
+  try{ l = localStorage.getItem(LS) === 'en' ? 'en' : 'ru'; }catch(e){}
+  var q = /[?&]m=(usdt|bank)/.exec(location.search); if(q) method = q[1];
+  var first = l; l = 'ru'; apply(first);
+})();
+</script>
+</body>
+</html>
