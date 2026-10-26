@@ -1132,16 +1132,19 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
 .up-card{z-index:1;transform-origin:50% 130%;visibility:hidden}
 .up-card::after{content:'';position:absolute;inset:0;background:rgba(4,8,5,.38);opacity:var(--dim,1)}
 /* луч сканера печатает экран сверху вниз: хвост — лаймовое послесвечение по готовому, кромка — белая нить с ореолом */
-.up-scan{position:absolute;left:0;right:0;top:-84px;height:84px;z-index:5;pointer-events:none;will-change:transform;
-  background:linear-gradient(180deg,rgba(212,255,79,0) 0%,rgba(212,255,79,.07) 50%,rgba(212,255,79,.26) 90%,rgba(244,255,208,.7) 100%);
+/* луч и блик — фоном на весь экран со своим скруглением, а не сдвигаемым слоем: композитный слой со screen-смешиванием
+   Safari и Chrome на GPU не режут скруглением рамки, и полоса торчала углами за телефон (Роч 26.10). Фон режется своим радиусом всегда */
+.up-scan,.up-shine{position:absolute;inset:0;z-index:5;pointer-events:none;border-radius:23px;background-repeat:no-repeat}
+.up-scan{--sy:0px;
+  background-image:linear-gradient(#F6FFD9,#F6FFD9),linear-gradient(180deg,rgba(212,255,79,0),rgba(212,255,79,.5) 50%,rgba(212,255,79,0)),
+    linear-gradient(180deg,rgba(212,255,79,0) 0%,rgba(212,255,79,.07) 50%,rgba(212,255,79,.26) 90%,rgba(244,255,208,.7) 100%);
+  background-size:100% 2px,100% 30px,100% 84px;
+  background-position:0 calc(var(--sy) - 1px),0 calc(var(--sy) - 15px),0 calc(var(--sy) - 84px);
   mix-blend-mode:screen;transition:opacity .28s var(--ease)}
-.up-scan::after{content:'';position:absolute;left:0;right:0;bottom:-1px;height:2px;background:#F6FFD9;
-  box-shadow:0 0 12px 2px rgba(212,255,79,.85),0 0 36px 8px rgba(212,255,79,.32)}
 .up-scan.out{opacity:0}
-.up-shine{position:absolute;inset:0;z-index:5;pointer-events:none;transform:translateX(-110%);
-  background:linear-gradient(105deg,transparent 34%,rgba(255,255,255,.2) 46%,rgba(255,255,255,.04) 54%,transparent 64%);
-  animation:upShine .74s cubic-bezier(.22,1,.36,1) forwards}
-@keyframes upShine{to{transform:translateX(110%)}}
+.up-shine{background-image:linear-gradient(105deg,transparent 34%,rgba(255,255,255,.2) 46%,rgba(255,255,255,.04) 54%,transparent 64%);
+  background-size:300% 100%;background-position:100% 0;animation:upShine .74s cubic-bezier(.22,1,.36,1) forwards}
+@keyframes upShine{to{background-position:0 0}}
 .up-ring{position:absolute;z-index:3;width:60px;height:60px;margin:-30px 0 0 -30px;border-radius:50%;pointer-events:none;
   border:2px solid var(--lime);box-shadow:0 0 22px rgba(212,255,79,.55)}
 .up-fly{position:absolute;left:0;top:0;z-index:8;pointer-events:none;white-space:nowrap;padding:6px 12px;border-radius:99px;
@@ -3159,7 +3162,7 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
         if(my !== upRun) return;
         var beam = document.createElement('i'); beam.className = 'up-scan'; up.ph.appendChild(beam);
         tween(660, function(q){
-          cut(q); beam.style.transform = 'translate3d(0,' + (q * H).toFixed(1) + 'px,0)';
+          cut(q); beam.style.setProperty('--sy', (q * H).toFixed(1) + 'px');
           if(q >= 1){ im.style.webkitClipPath = ''; im.style.clipPath = ''; }
         }, function(){
           beam.classList.add('out'); later(280, function(){ if(beam.parentNode) beam.parentNode.removeChild(beam); });
