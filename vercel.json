@@ -1,32 +1,90 @@
 {
   "cleanUrls": true,
   "redirects": [
-    { "source": "/motion", "destination": "/motion/", "permanent": false },
-    { "source": "/Motion", "destination": "/motion/", "permanent": false },
-    { "source": "/Motion/", "destination": "/motion/", "permanent": false },
-    { "source": "/Motion/:path*", "destination": "/motion/:path*", "permanent": false },
-    { "source": "/MOTION/", "destination": "/motion/", "permanent": false },
-    { "source": "/MOTION", "destination": "/motion/", "permanent": false },
-    { "source": "/MOTION/:path*", "destination": "/motion/:path*", "permanent": false },
-    { "source": "/business", "destination": "/", "permanent": false }
+    {
+      "source": "/motion",
+      "destination": "/motion/",
+      "permanent": false
+    },
+    {
+      "source": "/Motion",
+      "destination": "/motion/",
+      "permanent": false
+    },
+    {
+      "source": "/Motion/",
+      "destination": "/motion/",
+      "permanent": false
+    },
+    {
+      "source": "/Motion/:path*",
+      "destination": "/motion/:path*",
+      "permanent": false
+    },
+    {
+      "source": "/MOTION/",
+      "destination": "/motion/",
+      "permanent": false
+    },
+    {
+      "source": "/MOTION",
+      "destination": "/motion/",
+      "permanent": false
+    },
+    {
+      "source": "/MOTION/:path*",
+      "destination": "/motion/:path*",
+      "permanent": false
+    },
+    {
+      "source": "/business",
+      "destination": "/",
+      "permanent": false
+    }
   ],
   "rewrites": [
-    { "source": "/rochai", "destination": "https://roch-ai.vercel.app/rochai" },
-    { "source": "/rochai/:path*", "destination": "https://roch-ai.vercel.app/rochai/:path*" },
-    { "source": "/motion/", "destination": "https://roch-motion.vercel.app/" },
-    { "source": "/motion/:path*", "destination": "https://roch-motion.vercel.app/:path*" }
+    {
+      "source": "/rochai/led-lab",
+      "destination": "https://roch-ai.vercel.app/rochai/led-lab.html"
+    },
+    {
+      "source": "/rochai/led-show",
+      "destination": "https://roch-ai.vercel.app/rochai/led-show.html"
+    },
+    {
+      "source": "/rochai",
+      "destination": "https://roch-ai.vercel.app/rochai"
+    },
+    {
+      "source": "/rochai/:path*",
+      "destination": "https://roch-ai.vercel.app/rochai/:path*"
+    },
+    {
+      "source": "/motion/",
+      "destination": "https://roch-motion.vercel.app/"
+    },
+    {
+      "source": "/motion/:path*",
+      "destination": "https://roch-motion.vercel.app/:path*"
+    }
   ],
   "headers": [
     {
       "source": "/assets/(.*)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=604800, stale-while-revalidate=86400" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=604800, stale-while-revalidate=86400"
+        }
       ]
     },
     {
       "source": "/index.html",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
       ]
     }
   ]
