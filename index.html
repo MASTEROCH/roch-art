@@ -512,6 +512,10 @@ footer .foot-links span{color:var(--text3)}
 .ta-head img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 10px 22px rgba(0,0,0,.55))}
 .ta-head canvas{position:absolute;left:11%;top:11%;width:78%;height:78%;filter:drop-shadow(0 0 1.5px rgba(230,255,210,.35))}
 .ta-head i{position:absolute;inset:0;border-radius:50%;background:radial-gradient(52% 38% at 36% 20%,rgba(255,255,255,.1),transparent 60%);box-shadow:inset 0 0 0 1px rgba(255,255,255,.06)}
+/* сон и «выключение» маскота при перезагрузке: сфера чуть гаснет */
+.ta-head{transition:filter .5s ease, opacity .5s ease}
+.ta-head.ta-reboot{cursor:default}
+.ta-head.ta-off{filter:brightness(.45) saturate(.6)}
 @media (min-width:1024px){ .try-ai{grid-template-columns:auto minmax(0,1fr) auto;column-gap:28px;padding:24px 28px} .try-ai .ta-btn{grid-column:auto} .ta-head{width:92px;height:92px} }
 .morph-wrap{margin-top:34px}
 .morph-head{display:flex;align-items:center;gap:8px;margin-bottom:12px;padding:0 2px}
@@ -2602,7 +2606,25 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
         btn.addEventListener('mouseenter', function(){ face.set('excited'); }); btn.addEventListener('mouseleave', function(){ face.set('idle'); });
         btn.addEventListener('focus', function(){ face.set('excited'); }); btn.addEventListener('blur', function(){ face.set('idle'); });
       }
-      hd.addEventListener('click', function(){ face.play(Math.random() < 0.5 ? 'cheeky' : 'kiss', 'idle'); });
+      /* «штрыкать» маскота (Роч 29.10): каждое касание — эмоция; с 4-го быстрого — раздражение;
+         6 касаний за 2,5 с — глитч → сон ~4 с → выключение → загрузка, касания на это время не работают */
+      var taps = [], rebooting = false;
+      var FUN = ['giggle', 'wow', 'cheeky', 'wink', 'shy', 'laugh', 'tongue', 'love', 'kiss', 'embarrassed'], MAD = ['grumpy', 'nervous', 'dizzy'];
+      var pickOf = function(arr){ var ok = arr.filter(function(n){ return !LedFace.has || LedFace.has(n); }); return ok[Math.floor(Math.random() * ok.length)] || 'giggle'; };
+      hd.addEventListener('click', function(){
+        if(rebooting) return;
+        var now = Date.now(); taps = taps.filter(function(t){ return now - t < 2500; }); taps.push(now);
+        if(taps.length >= 6){
+          taps = []; rebooting = true; hd.classList.add('ta-reboot');
+          face.play('glitch', 'idle');
+          setTimeout(function(){ face.set('deepSleep'); }, 1300);
+          setTimeout(function(){ face.play('shutdown', 'idle'); hd.classList.add('ta-off'); }, 5300);
+          setTimeout(function(){ hd.classList.remove('ta-off'); face.play('boot', 'idle'); }, 6800);
+          setTimeout(function(){ rebooting = false; hd.classList.remove('ta-reboot'); face.set('idle'); }, 8400);
+          return;
+        }
+        face.play(pickOf(taps.length >= 4 ? MAD : FUN), 'idle');
+      });
       window.addEventListener('pointermove', function(e){ if(e.pointerType !== 'touch') face.lookAt(e.clientX, e.clientY); }, { passive: true });
       greet();
     };
