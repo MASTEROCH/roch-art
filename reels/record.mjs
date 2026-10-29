@@ -36,7 +36,11 @@ const now = () => Date.now() / 1000;
 /* runs in the page, not in node: text nodes and attributes are translated as the app renders them; the original Russian text is
    kept per node, so `text:<русская подпись>` targets keep working in the EN take; strings with no translation go to __reelMiss */
 function reelI18n(D) {
-  var N = {}, R = [], orig = new WeakMap(), miss = new Set(), CY = /[А-Яа-яЁё]/, AT = ['placeholder', 'title', 'aria-label', 'alt', 'data-placeholder'];
+  /* misses survive a same-origin navigation (Butyfly 29.10: the client page went to /admin, and its misses were lost — the
+     success sheet stayed Russian while untranslated.json said only admin strings were missing) */
+  var KEY = '__reelMiss', load = function(){ try { return JSON.parse(sessionStorage.getItem(KEY) || '[]'); } catch(e) { return []; } };
+  var N = {}, R = [], orig = new WeakMap(), miss = new Set(load()), CY = /[А-Яа-яЁё]/, AT = ['placeholder', 'title', 'aria-label', 'alt', 'data-placeholder'];
+  var keep = function(k){ if(miss.has(k)) return; miss.add(k); try { sessionStorage.setItem(KEY, JSON.stringify(Array.from(miss))); } catch(e) {} };
   var norm = function(v){ return String(v).replace(/\s+/g, ' ').trim(); };
   Object.keys(D).forEach(function(k){ if(k.indexOf('re:') === 0) R.push([new RegExp(k.slice(3), 'g'), D[k]]); else N[norm(k)] = D[k]; });
   var tr = function(v){
@@ -45,7 +49,7 @@ function reelI18n(D) {
     if(N[k] != null) return m[1] + N[k] + m[2];
     var o = k, hit = false;
     R.forEach(function(r){ var w = o.replace(r[0], r[1]); if(w !== o){ hit = true; o = w; } });
-    if(!hit || CY.test(o)) miss.add(k);
+    if(!hit || CY.test(o)) keep(k);
     return hit ? m[1] + o + m[2] : null;
   };
   var doText = function(n){
