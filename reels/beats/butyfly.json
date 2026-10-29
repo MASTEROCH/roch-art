@@ -1,0 +1,163 @@
+{
+  "slug": "butyfly",
+  "name": "Butyfly",
+  "niche_ru": "Клиника антивозрастной медицины: кейсы «до и после», запись к врачу и кабинет с выручкой",
+  "niche_en": "An anti-aging clinic: before-and-after cases, doctor booking and a revenue dashboard",
+  "color": "#E1B5A4",
+  "url": "https://butyfly-v9k3.vercel.app/",
+  "logo": "https://butyfly-v9k3.vercel.app/brand/mark.svg",
+  "viewport": {
+    "w": 390,
+    "h": 844,
+    "dsf": 2
+  },
+  "prep": {
+    "localStorage": {
+      "bfy_obDone": "true",
+      "bfy_theme": "\"dark\"",
+      "bfyadm_theme": "\"dark\"",
+      "bfyadm_staff": {
+        "role": "owner",
+        "roleName": "Руководитель",
+        "docId": null,
+        "since": 1793300000000
+      }
+    },
+    "query": "",
+    "waitFor": "typeof VIEWS==='object' && typeof go==='function' && !!document.querySelector('#app .screen.on')",
+    "css": ".screen:has(#rchips) .sect-tight h1+p.tiny{visibility:hidden!important}",
+    "eval": "document.documentElement.spellcheck=false;var L=[];D.results.forEach(function(r){(r.photos||[]).forEach(function(p){L.push('/'+p);});});D.specialists.forEach(function(d){if(d.photo)L.push('/'+d.photo);});L.push('/photos/space/hero-2.webp','/brand/logo.svg?v=2');await Promise.all(L.map(function(u){return new Promise(function(r){var i=new Image();i.onload=i.onerror=r;i.src=u;setTimeout(r,20000);});}));if(document.fonts&&document.fonts.ready)await document.fonts.ready;return L.length",
+    "settle_ms": 1500
+  },
+  "idea_ru": "Хочу ровную кожу без операций",
+  "idea_en": "I want smooth skin without surgery",
+  "hook": {
+    "land": {
+      "x": 105,
+      "y": 356
+    }
+  },
+  "poster": {
+    "beat": 0,
+    "at": -0.4
+  },
+  "beats": [
+    {
+      "id": "results",
+      "pre": [
+        {
+          "do": "eval",
+          "value": "go('results');await new Promise(function(r){setTimeout(r,300);});await Promise.all([].slice.call(document.images).map(function(i){return i.complete?1:new Promise(function(r){i.onload=i.onerror=r;setTimeout(r,20000);});}));return 1",
+          "hold_ms": 1300
+        }
+      ],
+      "steps": [
+        {
+          "do": "wait",
+          "hold_ms": 250
+        },
+        {
+          "do": "tap",
+          "target": ".ba-b",
+          "hold_ms": 3150
+        }
+      ],
+      "cap_ru": "Вы открываете кейс и видите кожу *до и после* процедуры",
+      "cap_en": "Open a case and see the skin *before and after* the treatment",
+      "cam": {
+        "x": 195,
+        "y": 320,
+        "s": 1.1
+      }
+    },
+    {
+      "id": "booking",
+      "pre": [
+        {
+          "do": "eval",
+          "value": "closeViewer();go('book',{svc:findServiceByTitle('Фотоомоложение').id});bk.name='Анна';bk.phone='+7 921 555-23-41';render();window.scrollTo(0,150);return 1",
+          "value_en": "closeViewer();go('book',{svc:findServiceByTitle('Фотоомоложение').id});bk.name='Anna';bk.phone='+7 921 555-23-41';render();window.scrollTo(0,150);return 1",
+          "hold_ms": 1100
+        }
+      ],
+      "steps": [
+        {
+          "do": "wait",
+          "hold_ms": 300
+        },
+        {
+          "do": "tap",
+          "target": "button[onclick=\"pickDoctor()\"]",
+          "hold_ms": 850
+        },
+        {
+          "do": "tap",
+          "target": "text:Лаврова Вероника",
+          "hold_ms": 650
+        },
+        {
+          "do": "tap",
+          "target": "text:11:00",
+          "hold_ms": 550
+        },
+        {
+          "do": "eval",
+          "value": "var b=document.querySelector('.btn-hero');var y0=scrollY,dy=b.getBoundingClientRect().top-560,t0=performance.now(),ms=480;await new Promise(function(res){(function s(){var k=Math.min(1,(performance.now()-t0)/ms),e=k<.5?4*k*k*k:1-Math.pow(-2*k+2,3)/2;window.scrollTo(0,y0+dy*e);if(k<1)requestAnimationFrame(s);else res();})();});return 1",
+          "hold_ms": 120,
+          "speed": 1.3
+        },
+        {
+          "do": "tap",
+          "target": ".btn-hero",
+          "hold_ms": 1600
+        }
+      ],
+      "cap_ru": "Вы выбираете врача и свободное время, и одно касание *записывает вас*",
+      "cap_en": "Pick a doctor and a free time, and one tap *books you in*",
+      "cam": {
+        "x": 195,
+        "y": 470,
+        "s": 1.08
+      }
+    },
+    {
+      "id": "money",
+      "pre": [
+        {
+          "do": "eval",
+          "value": "closeSheet();setTimeout(function(){location.href='/admin';},40);return 1",
+          "hold_ms": 2600
+        },
+        {
+          "do": "eval",
+          "value": "var t0=Date.now();while(Date.now()-t0<20000){if(location.pathname.indexOf('/admin')===0&&typeof go==='function'&&document.querySelector('.kpi-v'))break;await new Promise(function(r){setTimeout(r,200);});}document.documentElement.spellcheck=false;if(document.fonts&&document.fonts.ready)await document.fonts.ready;await new Promise(function(r){setTimeout(r,1400);});return 1",
+          "hold_ms": 300
+        }
+      ],
+      "steps": [
+        {
+          "do": "wait",
+          "hold_ms": 300
+        },
+        {
+          "do": "tap",
+          "x": 225,
+          "y": 809,
+          "hold_ms": 1900
+        },
+        {
+          "do": "eval",
+          "value": "var y0=scrollY,dy=150,t0=performance.now(),ms=820;await new Promise(function(res){(function s(){var k=Math.min(1,(performance.now()-t0)/ms),e=k<.5?4*k*k*k:1-Math.pow(-2*k+2,3)/2;window.scrollTo(0,y0+dy*e);if(k<1)requestAnimationFrame(s);else res();})();});return 1",
+          "hold_ms": 600
+        }
+      ],
+      "cap_ru": "А в кабинете клиники вы видите выручку, средний чек и *доход с пациента*",
+      "cap_en": "And the clinic dashboard shows you revenue, the average check and *income per patient*",
+      "cam": {
+        "x": 195,
+        "y": 330,
+        "s": 1.1
+      }
+    }
+  ]
+}

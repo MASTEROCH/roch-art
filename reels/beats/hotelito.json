@@ -1,0 +1,159 @@
+{
+  "slug": "hotelito",
+  "name": "Hotelito",
+  "niche_ru": "Загородный гостевой дом: домики у воды, визы гостей и календарь хозяйки",
+  "niche_en": "A country guest house: cabins by the water, guest visas and the host’s calendar",
+  "color": "#8B6BFF",
+  "url": "https://hotelito-r4w8.vercel.app/",
+  "logo": "https://hotelito-r4w8.vercel.app/brand/mark.svg",
+  "viewport": {
+    "w": 390,
+    "h": 844,
+    "dsf": 2
+  },
+  "prep": {
+    "localStorage": {
+      "htl-onboarded": "1",
+      "htl-theme": "dark",
+      "htl-visa-draft": "{\"step\":3,\"spot\":\"aframe\",\"date\":\"2026-11-14\",\"duration\":\"Несколько дней или уикенд\",\"guests\":2,\"about\":\"Мы с мужем фотографы, хотим тишины и воды\",\"socials\":\"\",\"firstName\":\"\",\"lastName\":\"\"}",
+      "htla-session": "{\"role\":\"owner\"}",
+      "htla-theme": "dark"
+    },
+    "query": "",
+    "waitFor": "document.querySelector('button.tab-visa') && document.querySelector('.tab.on')",
+    "css": ".toast.demo-toast{display:none!important}",
+    "settle_ms": 1500
+  },
+  "idea_ru": "Домик у воды, и чтобы тихо",
+  "idea_en": "A cabin by the water, somewhere quiet",
+  "hook": {
+    "land": {
+      "x": 195,
+      "y": 330
+    }
+  },
+  "poster": {
+    "beat": 1,
+    "at": -0.5
+  },
+  "beats": [
+    {
+      "id": "cabins",
+      "pre": [
+        {
+          "do": "eval",
+          "value": "var c=__reel.pick('text:А-Фреймы у воды');var e=c;while(e&&!e.classList.contains('card'))e=e.parentElement;(e||c).scrollIntoView({block:'center'});window.scrollBy(0,-40);return 1",
+          "hold_ms": 400
+        },
+        {
+          "do": "eval",
+          "value": "await Promise.all(['aframe-1','aframe-2','aframe-3','aframe-4','aframe-6','aframe-7','aframe-couple','gh-card-1','gh-card-2','gh-card-3','gh-detail-1','gh-detail-2','gh-detail-3','gh-detail-4','gh-detail-5','gh-detail-6','gh-detail-7','gh-detail-8','gh-detail-9','gh-ext-4','gh-int-1','gh-int-2','room-merchant-1','room-scandi-1','room-soviet-1','room-standard-1','rooms-hero'].map(function(id){return Promise.all(['/photos/t/','/photos/m/'].map(function(p){return new Promise(function(r){var i=new Image();i.onload=i.onerror=r;i.src=p+id+'.jpg';setTimeout(r,20000);});}));}));await Promise.all([].slice.call(document.images).filter(function(i){var r=i.getBoundingClientRect();return r.bottom>-400&&r.top<innerHeight+400;}).map(function(i){return i.complete&&i.naturalWidth?1:new Promise(function(r){i.addEventListener('load',r);i.addEventListener('error',r);setTimeout(r,20000);});}));return 1",
+          "hold_ms": 900
+        }
+      ],
+      "steps": [
+        {
+          "do": "tap",
+          "target": "text:А-Фреймы у воды",
+          "hold_ms": 2200
+        },
+        {
+          "do": "scroll",
+          "target": ".strip",
+          "value": {
+            "dx": 262,
+            "dy": 0
+          },
+          "ms": 850,
+          "hold_ms": 950
+        }
+      ],
+      "cap_ru": "Вы листаете домики у воды и сразу видите *цену за ночь*",
+      "cap_en": "You swipe through cabins by the water and see *the price per night*",
+      "cam": {
+        "x": 195,
+        "y": 330,
+        "s": 1.12
+      }
+    },
+    {
+      "id": "visa",
+      "pre": [
+        {
+          "do": "eval",
+          "value": "document.documentElement.dataset.scrollDir='up';return 1",
+          "hold_ms": 700
+        }
+      ],
+      "steps": [
+        {
+          "do": "tap",
+          "target": "button.tab-visa",
+          "hold_ms": 1000,
+          "speed": 1.2
+        },
+        {
+          "do": "type",
+          "target": ".sheet input",
+          "nth": 0,
+          "value": "Анна",
+          "value_en": "Anna",
+          "ms": 90,
+          "ring": true,
+          "hold_ms": 350
+        },
+        {
+          "do": "tap",
+          "target": "text:Поставить штамп",
+          "hold_ms": 2500
+        }
+      ],
+      "cap_ru": "Бронь здесь начинается с анкеты, а в конце вам *ставят штамп визы*",
+      "cap_en": "Booking here starts with a short form and ends with *a visa stamp*",
+      "cam": {
+        "x": 195,
+        "y": 420,
+        "s": 1.12
+      }
+    },
+    {
+      "id": "calendar",
+      "pre": [
+        {
+          "do": "eval",
+          "value": "var m=window.__reelMiss?Array.from(window.__reelMiss):[];setTimeout(function(){location.href='https://hotelito-admin-r4w8.vercel.app/?reelmiss='+encodeURIComponent(JSON.stringify(m));},30);return 1",
+          "hold_ms": 3500
+        },
+        {
+          "do": "eval",
+          "value": "for(var i=0;i<150&&!document.querySelector('.tabbar .tab, button.tab');i++)await new Promise(function(r){setTimeout(r,100);});try{var q=new URLSearchParams(location.search).get('reelmiss');if(q&&window.__reelMiss)JSON.parse(q).forEach(function(s){window.__reelMiss.add(s);});}catch(e){}history.replaceState(null,'',location.pathname);var st=document.createElement('style');st.id='__reel_css';st.textContent=\".chip-status.st-no{display:none!important}\";document.head.appendChild(st);window.__reel={vis:function(e){var r=e.getBoundingClientRect();if(!(r.width>0&&r.height>0))return false;var cs=getComputedStyle(e);return cs.visibility!=='hidden'&&cs.display!=='none'&&+cs.opacity>0.05;},top:function(e){var r=e.getBoundingClientRect(),x=Math.min(innerWidth-2,Math.max(1,r.left+r.width/2)),y=Math.min(innerHeight-2,Math.max(1,r.top+r.height/2)),h=document.elementFromPoint(x,y);return !!h&&(h===e||e.contains(h)||h.contains(e));},all:function(t){var L;if(t.indexOf('text:')===0){var tx=t.slice(5).trim();L=[].slice.call(document.querySelectorAll('button,a,label,input,textarea,[role=button],[data-act],[onclick],span,div,b,p,h1,h2,h3,h4,em,small,li,i')).filter(function(x){if(x.children.length>=8)return false;if((x.textContent||'').replace(/\\s+/g,' ').trim().indexOf(tx)===0)return true;var o=window.__reelOrigText?__reelOrigText(x):'';return !!o&&o.indexOf(tx)===0;});}else L=[].slice.call(document.querySelectorAll(t));return L.filter(this.vis);},pick:function(t,nth){var L=this.all(t);if(!L.length)return null;if(nth!=null)return L[nth]||null;var self=this,on=L.filter(function(e){var r=e.getBoundingClientRect();return r.bottom>0&&r.top<innerHeight&&self.top(e);});var c=on.length?on:L;return c.reduce(function(a,b){return a.contains(b)?b:(b.contains(a)?a:a);});},sc:function(e){for(var p=e.parentElement;p;p=p.parentElement){var cs=getComputedStyle(p);if(/(auto|scroll)/.test(cs.overflowY+cs.overflowX)&&(p.scrollHeight>p.clientHeight+2||p.scrollWidth>p.clientWidth+2))return p;}return null;},smooth:function(el,dx,dy,ms){return new Promise(function(res){var x0=el.scrollLeft,y0=el.scrollTop,t0=performance.now();(function s(){var k=Math.min(1,(performance.now()-t0)/ms),e=k<.5?4*k*k*k:1-Math.pow(-2*k+2,3)/2;el.scrollLeft=x0+dx*e;el.scrollTop=y0+dy*e;if(k<1)requestAnimationFrame(s);else res();})();});},rect:function(e,ox,oy){var r=e.getBoundingClientRect();return {x:r.left+r.width*(ox==null?.5:ox),y:r.top+r.height*(oy==null?.5:oy),w:r.width,h:r.height,l:r.left,t:r.top};},find:async function(t,o){o=o||{};var e=null;for(var i=0;i<10&&!e;i++){e=this.pick(t,o.nth);if(!e)await new Promise(function(r){setTimeout(r,200);});}if(!e)return null;var r=e.getBoundingClientRect(),m=o.margin||90;if(r.top<m||r.bottom>innerHeight-m){var s=this.sc(e);if(s){var dy=r.top+r.height/2-innerHeight*(o.at||.46);await this.smooth(s,0,dy,o.scroll_ms||520);await new Promise(function(r){setTimeout(r,140);});}}return this.rect(e,o.ox,o.oy);}};await Promise.all([].slice.call(document.images).filter(function(i){var r=i.getBoundingClientRect();return r.bottom>-400&&r.top<innerHeight+400;}).map(function(i){return i.complete?1:new Promise(function(r){i.onload=i.onerror=r;setTimeout(r,4000);});}));return 1",
+          "hold_ms": 400
+        },
+        {
+          "do": "tap",
+          "target": "text:Календарь",
+          "hold_ms": 1300
+        }
+      ],
+      "steps": [
+        {
+          "do": "tap",
+          "target": ".cal tbody tr:nth-child(4) td:nth-child(6) .cell",
+          "hold_ms": 1500
+        },
+        {
+          "do": "tap",
+          "target": "text:Предоплата пришла",
+          "hold_ms": 2000
+        }
+      ],
+      "cap_ru": "В календаре хозяйка держит даты и отмечает *предоплату*",
+      "cap_en": "In the calendar, the host holds dates and marks *the deposit*",
+      "cam": {
+        "x": 195,
+        "y": 430,
+        "s": 1.12
+      }
+    }
+  ]
+}

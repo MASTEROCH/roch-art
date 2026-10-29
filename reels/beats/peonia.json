@@ -1,0 +1,163 @@
+{
+  "slug": "peonia",
+  "name": "PEONIA",
+  "niche_ru": "Цветы с доставкой по Батуми прямо в Telegram",
+  "niche_en": "Flower delivery across Batumi, right inside Telegram",
+  "color": "#FF4F8B",
+  "url": "https://peonia-batumi.vercel.app/",
+  "logo": "https://peonia-batumi.vercel.app/img/logo.png",
+  "viewport": {
+    "w": 390,
+    "h": 844,
+    "dsf": 2
+  },
+  "prep": {
+    "sessionStorage": {
+      "peonia.splash": "1"
+    },
+    "query": "",
+    "waitFor": "window.PEONIA_APP && document.querySelector('#scr .hero')",
+    "css": ".top{display:none!important}.phone{height:100dvh!important}.toasts{display:none!important}",
+    "settle_ms": 1500,
+    "eval": "var L=['img/p-cloud.jpg', 'img/p-coral.jpg', 'img/p-dry.jpg', 'img/p-fire.jpg', 'img/p-florist.jpg', 'img/p-fuchsia.jpg', 'img/p-garden.jpg', 'img/p-kraft.jpg', 'img/p-lavender.jpg', 'img/p-night.jpg', 'img/p-pudra.jpg', 'img/p-sunset.jpg', 'img/p-table.jpg', 'img/p-tulips.jpg', 'img/p-white.jpg', 'img/p-wtulip.jpg', 'img/f-euca.png', 'img/f-gyps.png', 'img/f-peony.png', 'img/f-ranun.png', 'img/f-rose.png', 'img/f-tulip.png', 'img/logo.png', 'img/hero.jpg'];await Promise.all(L.map(function(u){return new Promise(function(r){var i=new Image();i.onload=i.onerror=r;i.src=u;setTimeout(r,20000);});}));return L.length"
+  },
+  "idea_ru": "Маме, нежное, до 150 ₾",
+  "idea_en": "For mom, something soft, under 150 ₾",
+  "hook": {
+    "land": {
+      "x": 170,
+      "y": 806
+    }
+  },
+  "beats": [
+    {
+      "id": "words",
+      "pre": [
+        {
+          "do": "tap",
+          "target": "text:Спросить",
+          "hold_ms": 1100
+        },
+        {
+          "do": "eval",
+          "value": "return 1",
+          "value_en": "if(!window.__reelAsk){window.__reelAsk=1;window.addEventListener('submit',function(e){var i=document.getElementById('aiText');if(i&&/^For mom/i.test(i.value))i.value='Маме, нежное, до 150 ₾';},true);var M={'Нежное бело-розовое до 150 ₾':'Soft white and pink, under 150 ₾'};(function f(){var i=document.getElementById('bwIn');if(i&&M[i.value])i.value=M[i.value];requestAnimationFrame(f);})();}return 1",
+          "hold_ms": 100
+        }
+      ],
+      "steps": [
+        {
+          "do": "type",
+          "target": "#aiText",
+          "value": "Маме, нежное, до 150 ₾",
+          "ms": 50,
+          "hold_ms": 150,
+          "speed": 1.5,
+          "value_en": "For mom, something soft, under 150 ₾"
+        },
+        {
+          "do": "tap",
+          "target": ".ai-send",
+          "hold_ms": 1500,
+          "speed": 1.7
+        },
+        {
+          "do": "wait",
+          "hold_ms": 2000
+        }
+      ],
+      "cap_ru": "Пишете своими словами, и чат подбирает *три букета*",
+      "cap_en": "Say it your way, and the chat picks *three bouquets*",
+      "cam": {
+        "x": 195,
+        "y": 400,
+        "s": 1.12
+      }
+    },
+    {
+      "id": "builder",
+      "pre": [
+        {
+          "do": "tap",
+          "target": ".sheet.ai [data-k=\"x\"]",
+          "hold_ms": 700
+        }
+      ],
+      "steps": [
+        {
+          "do": "tap",
+          "target": "text:Собрать свой букет",
+          "hold_ms": 850,
+          "speed": 1.25
+        },
+        {
+          "do": "tap",
+          "target": "text:Нежное бело-розовое до 150",
+          "hold_ms": 1900
+        },
+        {
+          "do": "tap",
+          "target": "[data-inc=\"peony\"]",
+          "hold_ms": 900
+        }
+      ],
+      "cap_ru": "Свой букет собирается *по цветку*, а цена видна сразу",
+      "cap_en": "Build your own *flower by flower*, with the price in view",
+      "cam": {
+        "x": 195,
+        "y": 330,
+        "s": 1.12
+      }
+    },
+    {
+      "id": "courier",
+      "pre": [
+        {
+          "do": "tap",
+          "target": ".sheet.bld [data-k=\"x\"]",
+          "hold_ms": 600
+        },
+        {
+          "do": "eval",
+          "value": "var A=PEONIA_APP;var o=A.createOrder({pid:'pudra',size:'M',place:2});var n=Date.now();o.log={new:n-240000,build:n-120000};o.st='build';A.save();return 1",
+          "hold_ms": 700
+        },
+        {
+          "do": "tap",
+          "target": "#tabs [data-tab=\"orders\"]",
+          "hold_ms": 900
+        }
+      ],
+      "steps": [
+        {
+          "do": "eval",
+          "value": "var K='peonia.v5',S2=JSON.parse(localStorage.getItem(K));var o=S2.orders.filter(function(x){return x.mine;}).sort(function(a,b){return b.t-a.t;})[0];o.st='courier';o.log.courier=Date.now();var nv=JSON.stringify(S2);localStorage.setItem(K,nv);window.dispatchEvent(new StorageEvent('storage',{key:K,newValue:nv}));return 1",
+          "hold_ms": 250
+        },
+        {
+          "do": "scroll",
+          "target": "#scr",
+          "value": 200,
+          "ms": 650,
+          "hold_ms": 0
+        },
+        {
+          "do": "wait",
+          "hold_ms": 3700,
+          "speed": 2.0
+        },
+        {
+          "do": "wait",
+          "hold_ms": 2100
+        }
+      ],
+      "cap_ru": "Вы следите за курьером *на карте* и видите, сколько минут до двери",
+      "cap_en": "You follow the courier *on the map* and see the minutes to your door",
+      "cam": {
+        "x": 195,
+        "y": 470,
+        "s": 1.12
+      }
+    }
+  ]
+}

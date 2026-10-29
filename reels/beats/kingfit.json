@@ -1,0 +1,150 @@
+{
+  "slug": "kingfit",
+  "name": "KING Fit",
+  "niche_ru": "Зал и тренер в одном приложении: подходы, еда и прогресс каждый день",
+  "niche_en": "The gym and the coach in one app: sets, food and progress every day",
+  "color": "#7BDEB0",
+  "url": "https://king-fit.vercel.app/",
+  "logo": "https://king-fit.vercel.app/brand/avatar-512.png",
+  "viewport": {
+    "w": 390,
+    "h": 844,
+    "dsf": 2
+  },
+  "prep": {
+    "localStorage": {
+      "kf_lang": "ru",
+      "kf_wa": "1"
+    },
+    "query": "",
+    "waitFor": "typeof window.DEMO==='object' && typeof window.W==='object' && typeof window.FOOD==='object' && !!document.querySelector('.scr.on')",
+    "css": ".demo-badge{display:none!important}html.demo{--dh:0px!important}",
+    "eval": "document.documentElement.spellcheck=false;document.body.spellcheck=false;try{shut();}catch(e){}DEMO.run();var t0=Date.now();while(Date.now()-t0<15000){var s=document.querySelector('.scr.on');if(s&&s.id!=='gen'&&s.id!=='door'&&document.querySelector('#gStart button'))break;await new Promise(function(r){setTimeout(r,200);});}if(document.fonts&&document.fonts.ready)await document.fonts.ready;await new Promise(function(r){setTimeout(r,1500);});return 1",
+    "settle_ms": 1200
+  },
+  "prep_en": {
+    "localStorage": {
+      "kf_lang": "en",
+      "kf_wa": "1"
+    }
+  },
+  "idea_ru": "Хочу рельеф и не бросить",
+  "idea_en": "I want to get lean and not quit again",
+  "hook": {
+    "land": {
+      "x": 195,
+      "y": 650
+    }
+  },
+  "poster": {
+    "beat": 2,
+    "at": -0.3
+  },
+  "beats": [
+    {
+      "id": "food",
+      "pre": [
+        {
+          "do": "eval",
+          "value": "try{shut();}catch(e){}tab('food');scrollTo(0,0);return 1",
+          "hold_ms": 900
+        },
+        {
+          "do": "tap",
+          "target": "button.fab[onclick=\"FOOD.text()\"]",
+          "hold_ms": 1100
+        }
+      ],
+      "steps": [
+        {
+          "do": "type",
+          "target": "#fdIn",
+          "value": "Куриная грудка 200 г, рис и салат",
+          "value_en": "200 g chicken breast, pasta and vegetable salad",
+          "ms": 45,
+          "hold_ms": 300,
+          "speed": 1.5
+        },
+        {
+          "do": "tap",
+          "target": "#fdBtn",
+          "hold_ms": 2100
+        }
+      ],
+      "cap_ru": "Пишете, что съели, обычными словами, и сразу видите *калории и БЖУ*",
+      "cap_en": "Write what you ate in plain words and see *the calories and macros* at once",
+      "cam": {
+        "x": 195,
+        "y": 400,
+        "s": 1.12
+      }
+    },
+    {
+      "id": "set",
+      "pre": [
+        {
+          "do": "eval",
+          "value": "try{shut();}catch(e){}tab('gym');scrollTo(0,0);return 1",
+          "hold_ms": 1000
+        },
+        {
+          "do": "tap",
+          "target": "#gStart button",
+          "hold_ms": 1500
+        }
+      ],
+      "steps": [
+        {
+          "do": "wait",
+          "hold_ms": 800
+        },
+        {
+          "do": "tap",
+          "target": "button[onclick^=\"W.gBump('w',-\"]",
+          "hold_ms": 1100
+        },
+        {
+          "do": "tap",
+          "x": 195,
+          "y": 812,
+          "hold_ms": 2500
+        }
+      ],
+      "cap_ru": "Тренер подсказывает вес на подход и сам отсчитывает *минуту отдыха*",
+      "cap_en": "The coach suggests the weight for each set and counts down *the minute of rest*",
+      "cam": {
+        "x": 195,
+        "y": 420,
+        "s": 1.1
+      }
+    },
+    {
+      "id": "report",
+      "pre": [
+        {
+          "do": "eval",
+          "value": "var S=function(ms){return new Promise(function(r){setTimeout(r,ms);});};var fin=function(){var e=document.querySelector('.gdone ~ button.btn[onclick=\"W.finish()\"]');return e&&e.offsetParent?e:null;};var k=0;for(var it=0;it<90;it++){var g=[].slice.call(document.querySelectorAll('button')).filter(function(b){return b.offsetParent&&/^(Готов|Ready)$/.test(b.innerText.trim());})[0];if(g){g.click();await S(350);continue;}if(fin())break;W.gDone();k++;await S(350);}try{shut();}catch(e){}await S(700);var b=fin();if(b){var r=b.getBoundingClientRect();scrollTo(0,scrollY+r.top-560);}return k",
+          "hold_ms": 2200
+        }
+      ],
+      "steps": [
+        {
+          "do": "wait",
+          "hold_ms": 250
+        },
+        {
+          "do": "tap",
+          "target": ".gdone ~ button.btn[onclick=\"W.finish()\"]",
+          "hold_ms": 3500
+        }
+      ],
+      "cap_ru": "После тренировки вы видите поднятые килограммы, серию недель и *новое звание*",
+      "cap_en": "After the workout you see the kilos lifted, your streak of weeks and *a new rank*",
+      "cam": {
+        "x": 195,
+        "y": 260,
+        "s": 1.12
+      }
+    }
+  ]
+}

@@ -1,0 +1,183 @@
+{
+ "slug": "epoch",
+ "name": "EPOCH",
+ "niche_ru": "Ресторан в Батуми: меню с фотографиями, бронь стола по плану зала и панель владельца",
+ "niche_en": "A restaurant in Batumi: a menu with photos, table booking on the floor plan and the owner’s panel",
+ "color": "#A3BE81",
+ "url": "https://epoch-client-lovat.vercel.app/",
+ "logo": "https://epoch-client-lovat.vercel.app/brand/epoch-mark-white.webp",
+ "viewport": {
+  "w": 390,
+  "h": 844,
+  "dsf": 2
+ },
+ "prep": {
+  "localStorage": {
+   "apphub_lang": "ru",
+   "apphub_lang_chosen": "1",
+   "apphub_onboarded": "1",
+   "apphub_theme": "dark",
+   "epoch_intro_seen": "1",
+   "epoch_admin_role": "owner",
+   "pb_admin_onboarded": "1",
+   "apphub_admin_lang_chosen": "1",
+   "pb_admin_mascot_greeted_v2": "1"
+  },
+  "query": "",
+  "waitFor": "document.querySelector('.welcome-title') && document.querySelector('button.btn.btn-primary')",
+  "css": "",
+  "settle_ms": 1500
+ },
+ "prep_en": {
+  "localStorage": {
+   "apphub_lang": "en",
+   "apphub_lang_chosen": "1",
+   "apphub_onboarded": "1",
+   "apphub_theme": "dark",
+   "epoch_intro_seen": "1",
+   "epoch_admin_role": "owner",
+   "pb_admin_onboarded": "1",
+   "apphub_admin_lang_chosen": "1",
+   "pb_admin_mascot_greeted_v2": "1"
+  }
+ },
+ "idea_ru": "Ужин на четверых в субботу",
+ "idea_en": "Dinner for four on Saturday",
+ "hook": {
+  "land": {
+   "x": 195,
+   "y": 98
+  }
+ },
+ "poster": {
+  "beat": 0,
+  "at": 1.4
+ },
+ "beats": [
+  {
+   "id": "menu",
+   "pre": [
+    {
+     "do": "tap",
+     "target": "button.btn.btn-primary",
+     "hold_ms": 300
+    },
+    {
+     "do": "eval",
+     "value": "window.__t0=Date.now();for(var k=0;k<450&&!document.querySelector('.menu-card-photo');k++)await new Promise(function(r){setTimeout(r,100);});await new Promise(function(r){setTimeout(r,300);});await __reel.find('.menu-card',{nth:3});await Promise.all([].slice.call(document.images).filter(function(i){var r=i.getBoundingClientRect();return r.width>0&&r.bottom>-400&&r.top<innerHeight+400;}).map(function(i){return i.complete&&i.naturalWidth?1:new Promise(function(r){i.addEventListener('load',r);i.addEventListener('error',r);setTimeout(r,20000);});}));try{var sc=document.querySelector('script[type=module][src*=\"/assets/index-\"]');var tx=await (await fetch(sc.src)).text();var mm=tx.match(/browser-[\\w-]+\\.js/);if(mm)await import('/assets/'+mm[0]);}catch(e){}var left=7900-(Date.now()-window.__t0);if(left>0)await new Promise(function(r){setTimeout(r,left);});await Promise.all([].slice.call(document.images).filter(function(i){var r=i.getBoundingClientRect();return r.width>0&&r.bottom>-400&&r.top<innerHeight+400;}).map(function(i){return i.complete&&i.naturalWidth?1:new Promise(function(r){i.addEventListener('load',r);i.addEventListener('error',r);setTimeout(r,20000);});}));return 1",
+     "hold_ms": 400
+    }
+   ],
+   "steps": [
+    {
+     "do": "wait",
+     "hold_ms": 450
+    },
+    {
+     "do": "tap",
+     "target": ".menu-card",
+     "nth": 3,
+     "hold_ms": 1500
+    },
+    {
+     "do": "tap",
+     "target": "button.btn.btn-primary",
+     "hold_ms": 1400
+    }
+   ],
+   "cap_ru": "Вы выбираете блюдо по фотографии и сразу видите *сумму заказа*",
+   "cap_en": "You pick a dish by its photo and see *the order total* right away",
+   "cam": {
+    "x": 195,
+    "y": 440,
+    "s": 1.12
+   }
+  },
+  {
+   "id": "booking",
+   "pre": [
+    {
+     "do": "tap",
+     "target": "button.nav-item",
+     "nth": 3,
+     "hold_ms": 500
+    },
+    {
+     "do": "eval",
+     "value": "window.__t1=Date.now();for(var k=0;k<450&&!document.querySelector('button.booking-mode-tab');k++)await new Promise(function(r){setTimeout(r,100);});if(!document.querySelector('button.booking-mode-tab'))throw new Error('booking screen never mounted');await new Promise(function(r){setTimeout(r,500);});var w=function(ms){return new Promise(function(r){setTimeout(r,ms);});};document.querySelectorAll('button.booking-mode-tab')[0].click();await w(900);[].slice.call(document.querySelectorAll('button.guest-pill')).filter(function(b){return b.textContent.trim()==='4';})[0].click();await w(500);[].slice.call(document.querySelectorAll('button.date-picker-day')).filter(function(b){return b.textContent.trim()==='31';})[0].click();await w(600);[].slice.call(document.querySelectorAll('button.time-slot')).filter(function(b){return b.textContent.trim()==='20:00';})[0].click();await w(900);var s=document.querySelector('.booking-screen'),f=document.querySelector('.floor-tabs');s.scrollTop+=f.getBoundingClientRect().top-190;await w(400);try{var sc=document.querySelector('script[type=module][src*=\"/assets/index-\"]');var tx=await (await fetch(sc.src)).text();var mm=tx.match(/browser-[\\w-]+\\.js/);if(mm)await import('/assets/'+mm[0]);}catch(e){}var left=7900-(Date.now()-window.__t1);if(left>0)await new Promise(function(r){setTimeout(r,left);});return 1",
+     "hold_ms": 400
+    }
+   ],
+   "steps": [
+    {
+     "do": "wait",
+     "hold_ms": 400
+    },
+    {
+     "do": "tap",
+     "target": "[aria-label^=\"Table T8\"]",
+     "hold_ms": 850
+    },
+    {
+     "do": "scroll",
+     "target": ".booking-screen",
+     "value": 130,
+     "ms": 450,
+     "hold_ms": 150
+    },
+    {
+     "do": "tap",
+     "target": "button.btn.btn-primary",
+     "hold_ms": 2500
+    }
+   ],
+   "cap_ru": "Стол вы отмечаете на плане зала, а на входе показываете *QR брони*",
+   "cap_en": "You mark a table on the floor plan and show *the booking QR* at the door",
+   "cam": {
+    "x": 195,
+    "y": 440,
+    "s": 1.12
+   }
+  },
+  {
+   "id": "revenue",
+   "pre": [
+    {
+     "do": "eval",
+     "value": "var m=window.__reelMiss?Array.from(window.__reelMiss):[];setTimeout(function(){location.href='https://epoch-batumi-admin.vercel.app/?reelmiss='+encodeURIComponent(JSON.stringify(m));},30);return 1",
+     "hold_ms": 3500
+    },
+    {
+     "do": "eval",
+     "value": "for(var i=0;i<200&&!document.querySelector('.stat-widget.stat-accent-gold');i++)await new Promise(function(r){setTimeout(r,100);});try{var q=new URLSearchParams(location.search).get('reelmiss');if(q&&window.__reelMiss)JSON.parse(q).forEach(function(s){window.__reelMiss.add(s);});}catch(e){}history.replaceState(null,'',location.pathname);window.__reel={vis:function(e){var r=e.getBoundingClientRect();if(!(r.width>0&&r.height>0))return false;var cs=getComputedStyle(e);return cs.visibility!=='hidden'&&cs.display!=='none'&&+cs.opacity>0.05;},top:function(e){var r=e.getBoundingClientRect(),x=Math.min(innerWidth-2,Math.max(1,r.left+r.width/2)),y=Math.min(innerHeight-2,Math.max(1,r.top+r.height/2)),h=document.elementFromPoint(x,y);return !!h&&(h===e||e.contains(h)||h.contains(e));},all:function(t){var L;if(t.indexOf('text:')===0){var tx=t.slice(5).trim();L=[].slice.call(document.querySelectorAll('button,a,label,input,textarea,[role=button],[data-act],[onclick],span,div,b,p,h1,h2,h3,h4,em,small,li,i')).filter(function(x){if(x.children.length>=8)return false;if((x.textContent||'').replace(/\\s+/g,' ').trim().indexOf(tx)===0)return true;var o=window.__reelOrigText?__reelOrigText(x):'';return !!o&&o.indexOf(tx)===0;});}else L=[].slice.call(document.querySelectorAll(t));return L.filter(this.vis);},pick:function(t,nth){var L=this.all(t);if(!L.length)return null;if(nth!=null)return L[nth]||null;var self=this,on=L.filter(function(e){var r=e.getBoundingClientRect();return r.bottom>0&&r.top<innerHeight&&self.top(e);});var c=on.length?on:L;return c.reduce(function(a,b){return a.contains(b)?b:(b.contains(a)?a:a);});},sc:function(e){for(var p=e.parentElement;p;p=p.parentElement){var cs=getComputedStyle(p);if(/(auto|scroll)/.test(cs.overflowY+cs.overflowX)&&(p.scrollHeight>p.clientHeight+2||p.scrollWidth>p.clientWidth+2))return p;}return null;},smooth:function(el,dx,dy,ms){return new Promise(function(res){var x0=el.scrollLeft,y0=el.scrollTop,t0=performance.now();(function s(){var k=Math.min(1,(performance.now()-t0)/ms),e=k<.5?4*k*k*k:1-Math.pow(-2*k+2,3)/2;el.scrollLeft=x0+dx*e;el.scrollTop=y0+dy*e;if(k<1)requestAnimationFrame(s);else res();})();});},rect:function(e,ox,oy){var r=e.getBoundingClientRect();return {x:r.left+r.width*(ox==null?.5:ox),y:r.top+r.height*(oy==null?.5:oy),w:r.width,h:r.height,l:r.left,t:r.top};},find:async function(t,o){o=o||{};var e=null;for(var i=0;i<10&&!e;i++){e=this.pick(t,o.nth);if(!e)await new Promise(function(r){setTimeout(r,200);});}if(!e)return null;var r=e.getBoundingClientRect(),m=o.margin||90;if(r.top<m||r.bottom>innerHeight-m){var s=this.sc(e);if(s){var dy=r.top+r.height/2-innerHeight*(o.at||.46);await this.smooth(s,0,dy,o.scroll_ms||520);await new Promise(function(r){setTimeout(r,140);});}}return this.rect(e,o.ox,o.oy);}};await Promise.all([].slice.call(document.images).filter(function(i){var r=i.getBoundingClientRect();return r.bottom>-400&&r.top<innerHeight+400;}).map(function(i){return i.complete?1:new Promise(function(r){i.onload=i.onerror=r;setTimeout(r,20000);});}));await document.fonts.ready;await new Promise(function(r){setTimeout(r,600);});return 1",
+     "hold_ms": 400
+    }
+   ],
+   "steps": [
+    {
+     "do": "wait",
+     "hold_ms": 700
+    },
+    {
+     "do": "tap",
+     "target": ".stat-widget.stat-accent-gold",
+     "nth": 0,
+     "hold_ms": 950
+    },
+    {
+     "do": "tap",
+     "target": "button.chart-range-pill",
+     "nth": 2,
+     "hold_ms": 2100
+    }
+   ],
+   "cap_ru": "Владелец открывает выручку и одним касанием видит её *за месяц*",
+   "cap_en": "The owner opens revenue and sees *the whole month* in one tap",
+   "cam": {
+    "x": 195,
+    "y": 440,
+    "s": 1.12
+   }
+  }
+ ]
+}

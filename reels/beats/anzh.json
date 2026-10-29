@@ -1,0 +1,152 @@
+{
+ "slug": "anzh",
+ "name": "ANZH Beauty",
+ "niche_ru": "Кабинет косметолога в Telegram: процедуры, запись и паспорт кожи",
+ "niche_en": "A cosmetologist's studio in Telegram: treatments, booking and a skin passport",
+ "color": "#12C088",
+ "url": "https://beauty-tma-prototype.vercel.app/",
+ "logo": "https://beauty-tma-prototype.vercel.app/brand/anzh-logo.svg",
+ "viewport": {
+  "w": 390,
+  "h": 844,
+  "dsf": 2
+ },
+ "prep": {
+  "localStorage": {
+   "anzh_onboarded": "1",
+   "anzh_lang": "ru"
+  },
+  "query": "",
+  "waitFor": "!!document.querySelector('nav button') && !!document.querySelector('.nav-chat')",
+  "css": "",
+  "eval": "try{var W=Telegram.WebApp;W.viewportHeight=innerHeight;W.viewportStableHeight=innerHeight;}catch(e){}document.documentElement.style.setProperty('--tg-viewport',innerHeight+'px');document.documentElement.spellcheck=false;var S=function(ms){return new Promise(function(r){setTimeout(r,ms);});};var t0=Date.now();while(Date.now()-t0<20000){if(performance.getEntriesByType('resource').some(function(e){return /\\/api\\/v1\\/me$/.test(e.name.split('?')[0]);}))break;await S(250);}await Promise.all(['/photos/anjelika.webp','/brand/anzhelika.webp','/brand/anzh-logo.svg'].map(function(u){return new Promise(function(r){var i=new Image();i.onload=i.onerror=r;i.src=u;setTimeout(r,20000);});}));if(document.fonts&&document.fonts.ready)await document.fonts.ready;var S=function(ms){return new Promise(function(r){setTimeout(r,ms);});};var t0=Date.now();while(Date.now()-t0<20000){var im=[].slice.call(document.images).filter(function(i){var r=i.getBoundingClientRect();return r.width>8&&r.bottom>0&&r.top<innerHeight;});if(im.every(function(i){return i.complete&&i.naturalWidth>0;}))break;await S(250);}await S(800);return 1",
+  "settle_ms": 1200
+ },
+ "prep_en": {
+  "localStorage": {
+   "anzh_onboarded": "1",
+   "anzh_lang": "en"
+  }
+ },
+ "idea_ru": "Губы, но чтобы естественно",
+ "idea_en": "Fuller lips, but natural",
+ "hook": {
+  "land": {
+   "x": 150,
+   "y": 800
+  }
+ },
+ "poster": {
+  "beat": 1,
+  "at": -0.4
+ },
+ "beats": [
+  {
+   "id": "ask",
+   "pre": [
+    {
+     "do": "eval",
+     "value": "document.querySelector('.nav-chat').click();return 1",
+     "hold_ms": 1400
+    }
+   ],
+   "steps": [
+    {
+     "do": "type",
+     "target": ".ai-input",
+     "value": "Губы, но чтобы естественно",
+     "value_en": "Fuller lips, but natural",
+     "ms": 45,
+     "hold_ms": 300,
+     "speed": 1.5
+    },
+    {
+     "do": "tap",
+     "target": ".ai-send-btn",
+     "hold_ms": 2600
+    }
+   ],
+   "cap_ru": "Вы пишете своими словами, и помощник отвечает, *сколько это стоит*",
+   "cap_en": "You write in your own words, and the assistant tells you *the price*",
+   "cam": {
+    "x": 195,
+    "y": 470,
+    "s": 1.1
+   }
+  },
+  {
+   "id": "time",
+   "pre": [
+    {
+     "do": "tap",
+     "target": ".ai-msg-action",
+     "hold_ms": 1800
+    },
+    {
+     "do": "eval",
+     "value": "var h=[].slice.call(document.querySelectorAll('.eyebrow')).filter(function(e){return /^(Выбери день|Pick a day)$/i.test(e.innerText.trim());})[0];if(h){var s=h.closest('.screen');s.scrollTop+=h.getBoundingClientRect().top-170;}var S=function(ms){return new Promise(function(r){setTimeout(r,ms);});};var t0=Date.now();while(Date.now()-t0<20000){var im=[].slice.call(document.images).filter(function(i){var r=i.getBoundingClientRect();return r.width>8&&r.bottom>0&&r.top<innerHeight;});if(im.every(function(i){return i.complete&&i.naturalWidth>0;}))break;await S(250);}var slotsOk=function(){return [].slice.call(document.querySelectorAll('button.slot')).some(function(b){return b.offsetParent;});};var waitSlots=async function(ms){var t1=Date.now();while(Date.now()-t1<ms){if(slotsOk())return true;await S(250);}return false;};try{var d=new Date();for(var k=0;k<3;k++){var x=new Date(d.getTime()+k*864e5);fetch('/api/v1/slots?date='+x.toISOString().slice(0,10)+'&slugs=lip-augmentation').catch(function(){});}}catch(e){}if(!(await waitSlots(15000))){var P=document.querySelectorAll('button.date-pill');if(P[1]){P[1].click();await S(2500);P[0].click();}await waitSlots(12000);}await S(600);return 1",
+     "hold_ms": 900
+    }
+   ],
+   "steps": [
+    {
+     "do": "wait",
+     "hold_ms": 250
+    },
+    {
+     "do": "tap",
+     "target": "button.date-pill",
+     "nth": 1,
+     "hold_ms": 1400
+    },
+    {
+     "do": "tap",
+     "target": "text:12:00",
+     "hold_ms": 1900
+    }
+   ],
+   "cap_ru": "Свободные часы видны сразу: вы выбираете день и *время визита*",
+   "cap_en": "Free hours are right there: you pick the day and *the time of your visit*",
+   "cam": {
+    "x": 195,
+    "y": 430,
+    "s": 1.1
+   }
+  },
+  {
+   "id": "skin",
+   "pre": [
+    {
+     "do": "eval",
+     "value": "var S=function(ms){return new Promise(function(r){setTimeout(r,ms);});};var nb=[].slice.call(document.querySelectorAll('nav button')).filter(function(b){return /ANZH/.test(b.innerText);})[0];if(nb)nb.click();await S(1500);var h=document.querySelector('.quiz-hero');if(h)h.click();await S(1500);var go=[].slice.call(document.querySelectorAll('button')).filter(function(b){return b.offsetParent&&/Пройти бесплатно|Take it free/.test(b.innerText);})[0];if(go){go.click();await S(1500);}for(var k=0;k<6;k++){var q=document.querySelector('.quiz-step');if(!q)break;var o=q.querySelectorAll('.quiz-option');var nx=[].slice.call(q.querySelectorAll('button')).filter(function(b){return /Дальше|Next|хотя бы|at least/.test(b.innerText);})[0];if(nx){o[1].click();await S(300);o[2].click();await S(300);nx=[].slice.call(q.querySelectorAll('button')).filter(function(b){return /Дальше|Next/.test(b.innerText);})[0];if(nx)nx.click();}else{(k===0?o[0]:o[1]).click();}await S(1100);}await S(500);var sq=document.querySelector('.quiz-step');var se=sq?sq.parentElement:null;while(se&&!(se.scrollHeight>se.clientHeight+2&&/(auto|scroll)/.test(getComputedStyle(se).overflowY)))se=se.parentElement;if(se)se.scrollTop=se.scrollHeight;await S(300);var q2=document.querySelector('.quiz-step');return q2?q2.innerText.slice(0,40):'noq'",
+     "hold_ms": 900
+    }
+   ],
+   "steps": [
+    {
+     "do": "wait",
+     "hold_ms": 700
+    },
+    {
+     "do": "tap",
+     "target": ".quiz-option",
+     "nth": 1,
+     "hold_ms": 800
+    },
+    {
+     "do": "tap",
+     "target": ".quiz-option",
+     "nth": 2,
+     "hold_ms": 1900
+    }
+   ],
+   "cap_ru": "Вы отвечаете на семь вопросов о коже и отмечаете *свои цели*",
+   "cap_en": "You answer seven questions about your skin and mark *your goals*",
+   "cam": {
+    "x": 195,
+    "y": 440,
+    "s": 1.1
+   }
+  }
+ ]
+}

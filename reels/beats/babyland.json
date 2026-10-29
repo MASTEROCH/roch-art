@@ -1,0 +1,195 @@
+{
+  "slug": "babyland",
+  "name": "BabyLand",
+  "niche_ru": "Детский праздник: герои, шоу и смета сразу",
+  "niche_en": "A kids' party with characters, shows and the price up front",
+  "color": "#FFB547",
+  "url": "https://babyland-c3x7.vercel.app/",
+  "logo": "https://babyland-c3x7.vercel.app/apple-touch-icon.png",
+  "viewport": {
+    "w": 390,
+    "h": 844,
+    "dsf": 2
+  },
+  "prep": {
+    "localStorage": {
+      "babyland.lang": "ru",
+      "babyland.onb.v2": "1",
+      "babyland.demo.seen": "1"
+    },
+    "query": "",
+    "waitFor": "nav button",
+    "css": "[aria-label=\"Демо-версия\"],[aria-label=\"Demo version\"]{display:none!important}:root{--safe-top:0px!important}",
+    "eval": "document.documentElement.spellcheck=false;document.body.spellcheck=false;await Promise.all(['/img/heroes/labubu-veduschiy.webp','/img/heroes/labubu-polurostovoy.webp','/img/programs/sh-shine-0.webp','/img/programs/sh-science-0.webp'].map(function(u){return new Promise(function(r){var i=new Image();i.onload=i.onerror=r;i.src=u;setTimeout(r,6000);});}));return 1",
+    "settle_ms": 1500
+  },
+  "prep_en": {
+    "localStorage": {
+      "babyland.lang": "en",
+      "babyland.onb.v2": "1",
+      "babyland.demo.seen": "1"
+    }
+  },
+  "idea_ru": "Дочке 7, хочет Лабубу",
+  "idea_en": "She's turning 7 and wants Labubu",
+  "hook": {
+    "land": {
+      "x": 150,
+      "y": 163
+    }
+  },
+  "poster": {
+    "beat": 1,
+    "at": -0.4
+  },
+  "beats": [
+    {
+      "id": "heroes",
+      "pre": [
+        {
+          "do": "tap",
+          "target": "nav button",
+          "nth": 2,
+          "hold_ms": 600
+        },
+        {
+          "do": "eval",
+          "value": "var W=function(u){return new Promise(function(r){var i=new Image();i.onload=function(){(i.decode?i.decode():Promise.resolve()).then(r,r);};i.onerror=r;i.src=u;setTimeout(r,20000);});};await Promise.all(['/img/heroes/labubu-veduschiy.webp','/img/heroes/labubu-polurostovoy.webp'].map(W));var t0=Date.now();while(Date.now()-t0<8000){var L=[].slice.call(document.querySelectorAll('main img')).filter(function(i){var r=i.getBoundingClientRect();return r.top<innerHeight&&r.bottom>0;});if(L.length&&L.every(function(i){return i.complete&&i.naturalWidth>0;}))break;await new Promise(function(r){setTimeout(r,200);});}return 1",
+          "hold_ms": 800
+        }
+      ],
+      "steps": [
+        {
+          "do": "type",
+          "target": "main input",
+          "value": "Лабубу",
+          "value_en": "Labubu",
+          "ms": 75,
+          "hold_ms": 700,
+          "speed": 1.2
+        },
+        {
+          "do": "tap",
+          "target": "main button:has(img[src*=\"labubu-veduschiy\"])",
+          "hold_ms": 1300
+        },
+        {
+          "do": "tap",
+          "target": "text:Выбрать героя",
+          "target_en": "text:Pick this character",
+          "hold_ms": 1200
+        }
+      ],
+      "cap_ru": "Героя находите по имени и выбираете по *фото костюма*",
+      "cap_en": "Find a character by name and choose by *the costume photo*",
+      "cam": {
+        "x": 195,
+        "y": 360,
+        "s": 1.12
+      }
+    },
+    {
+      "id": "show",
+      "pre": [
+        {
+          "do": "tap",
+          "x": 195,
+          "y": 40,
+          "hold_ms": 900
+        },
+        {
+          "do": "tap",
+          "target": "nav button",
+          "nth": 3,
+          "hold_ms": 1300
+        },
+        {
+          "do": "eval",
+          "value": "var L=[].slice.call(document.querySelectorAll('main button')).filter(function(b){return /^\\+\\s*\\S/.test(b.innerText.trim());});L[2].click();return 1",
+          "hold_ms": 3400
+        },
+        {
+          "do": "tap",
+          "target": "nav button",
+          "nth": 1,
+          "hold_ms": 1000
+        },
+        {
+          "do": "eval",
+          "value": "scrollTo(0,0);var c=[].slice.call(document.querySelectorAll('main button')).filter(function(b){return b.innerText.trim().indexOf('🎆')===0;})[0];c.scrollIntoView({inline:'center',block:'nearest'});c.click();await new Promise(function(r){setTimeout(r,900);});await Promise.all([].slice.call(document.querySelectorAll('main img')).map(function(i){return i.complete?1:new Promise(function(r){i.onload=i.onerror=r;setTimeout(r,5000);});}));scrollTo(0,0);return 1",
+          "hold_ms": 900
+        }
+      ],
+      "steps": [
+        {
+          "do": "wait",
+          "hold_ms": 500
+        },
+        {
+          "do": "tap",
+          "target": "text:+ В праздник",
+          "target_en": "text:+ Add",
+          "hold_ms": 1300
+        },
+        {
+          "do": "eval",
+          "value": "var b=[].slice.call(document.querySelectorAll('main button')).filter(function(x){return /^\\+\\s*\\S/.test(x.innerText.trim());})[0];var r=b.getBoundingClientRect(),d=r.top+r.height/2-560,y0=scrollY,t0=performance.now();await new Promise(function(res){(function s(){var k=Math.min(1,(performance.now()-t0)/600),e=k<.5?4*k*k*k:1-Math.pow(-2*k+2,3)/2;scrollTo(0,y0+d*e);if(k<1)requestAnimationFrame(s);else res();})();});return 1",
+          "hold_ms": 200
+        },
+        {
+          "do": "tap",
+          "target": "text:+ В праздник",
+          "target_en": "text:+ Add",
+          "hold_ms": 1500
+        }
+      ],
+      "cap_ru": "Добавляете шоу, и *итог* внизу пересчитывается сразу",
+      "cap_en": "Add a show, and *the total* below updates right away",
+      "cam": {
+        "x": 195,
+        "y": 540,
+        "s": 1.12
+      }
+    },
+    {
+      "id": "quote",
+      "pre": [
+        {
+          "do": "tap",
+          "target": "nav button",
+          "nth": 4,
+          "hold_ms": 1500
+        },
+        {
+          "do": "eval",
+          "value": "var b=[].slice.call(document.querySelectorAll('main button')).filter(function(x){return /^(\\+\\s*)?(В праздник|Add)$/.test(x.innerText.trim());}).pop();scrollTo(0,b.getBoundingClientRect().top+scrollY-250);return 1",
+          "hold_ms": 1000
+        }
+      ],
+      "steps": [
+        {
+          "do": "wait",
+          "hold_ms": 500
+        },
+        {
+          "do": "tap",
+          "target": "text:В праздник",
+          "target_en": "text:Add",
+          "hold_ms": 650
+        },
+        {
+          "do": "eval",
+          "value": "var e=[].slice.call(document.querySelectorAll('main *')).filter(function(x){return x.children.length===0&&/^(Итого|Total)$/.test(x.textContent.trim());})[0];var d=e.getBoundingClientRect().top-120,y0=scrollY,t0=performance.now();await new Promise(function(res){(function s(){var k=Math.min(1,(performance.now()-t0)/700),q=k<.5?4*k*k*k:1-Math.pow(-2*k+2,3)/2;scrollTo(0,y0+d*q);if(k<1)requestAnimationFrame(s);else res();})();});return 1",
+          "hold_ms": 1800
+        }
+      ],
+      "cap_ru": "Смета сама предлагает *пиньяту* и тут же пересчитывает итог",
+      "cap_en": "The quote suggests *a piñata* and recounts the total at once",
+      "cam": {
+        "x": 195,
+        "y": 380,
+        "s": 1.1
+      }
+    }
+  ]
+}
