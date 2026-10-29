@@ -636,7 +636,7 @@ img,video,iframe{display:block;max-width:100%}
       '<div class="w"><div class="pw' + (i % 2 ? ' flip' : '') + '">' +
         '<div class="p-head">' +
           '<div class="eb rv"><b>' + pad(i + 1) + '</b>/ ' + pad(REELS.length) + '</div>' +
-          '<div class="nm rv hd"><img src="/assets/logos/' + w.lg + '.webp" width="128" height="128" alt="" loading="lazy" decoding="async"><h2>' + name + '</h2></div>' +
+          '<div class="nm rv hd"><img src="/assets/logos/' + w.lg + '.webp?v=2" width="128" height="128" alt="" loading="lazy" decoding="async"><h2>' + name + '</h2></div>' +
         '</div>' +
         '<div class="stage"><i class="glow" aria-hidden="true"></i><div class="phone-wrap"><div class="phone">' +
           '<div class="scr" role="button" tabindex="0" data-i="' + i + '" aria-label="' + esc(t('Ролик') + ' ' + w.n + ': ' + t('пауза и воспроизведение')) + '">' +
@@ -659,7 +659,7 @@ img,video,iframe{display:block;max-width:100%}
       '<button class="mv" type="button" data-shots="m' + i + '" aria-label="' + esc(t('Смотреть экраны') + ' ' + w.n) + '">' +
         '<img src="/assets/cases/' + w.sh[0] + '" alt="" loading="lazy" decoding="async">' +
         '<span class="cnt"><i class="ico i-phone"></i>' + esc(cnt) + '</span></button>' +
-      '<div class="mt"><h3><img src="/assets/logos/' + w.lg + '.webp" width="128" height="128" alt="" loading="lazy" decoding="async">' + name + '</h3>' +
+      '<div class="mt"><h3><img src="/assets/logos/' + w.lg + '.webp?v=2" width="128" height="128" alt="" loading="lazy" decoding="async">' + name + '</h3>' +
         '<p>' + esc(t(w.s)) + '</p>' +
         '<a class="chip" href="' + esc(w.url) + '" target="_blank" rel="noopener" aria-label="' + esc(t('Открыть демо') + ' ' + w.n) + '">' + esc(t('Открыть демо')) + '<i class="ico i-out"></i></a>' +
       '</div></article>';
