@@ -130,9 +130,11 @@ h2 i{font-style:normal;color:var(--lime);margin-right:8px;font-weight:900}
   <section>
     <h2><i>01</i>Что вы оплачиваете</h2>
     <div class="amt" role="radiogroup">
-      <label><input type="radio" name="amt-ru" value="745" data-item="предоплата за упаковку" checked><span class="dot"></span><span><b>Предоплата за упаковку</b><small>50 % до начала работы</small></span><em>$745</em></label>
-      <label><input type="radio" name="amt-ru" value="745" data-item="остаток за упаковку"><span class="dot"></span><span><b>Остаток за упаковку</b><small>50 % после того, как вы приняли прототип</small></span><em>$745</em></label>
-      <label><input type="radio" name="amt-ru" value="5000" data-item="креативный директор, месяц"><span class="dot"></span><span><b>Креативный директор</b><small>месяц работы вперёд</small></span><em>$5 000</em></label>
+      <label><input type="radio" name="amt-ru" value="500" data-item="распаковка идеи" checked><span class="dot"></span><span><b>Распаковка идеи</b><small>2 часа, оплата до встречи</small></span><em>$500</em></label>
+      <label><input type="radio" name="amt-ru" value="750" data-item="предоплата за упаковку"><span class="dot"></span><span><b>Предоплата за упаковку</b><small>50 % до начала работы · после распаковки $500</small></span><em>$750</em></label>
+      <label><input type="radio" name="amt-ru" value="750" data-item="остаток за упаковку"><span class="dot"></span><span><b>Остаток за упаковку</b><small>50 % после того, как вы приняли прототип · после распаковки $500</small></span><em>$750</em></label>
+      <label><input type="radio" name="amt-ru" value="2500" data-item="предоплата за запуск под ключ"><span class="dot"></span><span><b>Предоплата за запуск под ключ</b><small>50 % до начала работы</small></span><em>$2 500</em></label>
+      <label><input type="radio" name="amt-ru" value="2500" data-item="остаток за запуск под ключ"><span class="dot"></span><span><b>Остаток за запуск под ключ</b><small>50 % после запуска</small></span><em>$2 500</em></label>
     </div>
   </section>
 
@@ -149,7 +151,7 @@ h2 i{font-style:normal;color:var(--lime);margin-right:8px;font-weight:900}
         <button type="button" data-copy="GE92TB7452936110100009"><span><small>IBAN, счёт в долларах США</small><b class="m">GE92 TB74 5293 6110 1000 09</b></span><span class="cp"></span></button>
         <button type="button" data-copy="JSC TBC Bank"><span><small>Банк получателя</small><b>JSC TBC Bank, Тбилиси, Грузия</b></span><span class="cp"></span></button>
         <button type="button" data-copy="TBCBGE22"><span><small>SWIFT</small><b class="m">TBCBGE22</b></span><span class="cp"></span></button>
-        <button type="button" data-copy-sum><span><small>Сумма, USD</small><b class="m" data-sum>745.00</b></span><span class="cp"></span></button>
+        <button type="button" data-copy-sum><span><small>Сумма, USD</small><b class="m" data-sum>500.00</b></span><span class="cp"></span></button>
         <button type="button" data-copy="Payment for design services"><span><small>Назначение платежа</small><b>Payment for design services</b></span><span class="cp"></span></button>
       </div>
       <div class="note">
@@ -169,7 +171,7 @@ h2 i{font-style:normal;color:var(--lime);margin-right:8px;font-weight:900}
       </div>
       <div class="rq">
         <button type="button" data-copy="TJ3pu1tmmJici14vKaj88p8AWN1gmC9VvN"><span><small>Адрес USDT в сети TRON (TRC-20)</small><b class="addr"><i>TJ3p</i>u1tmmJici14vKaj88p8AWN1gmC<i>9VvN</i></b></span><span class="cp"></span></button>
-        <button type="button" data-copy-sum><span><small>Сумма, USDT</small><b class="m" data-sum>745.00</b></span><span class="cp"></span></button>
+        <button type="button" data-copy-sum><span><small>Сумма, USDT</small><b class="m" data-sum>500.00</b></span><span class="cp"></span></button>
       </div>
       <div class="note">
         <p class="w">Отправляйте <b>только USDT и только в сети TRON (TRC-20)</b>. Перевод в другой сети не дойдёт, и вернуть его не получится.</p>
@@ -196,9 +198,11 @@ h2 i{font-style:normal;color:var(--lime);margin-right:8px;font-weight:900}
   <section>
     <h2><i>01</i>What you are paying for</h2>
     <div class="amt" role="radiogroup">
-      <label><input type="radio" name="amt-en" value="745" data-item="packaging prepayment" checked><span class="dot"></span><span><b>Packaging prepayment</b><small>50% before work starts</small></span><em>$745</em></label>
-      <label><input type="radio" name="amt-en" value="745" data-item="packaging balance"><span class="dot"></span><span><b>Packaging balance</b><small>50% after you accept the prototype</small></span><em>$745</em></label>
-      <label><input type="radio" name="amt-en" value="5000" data-item="creative director, one month"><span class="dot"></span><span><b>Creative director</b><small>one month in advance</small></span><em>$5,000</em></label>
+      <label><input type="radio" name="amt-en" value="500" data-item="idea unpacking" checked><span class="dot"></span><span><b>Idea unpacking</b><small>2 hours, paid before the meeting</small></span><em>$500</em></label>
+      <label><input type="radio" name="amt-en" value="750" data-item="packaging prepayment"><span class="dot"></span><span><b>Packaging prepayment</b><small>50% before work starts · $500 after an unpacking</small></span><em>$750</em></label>
+      <label><input type="radio" name="amt-en" value="750" data-item="packaging balance"><span class="dot"></span><span><b>Packaging balance</b><small>50% after you accept the prototype · $500 after an unpacking</small></span><em>$750</em></label>
+      <label><input type="radio" name="amt-en" value="2500" data-item="turnkey launch prepayment"><span class="dot"></span><span><b>Turnkey launch prepayment</b><small>50% before work starts</small></span><em>$2,500</em></label>
+      <label><input type="radio" name="amt-en" value="2500" data-item="turnkey launch balance"><span class="dot"></span><span><b>Turnkey launch balance</b><small>50% after the launch</small></span><em>$2,500</em></label>
     </div>
   </section>
 
@@ -215,7 +219,7 @@ h2 i{font-style:normal;color:var(--lime);margin-right:8px;font-weight:900}
         <button type="button" data-copy="GE92TB7452936110100009"><span><small>IBAN, US dollar account</small><b class="m">GE92 TB74 5293 6110 1000 09</b></span><span class="cp"></span></button>
         <button type="button" data-copy="JSC TBC Bank"><span><small>Beneficiary bank</small><b>JSC TBC Bank, Tbilisi, Georgia</b></span><span class="cp"></span></button>
         <button type="button" data-copy="TBCBGE22"><span><small>SWIFT</small><b class="m">TBCBGE22</b></span><span class="cp"></span></button>
-        <button type="button" data-copy-sum><span><small>Amount, USD</small><b class="m" data-sum>745.00</b></span><span class="cp"></span></button>
+        <button type="button" data-copy-sum><span><small>Amount, USD</small><b class="m" data-sum>500.00</b></span><span class="cp"></span></button>
         <button type="button" data-copy="Payment for design services"><span><small>Payment reference</small><b>Payment for design services</b></span><span class="cp"></span></button>
       </div>
       <div class="note">
@@ -235,7 +239,7 @@ h2 i{font-style:normal;color:var(--lime);margin-right:8px;font-weight:900}
       </div>
       <div class="rq">
         <button type="button" data-copy="TJ3pu1tmmJici14vKaj88p8AWN1gmC9VvN"><span><small>USDT address on TRON (TRC-20)</small><b class="addr"><i>TJ3p</i>u1tmmJici14vKaj88p8AWN1gmC<i>9VvN</i></b></span><span class="cp"></span></button>
-        <button type="button" data-copy-sum><span><small>Amount, USDT</small><b class="m" data-sum>745.00</b></span><span class="cp"></span></button>
+        <button type="button" data-copy-sum><span><small>Amount, USDT</small><b class="m" data-sum>500.00</b></span><span class="cp"></span></button>
       </div>
       <div class="note">
         <p class="w">Send <b>only USDT and only on the TRON network (TRC-20)</b>. A transfer on another network will not arrive and cannot be returned.</p>
@@ -256,7 +260,7 @@ h2 i{font-style:normal;color:var(--lime);margin-right:8px;font-weight:900}
 
 <div class="pbar">
   <div class="in">
-    <div class="sm"><small id="pbItem">К оплате</small><strong id="pbSum">$745</strong></div>
+    <div class="sm"><small id="pbItem">К оплате</small><strong id="pbSum">$500</strong></div>
     <a class="btn" id="pbGo" target="_blank" rel="noopener" href="https://t.me/broch">Прислать чек</a>
   </div>
 </div>
