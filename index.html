@@ -1137,6 +1137,16 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
 /* переписка «ТЗ ↔ расскажите» теперь в «Как это происходит» — без анимации загрузки, её там уже не видно */
 .hw-chat{margin:16px 0 0}
 .hw-chat .bc-msg{animation:none!important}
+/* кто это — лицо, имя и заслуги на первом экране (Роч 29.10: «делай понятнее, кто я такой»): строка-шифр
+   «❯ ROCH 0→1 · креативный директор» человеку со стороны ничего не говорила */
+.hr-id{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.hr-face{flex:none;width:46px;height:46px;border-radius:50%;object-fit:cover;
+  box-shadow:0 0 0 2px var(--bg),0 0 0 3.5px var(--lime),0 0 18px rgba(212,255,79,.35)}
+.hr-id b{display:block;font-size:15px;font-weight:800;letter-spacing:-.01em;line-height:1.2;color:var(--text)}
+.hr-id span{display:block;margin-top:3px;font-size:12.5px;font-weight:600;line-height:1.35;color:var(--text2)}
+.hr-st span{margin-top:auto;padding-top:4px} /* цены на одной линии, даже когда подпись в две строки */
+.hr-st em{font-style:normal;font-size:11.5px;font-weight:600;line-height:1.25;color:var(--text3)}
+@media (max-width:359px){ .hr-id span{font-size:11.5px} .hr-st em{font-size:10.5px} }
 .bz-under{margin-top:14px;display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;font-weight:600;color:var(--text3)}
 .bz-under span{display:inline-flex;align-items:center;gap:7px}
 .bz-under span::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--lime);box-shadow:0 0 7px rgba(212,255,79,.85)}
@@ -1512,7 +1522,7 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
     grid-template-rows:1fr repeat(7,auto) 1fr}
   .bz-hero .hr-route{grid-area:route;margin-top:22px}
   .bz-hero .hr-reels{grid-area:reels;margin-top:20px}
-  .bz-hero .h-code{grid-area:code;align-self:end}
+  .bz-hero .hr-id{grid-area:code;align-self:end;margin-bottom:6px}
   .bz-hero h1{grid-area:head;margin:0}
   .bz-hero .lead{grid-area:lead;max-width:600px;margin-top:18px}
   .bz-hero .bz-cta{grid-area:cta;margin-top:26px}
@@ -1911,8 +1921,8 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
   </div>
   <nav class="hud-nav" id="hudNav" aria-label="Навигация">
     <button type="button" class="hud-link" data-sec="cases"><i class="ico i-grid"></i><span>Работы</span></button>
-    <button type="button" class="hud-link" data-sec="how"><i class="ico i-wave"></i><span>Как</span></button>
     <button type="button" class="hud-link" data-sec="about"><i class="ico i-user"></i><span>Кто</span></button>
+    <button type="button" class="hud-link" data-sec="how"><i class="ico i-wave"></i><span>Как</span></button>
     <button type="button" class="hud-link" data-sec="prices"><i class="ico i-tag"></i><span>Цены</span></button>
     <button type="button" class="hud-link" data-sec="faq"><i class="ico i-help"></i><span>Вопросы</span></button>
   </nav>
@@ -1921,7 +1931,10 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
 <main>
 <!-- ============ HERO ============ -->
 <section class="hero bz-hero">
-  <p class="h-code"><i class="h-prompt">❯</i><span>ROCH 0→1 · креативный директор · сооснователь AppHub</span><i class="h-caret" aria-hidden="true"></i></p>
+  <div class="hr-id boot d2">
+    <img class="hr-face" src="assets/roch-ava.webp" width="192" height="192" alt="Роман Чернявский">
+    <div><b>Роман Чернявский · ROCH</b><span>Креативный директор · 10+ лет в геймдеве · продукты с 700M+ установок</span></div>
+  </div>
   <h1 id="bzH1" aria-label="Ваша идея — в продукт, который покупают.">
     <span class="h-main" aria-hidden="true">
       <span class="w"><i>Ваша</i></span> <span class="w"><i>идея —</i></span>
@@ -1929,11 +1942,11 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
     </span>
     
   </h1>
-  <p class="lead boot d2">Для предпринимателей с идеей приложения или сервиса. Я проверяю, купят ли её, упаковываю в продукт, а моя студия AppHub его запускает.</p>
+  <p class="lead boot d2">Для предпринимателей с идеей приложения или сервиса: я проверяю, купят ли её, и довожу её до готового продукта вместе с моей студией AppHub.</p>
   <ol class="hr-route boot d3" aria-label="Три ступени: распаковка, упаковка, запуск">
-    <li class="hr-st on"><small>2 часа</small><b>Распаковка</b><span>$500</span></li>
-    <li class="hr-st"><small>3 дня</small><b>Упаковка</b><span>$1 500</span></li>
-    <li class="hr-st"><small>1–2 недели</small><b>Запуск</b><span>$5 000</span></li>
+    <li class="hr-st on"><small>2 часа</small><b>Распаковка</b><em>разбор идеи</em><span>$500</span></li>
+    <li class="hr-st"><small>3 дня</small><b>Упаковка</b><em>прототип и план</em><span>$1 500</span></li>
+    <li class="hr-st"><small>1–2 недели</small><b>Запуск</b><em>готовый продукт</em><span>$5 000</span></li>
   </ol>
 
   <div class="bz-cta boot d3">
@@ -2063,6 +2076,36 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
   <button type="button" class="pre-btn more-btn" id="projMore" aria-expanded="false"><i class="ico i-down"></i><span id="projMoreTxt">Показать все приложения</span></button>
 </section>
 
+<!-- ============ КТО ============ -->
+<section id="about">
+  <div class="sec-head reveal">
+    <div class="eyebrow">Кто</div>
+    <h2>Кто это <span class="grad">делает</span></h2>
+  </div>
+  <div class="ab">
+    <figure class="me-pic reveal">
+      <img src="assets/roch-portrait.webp" width="840" height="1120" alt="ROCH — Роман Чернявский" loading="lazy" decoding="async">
+      <figcaption><div class="foot-lm me-lm"><img class="foot-logo" src="assets/logo-foot.png" width="379" height="160" alt=""></div><span>Роман Чернявский</span></figcaption>
+    </figure>
+    <div class="me glass reveal">
+      <div class="me-t">
+        <h3>Креативный директор и сооснователь AppHub</h3>
+        <p>10+ лет дизайна в геймдеве — продукты с <b>700M+ установок</b>. Теперь я упаковываю идеи с той же механикой возврата, что и в играх.</p>
+      </div>
+      <div class="me-facts"><span><b>10+</b> лет в геймдеве</span><span><b>700M+</b> установок</span><span><b>5</b> студий</span><a class="me-in" href="https://www.linkedin.com/in/roman-chernyavsky-1b97a1aa/" target="_blank" rel="noopener"><i class="ico i-in"></i>LinkedIn<i class="ico i-out"></i></a></div>
+    </div>
+    <div class="reel glass reveal" id="reel" role="button" tabindex="0" aria-label="Смотреть шоурил — геймдев-портфолио">
+      <img class="reel-p" src="assets/showreel-poster.webp" alt="" loading="lazy" decoding="async">
+      <i class="reel-scrim"></i><i class="reel-play"></i>
+      <div class="reel-cap"><b>Шоурил · геймдев в движении</b><span>2 минуты вместо тысячи слов — прямо здесь</span></div>
+    </div>
+  </div>
+  <div class="me-links reveal">
+    <a class="c-chip" href="https://youtu.be/uFlb1IN30FM" target="_blank" rel="noopener"><i class="ico i-play"></i>Геймдев-портфолио</a>
+    <a class="c-chip" href="https://bio.roch-art.com/about-me" target="_blank" rel="noopener"><i class="ico i-out"></i>CV · bio.roch-art.com</a>
+  </div>
+</section>
+
 <!-- ============ ЛЕНТА ============ -->
 
 
@@ -2073,7 +2116,7 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
     <h2>Вы рассказываете. <span class="grad">Я возвращаю идею живой.</span></h2>
   <div class="bz-chat hw-chat" role="group" aria-label="Разработчики просят ТЗ. Я прошу рассказать.">
       <div class="bc-msg bc-them"><small>Разработчики</small><span>Пришлите ТЗ на двадцать страниц</span></div>
-      <div class="bc-msg bc-me"><small><img class="bc-ava" src="assets/roch-face.webp" width="20" height="20" alt="">ROCH</small><span>Просто расскажите идею</span></div>
+      <div class="bc-msg bc-me"><small><img class="bc-ava" src="assets/roch-ava.webp" width="20" height="20" alt="">ROCH</small><span>Просто расскажите идею</span></div>
     </div>
   </div>
   <div class="acts">
@@ -2213,35 +2256,7 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
 
 
 
-<!-- ============ КТО ============ -->
-<section id="about">
-  <div class="sec-head reveal">
-    <div class="eyebrow">Кто</div>
-    <h2>Кто это <span class="grad">делает</span></h2>
-  </div>
-  <div class="ab">
-    <figure class="me-pic reveal">
-      <img src="assets/roch-portrait.webp" width="840" height="1120" alt="ROCH — Роман Чернявский" loading="lazy" decoding="async">
-      <figcaption><div class="foot-lm me-lm"><img class="foot-logo" src="assets/logo-foot.png" width="379" height="160" alt=""></div><span>Роман Чернявский</span></figcaption>
-    </figure>
-    <div class="me glass reveal">
-      <div class="me-t">
-        <h3>Креативный директор и сооснователь AppHub</h3>
-        <p>10+ лет дизайна в геймдеве — продукты с <b>700M+ установок</b>. Теперь я упаковываю идеи с той же механикой возврата, что и в играх.</p>
-      </div>
-      <div class="me-facts"><span><b>10+</b> лет в геймдеве</span><span><b>700M+</b> установок</span><span><b>5</b> студий</span><a class="me-in" href="https://www.linkedin.com/in/roman-chernyavsky-1b97a1aa/" target="_blank" rel="noopener"><i class="ico i-in"></i>LinkedIn<i class="ico i-out"></i></a></div>
-    </div>
-    <div class="reel glass reveal" id="reel" role="button" tabindex="0" aria-label="Смотреть шоурил — геймдев-портфолио">
-      <img class="reel-p" src="assets/showreel-poster.webp" alt="" loading="lazy" decoding="async">
-      <i class="reel-scrim"></i><i class="reel-play"></i>
-      <div class="reel-cap"><b>Шоурил · геймдев в движении</b><span>2 минуты вместо тысячи слов — прямо здесь</span></div>
-    </div>
-  </div>
-  <div class="me-links reveal">
-    <a class="c-chip" href="https://youtu.be/uFlb1IN30FM" target="_blank" rel="noopener"><i class="ico i-play"></i>Геймдев-портфолио</a>
-    <a class="c-chip" href="https://bio.roch-art.com/about-me" target="_blank" rel="noopener"><i class="ico i-out"></i>CV · bio.roch-art.com</a>
-  </div>
-</section>
+
 
 <!-- ============ 4 СТУПЕНИ ============ -->
 <section id="steps">
@@ -2608,9 +2623,14 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
 
   /* ===== i18n RU/EN — тот же движок, что на главной (walker по текстовым узлам) ===== */
   var I18N_EN = {
+    "Роман Чернявский · ROCH":"Roman Chernyavsky · ROCH",
+    "Креативный директор · 10+ лет в геймдеве · продукты с 700M+ установок":"Creative director · 10+ years in game dev · products with 700M+ installs",
+    "разбор идеи":"idea breakdown",
+    "прототип и план":"prototype and plan",
+    "готовый продукт":"a working product",
     "Оплата на счёт ИП или в USDT. Распаковка — до встречи, упаковка и запуск — 50 % до начала работы.":"Payment to my sole-proprietor account or in USDT. Unpacking is paid before the meeting, packaging and launch 50% before work starts.",
     /* распаковка $500 · упаковка $1 500 · запуск под ключ $5 000 (Роч 29.10) */
-    "Для предпринимателей с идеей приложения или сервиса. Я проверяю, купят ли её, упаковываю в продукт, а моя студия AppHub его запускает.":"For founders and business owners with an idea for an app or a service. I check whether people will buy it, package it into a product, and my studio AppHub launches it.",
+    "Для предпринимателей с идеей приложения или сервиса: я проверяю, купят ли её, и довожу её до готового продукта вместе с моей студией AppHub.":"For founders and business owners with an idea for an app or a service: I check whether people will buy it and take it all the way to a finished product with my studio AppHub.",
     "2 часа":"2 hours",
     "3 дня":"3 days",
     "1–2 недели":"1–2 weeks",
