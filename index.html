@@ -3910,7 +3910,7 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
         var b = document.createElement('button'), k = stList.length;
         b.type = 'button'; b.className = 'st-card'; b.setAttribute('role', 'listitem');
         b.style.setProperty('--pc', p.c || '#D4FF4F');
-        b.innerHTML = '<span class="st-media"><img class="a" alt="" loading="lazy" decoding="async" src="' + escAttr(p.poster || shotSrc(p, p.shots[0])) + '">' +
+        b.innerHTML = '<span class="st-media"><img class="a" alt="" loading="lazy" decoding="async" src="' + escAttr(posterOf(p) || shotSrc(p, p.shots[0])) + '">' +
           '<img class="b" alt="" decoding="async"></span><span class="st-play"><i></i>' + (p.reel ? 'Ролик' : 'История') + '</span>' +
           '<span class="st-meta"><b class="st-n">' + (idx + 1 < 10 ? '0' : '') + (idx + 1) + '</b><b class="st-name">' + p.name + '</b><span class="st-s">' + p.s + '</span></span>';
         b.addEventListener('click', function(){ openStory(k); });
@@ -3972,7 +3972,7 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
       /* ролик по языку страницы: p.reel — RU, p.reelEn — EN (интерфейс приложения в ролике тоже на английском) */
       var p = stList[k].p, rl = LANG === 'en' && p.reelEn ? p.reelEn : p.reel, n = rl ? 1 : Math.min(6, p.shots.length), bars = '', media = '', i;
       for(i = 0; i < n; i++) bars += '<i><b></b></i>';
-      if(rl) media = '<video muted playsinline preload="auto" src="' + escAttr(rl) + '"' + (p.poster ? ' poster="' + escAttr(p.poster) + '"' : '') + '></video>';
+      if(rl) media = '<video muted playsinline preload="auto" src="' + escAttr(rl) + '"' + (p.poster ? ' poster="' + escAttr(posterOf(p)) + '"' : '') + '></video>';
       else for(i = 0; i < n; i++) media += '<img alt="" decoding="async" data-src="' + escAttr(shotSrc(p, p.shots[i])) + '">';
       var f = document.createElement('div'); f.className = 'sv-face'; f.style.setProperty('--pc', p.c || '#D4FF4F');
       f.innerHTML = '<i class="sv-glow" aria-hidden="true"></i><div class="sv-bars" aria-hidden="true">' + bars + '</div>' +
@@ -4077,6 +4077,8 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
         if(e.key === 'Escape') closeStory(); else if(e.key === 'ArrowRight') step(1); else if(e.key === 'ArrowLeft') step(-1);
       });
     };
+    /* обложка на языке страницы: в EN — кадр из английского ролика, без русских титров */
+    function posterOf(p){ return p.poster && LANG === 'en' ? p.poster.replace('-poster.webp', '-poster-en.webp') : p.poster; } /* объявление, а не var: полка зовёт его раньше этой строки */
     var openStory = function(k){
       ensure();
       cube.innerHTML = ''; curK = k; shotI = 0; shotT = 0; lastNow = 0; playing = true; turning = false;

@@ -640,7 +640,7 @@ img,video,iframe{display:block;max-width:100%}
         '</div>' +
         '<div class="stage"><i class="glow" aria-hidden="true"></i><div class="phone-wrap"><div class="phone">' +
           '<div class="scr" role="button" tabindex="0" data-i="' + i + '" aria-label="' + esc(t('Ролик') + ' ' + w.n + ': ' + t('пауза и воспроизведение')) + '">' +
-            '<img class="poster" src="/assets/reels/' + w.reel + '-poster.webp" width="720" height="1280" alt="" loading="lazy" decoding="async">' +
+            '<img class="poster" src="' + posterSrc(w) + '" width="720" height="1280" alt="" loading="lazy" decoding="async">' +
             '<i class="tl"></i><span class="pb" aria-hidden="true"><i class="ico i-tri"></i><i class="ico i-pause"></i></span>' +
             '<span class="msg">' + esc(t('Ролик не загрузился. Нажмите, чтобы попробовать ещё раз.')) + '</span>' +
           '</div></div></div></div>' +
@@ -689,6 +689,8 @@ img,video,iframe{display:block;max-width:100%}
   }
 
   /* ----- ролики: играет только тот слайд, что в кадре, и только один ----- */
+  /* обложка ролика на языке страницы: в EN — кадр из английского ролика в тот же момент (без русских титров) */
+  function posterSrc(w) { return '/assets/reels/' + w.reel + '-poster' + (LANG === 'en' ? '-en' : '') + '.webp'; }
   function reelSrc(w) { return '/assets/reels/' + w.reel + '-' + (LANG === 'en' ? 'en' : 'ru') + '.mp4?v=2'; }
   function load(pl) {
     if (pl.v) return;
