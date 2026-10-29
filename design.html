@@ -115,6 +115,8 @@ img,video,iframe{display:block;max-width:100%}
     rgba(5,7,6,.9) 0%, rgba(5,7,6,.84) 12%, rgba(5,7,6,.72) 24%, rgba(5,7,6,.56) 36%, rgba(5,7,6,.4) 48%,
     rgba(5,7,6,.25) 60%, rgba(5,7,6,.12) 74%, rgba(5,7,6,.04) 88%, rgba(5,7,6,0) 100%)}
 @media (prefers-reduced-transparency:reduce){ .top::before{display:none} }
+/* на тач-телефонах размытие под шапкой не нужно — хватает градиента, а размытие с маской на прокрутке дорого в Safari */
+@media (hover:none){ .top::before{display:none} }
 .top-in{max-width:1220px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:10px}
 .top a,.top button{pointer-events:auto}
 .top-r{display:flex;align-items:center;gap:8px}
@@ -271,7 +273,7 @@ img,video,iframe{display:block;max-width:100%}
 .pb::after{content:'';position:absolute;inset:-4px;border-radius:50%;border:2.5px solid transparent;border-top-color:var(--lime);opacity:0;transition:opacity .2s}
 .scr.loading .pb::after{opacity:1;animation:spin .8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
-.scr.playing .pb{opacity:0;transform:scale(.86)}
+.scr.playing .pb{opacity:0;transform:scale(.86);-webkit-backdrop-filter:none;backdrop-filter:none} /* невидимая кнопка не размывает играющее видео каждый кадр */
 .scr.playing .pb .i-tri{display:none}
 .scr.playing .pb .i-pause{display:block}
 .scr.playing:focus-visible .pb{opacity:1;transform:none}
