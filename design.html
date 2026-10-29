@@ -93,7 +93,24 @@ img,video,iframe{display:block;max-width:100%}
   transform-origin:0 50%;transform:scaleX(0);box-shadow:0 0 12px rgba(212,255,79,.55)}
 .top{position:fixed;left:0;right:0;top:0;z-index:20;pointer-events:none;
   padding:calc(12px + env(safe-area-inset-top)) 20px 18px;
-  background:linear-gradient(180deg, rgba(5,7,6,.88) 0%, rgba(5,7,6,.55) 55%, rgba(5,7,6,0) 100%)}
+  background:none}
+/* затемнение под интерфейсом браузера (Роч 29.10: текст читался сквозь строку статуса и адресную строку Safari;
+   «там где я выделил — всё должно быть затемнено»). От верха экрана до низа шапки — сплошной тёмный (.97),
+   затухание начинается только под шапкой; под ним лёгкое размытие с маской. */
+.top::before,.top::after{content:'';position:absolute;left:0;right:0;top:0;z-index:-1;pointer-events:none;
+  height:calc(env(safe-area-inset-top) + 150px)}
+.top::before{-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+  -webkit-mask:linear-gradient(180deg,#000 0,#000 calc(env(safe-area-inset-top) + 76px),transparent 100%);
+          mask:linear-gradient(180deg,#000 0,#000 calc(env(safe-area-inset-top) + 76px),transparent 100%)}
+.top::after{background:linear-gradient(180deg,
+  rgba(5,7,6,.98) 0, rgba(5,7,6,.97) calc(env(safe-area-inset-top) + 72px),
+  rgba(5,7,6,.8) calc(env(safe-area-inset-top) + 90px), rgba(5,7,6,.5) calc(env(safe-area-inset-top) + 108px),
+  rgba(5,7,6,.22) calc(env(safe-area-inset-top) + 124px), rgba(5,7,6,.06) calc(env(safe-area-inset-top) + 138px), rgba(5,7,6,0) 100%)}
+.bot-scrim{position:fixed;left:0;right:0;bottom:0;z-index:19;pointer-events:none;height:calc(env(safe-area-inset-bottom) + 110px);
+  background:linear-gradient(0deg,
+    rgba(5,7,6,.9) 0%, rgba(5,7,6,.84) 12%, rgba(5,7,6,.72) 24%, rgba(5,7,6,.56) 36%, rgba(5,7,6,.4) 48%,
+    rgba(5,7,6,.25) 60%, rgba(5,7,6,.12) 74%, rgba(5,7,6,.04) 88%, rgba(5,7,6,0) 100%)}
+@media (prefers-reduced-transparency:reduce){ .top::before{display:none} }
 .top-in{max-width:1220px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:10px}
 .top a,.top button{pointer-events:auto}
 .top-r{display:flex;align-items:center;gap:8px}
@@ -395,6 +412,7 @@ img,video,iframe{display:block;max-width:100%}
 <div class="bg" aria-hidden="true"></div>
 <div class="prog" aria-hidden="true"><i id="progBar"></i></div>
 
+<div class="bot-scrim" aria-hidden="true"></div>
 <header class="top" id="top">
   <div class="top-in">
     <a class="logo" href="/" aria-label="ROCH — на главную"><img src="/assets/logo-hud.png" width="284" height="120" alt="ROCH"></a>
