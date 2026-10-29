@@ -633,7 +633,11 @@
     }
     return best;
   }
+  /* палец-подсказка выключен (Роч 29.10: «палец точно нужен? — убери»): маскот сам смотрит и говорит, третий движущийся
+     элемент делал страницу похожей на туториал. Код оставлен — включается флагом */
+  var HINTS = false;
   function hintFor(st) {
+    if (!HINTS) return;
     if (!st || !st.hint || muted || fingerOn || off || cur !== st || parked || tiny || rebooting) return;
     var used = ssGet(K_HINT);
     if (used.length >= 4 || used.indexOf(st.hk) >= 0) return;
