@@ -437,6 +437,13 @@ img,video,iframe{display:block;max-width:100%}
 .ava.bm.lit::before{opacity:1;animation:ring 14s linear infinite}
 .ava.bm.lit::after{opacity:1}
 .ava.bm.lit .bm-svg{opacity:.5}
+/* аватар — «Лицо из роя» (с главной, finFace): портрет собирается из точек на холсте ×2 вокруг круга; пока рой летит,
+   фото скрыто, на посадке встаёт резко, дальше кольцо забирает «Луч по рамке». Подъём обложки у аватара снят — вход делает рой */
+.sw-cv{position:absolute;left:-50%;top:-50%;width:200%;height:200%;z-index:2;pointer-events:none}
+.ava.sw{animation:none}
+.ava.sw-wait img{opacity:0}
+.ava.sw-wait::before{opacity:0;transition:none}
+.ava.sw-on img{opacity:1;transition:opacity .26s var(--out)}
 /* имя — проявка из размытия по буквам («Цитата отзыва», заголовочная громкость 12 px); роль — «Строки из-под маски» */
 .ltr{animation:ltrIn .56s cubic-bezier(.33,1,.68,1) both}
 @keyframes ltrIn{from{opacity:0;filter:blur(12px)}}
@@ -835,7 +842,7 @@ img,video,iframe{display:block;max-width:100%}
   }
   /* «Луч по рамке» на круге: голова бежит по окружности, хвост — стопка всё более коротких штрихов, скорость — пружина glide
      от P/5,4 до P/1,25 в секунду. Замкнул круг — тишина 340 мс, пульс heavy, кольцо уходит наружу за 780 мс, свет оседает */
-  function beam(ava) {
+  function beam(ava, hold) {
     var NS = 'http://www.w3.org/2000/svg', S = ava.offsetWidth || 136, c = S / 2, r = c - 1.5, P = 2 * Math.PI * r;
     var d = 'M' + c + ',' + (c - r) + 'A' + r + ',' + r + ' 0 1,1 ' + c + ',' + (c + r) + 'A' + r + ',' + r + ' 0 1,1 ' + c + ',' + (c - r);
     var svg = D.createElementNS(NS, 'svg');
@@ -853,7 +860,8 @@ img,video,iframe{display:block;max-width:100%}
     var spd = sp(P / 2.4, 'glide'), glow = sp(0.55, 'glide'), pulse = sp(0, 'heavy', function (v) { ava.style.scale = (1 + v * 0.028).toFixed(4); });
     function dash(p, L) { p.style.strokeDasharray = L.toFixed(1) + ' ' + Math.max(0, P - L).toFixed(1); p.style.strokeDashoffset = (L - s).toFixed(1); }
     function render() {
-      var g = clamp(glow.v, 0, 1.2), LT = P * (0.08 + 0.16 * g), ta = clamp(0.1 + 0.11 * g, 0, 0.3), ga = clamp(0.07 * g, 0, 0.12), j;
+      /* в ожидании хвоста нет: на обложке луч ждёт рой ~1,5 с, неподвижная дуга над роем читалась бы как сбой */
+      var g = clamp(glow.v, 0, 1.2), LT = P * (0.08 + 0.16 * g), wt = state === 'wait' ? 0 : 1, ta = wt * clamp(0.1 + 0.11 * g, 0, 0.3), ga = wt * clamp(0.07 * g, 0, 0.12), j;
       dash(t1, P * (0.022 + 0.014 * g)); t1.style.opacity = state === 'wait' ? '0' : clamp(0.5 + 0.55 * g, 0, 1).toFixed(3);
       for (j = 0; j < TR.length; j++) { dash(TR[j], LT * (j + 1) / TR.length); TR[j].style.opacity = ta.toFixed(3); }
       for (j = 0; j < GL.length; j++) { dash(GL[j], LT * 0.85 * (j + 1) / GL.length); GL[j].style.opacity = ga.toFixed(3); }
@@ -861,6 +869,7 @@ img,video,iframe{display:block;max-width:100%}
       head.style.transform = 'translate3d(' + (c + r * Math.sin(a)).toFixed(1) + 'px,' + (c - r * Math.cos(a)).toFixed(1) + 'px,0) scale(' + (0.55 + 0.7 * g).toFixed(3) + ')';
       head.style.opacity = state === 'wait' ? '0' : clamp(g * 1.3, 0, 1).toFixed(3);
       done.style.strokeDasharray = fill.toFixed(1) + ' ' + Math.max(0, P - fill).toFixed(1);
+      done.style.opacity = fill > 0 ? '' : '0';   /* нулевой штрих с круглым концом — точка на макушке кольца, пока луч ждёт */
     }
     function arrive() {
       state = 'paid';
@@ -871,7 +880,8 @@ img,video,iframe{display:block;max-width:100%}
       setTimeout(function () { state = 'end'; }, 900);
     }
     render();
-    setTimeout(function () {
+    function run() {
+      if (state !== 'wait') return;
       state = 'run'; spd.to(P / 1.25, 'glide'); glow.to(1, 'glide');
       tick(function (dt) {
         if (state === 'run') {
@@ -881,7 +891,10 @@ img,video,iframe{display:block;max-width:100%}
         render();
         if (state === 'end') return false;
       });
-    }, 300);
+    }
+    /* hold — старт отдаёт тот, кто идёт перед лучом (рой на обложке): луч бежит сразу, как встало фото */
+    if (hold) return run;
+    setTimeout(run, 300);
   }
   /* магнит «Финального призыва»: притяжение 1 − d/210, смещение на пружинах k260 c16, подпись дальше корпуса (k200 c13) —
      три плана; размах тише коллекции (8 px вместо 22): это кнопка связи, а не аттракцион */
@@ -915,10 +928,84 @@ img,video,iframe{display:block;max-width:100%}
     btn.addEventListener('pointerup', function () { ps.to(0, 'pop'); });
     btn.addEventListener('pointerleave', function () { ps.to(0, 'pop'); });
   }
+  /* «Лицо из роя» с главной (finFace) на аватаре обложки: точки закручиваются вихрем снаружи кольца, летят лаймом к своему
+     пикселю портрета и садятся его цветом; лицо собирается от центра к краю за ~1,5 с, затем фото встаёт резко, и кольцо
+     забирает «Луч по рамке» (next). Сетка 4 px (~600 точек на круге 130 px), пачки по цвету (4 бита на канал) — один fillStyle
+     на пачку; кадр — общий tick; холст ×2 по коробке аватара, DPR ≤ 2, в конце удаляется.
+     Фото не готово за 600 мс или холст не отдал пиксели — фото сразу, без роя: пустого круга не бывает */
+  function swarm(ava, next) {
+    var img = ava.querySelector('img'), cv = D.createElement('canvas'), g = cv.getContext ? cv.getContext('2d') : null, phase = 'wait', tm = 0;
+    function lit(ms) { if (next) setTimeout(next, ms); next = null; }
+    function plain() {
+      if (phase === 'done') return;
+      phase = 'done'; clearTimeout(tm);
+      if (cv.parentNode) cv.parentNode.removeChild(cv);
+      ava.classList.add('sw-on'); ava.classList.remove('sw-wait'); lit(0);
+    }
+    if (!g || !img) { lit(300); return; }
+    ava.classList.add('sw', 'sw-wait');
+    tm = setTimeout(plain, 600);
+    function go() {
+      if (phase !== 'wait') return;
+      var S = ava.offsetWidth, W = img.offsetWidth, gw = Math.round(W / 4), st, o = D.createElement('canvas'), og, d;
+      if (!S || !gw || !img.naturalWidth) { plain(); return; }
+      st = W / gw; o.width = o.height = gw; og = o.getContext('2d');
+      try { og.drawImage(img, 0, 0, gw, gw); d = og.getImageData(0, 0, gw, gw).data; } catch (e) { plain(); return; }
+      phase = 'run'; clearTimeout(tm);
+      var DPR = Math.min(2, window.devicePixelRatio || 1), C = S * 2, R = W / 2, cx = S, cy = S, bk = {}, maxT = 0, i, j;
+      cv.className = 'sw-cv'; cv.setAttribute('aria-hidden', 'true');
+      cv.width = cv.height = Math.round(C * DPR); g.setTransform(DPR, 0, 0, DPR, 0, 0);
+      for (j = 0; j < gw; j++) for (i = 0; i < gw; i++) {
+        var dx = (i + 0.5) * st - R, dy = (j + 0.5) * st - R, rt = Math.sqrt(dx * dx + dy * dy);
+        if (rt > R - 1) continue;
+        var k = (j * gw + i) * 4, r = d[k], gg = d[k + 1], b = d[k + 2];
+        if (r + gg + b < 24 && Math.random() < 0.7) continue;           /* чёрный фон — реже: рой несёт лицо, а не темноту */
+        var p = { rt: rt, th: Math.atan2(dy, dx), a0: Math.random() * 6.2832, r0: R * (1.22 + Math.random() * 0.5), tx: cx + dx, ty: cy + dy,
+          dl: rt / R * 0.42 + Math.random() * 0.2, du: 0.72 + Math.random() * 0.22 };
+        if (p.dl + p.du > maxT) maxT = p.dl + p.du;
+        var key = (r >> 4) * 256 + (gg >> 4) * 16 + (b >> 4);
+        (bk[key] || (bk[key] = { c: 'rgb(' + ((r >> 4) * 17) + ',' + ((gg >> 4) * 17) + ',' + ((b >> 4) * 17) + ')', p: [] })).p.push(p);
+      }
+      ava.appendChild(cv);
+      var t0 = 0, snap = maxT * 0.86, sz = st * 0.9, on = false;
+      tick(function () {
+        var now = performance.now(), t, key, n, q, L, pr, e, ang, rr, px, py;
+        if (!t0) t0 = now;
+        t = (now - t0) / 1000;
+        g.clearRect(0, 0, C, C);
+        /* полёт — лаймом поверх, со свечением; до своего старта точка медленно кружит по орбите снаружи кольца и приходит
+           к старту ровно в срок — первый кадр уже рой, а не пустой круг */
+        g.globalCompositeOperation = 'lighter'; g.fillStyle = 'rgba(212,255,79,' + (0.55 * Math.min(1, t / 0.16)).toFixed(3) + ')';
+        for (key in bk) { L = bk[key].p;
+          for (n = 0; n < L.length; n++) { q = L[n]; pr = (t - q.dl) / q.du; if (pr >= 0.62) continue;
+            if (pr <= 0) { ang = q.a0 - (q.dl - t) * 0.9; rr = q.r0; }
+            else { e = 1 - Math.pow(1 - pr / 0.62 * 0.7, 3); ang = q.a0 + (q.th + 6.2832 - q.a0) * e; rr = q.r0 + (q.rt - q.r0) * e; }
+            g.fillRect(cx + Math.cos(ang) * rr - 1, cy + Math.sin(ang) * rr - 1, 2.2, 2.2); } }
+        /* посадка — своим цветом пикселя; продолжает вихрь с той же точки (0.973 — конец полёта) */
+        g.globalCompositeOperation = 'source-over';
+        for (key in bk) { L = bk[key].p; g.fillStyle = bk[key].c;
+          for (n = 0; n < L.length; n++) { q = L[n]; pr = (t - q.dl) / q.du; if (pr < 0.62) continue;
+            e = Math.min(1, (pr - 0.62) / 0.38); e = 1 - Math.pow(1 - e, 3);
+            ang = q.a0 + (q.th + 6.2832 - q.a0) * 0.973; rr = q.r0 + (q.rt - q.r0) * 0.973;
+            px = cx + Math.cos(ang) * rr; py = cy + Math.sin(ang) * rr;
+            g.fillRect(px + (q.tx - px) * e - sz / 2, py + (q.ty - py) * e - sz / 2, sz, sz); } }
+        /* фото встаёт резко поверх почти собранного роя, рой гаснет за 0,34 с, луч стартует через 0,2 с */
+        if (!on && t >= snap) { on = true; ava.classList.add('sw-on'); lit(200); }
+        if (on) cv.style.opacity = clamp(1 - (t - snap) / 0.34, 0, 1).toFixed(3);
+        if (t >= Math.max(maxT, snap + 0.34)) {
+          phase = 'done'; ava.removeChild(cv); ava.classList.remove('sw-wait');
+          return false;
+        }
+      });
+    }
+    if (img.decode) img.decode().then(go, go);
+    else if (img.complete) go();
+    else { img.addEventListener('load', go); img.addEventListener('error', plain); }
+  }
   function coverIntro() {
     var cov = $('cover'), ava = cov.querySelector('.ava'), h1 = $('who'), role = cov.querySelector('.role'), tg = cov.querySelector('.btn.js-tg');
     if (RM) { h1.classList.add('ltrs'); role.classList.add('mls'); return; }
-    if (window.SVGElement) beam(ava);
+    swarm(ava, window.SVGElement ? beam(ava, true) : null);
     blurIn(h1);
     maskLines(role, 300);
     if (FINE && tg) magnet(tg, cov);
