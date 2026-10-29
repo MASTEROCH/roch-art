@@ -1932,7 +1932,7 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
 <!-- ============ HERO ============ -->
 <section class="hero bz-hero">
   <div class="hr-id boot d2">
-    <img class="hr-face" src="assets/roch-ava.webp" width="192" height="192" alt="Роман Чернявский">
+    <img class="hr-face" src="assets/roch-ava.webp" width="384" height="384" alt="Роман Чернявский">
     <div><b>Роман Чернявский · ROCH</b><span>Креативный директор · 10+ лет в геймдеве · продукты с 700M+ установок</span></div>
   </div>
   <h1 id="bzH1" aria-label="Ваша идея — в продукт, который покупают.">
@@ -2097,10 +2097,11 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
     <div class="reel glass reveal" id="reel" role="button" tabindex="0" aria-label="Смотреть шоурил — геймдев-портфолио">
       <img class="reel-p" src="assets/showreel-poster.webp" alt="" loading="lazy" decoding="async">
       <i class="reel-scrim"></i><i class="reel-play"></i>
-      <div class="reel-cap"><b>Шоурил · геймдев в движении</b><span>2 минуты вместо тысячи слов — прямо здесь</span></div>
+      <div class="reel-cap"><b>Шоурил · геймдев в движении</b><span>Пять минут вместо тысячи слов — прямо здесь</span></div>
     </div>
   </div>
   <div class="me-links reveal">
+    <a class="c-chip" href="/design"><i class="ico i-grid"></i>Портфолио дизайнера</a>
     <a class="c-chip" href="https://youtu.be/uFlb1IN30FM" target="_blank" rel="noopener"><i class="ico i-play"></i>Геймдев-портфолио</a>
     <a class="c-chip" href="https://bio.roch-art.com/about-me" target="_blank" rel="noopener"><i class="ico i-out"></i>CV · bio.roch-art.com</a>
   </div>
@@ -2624,6 +2625,7 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
   /* ===== i18n RU/EN — тот же движок, что на главной (walker по текстовым узлам) ===== */
   var I18N_EN = {
     "Роман Чернявский · ROCH":"Roman Chernyavsky · ROCH",
+    "Портфолио дизайнера":"Designer portfolio",
     "Креативный директор · 10+ лет в геймдеве · продукты с 700M+ установок":"Creative director · 10+ years in game dev · products with 700M+ installs",
     "разбор идеи":"idea breakdown",
     "прототип и план":"prototype and plan",
@@ -2774,7 +2776,7 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
     "Лендинг для первых клиентов":"Landing page for first clients","Аудит и план запуска":"Audit and launch plan",
     "Выбрать Full Build":"Choose Full Build",
     "Уровень 3 · продукт как игра":"Level 3 · product as a game","7–10 дней":"7–10 days",
-    "Всё из Full Build":"Everything in Full Build","Кто":"Who","Кто это":"Who","делает":"builds it","Креативный директор и сооснователь AppHub":"Creative director and co-founder of AppHub","10+ лет дизайна в геймдеве — продукты с":"10+ years of game design — products with",". Теперь упаковываю продукты бизнеса так же, как свои.":". Now I package business products the way I packaged my own.","студий":"studios","Шоурил · геймдев в движении":"Showreel · gamedev in motion","2 минуты вместо тысячи слов — прямо здесь":"2 minutes instead of a thousand words — right here","Смотреть шоурил — геймдев-портфолио":"Watch the showreel — gamedev portfolio","Геймдев-портфолио":"Gamedev portfolio","Роман Чернявский":"Roman Chernyavsky","Разработка приложения под ключ":"Turnkey app development","Запуск с командой AppHub":"Launch with the AppHub team","Геймификация и удержание":"Gamification and retention",
+    "Всё из Full Build":"Everything in Full Build","Кто":"Who","Кто это":"Who","делает":"builds it","Креативный директор и сооснователь AppHub":"Creative director and co-founder of AppHub","10+ лет дизайна в геймдеве — продукты с":"10+ years of game design — products with",". Теперь упаковываю продукты бизнеса так же, как свои.":". Now I package business products the way I packaged my own.","студий":"studios","Шоурил · геймдев в движении":"Showreel · gamedev in motion","Пять минут вместо тысячи слов — прямо здесь":"Five minutes instead of a thousand words — right here","Смотреть шоурил — геймдев-портфолио":"Watch the showreel — gamedev portfolio","Геймдев-портфолио":"Gamedev portfolio","Роман Чернявский":"Roman Chernyavsky","Разработка приложения под ключ":"Turnkey app development","Запуск с командой AppHub":"Launch with the AppHub team","Геймификация и удержание":"Gamification and retention",
     "Механики из топовых игр под ваш бизнес":"Mechanics from top games, adapted to your business",
     "Выбрать Game Layer":"Choose Game Layer",
     "Нужна реализация после упаковки — рабочее приложение собирает студия-партнёр":"Need the app built after packaging? Partner studio",
@@ -4882,11 +4884,6 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
 
   /* ===== Scroll: параллакс, шапка, cta-bar, XP-бар ===== */
   var hdr = document.getElementById('hdr');
-  /* roch-art.com/work — ссылка «покажи работы», которую можно переслать: страница открывается сразу на кейсах */
-  if(/^\/works?\/?$/i.test(location.pathname)){
-    var toCases = function(){ var c = document.getElementById('cases'); if(c) c.scrollIntoView({ behavior: 'instant', block: 'start' }); };
-    if(document.readyState === 'complete') setTimeout(toCases, 60); else window.addEventListener('load', function(){ setTimeout(toCases, 60); });
-  }
   /* высота строки лого + зазор до HUD: на столько шапка уезжает вверх (offsetTop не зависит от transform) */
   (function(){ var nv = hdr && hdr.querySelector('.nav'), hn = document.getElementById('hudNav'); if(!nv || !hn) return;
     var m = function(){ hdr.style.setProperty('--nh', (hn.offsetTop - nv.offsetTop) + 'px'); };

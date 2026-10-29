@@ -1,0 +1,39 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8">
+<!-- превью ссылки roch-art.com/design: render.py og-design.html --size 1200x630 --out assets/og-design.jpg --scale 2 -->
+<style>
+:root{--bg:#050706;--text:#fff;--text2:rgba(240,248,243,.82);--lime:#D4FF4F;
+  --font:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text",Inter,"Helvetica Neue",sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1200px;height:630px;overflow:hidden;background:var(--bg);font-family:var(--font);color:var(--text);position:relative}
+.glow{position:absolute;inset:0;background:
+  radial-gradient(52% 70% at 78% 92%,rgba(212,255,79,.16),transparent 64%),
+  radial-gradient(60% 70% at 85% 10%,rgba(16,145,92,.22),transparent 62%),
+  linear-gradient(180deg,#07100B 0%,#050706 100%)}
+.pic{position:absolute;left:-110px;top:0;width:600px;height:630px;
+  -webkit-mask-image:linear-gradient(90deg,#000 78%,transparent 100%);mask-image:linear-gradient(90deg,#000 78%,transparent 100%)}
+.pic img{width:630px;height:630px;object-fit:cover;object-position:50% 30%;display:block}
+.col{position:absolute;left:478px;right:44px;top:58px}
+.eb{font-size:21px;font-weight:800;letter-spacing:.02em;color:var(--lime)}
+.eb span{color:var(--text2);font-weight:700}
+h1{margin-top:12px;font-size:70px;line-height:.98;font-weight:900;letter-spacing:-.045em;white-space:nowrap}
+.role{margin-top:14px;font-size:29px;line-height:1.2;font-weight:800;letter-spacing:-.02em;color:var(--text2)}
+.phones{position:absolute;left:478px;top:300px;display:flex;gap:22px;align-items:flex-start}
+.ph{position:relative;width:150px;border-radius:24px;overflow:hidden;background:#000;
+  box-shadow:0 30px 60px -18px rgba(0,0,0,.95),0 0 0 1.5px rgba(255,255,255,.2),0 0 70px -18px var(--c)}
+.ph img{display:block;width:100%;height:auto}
+.ph:nth-child(2){margin-top:-26px}
+.site{position:absolute;right:44px;top:60px;font-size:20px;font-weight:800;color:var(--text2)}
+</style></head><body><div class="glow"></div>
+<div class="pic"><img src="../../assets/roch-profile.webp" alt=""></div>
+<div class="col">
+  <div class="eb">ROCH <span>· портфолио дизайнера</span></div>
+  <h1>Роман Чернявский</h1>
+  <p class="role">Продуктовый дизайнер и арт-директор</p>
+</div>
+<div class="phones">
+  <div class="ph" style="--c:#FF4F8B"><img src="../../assets/cases/peonia-1.webp" alt=""></div>
+  <div class="ph" style="--c:#E3C58A"><img src="../../assets/cases/kingfit-1.webp" alt=""></div>
+  <div class="ph" style="--c:#8B6BFF"><img src="../../assets/cases/hotelito-1.webp" alt=""></div>
+</div>
+<div class="site">roch-art.com</div>
+</body></html>

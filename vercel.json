@@ -45,11 +45,11 @@
   "rewrites": [
     {
       "source": "/works",
-      "destination": "/"
+      "destination": "/design"
     },
     {
       "source": "/work",
-      "destination": "/"
+      "destination": "/design"
     },
     {
       "source": "/rochai/led-lab",

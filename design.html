@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#050706">
+<meta name="color-scheme" content="dark">
+<title>Роман Чернявский, продуктовый дизайнер и арт-директор</title>
+<meta name="description" content="Портфолио Романа Чернявского: семь приложений с роликами и живыми демо, ещё пять работ и шоурил из мобильных игр, где продукты набрали 700M+ установок.">
+<link rel="canonical" href="https://roch-art.com/design">
+<meta property="og:type" content="profile">
+<meta property="og:url" content="https://roch-art.com/design">
+<meta property="og:site_name" content="ROCH">
+<meta property="og:title" content="Роман Чернявский — продуктовый дизайнер и арт-директор">
+<meta property="og:description" content="Семь приложений с роликами и живыми демо, а до этого больше десяти лет арт-директором в мобильных играх с продуктами на 700M+ установок.">
+<meta property="og:image" content="https://roch-art.com/assets/og-design.jpg?v=1">
+<meta property="og:image:width" content="2400">
+<meta property="og:image:height" content="1260">
+<meta property="og:image:alt" content="Роман Чернявский, продуктовый дизайнер и арт-директор, и три экрана его приложений.">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:locale:alternate" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@broch">
+<meta name="twitter:title" content="Роман Чернявский — продуктовый дизайнер и арт-директор">
+<meta name="twitter:description" content="Семь приложений с роликами и живыми демо, а до этого больше десяти лет арт-директором в мобильных играх с продуктами на 700M+ установок.">
+<meta name="twitter:image" content="https://roch-art.com/assets/og-design.jpg?v=1">
+<link rel="icon" type="image/png" href="/assets/favicon.png">
+<link rel="apple-touch-icon" href="/assets/favicon.png">
+<link rel="preload" as="image" href="/assets/roch-ava.webp" fetchpriority="high">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- шрифт не держит первый кадр: на Apple первым стоит системный SF, Inter догружается -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<!-- класс js ставится до первой отрисовки, иначе появление текста мигнёт; упал скрипт — через 3 с всё видно без анимации -->
+<script>document.documentElement.className+=' js';setTimeout(function(){if(!window.__deck)document.documentElement.classList.remove('js')},3000);</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Person","name":"Роман Чернявский","alternateName":"Roman Chernyavsky","jobTitle":"Продуктовый дизайнер и арт-директор","url":"https://roch-art.com/design","image":"https://roch-art.com/assets/roch-ava.webp","sameAs":["https://www.linkedin.com/in/roman-chernyavsky-1b97a1aa/","https://bio.roch-art.com/about-me","https://t.me/broch"]}
+</script>
+<style>
+/* токены — из index.html (:root), взято только нужное этой странице */
+:root{
+  color-scheme:dark;
+  --bg:#050706;
+  --text:rgba(255,255,255,.97);
+  --text2:rgba(234,244,238,.72);
+  --text3:rgba(234,244,238,.45);
+  --lime:#D4FF4F;
+  --card:rgba(21,29,24,.68);
+  --glass-hi:linear-gradient(150deg, rgba(255,255,255,.10), rgba(255,255,255,.02) 55%, rgba(255,255,255,.055));
+  --stroke:rgba(255,255,255,.12);
+  --shadow:0 26px 64px -14px rgba(0,0,0,.7);
+  --font:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text",Inter,"Helvetica Neue",sans-serif;
+  --spring:cubic-bezier(.34,1.45,.42,1);
+  --ease:cubic-bezier(.2,.7,.2,1);
+  --out:cubic-bezier(.22,1,.36,1);
+  --top:calc(64px + env(safe-area-inset-top));
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{background:#050706;overflow-x:clip;width:100%}
+@media (prefers-reduced-motion:no-preference){ html{scroll-behavior:smooth} }
+/* лёгкая доводка до слайда только на телефоне и только «рядом»: прокрутку не держит */
+@media (max-width:899px){ html{scroll-snap-type:y proximity} }
+html.lb-lock{overflow:hidden}
+body{background:#050706;color:var(--text);font-family:var(--font);font-size:16px;line-height:1.5;
+  -webkit-font-smoothing:antialiased;min-height:100vh;width:100%;overflow-x:clip;position:relative}
+a,button,[role="button"]{touch-action:manipulation}
+button{font-family:inherit;color:inherit}
+img,video,iframe{display:block;max-width:100%}
+
+.bg{position:fixed;inset:0;z-index:0;pointer-events:none;background-color:#050706;
+  background-image:
+    radial-gradient(95vmax 72vmax at 12% -12%, rgba(16,145,92,.34), transparent 62%),
+    radial-gradient(72vmax 56vmax at 108% 20%, rgba(212,255,79,.10), transparent 60%),
+    radial-gradient(84vmax 68vmax at 42% 118%, rgba(13,105,130,.30), transparent 62%)}
+
+/* ============ иконки (маски, как в index.html) ============ */
+.ico{display:inline-block;flex:0 0 auto;width:1em;height:1em;background:currentColor;font-style:normal;
+  -webkit-mask:var(--ico) center/contain no-repeat;mask:var(--ico) center/contain no-repeat}
+.i-tg{--ico:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M21.9 4.6L18.8 19c-.2 1-.8 1.2-1.7.8l-4.6-3.4-2.2 2.1c-.2.2-.5.5-.9.5l.3-4.7L18.3 6.6c.4-.3-.1-.5-.6-.2L7.2 13.1l-4.5-1.4c-1-.3-1-1 .2-1.5L20.6 3.1c.8-.3 1.5.2 1.3 1.5z'/%3E%3C/svg%3E")}
+.i-in{--ico:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='3' width='18' height='18' rx='5'/%3E%3Cpath d='M8 11v5.5M8 7.8v.01M12 16.5V11m0 2.2a2.6 2.6 0 0 1 5.2 0v3.3'/%3E%3C/svg%3E")}
+.i-out{--ico:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 17L17 7M17 7H8M17 7v9'/%3E%3C/svg%3E")}
+.i-tri{--ico:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M8 5.2v13.6c0 .8.9 1.3 1.6.9l10.3-6.8c.6-.4.6-1.3 0-1.7L9.6 4.3C8.9 3.9 8 4.4 8 5.2z'/%3E%3C/svg%3E")}
+.i-pause{--ico:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect fill='black' x='6' y='5' width='4.2' height='14' rx='1.4'/%3E%3Crect fill='black' x='13.8' y='5' width='4.2' height='14' rx='1.4'/%3E%3C/svg%3E")}
+.i-phone{--ico:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='6.5' y='2.5' width='11' height='19' rx='3'/%3E%3Cpath d='M10.5 18.5h3'/%3E%3C/svg%3E")}
+.i-x{--ico:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round'%3E%3Cpath d='M6 6l12 12M18 6L6 18'/%3E%3C/svg%3E")}
+.i-prev{--ico:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M15 5l-7 7 7 7'/%3E%3C/svg%3E")}
+.i-next{--ico:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 5l7 7-7 7'/%3E%3C/svg%3E")}
+.i-down{--ico:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 9l7 7 7-7'/%3E%3C/svg%3E")}
+
+/* ============ прогресс и шапка ============ */
+.prog{position:fixed;left:0;right:0;top:0;height:3px;z-index:30;pointer-events:none}
+.prog i{position:absolute;inset:0;background:linear-gradient(90deg, rgba(212,255,79,.55), var(--lime));
+  transform-origin:0 50%;transform:scaleX(0);box-shadow:0 0 12px rgba(212,255,79,.55)}
+.top{position:fixed;left:0;right:0;top:0;z-index:20;pointer-events:none;
+  padding:calc(12px + env(safe-area-inset-top)) 20px 18px;
+  background:linear-gradient(180deg, rgba(5,7,6,.88) 0%, rgba(5,7,6,.55) 55%, rgba(5,7,6,0) 100%)}
+.top-in{max-width:1220px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.top a,.top button{pointer-events:auto}
+.top-r{display:flex;align-items:center;gap:8px}
+.logo{display:block;padding:4px 0}
+.logo img{height:26px;width:auto}
+.lang-tog{display:flex;align-items:center;gap:2px;padding:4px;border-radius:99px;
+  border:1px solid rgba(255,255,255,.14);background:rgba(10,14,12,.6);cursor:pointer;flex:0 0 auto;
+  transition:transform .25s var(--spring)}
+.lang-tog .lt-o{font-size:12px;font-weight:800;letter-spacing:.03em;padding:6px 10px;border-radius:99px;
+  color:var(--text3);line-height:1;transition:color .3s var(--ease), background .3s var(--ease)}
+.lang-tog .lt-o.on{background:rgba(212,255,79,.16);color:var(--lime);box-shadow:inset 0 0 0 1px rgba(212,255,79,.45)}
+.lang-tog:active{transform:scale(.95)}
+/* «Написать» появляется, когда обложка ушла: на обложке есть своя большая кнопка */
+.pill{display:inline-flex;align-items:center;gap:7px;height:36px;padding:0 15px;border-radius:99px;text-decoration:none;
+  font-size:14px;font-weight:800;letter-spacing:-.01em;color:#0B1409;background:var(--lime);
+  box-shadow:0 8px 22px -8px rgba(212,255,79,.6), inset 0 1px 0 rgba(255,255,255,.5);
+  opacity:0;visibility:hidden;transform:translateY(-6px) scale(.94);
+  transition:opacity .2s var(--ease), transform .3s var(--ease), visibility 0s .2s}
+.pill .ico{width:15px;height:15px}
+.top.pill-on .pill{opacity:1;visibility:visible;transform:none;transition:opacity .3s var(--out), transform .45s var(--spring)}
+.pill:active{transform:scale(.95)}
+
+/* ============ кнопки (из index.html) ============ */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  min-height:56px;padding:15px 28px;border:none;border-radius:99px;cursor:pointer;
+  font-family:var(--font);font-size:16px;font-weight:800;letter-spacing:-.01em;text-decoration:none;
+  white-space:nowrap;background:var(--lime);color:#0B1409;position:relative;
+  box-shadow:0 14px 34px rgba(212,255,79,.32), inset 0 1.5px 0 rgba(255,255,255,.65), inset 0 -2px 6px rgba(0,90,40,.25);
+  transition:transform .3s var(--spring)}
+.btn .ico{width:19px;height:19px}
+.btn::before{content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  box-shadow:0 16px 48px rgba(212,255,79,.42);opacity:0;animation:breathe 3.2s ease-in-out 3}
+.btn-sh{position:absolute;inset:0;border-radius:inherit;overflow:hidden;pointer-events:none}
+.btn-sh::after{content:'';position:absolute;top:0;bottom:0;left:-80%;width:55%;
+  background:linear-gradient(105deg, transparent, rgba(255,255,255,.55) 50%, transparent);
+  transform:skewX(-18deg);animation:sweep 3.4s ease-in-out 3}
+@keyframes sweep{0%,55%{transform:translateX(0) skewX(-18deg)}85%,100%{transform:translateX(381.8%) skewX(-18deg)}}
+@keyframes breathe{0%,100%{opacity:0}50%{opacity:1}}
+.btn:active{transform:scale(.955)}
+.btn.sec{background:rgba(255,255,255,.07);color:var(--text);border:1px solid rgba(255,255,255,.16);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.14)}
+.btn.sec::before{display:none}
+.btn.sec .ico{width:18px;height:18px;color:var(--text2)}
+/* малые кнопки слайда: демо и экраны */
+.chip{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:0 18px;border-radius:99px;cursor:pointer;
+  text-decoration:none;font-size:15px;font-weight:800;letter-spacing:-.01em;white-space:nowrap;color:var(--text);
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);box-shadow:inset 0 1px 0 rgba(255,255,255,.12);
+  transition:transform .25s var(--spring), border-color .2s, background .2s, color .2s}
+.chip .ico{width:16px;height:16px;color:var(--lime)}
+.chip.main{color:#0B1409;background:var(--lime);border-color:transparent;box-shadow:0 10px 26px -10px rgba(212,255,79,.7), inset 0 1px 0 rgba(255,255,255,.5)}
+.chip.main .ico{color:#0B1409}
+.chip:active{transform:scale(.95)}
+@media (hover:hover) and (pointer:fine){
+  .btn:hover{transform:translateY(-2px)}
+  .btn.sec:hover{border-color:rgba(212,255,79,.45);background:rgba(212,255,79,.08)}
+  .chip:not(.main):hover{border-color:rgba(212,255,79,.45);background:rgba(212,255,79,.08);color:var(--lime)}
+  .chip.main:hover{transform:translateY(-2px)}
+}
+:focus-visible{outline:3px solid var(--lime);outline-offset:3px}
+
+/* ============ слайды ============ */
+.slide{position:relative;z-index:2;min-height:100vh;min-height:100svh;display:flex;align-items:center;
+  padding:var(--top) 20px 44px;scroll-snap-align:start}
+@media (max-width:359px){ .slide{padding-left:16px;padding-right:16px} .top{padding-left:16px;padding-right:16px} }
+.w{width:100%;max-width:1220px;margin:0 auto}
+
+/* появление: текст поднимается из размытия (заголовок 12 px, остальное 6 px), 760 мс, каскад 80 мс */
+.js .rv{opacity:0;transform:translateY(16px);filter:blur(6px);
+  transition:opacity .76s var(--out), transform .76s var(--out), filter .76s var(--out);transition-delay:var(--d,0s)}
+.js .rv.hd{filter:blur(12px);transform:translateY(14px) scale(1.01)}
+.js .in .rv{opacity:1;transform:none;filter:blur(0)}
+
+/* ============ обложка ============ */
+.cover{text-align:center}
+.cover .w{display:flex;flex-direction:column;align-items:center;max-width:800px}
+/* подпись-момент: лаймовое кольцо повторяет лаймовый контровой свет на фото и медленно обходит его */
+.ava{position:relative;width:136px;height:136px;border-radius:50%;padding:3px;isolation:isolate}
+.ava::before{content:'';position:absolute;inset:0;border-radius:50%;z-index:-1;
+  background:conic-gradient(from 0deg, #D4FF4F, rgba(212,255,79,.08) 30%, rgba(212,255,79,.55) 55%, rgba(212,255,79,.06) 78%, #D4FF4F);
+  animation:ring 14s linear infinite}
+.ava::after{content:'';position:absolute;inset:-20px;border-radius:50%;z-index:-2;
+  background:radial-gradient(circle, rgba(212,255,79,.22), transparent 66%)}
+@keyframes ring{to{transform:rotate(360deg)}}
+.ava img{width:100%;height:100%;border-radius:50%;object-fit:cover;background:#000}
+.cover h1{margin-top:26px;font-size:clamp(40px,8.4vw,80px);font-weight:900;letter-spacing:-.045em;line-height:.98}
+.cover .role{margin-top:14px;font-size:clamp(18px,2.3vw,24px);font-weight:800;letter-spacing:-.02em;color:var(--lime);line-height:1.25}
+.cover .lead{margin-top:16px;max-width:36em;font-size:clamp(16px,1.75vw,19px);line-height:1.55;color:var(--text2)}
+.cover h1,.cover .role,.cover .lead,.sh p,.fin p,.hint{text-wrap:balance}
+.cta{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:30px;width:100%}
+@media (max-width:479px){ .cta .btn{width:100%} }
+.hint{display:inline-flex;align-items:center;gap:8px;margin-top:34px;max-width:26em;font-size:14px;line-height:1.4;color:var(--text3);
+  text-decoration:none;transition:opacity .4s var(--ease)}
+.hint .ico{width:16px;height:16px;color:var(--lime);animation:nudge 2.4s ease-in-out infinite}
+@keyframes nudge{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
+.cv{animation:rise .76s var(--out) both}
+.cv.hd{animation-name:riseHd}
+.cv:nth-child(2){animation-delay:.08s}
+.cv:nth-child(3){animation-delay:.16s}
+.cv:nth-child(4){animation-delay:.24s}
+.cv:nth-child(5){animation-delay:.32s}
+.cv:nth-child(6){animation-delay:.6s}
+@keyframes rise{from{opacity:0;transform:translateY(16px);filter:blur(6px)}}
+@keyframes riseHd{from{opacity:0;transform:translateY(14px) scale(1.01);filter:blur(12px)}}
+
+/* ============ слайд продукта ============ */
+.pw{display:grid;grid-template-columns:minmax(0,1fr);grid-template-areas:"head" "stage" "body";justify-items:center;text-align:center;gap:18px}
+.p-head{grid-area:head}
+.p-body{grid-area:body;max-width:30em}
+.stage{grid-area:stage;position:relative;display:flex;justify-content:center}
+.eb{display:inline-flex;align-items:baseline;gap:6px;font-size:13px;font-weight:800;letter-spacing:.08em;color:var(--text3);font-variant-numeric:tabular-nums}
+.eb b{color:var(--c, var(--lime));font-weight:900}
+.nm{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:8px}
+.nm img{width:44px;height:44px;border-radius:13px;flex:0 0 auto;background:#111;box-shadow:0 0 0 1px rgba(255,255,255,.12)}
+.nm h2{font-size:clamp(32px,6vw,64px);font-weight:900;letter-spacing:-.045em;line-height:1}
+.ds{font-size:clamp(16px,1.6vw,20px);line-height:1.5;color:var(--text2);text-wrap:balance}
+.acts{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:18px}
+.p-head .rv + .rv{--d:.08s}
+.p-body .ds{--d:.16s}
+.p-body .acts{--d:.24s}
+
+/* телефон: высота от экрана, ширина — 9:16 */
+.phone{--ph:clamp(280px, calc(100vh - 360px), 560px);position:relative;height:var(--ph);aspect-ratio:9/16;will-change:transform}
+@supports (height:100svh){ .phone{--ph:clamp(280px, calc(100svh - 360px), 560px)} }
+.phone-wrap{position:relative;z-index:1}
+.js .phone-wrap{opacity:0;transform:translateY(30px) scale(.96);transition:opacity 1s var(--out) .1s, transform 1.1s var(--out) .1s}
+.js .in .phone-wrap{opacity:1;transform:none}
+.scr{position:absolute;inset:0;border-radius:28px;overflow:hidden;cursor:pointer;background:#0A0E0C;isolation:isolate;
+  box-shadow:0 44px 90px -34px rgba(0,0,0,.95), 0 0 0 1px rgba(255,255,255,.15), inset 0 1px 0 rgba(255,255,255,.12)}
+.scr .poster,.scr video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.scr video{opacity:0;transition:opacity .4s var(--ease)}
+.scr.playing video{opacity:1}
+/* свечение цвета продукта за телефоном: зажигается при входе, едет навстречу параллаксу */
+.glow{position:absolute;left:50%;top:50%;width:min(170%, 100vw);aspect-ratio:1;z-index:0;pointer-events:none;translate:-50% -50%;
+  background:radial-gradient(closest-side, color-mix(in srgb, var(--c) 46%, transparent), color-mix(in srgb, var(--c) 12%, transparent) 55%, transparent);
+  opacity:0;transition:opacity 1.4s var(--out) .15s;will-change:transform}
+.in .glow{opacity:.9}
+
+.pb{position:absolute;right:14px;bottom:14px;z-index:3;width:52px;height:52px;border-radius:50%;
+  display:grid;place-items:center;color:#fff;background:rgba(10,14,12,.5);
+  -webkit-backdrop-filter:blur(12px) saturate(160%);backdrop-filter:blur(12px) saturate(160%);
+  box-shadow:0 10px 28px -8px rgba(0,0,0,.7), inset 0 0 0 1px rgba(255,255,255,.24), inset 0 1px 0 rgba(255,255,255,.3);
+  transition:transform .35s var(--spring), opacity .3s var(--ease), background .25s, color .25s}
+.pb .ico{width:22px;height:22px;margin-left:2px}
+.pb .i-pause{display:none;margin-left:0}
+.pb::after{content:'';position:absolute;inset:-4px;border-radius:50%;border:2.5px solid transparent;border-top-color:var(--lime);opacity:0;transition:opacity .2s}
+.scr.loading .pb::after{opacity:1;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.scr.playing .pb{opacity:0;transform:scale(.86)}
+.scr.playing .pb .i-tri{display:none}
+.scr.playing .pb .i-pause{display:block}
+.scr.playing:focus-visible .pb{opacity:1;transform:none}
+@media (hover:hover) and (pointer:fine){
+  .scr:hover .pb{background:var(--lime);color:#0B1409}
+  .scr.playing:hover .pb{opacity:1;transform:none}
+}
+.tl{position:absolute;left:0;right:0;bottom:0;height:3px;z-index:2;background:var(--c);transform-origin:0 50%;transform:scaleX(0);opacity:0;transition:opacity .3s}
+.scr.playing .tl{opacity:1}
+.msg{position:absolute;left:12px;right:78px;bottom:16px;z-index:3;padding:9px 12px;border-radius:14px;font-size:13px;line-height:1.35;font-weight:600;
+  color:#fff;background:rgba(10,14,12,.8);box-shadow:0 0 0 1px rgba(255,255,255,.14);display:none}
+.scr.err .msg{display:block}
+
+@media (min-width:900px){
+  .pw{grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-rows:1fr auto auto 1fr;
+    grid-template-areas:". stage" "head stage" "body stage" ". stage";justify-items:start;text-align:left;column-gap:64px;row-gap:0}
+  .pw.flip{grid-template-areas:"stage ." "stage head" "stage body" "stage ."}
+  .p-head,.p-body{max-width:520px}
+  .p-body{margin-top:20px}
+  .stage{justify-self:center}
+  .nm{justify-content:flex-start;gap:16px;margin-top:12px}
+  .nm img{width:56px;height:56px;border-radius:16px}
+  .acts{justify-content:flex-start;margin-top:26px}
+  .eb{font-size:14px}
+  .nm h2{font-size:clamp(48px,5.6vw,84px)}
+  .ds{font-size:22px}
+  .phone{--ph:min(76vh, 720px)}
+  @supports (height:100svh){ .phone{--ph:min(76svh, 720px)} }
+  .scr{border-radius:34px}
+}
+
+/* ============ ещё работы ============ */
+.sh{text-align:center;margin-bottom:28px}
+.sh h2,.gd h2,.fin h2{font-size:clamp(32px,5vw,56px);font-weight:900;letter-spacing:-.045em;line-height:1}
+.sh p{margin:12px auto 0;max-width:32em;font-size:clamp(15px,1.5vw,17px);line-height:1.5;color:var(--text2)}
+.mg{display:flex;flex-wrap:wrap;justify-content:center;gap:12px}
+.mc{--c:#D4FF4F;flex:1 1 100%;display:grid;grid-template-columns:96px minmax(0,1fr);gap:14px;align-items:center;padding:10px 14px 10px 10px;
+  border-radius:24px;background:var(--glass-hi), var(--card);border:1px solid var(--stroke);box-shadow:var(--shadow), inset 0 1px 0 rgba(255,255,255,.12)}
+.mv{position:relative;display:block;width:100%;aspect-ratio:3/4;border:0;padding:0;border-radius:16px;overflow:hidden;cursor:pointer;
+  background:radial-gradient(110% 80% at 50% 0%, color-mix(in srgb, var(--c) 46%, transparent), transparent 70%), #0A0E0C}
+.mv img{position:absolute;left:50%;top:12%;width:70%;height:auto;translate:-50% 0;border-radius:10px;
+  box-shadow:0 18px 36px -12px rgba(0,0,0,.9), 0 0 0 1px rgba(255,255,255,.14);transition:transform .5s var(--spring)}
+.mv .cnt{position:absolute;left:50%;bottom:8px;translate:-50% 0;z-index:2;display:inline-flex;align-items:center;gap:5px;padding:4px 9px;border-radius:99px;
+  font-size:11px;font-weight:800;white-space:nowrap;color:#fff;background:rgba(10,14,12,.78);box-shadow:inset 0 0 0 1px rgba(255,255,255,.2)}
+.mv .cnt .ico{width:11px;height:11px;color:var(--lime)}
+.mt{min-width:0}
+.mt h3{display:flex;align-items:center;gap:8px;font-size:17px;font-weight:800;letter-spacing:-.02em;line-height:1.2}
+.mt h3 img{width:26px;height:26px;border-radius:8px;flex:0 0 auto;box-shadow:0 0 0 1px rgba(255,255,255,.12)}
+.mt p{margin-top:5px;font-size:14px;line-height:1.4;color:var(--text2)}
+.mt .chip{margin-top:10px;min-height:38px;padding:0 14px;font-size:14px}
+.mc.rv:nth-child(1){--d:.05s}.mc.rv:nth-child(2){--d:.12s}.mc.rv:nth-child(3){--d:.19s}.mc.rv:nth-child(4){--d:.26s}.mc.rv:nth-child(5){--d:.33s}
+@media (min-width:640px){
+  .mg{gap:16px}
+  .mc{flex:0 1 calc((100% - 32px) / 3);grid-template-columns:minmax(0,1fr);align-items:start;gap:14px;padding:10px 10px 16px}
+  .mv{aspect-ratio:1/1.08}
+  .mt{padding:0 6px}
+}
+@media (min-width:1100px){ .mc{flex-basis:calc((100% - 64px) / 5)} }
+@media (hover:hover) and (pointer:fine){ .mv:hover img{transform:translateY(-6px) scale(1.03)} }
+
+/* ============ геймдев ============ */
+.gd .w{display:grid;grid-template-columns:minmax(0,1fr);gap:28px;align-items:center}
+@media (min-width:900px){ .gd .w{grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:56px} }
+.stats{display:flex;flex-wrap:wrap;gap:16px 28px;margin-top:22px}
+.st b{display:block;font-size:clamp(44px,6vw,76px);font-weight:900;letter-spacing:-.045em;line-height:1;color:var(--lime);font-variant-numeric:tabular-nums;
+  text-shadow:0 0 34px rgba(212,255,79,.35)}
+.st span{display:block;margin-top:8px;max-width:11em;font-size:14px;line-height:1.4;color:var(--text2)}
+.gd-t p{margin-top:20px;max-width:30em;font-size:clamp(16px,1.6vw,18px);line-height:1.55;color:var(--text2)}
+.lnk{display:inline-flex;align-items:center;gap:8px;margin-top:20px;padding:11px 17px;border-radius:99px;text-decoration:none;
+  font-size:15px;font-weight:700;color:var(--text);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.13);
+  transition:transform .25s var(--spring), color .2s, border-color .2s}
+.lnk .ico{width:13px;height:13px;color:var(--lime)}
+.lnk:active{transform:scale(.95)}
+.gd-t .rv:nth-child(2){--d:.08s}.gd-t .rv:nth-child(3){--d:.16s}.gd-t .rv:nth-child(4){--d:.24s}
+.sr{position:relative;aspect-ratio:16/9;border-radius:26px;overflow:hidden;background:#0A0E0C;
+  box-shadow:var(--shadow), 0 0 0 1px rgba(255,255,255,.12)}
+.sr-b{position:absolute;inset:0;display:block;width:100%;border:0;padding:0;background:none;cursor:pointer;text-align:left;color:#fff}
+.sr-b img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
+.sr-b::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg, transparent 45%, rgba(0,0,0,.72));pointer-events:none}
+.sr-b .pb{left:14px;bottom:14px;right:auto;width:48px;height:48px}
+.sr-b .pb .ico{width:20px;height:20px}
+.sr-cap{position:absolute;left:74px;bottom:15px;right:16px;z-index:2;display:flex;flex-direction:column}
+.sr-cap b{font-size:clamp(17px,2vw,22px);font-weight:800;letter-spacing:-.02em;line-height:1.25}
+.sr-cap small{margin-top:2px;font-size:13px;color:rgba(255,255,255,.75)}
+.sr iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.sr-yt{display:inline-flex;align-items:center;gap:6px;margin-top:12px;font-size:13px;color:var(--text3);text-decoration:none}
+.sr-yt .ico{width:11px;height:11px}
+@media (min-width:640px){
+  .sr-b .pb{left:50%;top:50%;bottom:auto;width:80px;height:80px;translate:-50% -50%}
+  .sr-b .pb .ico{width:30px;height:30px}
+  .sr-cap{left:22px;bottom:18px;right:22px}
+}
+@media (hover:hover) and (pointer:fine){
+  .lnk:hover{color:var(--lime);border-color:rgba(212,255,79,.4)}
+  .sr-b:hover img{transform:scale(1.035)}
+  .sr-b:hover .pb{background:var(--lime);color:#0B1409;transform:scale(1.08)}
+  .sr-yt:hover{color:var(--text2)}
+}
+
+/* ============ контакты ============ */
+.fin{position:relative;max-width:780px;margin:0 auto;padding:44px 24px 40px;text-align:center;border-radius:32px;
+  background:var(--glass-hi), var(--card);border:1px solid var(--stroke);box-shadow:var(--shadow), inset 0 1px 0 rgba(255,255,255,.16);overflow:hidden}
+.fin::before{content:'';position:absolute;left:50%;top:-60%;width:120%;height:120%;translate:-50% 0;pointer-events:none;
+  background:radial-gradient(closest-side, rgba(212,255,79,.13), transparent)}
+.fin > *{position:relative}
+.fin .ava{width:84px;height:84px;margin:0 auto 22px}
+.fin .ava::after{inset:-14px}
+.fin p{margin:14px auto 0;max-width:28em;font-size:clamp(16px,1.6vw,18px);line-height:1.55;color:var(--text2)}
+.fin .cta{margin-top:26px}
+.fin .rv:nth-child(2){--d:.06s}.fin .rv:nth-child(3){--d:.12s}.fin .rv:nth-child(4){--d:.18s}.fin .rv:nth-child(5){--d:.24s}
+.foot{display:block;margin-top:28px;text-align:center;font-size:13px;color:var(--text3)}
+
+/* ============ экраны: лента с пролистыванием ============ */
+.lb{position:fixed;inset:0;z-index:50;display:flex;flex-direction:column;background:#040605;
+  opacity:0;visibility:hidden;transition:opacity .2s var(--ease), visibility 0s .2s}
+.lb.on{opacity:1;visibility:visible;transition:opacity .3s var(--out)}
+.lb[hidden]{display:none}
+.lb-top{display:flex;align-items:center;gap:12px;padding:calc(12px + env(safe-area-inset-top)) 16px 8px 20px}
+.lb-top b{font-size:17px;font-weight:800;letter-spacing:-.02em;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lb-top span{font-size:14px;color:var(--text3);font-variant-numeric:tabular-nums;white-space:nowrap}
+.lb-x{margin-left:auto;flex:0 0 auto;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;cursor:pointer;
+  border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.07)}
+.lb-x .ico{width:18px;height:18px}
+.lb-strip{flex:1 1 auto;min-height:0;display:flex;align-items:center;gap:16px;overflow-x:auto;overflow-y:hidden;
+  scroll-snap-type:x mandatory;overscroll-behavior-x:contain;scrollbar-width:none;padding-bottom:calc(20px + env(safe-area-inset-bottom))}
+.lb-strip::-webkit-scrollbar{display:none}
+.lb-strip figure{flex:0 0 auto;scroll-snap-align:center}
+.lb-strip img{width:var(--iw);height:var(--ih);object-fit:cover;border-radius:24px;background:#0A0E0C;
+  box-shadow:0 30px 70px -30px rgba(0,0,0,.95), 0 0 0 1px rgba(255,255,255,.12)}
+.lb-nav{position:absolute;top:50%;z-index:2;width:52px;height:52px;margin-top:-10px;border-radius:50%;display:none;place-items:center;cursor:pointer;
+  border:1px solid rgba(255,255,255,.16);background:rgba(10,14,12,.7);transition:opacity .2s}
+.lb-nav .ico{width:20px;height:20px}
+.lb-nav.prev{left:20px}.lb-nav.next{right:20px}
+.lb-nav[disabled]{opacity:.25;cursor:default}
+@media (hover:hover) and (pointer:fine){ .lb-nav{display:grid} .lb-nav:not([disabled]):hover{background:var(--lime);color:#0B1409} }
+
+/* стекло без блюра — плотная подложка */
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){ .pb{background:rgba(10,14,12,.86)} }
+@media (prefers-contrast:more){ .pb{-webkit-backdrop-filter:none;backdrop-filter:none;background:rgba(10,14,12,.92)} }
+
+/* меньше движения: всё на месте сразу, ролики только по касанию (это в скрипте) */
+@media (prefers-reduced-motion:reduce){
+  html{scroll-snap-type:none}
+  .js .rv,.js .rv.hd,.js .phone-wrap{opacity:1;transform:none;filter:none;transition:none}
+  .cv,.ava::before,.btn::before,.btn-sh::after,.hint .ico{animation:none}
+  .glow{transition:none}
+}
+</style>
+</head>
+<body>
+<div class="bg" aria-hidden="true"></div>
+<div class="prog" aria-hidden="true"><i id="progBar"></i></div>
+
+<header class="top" id="top">
+  <div class="top-in">
+    <a class="logo" href="/" aria-label="ROCH — на главную"><img src="/assets/logo-hud.png" width="284" height="120" alt="ROCH"></a>
+    <div class="top-r">
+      <a class="pill js-tg" id="pill" href="https://t.me/broch" target="_blank" rel="noopener"><i class="ico i-tg"></i>Написать</a>
+      <button class="lang-tog" id="langTog" type="button" aria-label="Язык / Language"><span class="lt-o" data-lang="ru">RU</span><span class="lt-o" data-lang="en">EN</span></button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="slide cover" id="cover" aria-labelledby="who">
+    <div class="w">
+      <div class="ava cv"><img src="/assets/roch-ava.webp" width="384" height="384" alt="Роман Чернявский" fetchpriority="high" decoding="async"></div>
+      <h1 class="cv hd" id="who">Роман Чернявский</h1>
+      <p class="role cv">Продуктовый дизайнер и арт&#8209;директор</p>
+      <p class="lead cv">10+ лет в мобильных играх, продукты с 700M+ установок. Сейчас делаю приложения и сервисы: интерфейс, моушн и бренд&nbsp;— от идеи до живого продукта.</p>
+      <div class="cta cv">
+        <a class="btn js-tg" href="https://t.me/broch" target="_blank" rel="noopener"><span class="btn-sh"></span><i class="ico i-tg"></i>Написать в Telegram</a>
+        <a class="btn sec" href="https://www.linkedin.com/in/roman-chernyavsky-1b97a1aa/" target="_blank" rel="noopener"><i class="ico i-in"></i>LinkedIn</a>
+      </div>
+      <div class="cv"><a class="hint" id="hint" href="#p1"><i class="ico i-down"></i>Дальше семь приложений с роликами, ещё пять работ и геймдев</a></div>
+    </div>
+  </section>
+
+  <div id="prods"></div>
+
+  <section class="slide more" id="more" aria-labelledby="moreH">
+    <div class="w">
+      <div class="sh">
+        <h2 class="rv hd" id="moreH">Ещё работы</h2>
+        <p class="rv" style="--d:.08s">Нажмите на экран, чтобы пролистать приложение, а демо откроется по ссылке.</p>
+      </div>
+      <div class="mg" id="moreGrid" data-dyn></div>
+    </div>
+  </section>
+
+  <section class="slide gd" id="gamedev" aria-labelledby="gdH">
+    <div class="w">
+      <div class="gd-t">
+        <h2 class="rv hd" id="gdH">Геймдев</h2>
+        <div class="stats rv">
+          <div class="st"><b class="cnum" data-to="10" data-suf="+">10+</b><span>лет арт-директором в мобильных играх</span></div>
+          <div class="st"><b class="cnum" data-to="700" data-suf="M+">700M+</b><span>установок у продуктов, над которыми я работал</span></div>
+        </div>
+        <p class="rv">Шоурил собран из игр, над которыми я работал, и играет прямо на этой странице.</p>
+        <a class="lnk rv" href="https://bio.roch-art.com/about-me" target="_blank" rel="noopener">Подробнее обо мне<i class="ico i-out"></i></a>
+      </div>
+      <div class="rv" style="--d:.2s">
+        <div class="sr" id="sr">
+          <button class="sr-b" id="srBtn" type="button" aria-label="Смотреть шоурил">
+            <img src="/assets/showreel-poster.webp" width="1200" height="673" alt="" loading="lazy" decoding="async">
+            <span class="pb" aria-hidden="true"><i class="ico i-tri"></i></span>
+            <span class="sr-cap"><b>Шоурил из мобильных игр</b><small>Нажмите, чтобы посмотреть</small></span>
+          </button>
+        </div>
+        <a class="sr-yt" href="https://youtu.be/uFlb1IN30FM" target="_blank" rel="noopener">Открыть на YouTube<i class="ico i-out"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide ct" id="contact" aria-labelledby="finH">
+    <div class="w">
+      <div class="fin">
+        <div class="ava rv"><img src="/assets/roch-ava.webp" width="384" height="384" alt="" loading="lazy" decoding="async"></div>
+        <h2 class="rv hd" id="finH">Обсудим ваш проект</h2>
+        <p class="rv">Напишите в Telegram пару строк о&nbsp;задаче, и мы договоримся о&nbsp;созвоне.</p>
+        <div class="cta rv">
+          <a class="btn js-tg" href="https://t.me/broch" target="_blank" rel="noopener"><span class="btn-sh"></span><i class="ico i-tg"></i>Написать в Telegram</a>
+          <a class="btn sec" href="https://www.linkedin.com/in/roman-chernyavsky-1b97a1aa/" target="_blank" rel="noopener"><i class="ico i-in"></i>LinkedIn</a>
+        </div>
+        <a class="lnk rv" href="https://bio.roch-art.com/about-me" target="_blank" rel="noopener">Подробнее обо мне<i class="ico i-out"></i></a>
+      </div>
+      <span class="foot">© 2026 Роман Чернявский</span>
+    </div>
+  </section>
+</main>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-labelledby="lbName" hidden>
+  <div class="lb-top"><b id="lbName"></b><span id="lbCount"></span>
+    <button class="lb-x" id="lbX" type="button" aria-label="Закрыть"><i class="ico i-x"></i></button></div>
+  <div class="lb-strip" id="lbStrip" data-dyn></div>
+  <button class="lb-nav prev" id="lbPrev" type="button" aria-label="Предыдущий экран"><i class="ico i-prev"></i></button>
+  <button class="lb-nav next" id="lbNext" type="button" aria-label="Следующий экран"><i class="ico i-next"></i></button>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  var D = document, HTML = D.documentElement;
+  var RM = !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+  var HAS_IO = 'IntersectionObserver' in window;
+  var TG_USER = 'broch';
+  var TG_MSG = 'Привет, Рома! Хочу обсудить дизайн-проект: …';
+  var R_STD = 860 / 1864, R_DINE = 520 / 894;
+  function shots(prefix, nums, ext) { return nums.split(' ').map(function (n) { return prefix + n + (ext || '.webp'); }); }
+
+  /* работы: подмножество PROJECTS из index.html — то, что нужно презентации для найма */
+  var REELS = [
+    { n: 'PEONIA', c: '#FF4F8B', lg: 'peonia', reel: 'peonia', url: 'https://peonia-batumi.vercel.app', s: 'Цветочный магазин, где букет подбирают словами', sh: shots('peonia-', '1 2 3 9 4 5 6 7 8') },
+    { n: 'KING Fit', c: '#E3C58A', lg: 'kingfit', reel: 'kingfit', url: 'https://king-fit.vercel.app', s: 'Фитнес, где ИИ-тренер ведёт план дня, тренировки и питание', sh: shots('kingfit-', '1 2 3 4 5 6 7') },
+    { n: 'EPOCH', c: '#FF6B9D', lg: 'epoch', reel: 'epoch', url: 'https://epoch-client-lovat.vercel.app', s: 'Ресторан с меню, бронью стола и выручкой для владельца', sh: shots('epoch-', '1 2 3 4 5 6 7 8') },
+    { n: 'Butyfly', c: '#00E0C7', lg: 'butyfly', reel: 'butyfly', url: 'https://butyfly-v9k3.vercel.app', s: 'Клиника с прайсом, записью к врачу и кабинетом клиники', sh: shots('butyfly-', '1 2 3 4 5 6 7 8') },
+    { n: 'BabyLand', c: '#FFB547', lg: 'babyland', reel: 'babyland', url: 'https://babyland-c3x7.vercel.app', s: 'Детский праздник, который собирают за три минуты', sh: shots('babyland-', '1 2 3 4 5 6 7') },
+    { n: 'Hotelito', c: '#8B6BFF', lg: 'hotelito', reel: 'hotelito', url: 'https://hotelito-r4w8.vercel.app', s: 'Загородный гостевой дом с бронью, визами и загрузкой номеров', sh: shots('hotelito-', '1 2 3 4 5 6 7 8') },
+    { n: 'ANZH Beauty', c: '#12C088', lg: 'anzhtma', reel: 'anzh', url: 'https://beauty-tma-prototype.vercel.app', s: 'Кабинет косметолога с записью на процедуры и программой лояльности', sh: shots('anzhtma-', '1 2 3 4 5 6 7 8', '.jpg') }
+  ];
+  var MORE = [
+    { n: 'Alliance Centropolis', c: '#5B7CFF', lg: 'alliance', url: 'https://masteroch.github.io/alliance-centropolis/?v=5', s: 'Презентация жилого комплекса, которую удобно переслать в чат', sh: shots('alliance-', '1 2 3 4 5 6') },
+    { n: 'Furniturum', c: '#FF6347', lg: 'furniturum', url: 'https://furniturum-m5t1.vercel.app', s: 'Мебельный салон, где кухню видно в своей комнате ещё до замера', sh: shots('furniturum-', '1 2 3 4 5 6 7 8') },
+    { n: 'Batumi Neon', c: '#FF006E', lg: 'neon', url: 'https://batumi-neon-v2.vercel.app', s: 'Премиальная аренда автомобилей с неоновой витриной', sh: shots('neon-', '1 2 3 4 5 6 7') },
+    { n: 'Paratravel Club', c: '#38BDF8', lg: 'paratravel', url: 'https://paratravel-club.vercel.app', s: 'Турагентство, где тур подбирают за четыре вопроса вместо переписки', sh: shots('paratravel-', '1 2 3 4 5 6 7 8') },
+    { n: 'Dine', c: '#9FDC3F', lg: 'dine', url: 'https://dine-gilt-omega.vercel.app', s: 'Ресторанное приложение с меню, баллами и лигами гостей', sh: shots('dine-s', '3 4 8 6 5 14 7 17', '.jpg'), r: R_DINE }
+  ];
+
+  /* ключи — с обычными пробелами: поиск нормализует пробелы, как на главной */
+  var I18N_EN = {
+    'Роман Чернявский, продуктовый дизайнер и арт-директор': 'Roman Chernyavsky, product designer and art director',
+    'Роман Чернявский': 'Roman Chernyavsky',
+    'Продуктовый дизайнер и арт‑директор': 'Product designer and art director',
+    '10+ лет в мобильных играх, продукты с 700M+ установок. Сейчас делаю приложения и сервисы: интерфейс, моушн и бренд — от идеи до живого продукта.': '10+ years in mobile games, products with 700M+ installs. Now I design apps and services: interface, motion and brand, from the idea to a live product.',
+    'Написать в Telegram': 'Message me on Telegram',
+    'Написать': 'Message',
+    'Дальше семь приложений с роликами, ещё пять работ и геймдев': 'Next come seven apps with videos, five more projects and game dev',
+    'Открыть демо': 'Open demo',
+    'Смотреть экраны': 'See the screens',
+    'Ролик': 'Video',
+    'пауза и воспроизведение': 'pause and play',
+    'Ролик не загрузился. Нажмите, чтобы попробовать ещё раз.': 'The video did not load. Tap to try again.',
+    'Ещё работы': 'More work',
+    'Нажмите на экран, чтобы пролистать приложение, а демо откроется по ссылке.': 'Tap a screen to flip through the app, and the demo opens from the link.',
+    'экранов': 'screens',
+    'экран': 'screen',
+    'Экраны': 'Screens',
+    'Геймдев': 'Game dev',
+    'лет арт-директором в мобильных играх': 'years as an art director in mobile games',
+    'установок у продуктов, над которыми я работал': 'installs of the products I worked on',
+    'Шоурил собран из игр, над которыми я работал, и играет прямо на этой странице.': 'The showreel is made of games I worked on, and it plays right on this page.',
+    'Подробнее обо мне': 'More about me',
+    'Смотреть шоурил': 'Watch the showreel',
+    'Шоурил из мобильных игр': 'Mobile games showreel',
+    'Нажмите, чтобы посмотреть': 'Tap to watch',
+    'Открыть на YouTube': 'Open on YouTube',
+    'Шоурил Романа Чернявского': 'Roman Chernyavsky’s showreel',
+    'Обсудим ваш проект': 'Let’s discuss your project',
+    'Напишите в Telegram пару строк о задаче, и мы договоримся о созвоне.': 'Send me a couple of lines about the task on Telegram, and we will set up a call.',
+    '© 2026 Роман Чернявский': '© 2026 Roman Chernyavsky',
+    'ROCH — на главную': 'ROCH — home page',
+    'Закрыть': 'Close',
+    'Предыдущий экран': 'Previous screen',
+    'Следующий экран': 'Next screen',
+    'Привет, Рома! Хочу обсудить дизайн-проект: …': 'Hi Roma! I’d like to discuss a design project: …',
+    'Цветочный магазин, где букет подбирают словами': 'A flower shop where you pick a bouquet with words',
+    'Кабинет косметолога с записью на процедуры и программой лояльности': 'A cosmetologist’s app with procedure booking and a loyalty program',
+    'Фитнес, где ИИ-тренер ведёт план дня, тренировки и питание': 'Fitness where an AI coach runs the daily plan, workouts and nutrition',
+    'Ресторан с меню, бронью стола и выручкой для владельца': 'A restaurant with a menu, table booking and revenue for the owner',
+    'Клиника с прайсом, записью к врачу и кабинетом клиники': 'A clinic with a price list, doctor booking and its own dashboard',
+    'Детский праздник, который собирают за три минуты': 'A kids’ party you put together in three minutes',
+    'Загородный гостевой дом с бронью, визами и загрузкой номеров': 'A country guest house with booking, visas and room occupancy',
+    'Презентация жилого комплекса, которую удобно переслать в чат': 'A residential complex pitch that is easy to forward in a chat',
+    'Мебельный салон, где кухню видно в своей комнате ещё до замера': 'A furniture store where you see the kitchen in your own room before the measuring visit',
+    'Премиальная аренда автомобилей с неоновой витриной': 'Premium car rental with a neon showroom',
+    'Турагентство, где тур подбирают за четыре вопроса вместо переписки': 'A travel agency that picks a tour in four questions instead of a long chat',
+    'Ресторанное приложение с меню, баллами и лигами гостей': 'A restaurant app with a menu, points and guest leagues'
+  };
+
+  var LANG = 'ru';
+  try { LANG = localStorage.getItem('roch_lang') || 'ru'; } catch (e) {}
+  if (LANG !== 'en') LANG = 'ru';
+  function norm(x) { return x.replace(/\s+/g, ' ').trim(); }
+  function t(ru) { var k = norm(ru); return (LANG === 'en' && I18N_EN[k] !== undefined) ? I18N_EN[k] : ru; }
+  function esc(x) { return String(x).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;'); }
+  function $(id) { return D.getElementById(id); }
+  function each(list, fn) { Array.prototype.forEach.call(list, fn); }
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
+
+  /* ===== статичный текст: обход текстовых узлов, как на главной; динамика ([data-dyn]) рисуется сразу на нужном языке ===== */
+  function lead(x) { var m = x.match(/^\s*/); return m ? m[0] : ''; }
+  function trail(x) { var m = x.match(/\s*$/); return m ? m[0] : ''; }
+  function localize(root) {
+    var w = D.createTreeWalker(root, NodeFilter.SHOW_TEXT, null, false), n;
+    while ((n = w.nextNode())) {
+      var par = n.parentNode, tag = par && par.nodeName;
+      if (tag === 'SCRIPT' || tag === 'STYLE') continue;
+      if (par.closest && par.closest('[data-dyn]')) continue;
+      if (n.__src === undefined) n.__src = n.nodeValue;
+      var key = norm(n.__src);
+      if (!key) continue;
+      var tr = (LANG === 'en') ? I18N_EN[key] : undefined;
+      n.nodeValue = (tr !== undefined) ? lead(n.__src) + tr + trail(n.__src) : n.__src;
+    }
+    each(root.querySelectorAll('[aria-label],[alt]'), function (el) {
+      if (el.closest && el.closest('[data-dyn]')) return;
+      ['aria-label', 'alt'].forEach(function (at) {
+        if (!el.hasAttribute(at)) return;
+        var ck = '_src_' + at;
+        if (el[ck] === undefined) el[ck] = el.getAttribute(at);
+        var tr = (LANG === 'en') ? I18N_EN[norm(el[ck])] : undefined;
+        el.setAttribute(at, tr !== undefined ? tr : el[ck]);
+      });
+    });
+  }
+  var TITLE_RU = D.title;
+  function refreshTg() {
+    var href = 'https://t.me/' + TG_USER + '?text=' + encodeURIComponent(t(TG_MSG));
+    each(D.querySelectorAll('.js-tg'), function (a) { a.href = href; });
+  }
+  function langUI() {
+    each(D.querySelectorAll('#langTog .lt-o'), function (o) { o.classList.toggle('on', o.getAttribute('data-lang') === LANG); });
+  }
+
+  /* ===== появление слайдов ===== */
+  var revIO = HAS_IO ? new IntersectionObserver(function (es) {
+    es.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      e.target.classList.add('in');
+      revIO.unobserve(e.target);
+      if (e.target.id === 'gamedev') setTimeout(runCounters, 280);
+    });
+  }, { threshold: 0.16 }) : null;
+  function watchReveal(el) { if (revIO) revIO.observe(el); else el.classList.add('in'); }
+
+  /* ===== слайды продуктов ===== */
+  var prods = $('prods'), moreGrid = $('moreGrid');
+  var players = [], stages = [];
+  var plIO = HAS_IO ? new IntersectionObserver(function (es) {
+    es.forEach(function (e) {
+      var pl = e.target.__pl; if (!pl) return;
+      pl.r = e.isIntersecting ? e.intersectionRatio : 0;
+      if (pl.r > 0) load(pl);
+      else { pl.userPaused = false; pl.manual = false; }
+    });
+    pick();
+  }, { threshold: [0, 0.2, 0.4, 0.55, 0.7, 0.85, 1] }) : null;
+
+  function prodHtml(w, i) {
+    var name = esc(w.n);
+    return '<section class="slide prod" id="p' + (i + 1) + '" style="--c:' + w.c + '" aria-label="' + name + '" data-dyn>' +
+      '<div class="w"><div class="pw' + (i % 2 ? ' flip' : '') + '">' +
+        '<div class="p-head">' +
+          '<div class="eb rv"><b>' + pad(i + 1) + '</b>/ ' + pad(REELS.length) + '</div>' +
+          '<div class="nm rv hd"><img src="/assets/logos/' + w.lg + '.webp" width="128" height="128" alt="" loading="lazy" decoding="async"><h2>' + name + '</h2></div>' +
+        '</div>' +
+        '<div class="stage"><i class="glow" aria-hidden="true"></i><div class="phone-wrap"><div class="phone">' +
+          '<div class="scr" role="button" tabindex="0" data-i="' + i + '" aria-label="' + esc(t('Ролик') + ' ' + w.n + ': ' + t('пауза и воспроизведение')) + '">' +
+            '<img class="poster" src="/assets/reels/' + w.reel + '-poster.webp" width="720" height="1280" alt="" loading="lazy" decoding="async">' +
+            '<i class="tl"></i><span class="pb" aria-hidden="true"><i class="ico i-tri"></i><i class="ico i-pause"></i></span>' +
+            '<span class="msg">' + esc(t('Ролик не загрузился. Нажмите, чтобы попробовать ещё раз.')) + '</span>' +
+          '</div></div></div></div>' +
+        '<div class="p-body">' +
+          '<p class="ds rv">' + esc(t(w.s)) + '</p>' +
+          '<div class="acts rv">' +
+            '<a class="chip main" href="' + esc(w.url) + '" target="_blank" rel="noopener" aria-label="' + esc(t('Открыть демо') + ' ' + w.n) + '">' + esc(t('Открыть демо')) + '<i class="ico i-out"></i></a>' +
+            '<button class="chip" type="button" data-shots="r' + i + '"><i class="ico i-phone"></i>' + esc(t('Смотреть экраны')) + '</button>' +
+          '</div>' +
+        '</div>' +
+      '</div></div></section>';
+  }
+  function moreHtml(w, i) {
+    var name = esc(w.n), cnt = w.sh.length + ' ' + t('экранов');
+    return '<article class="mc rv" style="--c:' + w.c + '">' +
+      '<button class="mv" type="button" data-shots="m' + i + '" aria-label="' + esc(t('Смотреть экраны') + ' ' + w.n) + '">' +
+        '<img src="/assets/cases/' + w.sh[0] + '" alt="" loading="lazy" decoding="async">' +
+        '<span class="cnt"><i class="ico i-phone"></i>' + esc(cnt) + '</span></button>' +
+      '<div class="mt"><h3><img src="/assets/logos/' + w.lg + '.webp" width="128" height="128" alt="" loading="lazy" decoding="async">' + name + '</h3>' +
+        '<p>' + esc(t(w.s)) + '</p>' +
+        '<a class="chip" href="' + esc(w.url) + '" target="_blank" rel="noopener" aria-label="' + esc(t('Открыть демо') + ' ' + w.n) + '">' + esc(t('Открыть демо')) + '<i class="ico i-out"></i></a>' +
+      '</div></article>';
+  }
+
+  function render() {
+    players.forEach(function (p) { pause(p); if (p.v) { p.v.removeAttribute('src'); p.v.load(); } });
+    players = []; stages = [];
+    if (plIO) plIO.disconnect();
+    var h = '';
+    REELS.forEach(function (w, i) { h += prodHtml(w, i); });
+    prods.innerHTML = h;
+    h = '';
+    MORE.forEach(function (w, i) { h += moreHtml(w, i); });
+    moreGrid.innerHTML = h;
+    each(prods.querySelectorAll('.prod'), function (sec) {
+      watchReveal(sec);
+      var scr = sec.querySelector('.scr'), w = REELS[+scr.getAttribute('data-i')];
+      var pl = { el: scr, w: w, v: null, r: 0, want: false, userPaused: false, manual: false, blocked: false };
+      scr.__pl = pl; players.push(pl);
+      if (plIO) plIO.observe(scr);
+      scr.addEventListener('click', function () { tap(pl); });
+      scr.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); tap(pl); } });
+      stages.push({ sec: sec, ph: sec.querySelector('.phone'), gl: sec.querySelector('.glow') });
+    });
+    frame();
+  }
+
+  /* ----- ролики: играет только тот слайд, что в кадре, и только один ----- */
+  function reelSrc(w) { return '/assets/reels/' + w.reel + '-' + (LANG === 'en' ? 'en' : 'ru') + '.mp4?v=2'; }
+  function load(pl) {
+    if (pl.v) return;
+    var v = D.createElement('video');
+    v.muted = true; v.defaultMuted = true; v.setAttribute('muted', '');
+    v.playsInline = true; v.setAttribute('playsinline', ''); v.setAttribute('webkit-playsinline', '');
+    v.loop = true; v.preload = 'auto'; v.setAttribute('aria-hidden', 'true'); v.setAttribute('disablepictureinpicture', '');
+    var tl = pl.el.querySelector('.tl'), last = 0;
+    v.addEventListener('playing', function () {
+      if (!pl.want) { v.pause(); return; }
+      pl.el.classList.remove('loading', 'err'); pl.el.classList.add('playing');
+    });
+    v.addEventListener('waiting', function () { if (pl.want) pl.el.classList.add('loading'); });
+    v.addEventListener('timeupdate', function () {
+      if (!v.duration) return;
+      var p = v.currentTime / v.duration;
+      tl.style.transition = p < last ? 'none' : 'transform .26s linear, opacity .3s';
+      tl.style.transform = 'scaleX(' + p.toFixed(4) + ')';
+      last = p;
+    });
+    v.addEventListener('error', function () { if (pl.v === v) fail(pl); });
+    v.src = reelSrc(pl.w);
+    pl.el.insertBefore(v, tl);
+    pl.v = v;
+  }
+  function fail(pl) {
+    pl.want = false;
+    if (pl.v) { pl.v.removeAttribute('src'); pl.v.load(); if (pl.v.parentNode) pl.v.parentNode.removeChild(pl.v); pl.v = null; }
+    pl.el.classList.remove('loading', 'playing');
+    pl.el.classList.add('err');
+  }
+  function play(pl) {
+    if (pl.want && pl.v && !pl.v.paused) return;
+    load(pl);
+    pl.want = true;
+    pl.el.classList.remove('err');
+    if (pl.v.readyState < 3) pl.el.classList.add('loading');
+    var pr = pl.v.play();
+    if (pr && pr.catch) pr.catch(function (err) {
+      if (err && err.name === 'AbortError') return;
+      pl.want = false; pl.el.classList.remove('loading', 'playing');
+      if (err && err.name === 'NotAllowedError') { pl.blocked = true; return; }
+      fail(pl);
+    });
+  }
+  function pause(pl) {
+    pl.want = false;
+    if (pl.v && !pl.v.paused) pl.v.pause();
+    pl.el.classList.remove('playing', 'loading');
+  }
+  var lbOpen = false;
+  function pick() {
+    var best = null, live = !lbOpen && !D.hidden;
+    if (live) players.forEach(function (p) { if (p.r >= 0.55 && (!best || p.r > best.r)) best = p; });
+    players.forEach(function (p) {
+      if (p === best) {
+        if (p.manual) { if (!p.want && !p.userPaused) play(p); return; }
+        if (!RM && !p.userPaused && !p.blocked) play(p);
+      } else if (!(p.manual && p.r > 0 && live)) {
+        pause(p);
+      }
+    });
+  }
+  function tap(pl) {
+    if (pl.want) { pause(pl); pl.userPaused = true; pl.manual = false; return; }
+    players.forEach(function (o) { if (o !== pl) { pause(o); o.manual = false; } });
+    pl.userPaused = false; pl.blocked = false; pl.manual = true;
+    play(pl);
+  }
+  D.addEventListener('visibilitychange', pick);
+
+  /* ===== прокрутка: полоса прогресса, параллакс телефона, подсказка ===== */
+  var progBar = $('progBar'), hint = $('hint'), ticking = false;
+  function frame() {
+    ticking = false;
+    var y = window.pageYOffset || HTML.scrollTop, vh = window.innerHeight, H = HTML.scrollHeight;
+    progBar.style.transform = 'scaleX(' + (H > vh ? Math.min(1, y / (H - vh)) : 0).toFixed(4) + ')';
+    if (hint) hint.style.opacity = y > 60 ? '0' : '';
+    if (RM) return;
+    var amp = window.innerWidth < 900 ? 22 : 40, k, ps = [];
+    for (k = 0; k < stages.length; k++) {
+      var r = stages[k].sec.getBoundingClientRect();
+      ps.push(((r.top + r.height / 2) - vh / 2) / vh);
+    }
+    for (k = 0; k < stages.length; k++) {
+      var p = ps[k];
+      if (p < -1.3 || p > 1.3) continue;
+      p = Math.max(-1, Math.min(1, p));
+      stages[k].ph.style.transform = 'translate3d(0,' + (p * amp).toFixed(1) + 'px,0)';
+      stages[k].gl.style.transform = 'translate3d(0,' + (-p * amp * 0.7).toFixed(1) + 'px,0) scale(' + (1 - Math.abs(p) * 0.12).toFixed(3) + ')';
+    }
+  }
+  function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(frame); } }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
+
+  /* «Написать» в шапке — когда обложка ушла из кадра */
+  var top = $('top');
+  if (HAS_IO) new IntersectionObserver(function (es) {
+    top.classList.toggle('pill-on', !(es[0].isIntersecting && es[0].intersectionRatio > 0.45));
+  }, { threshold: [0, 0.45, 1] }).observe($('cover'));
+  else top.classList.add('pill-on');
+
+  /* ===== счётчики 10+ и 700M+ ===== */
+  var counted = false;
+  function runCounters() {
+    if (counted || RM) return; counted = true;
+    each(D.querySelectorAll('.cnum'), function (el, i) {
+      var to = +el.getAttribute('data-to'), suf = el.getAttribute('data-suf'), t0 = 0, dur = 1300 + i * 250;
+      var outExpo = function (p) { return p >= 1 ? 1 : 1 - Math.pow(2, -10 * p); };
+      el.textContent = '0' + suf;
+      requestAnimationFrame(function step(ts) {
+        if (!t0) t0 = ts;
+        var p = Math.min(1, (ts - t0) / dur);
+        el.textContent = Math.round(to * outExpo(p)) + suf;
+        if (p < 1) requestAnimationFrame(step);
+      });
+    });
+  }
+
+  /* ===== шоурил: iframe появляется только по нажатию ===== */
+  var srBtn = $('srBtn');
+  srBtn.addEventListener('click', function () {
+    var f = D.createElement('iframe');
+    f.src = 'https://www.youtube-nocookie.com/embed/uFlb1IN30FM?autoplay=1&playsinline=1&rel=0';
+    f.title = t('Шоурил Романа Чернявского');
+    f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+    f.setAttribute('allowfullscreen', '');
+    f.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+    players.forEach(function (p) { pause(p); p.manual = false; });
+    srBtn.parentNode.replaceChild(f, srBtn);
+  });
+
+  /* ===== экраны: лента с пролистыванием ===== */
+  var lb = $('lb'), strip = $('lbStrip'), lbName = $('lbName'), lbCount = $('lbCount'), lbX = $('lbX'), lbPrev = $('lbPrev'), lbNext = $('lbNext');
+  var lbIW = 0, lbN = 0, lbIdx = 0, lbFocus = null, GAP = 16, lbTick = false, lbHideT = 0;
+  function lbSet(i) {
+    lbIdx = i;
+    lbCount.textContent = (i + 1) + ' / ' + lbN;
+    lbPrev.disabled = i <= 0; lbNext.disabled = i >= lbN - 1;
+  }
+  function openLB(w) {
+    clearTimeout(lbHideT);
+    lbOpen = true; pick();
+    lbFocus = D.activeElement;
+    var r = w.r || R_STD, vh = window.innerHeight, vw = window.innerWidth;
+    var ih = Math.min(vh - 150, 820);
+    if (ih * r > vw - 72) ih = (vw - 72) / r;
+    ih = Math.max(200, Math.round(ih)); lbIW = Math.round(ih * r); lbN = w.sh.length;
+    strip.style.setProperty('--ih', ih + 'px'); strip.style.setProperty('--iw', lbIW + 'px');
+    strip.style.paddingLeft = strip.style.paddingRight = 'calc(50% - ' + (lbIW / 2) + 'px)';
+    var h = '';
+    w.sh.forEach(function (f, i) {
+      h += '<figure><img src="/assets/cases/' + f + '" width="' + lbIW + '" height="' + ih + '" alt="' + esc(w.n + ', ' + t('экран') + ' ' + (i + 1)) + '"' +
+        (i > 1 ? ' loading="lazy"' : '') + ' decoding="async"></figure>';
+    });
+    strip.innerHTML = h;
+    lbName.textContent = w.n;
+    lb.setAttribute('aria-label', t('Экраны') + ' ' + w.n);
+    lb.hidden = false;
+    HTML.classList.add('lb-lock');
+    strip.scrollLeft = 0; lbSet(0);
+    requestAnimationFrame(function () { lb.classList.add('on'); lbX.focus({ preventScroll: true }); });
+  }
+  function closeLB() {
+    if (!lbOpen) return;
+    lbOpen = false;
+    lb.classList.remove('on');
+    HTML.classList.remove('lb-lock');
+    lbHideT = setTimeout(function () { lb.hidden = true; strip.innerHTML = ''; }, 240);
+    if (lbFocus && lbFocus.focus) lbFocus.focus({ preventScroll: true });
+    pick();
+  }
+  function lbGo(d) {
+    var i = Math.max(0, Math.min(lbN - 1, lbIdx + d));
+    strip.scrollTo({ left: i * (lbIW + GAP), behavior: RM ? 'auto' : 'smooth' });
+  }
+  strip.addEventListener('scroll', function () {
+    if (lbTick) return; lbTick = true;
+    requestAnimationFrame(function () { lbTick = false; lbSet(Math.max(0, Math.min(lbN - 1, Math.round(strip.scrollLeft / (lbIW + GAP))))); });
+  }, { passive: true });
+  lbX.addEventListener('click', closeLB);
+  lbPrev.addEventListener('click', function () { lbGo(-1); });
+  lbNext.addEventListener('click', function () { lbGo(1); });
+  lb.addEventListener('click', function (e) { if (e.target === lb || e.target === strip) closeLB(); });
+  D.addEventListener('keydown', function (e) {
+    if (!lbOpen) return;
+    if (e.key === 'Escape') closeLB();
+    else if (e.key === 'ArrowRight') { e.preventDefault(); lbGo(1); }
+    else if (e.key === 'ArrowLeft') { e.preventDefault(); lbGo(-1); }
+  });
+  D.addEventListener('click', function (e) {
+    var b = e.target.closest ? e.target.closest('[data-shots]') : null;
+    if (!b) return;
+    var key = b.getAttribute('data-shots'), w = key.charAt(0) === 'r' ? REELS[+key.slice(1)] : MORE[+key.slice(1)];
+    if (w) openLB(w);
+  });
+
+  /* ===== язык ===== */
+  function applyLang(lang) {
+    LANG = (lang === 'en') ? 'en' : 'ru';
+    try { localStorage.setItem('roch_lang', LANG); } catch (e) {}
+    HTML.setAttribute('lang', LANG);
+    D.title = t(TITLE_RU);
+    render();
+    localize(D.body);
+    refreshTg();
+    langUI();
+  }
+  $('langTog').addEventListener('click', function () { applyLang(LANG === 'en' ? 'ru' : 'en'); });
+
+  each(D.querySelectorAll('.more, .gd, .ct'), watchReveal);
+  if (LANG === 'en') applyLang('en'); else { render(); refreshTg(); langUI(); }
+  window.__deck = 1;
+})();
+</script>
+</body>
+</html>
