@@ -1992,7 +1992,7 @@ img,video,iframe{display:block;max-width:100%}
       }, { passive: true });
       rmxSec.addEventListener('pointerleave', function () { rmxMx.to(0); rmxMy.to(0); });
       var rmxGoBtn = $('rmxGo');
-      if (rmxGoBtn) magnet(rmxGoBtn, rmxSec.querySelector('.rmx-cta'));
+      /* без магнита (Роч 29.10: «магнитность на кнопке убери») — блик остаётся */
     }
     /* «300+» — табло: при каждом входе целиком в кадр разряды делают оборот, как цифры геймдева */
     var rmxNum = $('rmxNum');
