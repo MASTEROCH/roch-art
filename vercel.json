@@ -44,6 +44,14 @@
   ],
   "rewrites": [
     {
+      "source": "/works",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/work",
+      "destination": "/index.html"
+    },
+    {
       "source": "/rochai/led-lab",
       "destination": "https://roch-ai.vercel.app/rochai/led-lab.html"
     },

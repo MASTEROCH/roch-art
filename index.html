@@ -466,6 +466,8 @@ footer .foot-links{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;ma
 footer .foot-links a{color:var(--text2);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.2)}
 footer .foot-links span{color:var(--text3)}
 .offer .cal-link{display:flex;justify-content:center;margin-top:10px}
+/* ссылка календаря скрыта атрибутом hidden, пока нет адреса; display у .bz-alt его перебивал — ссылка «#» висела в финале */
+.cal-link[hidden]{display:none!important}
 /* окно Calendly: узкое — Calendly берёт компактную раскладку, она целиком тёмная (в широкой вокруг карточки белое поле страницы) */
 .calendly-overlay{background:rgba(3,5,4,.86)!important}
 .calendly-overlay .calendly-popup{width:min(560px,94vw)!important;min-width:0!important;max-width:560px!important;height:min(760px,90vh)!important;max-height:none!important;
@@ -1908,8 +1910,8 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
     </div>
   </div>
   <nav class="hud-nav" id="hudNav" aria-label="Навигация">
-    <button type="button" class="hud-link" data-sec="how"><i class="ico i-wave"></i><span>Как</span></button>
     <button type="button" class="hud-link" data-sec="cases"><i class="ico i-grid"></i><span>Работы</span></button>
+    <button type="button" class="hud-link" data-sec="how"><i class="ico i-wave"></i><span>Как</span></button>
     <button type="button" class="hud-link" data-sec="about"><i class="ico i-user"></i><span>Кто</span></button>
     <button type="button" class="hud-link" data-sec="prices"><i class="ico i-tag"></i><span>Цены</span></button>
     <button type="button" class="hud-link" data-sec="faq"><i class="ico i-help"></i><span>Вопросы</span></button>
@@ -1936,7 +1938,7 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
 
   <div class="bz-cta boot d3">
     <a class="btn offer-cta" id="heroUnpack" data-tgmsg="Привет, Рома! Хочу записаться на распаковку идеи ($500, 2 часа). Идея: …"><span class="oc-txt">Распаковать идею за $500</span><span class="oc-arr">→</span></a>
-    <a class="btn sec" id="heroAi" href="/rochai?intake=idea" target="_blank" rel="noopener"><span class="oc-txt">Проверить идею бесплатно</span></a>
+    <a class="btn sec" id="heroCat" href="#cases"><i class="ico i-grid"></i><span class="oc-txt">Смотреть работы</span></a>
   </div>
   <div class="hr-reels boot d4">
     <div class="hr-avas" id="heroReels"></div>
@@ -2041,6 +2043,24 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
     <a class="up-open" id="exOpen" href="https://beauty-tma-prototype.vercel.app" target="_blank" rel="noopener"><span>Запустить прототип</span><i aria-hidden="true">↗</i></a>
   </div>
 
+</section>
+
+<!-- Роч 29.10 (отзыв: «непонятно, где работы, куда тыкнуть»): работы — сразу после первого экрана -->
+<!-- ============ КЕЙСЫ ============ -->
+<section id="cases">
+  <div class="sec-head reveal">
+    <div class="eyebrow">Работы</div>
+    <h2>Что выходит <span class="grad">из упаковки</span></h2>
+    <p class="lead">18 продуктов, которые я упаковал. Нажмите на любую карточку: ролик, экраны и живое демо, которое открывается в телефоне.</p>
+  </div>
+  <div class="fbar reveal" role="group" aria-label="Фильтр кейсов">
+    <button type="button" class="fpill on" data-f="all" aria-pressed="true">Все</button>
+    <button type="button" class="fpill" data-f="book" aria-pressed="false">Запись и сервис</button>
+    <button type="button" class="fpill" data-f="leisure" aria-pressed="false">Туризм и досуг</button>
+    <button type="button" class="fpill" data-f="sales" aria-pressed="false">Продажи</button>
+  </div>
+  <div class="proj-grid" id="projGrid"></div>
+  <button type="button" class="pre-btn more-btn" id="projMore" aria-expanded="false"><i class="ico i-down"></i><span id="projMoreTxt">Показать все приложения</span></button>
 </section>
 
 <!-- ============ ЛЕНТА ============ -->
@@ -2190,22 +2210,7 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
   </div>
 </section>
 
-<!-- ============ КЕЙСЫ ============ -->
-<section id="cases">
-  <div class="sec-head reveal">
-    <div class="eyebrow">Работы</div>
-    <h2>Что выходит <span class="grad">из упаковки</span></h2>
-    <p class="lead">18 идей, которые я упаковал в продукты. Каждый живой: откройте его и потрогайте.</p>
-  </div>
-  <div class="fbar reveal" role="group" aria-label="Фильтр кейсов">
-    <button type="button" class="fpill on" data-f="all" aria-pressed="true">Все</button>
-    <button type="button" class="fpill" data-f="book" aria-pressed="false">Запись и сервис</button>
-    <button type="button" class="fpill" data-f="leisure" aria-pressed="false">Туризм и досуг</button>
-    <button type="button" class="fpill" data-f="sales" aria-pressed="false">Продажи</button>
-  </div>
-  <div class="proj-grid" id="projGrid"></div>
-  <button type="button" class="pre-btn more-btn" id="projMore" aria-expanded="false"><i class="ico i-down"></i><span id="projMoreTxt">Показать все приложения</span></button>
-</section>
+
 
 
 <!-- ============ КТО ============ -->
@@ -3018,7 +3023,7 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
     "Работы":"Work",
     "Что выходит":"What comes out",
     "из упаковки":"of packaging",
-    "18 идей, которые я упаковал в продукты. Каждый живой: откройте его и потрогайте.":"18 ideas I packaged into products. Each one is live: open it and try it.",
+    "18 продуктов, которые я упаковал. Нажмите на любую карточку: ролик, экраны и живое демо, которое открывается в телефоне.":"18 products I have packaged. Tap any card: a video, the screens and a live demo that opens on your phone.",
     "Упаковка стоит $1 500: паспорт идеи, игровой слой и живой прототип в вашем телефоне.":"Packaging costs $1,500: an idea passport, a game layer and a live prototype on your phone.",
     "Хочу так же — $1 500":"I want the same — $1,500",
     ". Теперь я упаковываю идеи с той же механикой возврата, что и в играх.":". Now I package ideas with the same return mechanics as in games.",
@@ -4604,14 +4609,26 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
       };
       requestAnimationFrame(frame);
     };
+    /* портрет без роя — когда рой опоздал: фото сразу, кольцо горит, холст убран */
+    var plain = function(){ cv.style.display = 'none'; box.classList.remove('sw-wait'); box.classList.add('sw-on', 'sw-done'); };
+    var ready = function(){ return img.complete && img.naturalWidth > 0; };
     var io = new IntersectionObserver(function(en){
       if(!en[0].isIntersecting) return; io.disconnect();
       var run = function(){ if(img.decode) img.decode().then(go, go); else go(); };
-      if(img.complete && img.naturalWidth) run(); else { img.addEventListener('load', run); img.loading = 'eager'; }
+      if(ready()){ run(); return; }
+      /* Роч 29.10: «слева пустота — не прогрузилось сразу». Ждать сеть с пустым кругом нельзя: не успело за 0,6 с —
+         показываем фото, как только придёт, без роя */
+      var late = false, t = setTimeout(function(){ late = true; }, 600);
+      img.addEventListener('load', function(){ clearTimeout(t); if(late) plain(); else run(); });
+      img.loading = 'eager';
     }, { threshold: 0.45 });
     io.observe(box);
-    /* за 1.5 экрана до финала портрет грузится заранее — рой стартует без ожидания сети */
-    var near = new IntersectionObserver(function(en){ if(en[0].isIntersecting){ near.disconnect(); img.loading = 'eager'; } }, { rootMargin: '150% 0px' });
+    /* портрет (58 КБ) грузится сразу после страницы, в простое, — к финалу он уже готов, даже если долистать за секунду
+       или прыгнуть по «Вопросам»; плюс прежний запас за 1,5 экрана */
+    var eager = function(){ img.loading = 'eager'; if(img.decode) img.decode().catch(function(){}); };
+    var idle = window.requestIdleCallback || function(f){ return setTimeout(f, 1200); };
+    if(document.readyState === 'complete') idle(eager); else window.addEventListener('load', function(){ idle(eager); });
+    var near = new IntersectionObserver(function(en){ if(en[0].isIntersecting){ near.disconnect(); eager(); } }, { rootMargin: '150% 0px' });
     near.observe(box);
   })();
 
@@ -4845,6 +4862,11 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
 
   /* ===== Scroll: параллакс, шапка, cta-bar, XP-бар ===== */
   var hdr = document.getElementById('hdr');
+  /* roch-art.com/work — ссылка «покажи работы», которую можно переслать: страница открывается сразу на кейсах */
+  if(/^\/works?\/?$/i.test(location.pathname)){
+    var toCases = function(){ var c = document.getElementById('cases'); if(c) c.scrollIntoView({ behavior: 'instant', block: 'start' }); };
+    if(document.readyState === 'complete') setTimeout(toCases, 60); else window.addEventListener('load', function(){ setTimeout(toCases, 60); });
+  }
   /* высота строки лого + зазор до HUD: на столько шапка уезжает вверх (offsetTop не зависит от transform) */
   (function(){ var nv = hdr && hdr.querySelector('.nav'), hn = document.getElementById('hudNav'); if(!nv || !hn) return;
     var m = function(){ hdr.style.setProperty('--nh', (hn.offsetTop - nv.offsetTop) + 'px'); };
