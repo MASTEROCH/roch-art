@@ -20,7 +20,11 @@
   'use strict';
   var W = window, D = document, HTML = D.documentElement;
   var COVER = D.getElementById('cover');
-  if (!COVER || !W.requestAnimationFrame || !W.JSON || !D.querySelector || !W.MutationObserver) return;
+  if (!COVER || !W.requestAnimationFrame || !W.JSON || !D.querySelector || !W.MutationObserver || !W.matchMedia) return;
+  /* только компьютер (Роч 29.10): на телефонах и планшетах гида нет — фото остаются фото */
+  var MQD = W.matchMedia('(min-width: 900px) and (hover: hover) and (pointer: fine)');
+  if (!MQD.matches || W.__rochGuideOn) return;   /* и один экземпляр: старая и новая версия скрипта не запустят двух гидов */
+  W.__rochGuideOn = 1;
 
   /* ---------- хранилища: приватное окно и запрет записи гида не ломают ---------- */
   function lsGet(k) { try { return W.localStorage.getItem(k); } catch (e) { return null; } }
@@ -146,14 +150,20 @@
   function text(st) { return st ? TX[lang()][st.line] || '' : ''; }
 
   /* ---------- размеры ---------- */
-  var vw = 0, vh = 0, SZ = 72, SZB = 72, TOP = 72, BOT = 18, EDGE = 16, BW = 260, FW = 56, tiny = false;
+  var vw = 0, vh = 0, SZ = 72, TOP = 72, BOT = 18, EDGE = 16, FW = 56, tiny = false, BAR = null, KD = 40 / 72;
+  var LOW = (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4) || (navigator.deviceMemory && navigator.deviceMemory <= 4);
   function metrics() {
     vw = HTML.clientWidth || W.innerWidth; vh = W.innerHeight || HTML.clientHeight;
-    var sm = vw < 700;
-    SZ = SZB = sm ? 56 : 72; EDGE = sm ? 8 : 18; BOT = sm ? 22 : 18; BW = sm ? Math.min(320, vw - 2 * EDGE) : 260; FW = sm ? 50 : 56;
-    var tb = q('#top .top-in') || q('#top');
-    TOP = tb ? Math.round(tb.getBoundingClientRect().bottom) + 10 : 72;
-    tiny = vh < 440 || vw < 300;
+    var tb = q('#top .top-in') || q('#top'), lg = q('#top .logo'), tr = q('#top .top-r'), rb = tb ? tb.getBoundingClientRect() : null;
+    TOP = rb ? Math.round(rb.bottom) + 10 : 72;
+    BAR = null;
+    if (rb && lg && tr) {
+      /* свободная полоса шапки между логотипом и кнопками: сюда голова садится 40 px, когда в полях раздела тесно */
+      var a = lg.getBoundingClientRect(), b = tr.getBoundingClientRect(), hs = SZ * KD, cy = (b.top + b.bottom) / 2;
+      BAR = { cy: cy, l: a.right + 24, hx: b.left - 16 - hs, hy: cy - hs / 2 };
+      BAR.x = BAR.hx - (SZ - hs) / 2; BAR.y = BAR.hy - (SZ - hs) / 2;   /* левый верх коробки 72 px со шкалой 0,56 */
+    }
+    tiny = vh < 440;
   }
   function measure() {
     var sy = W.pageYOffset, i, r;
@@ -209,63 +219,38 @@
     return out;
   }
 
-  /* ---------- пузырь: где встать рядом с головой (hx, hy — левый верх головы) ---------- */
-  /* ширина пузыря подстраивается под свободное место стороны: на телефоне до 320, на компьютере до 260 */
-  function bubbleFor(hx, hy, str, V, av, hs) {
-    var SZ = hs || SZB;   /* опора пузыря: голова или (в контактах) фото, в которое голова превратилась */
-    var right = hx + SZ / 2 > (V.l + V.r) / 2, S = [], i, best = null, g = 8, cy = hy + SZ * 0.5 - 20;
-    var wl = hx - g - V.l, wr = V.r - hx - SZ - g, wf = V.r - V.l;
-    S.push(right ? { s: 'l', a: wl, c: 'tr', p: 0 } : { s: 'r', a: wr, c: 'tl', p: 0 });
-    S.push(right ? { s: 'r', a: wr, c: 'tl', p: 160 } : { s: 'l', a: wl, c: 'tr', p: 160 });
-    S.push({ s: 't', a: wf, c: right ? 'br' : 'bl', p: 220 });
-    S.push({ s: 'b', a: wf, c: right ? 'tr' : 'tl', p: 280 });
-    /* телефон: сверху/снизу можно и во всю ширину — короткая фраза встаёт одной строкой в узкую полосу */
-    if (SZB < 64) { S.push({ s: 't', a: wf, c: right ? 'br' : 'bl', p: 260, full: 1 }); S.push({ s: 'b', a: wf, c: right ? 'tr' : 'tl', p: 320, full: 1 }); }
-    var head = { l: hx - 4, t: hy - 4, r: hx + SZ + 4, b: hy + SZ + 4 };
-    for (i = 0; i < S.length; i++) {
-      var c = S[i], bw = c.full ? Math.floor(c.a) : clamp(Math.floor(c.a / 10) * 10, 150, BW), bs = bubbleSize(str, bw), x, y;
-      if (c.s === 'l') { x = hx - g - bs.w; y = cy; }
-      else if (c.s === 'r') { x = hx + SZ + g; y = cy; }
-      else { x = right ? hx + SZ * 0.5 + 20 - bs.w : hx + SZ * 0.5 - 20; y = c.s === 't' ? hy - g - bs.h : hy + SZ + g; }
-      var x2 = clamp(x, V.l, V.r - bs.w), y2 = clamp(y, V.t, V.b - bs.h);
-      var rc = { l: x2 - 4, t: y2 - 4, r: x2 + bs.w + 4, b: y2 + bs.h + 4 };
-      var s = cost(rc, av) + (Math.abs(x2 - x) + Math.abs(y2 - y)) * 30 + overlap(rc, head) * 40 + c.p;
-      if (!best || s < best.s) best = { x: x2, y: y2, c: c.c, s: s, mw: bw };
+  /* ---------- поля раздела: всё, что занято содержимым (текст, кнопки, картинки, видео, телефоны, плитки).
+     Телефон продукта меряем по его сцене (.stage): на входе он наклонён и шире своей коробки ---------- */
+  function contentX(sec) {
+    /* рамки элементов, а не строки текста: блок не уже своего текста (поле выходит с запасом), а замер — один проход
+       без обхода всех текстовых узлов */
+    var l = 1e9, r = -1e9, n, i, x;
+    n = qa('h1,h2,h3,p,a,button,img,video,canvas,.phone,.scr,[data-fx],.sr,.mv,.ava,.fin,.st,.stage,.eb,.nm,.ds,.acts,.cta,.hint,.lnk,.rmx-n,.rmx-eb,.rmx-cta,.foot', sec);
+    for (i = 0; i < n.length; i++) {
+      if (n[i].closest && n[i].closest('.phone-wrap')) continue;
+      x = n[i].getBoundingClientRect(); if (x.width < 1 || x.height < 1) continue;
+      if (x.left < l) l = x.left; if (x.right > r) r = x.right;
     }
-    return best;
+    return { l: l, r: r };
   }
 
-  /* ---------- место головы у остановки (в координатах документа) ---------- */
+  /* ---------- место у остановки: в поле раздела (голова 72 + пузырь ≥ 180 помещаются) или в шапке ---------- */
   function spotFor(st) {
-    var sy = W.pageYOffset, sec = st.el, pe = pick(st, 'place') || sec;
-    if (st.k === 'contact' && avaBot && q('img', avaBot)) {
-      /* в контактах голова садится ровно в кольцо фото и превращается в него */
-      var ar = q('img', avaBot).getBoundingClientRect(), le0 = pick(st, 'look'), lr0 = le0 ? le0.getBoundingClientRect() : ar;
-      return { x: (ar.left + ar.right) / 2 - SZ / 2, y: (ar.top + ar.bottom) / 2 + sy - SZ / 2, s: 0, lx: (lr0.left + lr0.right) / 2, ly: (lr0.top + lr0.bottom) / 2 + sy };
-    }
-    var S = /^(H1|H2|H3|P)$/.test(pe.tagName) ? textBox(pe, sy) : box(pe.getBoundingClientRect(), sy), R = box(sec.getBoundingClientRect(), sy);
+    var sy = W.pageYOffset, sec = st.el, pe = pick(st, 'place') || sec, cx = contentX(sec);
+    var S = box(pe.getBoundingClientRect(), sy), R = box(sec.getBoundingClientRect(), sy);
     var view = (R.b - R.t) <= vh * 1.15 ? R.t : clamp((S.t + S.b) / 2 - vh / 2, R.t, R.b - vh);
-    var V = { l: EDGE, r: vw - EDGE, t: view + TOP, b: view + vh - BOT };
-    var av = avoid(sec, sy), str = text(st);
-    var g = SZ < 64 ? 14 : 22, h = SZ, C = [], ys = st.prod ? [0.34, 0.56, 0.78] : [0.5], i, best = null;
-    for (i = 0; i < ys.length; i++) {
-      var yy = S.t + (S.b - S.t) * ys[i] - h / 2;
-      C.push({ x: S.r + g, y: yy }, { x: S.l - g - h, y: yy });
+    var le = pick(st, 'look'), lr = le ? le.getBoundingClientRect() : null, str = text(st);
+    var lx = lr ? (lr.left + lr.right) / 2 : (S.l + S.r) / 2, ly = lr ? (lr.top + lr.bottom) / 2 + sy : (S.t + S.b) / 2;
+    var rx0 = cx.r + 16, rx1 = vw - EDGE, lx0 = EDGE, lx1 = cx.l - 16, gr = rx1 - rx0, gl = lx1 - lx0;
+    var side = gr >= gl ? 'r' : 'l', g = Math.max(gr, gl), x0 = side === 'r' ? rx0 : lx0;
+    if (g >= 180 && g >= SZ) {
+      var bw = Math.min(260, Math.floor(g)), bs = str ? bubbleSize(str, bw) : { w: 0, h: 0 }, tot = SZ + (str ? 10 + bs.h : 0);
+      var y = (S.t + S.b) / 2 - SZ / 2;
+      y = clamp(y, view + TOP + 8, view + vh - BOT - tot);
+      y = clamp(y, R.t + 8, Math.max(R.t + 8, R.b - tot - 8));
+      return { mode: 'gut', side: side, x: x0 + (g - SZ) / 2, y: y, bx: x0 + (g - Math.min(bw, bs.w || bw)) / 2, bw: bw, lx: lx, ly: ly };
     }
-    C.push({ x: S.r + g * 0.5, y: S.t - h * 0.75 }, { x: S.l - h - g * 0.5, y: S.t - h * 0.75 },
-      { x: S.r + g * 0.5, y: S.b - h * 0.25 }, { x: S.l - h - g * 0.5, y: S.b - h * 0.25 },
-      { x: (S.l + S.r - h) / 2, y: S.t - g - h }, { x: (S.l + S.r - h) / 2, y: S.b + g });
-    if (SZ < 64) C.push({ x: V.r - h, y: V.t }, { x: V.l, y: V.t }, { x: V.r - h, y: V.b - h }, { x: V.l, y: V.b - h });   /* на телефоне — углы экрана */
-    for (i = 0; i < C.length; i++) {
-      var c = C[i], x = clamp(c.x, V.l, V.r - h), y = clamp(c.y, V.t, V.b - h);
-      var hb = { l: x - 6, t: y - 6, r: x + h + 6, b: y + h + 6 };
-      var s = cost(hb, av) + overlap(hb, S) * 1.5 + (Math.abs(x - c.x) + Math.abs(y - c.y)) * 20 + i * 25;
-      if (str) s += bubbleFor(x, y, str, V, av).s * 0.5;
-      if (!best || s < best.s) best = { x: x, y: y, s: s };
-    }
-    var le = pick(st, 'look'); if (le) { var lr = le.getBoundingClientRect(); best.lx = (lr.left + lr.right) / 2; best.ly = (lr.top + lr.bottom) / 2 + sy; }
-    else { best.lx = (S.l + S.r) / 2; best.ly = (S.t + S.b) / 2; }
-    return best;
+    return { mode: 'bar', x: BAR ? BAR.x : vw - EDGE - SZ, y: BAR ? BAR.y : 8, lx: lx, ly: ly };
   }
 
   /* ================= DOM ================= */
@@ -273,7 +258,7 @@
     '.rg{position:fixed;left:0;top:0;z-index:45;width:72px;height:72px;pointer-events:none;transform:translate3d(-300px,-300px,0);will-change:transform;opacity:0;transition:opacity .35s ease}',
     '.rg.sm{width:56px;height:56px}',
     '.rg.on{opacity:1}.rg.fade,.rg.lbo,.rg.tiny{opacity:0}.rg.lbo *,.rg.tiny *{pointer-events:none!important}',
-    '.rg-h{position:absolute;inset:0;margin:0;padding:0;border:0;background:none;border-radius:50%;cursor:pointer;pointer-events:auto;color:inherit;font:inherit;-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none;user-select:none;-webkit-user-select:none;transform-origin:50% 62%}',
+    '.rg-h{position:absolute;inset:0;margin:0;padding:0;border:0;background:none;border-radius:50%;cursor:pointer;pointer-events:auto;color:inherit;font:inherit;-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none;user-select:none;-webkit-user-select:none;transform-origin:50% 50%}',
     '.rg-h:focus-visible{outline:2px solid #D4FF4F;outline-offset:4px}',
     '.rg-fl,.rg-sq{position:absolute;inset:0;border-radius:50%}',
     '.rg-sq{transition:transform .35s cubic-bezier(.22,1,.36,1),opacity .35s ease}',
@@ -286,7 +271,7 @@
     '.rg-hl{position:absolute;inset:0;border-radius:50%;pointer-events:none;background:radial-gradient(52% 38% at 36% 20%,rgba(255,255,255,.1),transparent 60%);box-shadow:inset 0 0 0 1px rgba(255,255,255,.06)}',
     /* «×» и «тише» — крошечные, появляются на наведение, фокус или долгое касание */
     '.rg-c{position:absolute;top:-5px;width:22px;height:22px;margin:0;padding:0;border-radius:50%;border:1px solid rgba(255,255,255,.22);background:rgba(10,14,12,.9);color:rgba(255,255,255,.82);display:grid;place-items:center;cursor:pointer;pointer-events:auto;visibility:hidden;opacity:0;transform:scale(.6);transition:opacity .2s ease .45s,transform .25s ease .45s,visibility 0s .7s;-webkit-tap-highlight-color:transparent}',
-    '.rg-x{right:-5px}.rg-m{left:-5px}',
+    '.rg-x{right:-5px}.rg-m{left:-5px}.rg.dock .rg-x{right:10px;top:10px}.rg.dock .rg-m{left:10px;top:10px}.rg.dock .rg-ring{inset:13px}',
     '.rg-c svg{width:10px;height:10px;display:block}.rg-m svg{width:12px;height:12px}',
     '.rg-m .mo{display:none}.rg.mute .rg-m .mo{display:inline}.rg.mute .rg-m{color:#D4FF4F;border-color:rgba(212,255,79,.45)}',
     '.rg-h:hover~.rg-c,.rg-c:hover,.rg-c:focus-visible,.rg-h:focus-visible~.rg-c,.rg.xon .rg-c{visibility:visible;opacity:1;transform:none;transition-delay:0s}',
@@ -305,16 +290,18 @@
     /* фото ушло в голову — кольцо пустое и тёмное, как портал (прозрачное фото открыло бы лаймовую подложку кольца) */
     '.ava.rg-gone>img{filter:brightness(0)!important}',
     '.rg-ov{position:fixed;left:0;top:0;z-index:44;pointer-events:none}',
-    /* пузырь — стекло страницы, угол к голове острее */
-    '.rg-b{position:absolute;left:0;top:0;width:max-content;max-width:260px;padding:10px 13px 11px;border-radius:16px;font:600 14px/1.4 var(--font,-apple-system,BlinkMacSystemFont,"SF Pro Text",Inter,sans-serif);letter-spacing:-.006em;color:rgba(255,255,255,.96);text-align:left;text-wrap:pretty;',
-    'background:linear-gradient(150deg,rgba(255,255,255,.1),rgba(255,255,255,.02) 55%,rgba(255,255,255,.05)),rgba(14,20,16,.8);-webkit-backdrop-filter:blur(14px) saturate(1.2);backdrop-filter:blur(14px) saturate(1.2);',
-    'box-shadow:0 18px 40px -14px rgba(0,0,0,.85),0 0 0 1px rgba(255,255,255,.13),inset 0 1px 0 rgba(255,255,255,.14);pointer-events:none;visibility:hidden;opacity:0;transform:scale(.92);transition:opacity .2s ease,transform .3s cubic-bezier(.34,1.45,.42,1),visibility 0s .3s}',
-    '.rg-b.on{visibility:visible;opacity:1;transform:none;transition-delay:0s}',
-    '.rg-b.c-tl{border-top-left-radius:5px;transform-origin:0 0}.rg-b.c-tr{border-top-right-radius:5px;transform-origin:100% 0}',
-    '.rg-b.c-bl{border-bottom-left-radius:5px;transform-origin:0 100%}.rg-b.c-br{border-bottom-right-radius:5px;transform-origin:100% 100%}',
-    '.rg-b .off{color:transparent}',
-    '.rg-ms{visibility:hidden!important;opacity:0!important;left:-9999px}',
-    '@media (hover:none){.rg-b{-webkit-backdrop-filter:none;backdrop-filter:none;background:linear-gradient(150deg,rgba(255,255,255,.1),rgba(255,255,255,.02) 55%,rgba(255,255,255,.05)),rgba(14,20,16,.94)}}',
+    /* пузырь — стекло: размытие 16 px + тёмная подложка .72, светлая кайма 1 px; угол к говорящему острее.
+       Свой слой поверх страницы (не внутри головы): в шапке стоит, в поле едет за головой */
+    '.rg-b{position:fixed;left:0;top:0;z-index:46;pointer-events:none;visibility:hidden;transition:visibility 0s .26s}',
+    '.rg-b.on{visibility:visible;transition-delay:0s}',
+    '.rg-bi{width:max-content;max-width:260px;padding:10px 13px 11px;border-radius:16px;font:600 14px/1.4 var(--font,-apple-system,BlinkMacSystemFont,"SF Pro Text",Inter,sans-serif);letter-spacing:-.006em;color:rgba(255,255,255,.97);text-align:left;text-wrap:pretty;',
+    'background:rgba(10,14,12,.72);-webkit-backdrop-filter:blur(16px) saturate(140%);backdrop-filter:blur(16px) saturate(140%);border:1px solid rgba(255,255,255,.14);',
+    'box-shadow:0 16px 36px -14px rgba(0,0,0,.75),inset 0 1px 0 rgba(255,255,255,.08);opacity:0;transform:translate3d(0,-5px,0);transition:opacity .22s ease,transform .3s cubic-bezier(.22,1,.36,1)}',
+    '.rg-b.on .rg-bi{opacity:1;transform:none}',
+    '@supports not ((-webkit-backdrop-filter:blur(1px)) or (backdrop-filter:blur(1px))){.rg-bi{background:rgba(10,14,12,.92)}}',
+    '.rg-bi.c-tl{border-top-left-radius:5px}.rg-bi.c-tr{border-top-right-radius:5px}.rg-bi.c-bl{border-bottom-left-radius:5px}.rg-bi.c-br{border-bottom-right-radius:5px}',
+    '.rg-bi .off{color:transparent}',
+    '.rg-ms{position:fixed;left:-9999px;top:0;visibility:hidden!important}',
     /* вход: тонкое лаймовое кольцо и искры в момент приземления */
     '.rg-ring{position:absolute;inset:-3px;border-radius:50%;border:1.5px solid rgba(212,255,79,.95);box-shadow:0 0 16px rgba(212,255,79,.5),inset 0 0 10px rgba(212,255,79,.25);opacity:0;pointer-events:none}',
     '.rg-sp{position:absolute;left:50%;top:50%;width:0;height:0;pointer-events:none}',
@@ -348,10 +335,10 @@
     '@keyframes rgRip{0%,58%{transform:scale(.25);opacity:0}63%{opacity:.95}92%,100%{transform:scale(1.65);opacity:0}}',
     '@media (prefers-reduced-motion:reduce){.rg,.rg *,.rg-f,.rg-f *{animation:none!important;transition-property:opacity,visibility!important}',
     '.rg-h{transition:opacity .3s ease}.ava>img{transition:filter .3s ease}',
-    '.rg-b{transform:none}.rg-f.tap .rg-fo img{transform:translate(0,0)}.rg-f.tap .rg-fr{opacity:.8;transform:scale(1.15)}.rg-f.tap .rg-fr.r2{opacity:0}}'
+    '.rg-bi{transform:none}.rg-f.tap .rg-fo img{transform:translate(0,0)}.rg-f.tap .rg-fr{opacity:.8;transform:scale(1.15)}.rg-f.tap .rg-fr.r2{opacity:0}}'
   ].join('');
 
-  var rg, hd, sq, cv, xb, mb, bub, bOn, bOff, ms, fEl, fx, fy, fs, fo, fImg;
+  var rg, hd, sq, cv, xb, mb, bub, bIn, bOn, bOff, ms, fEl, fx, fy, fs, fo, fImg;
   var face = null, LF = null, LNG = lang();
   function el(tag, cls, parent) { var e = D.createElement(tag); if (cls) e.className = cls; if (parent) parent.appendChild(e); return e; }
   function build() {
@@ -370,18 +357,17 @@
     var ring = el('i', 'rg-ring', rg); ring.setAttribute('aria-hidden', 'true');
     var sp = el('i', 'rg-sp', rg), k; sp.setAttribute('aria-hidden', 'true');
     for (k = 0; k < 10; k++) { var b = el('b', '', sp); b.style.cssText = '--a:' + (k * 36 + (k % 2 ? 11 : -7)) + 'deg;--r:' + (k % 2 ? 52 : 66) + '%;--dl:' + (k % 3) * 0.04 + 's'; }
-    bub = el('div', 'rg-b', rg); bub.setAttribute('aria-hidden', 'true');
-    bOn = el('span', 'on', bub); bOff = el('span', 'off', bub);
-    ms = el('div', 'rg-b rg-ms', rg); ms.setAttribute('aria-hidden', 'true');
+    bub = el('div', 'rg-b'); bub.setAttribute('aria-hidden', 'true'); bIn = el('div', 'rg-bi', bub);
+    bOn = el('span', 'on', bIn); bOff = el('span', 'off', bIn);
+    ms = el('div', 'rg-bi rg-ms'); ms.setAttribute('aria-hidden', 'true');
     fEl = el('div', 'rg-f'); fEl.setAttribute('aria-hidden', 'true');
     fx = fEl; fy = el('div', 'rg-fy', fEl); fs = el('div', 'rg-fs', fy); fo = el('div', 'rg-fo', fs);
     el('i', 'rg-fr', fo); el('i', 'rg-fr r2', fo);
     fImg = el('img', '', fo); fImg.alt = ''; fImg.draggable = false; fImg.decoding = 'async'; fImg.src = HAND;
-    D.body.appendChild(rg); D.body.appendChild(fEl);
+    D.body.appendChild(rg); D.body.appendChild(bub); D.body.appendChild(ms); D.body.appendChild(fEl);
     return img;
   }
   function sizeDom() {
-    rg.classList.toggle('sm', SZ < 64);
     rg.classList.toggle('tiny', tiny);
     bsCache = {};
     fImg.style.width = FW + 'px';
@@ -403,12 +389,14 @@
 
   /* ================= полёт ================= */
   var P = { x: -300, y: -300, vx: 0, vy: 0 }, T = { x: 0, y: 0 }, spot = null, lookPt = null;
-  var HX = -300, HY = -300, tilt = 0, lastTilt = 99, raf = 0, lastT = 0, lastSY = 0;
+  var HX = -300, HY = -300, tilt = 0, lastTilt = 99, lastK = 9, KS = 1, raf = 0, lastT = 0, lastSY = 0, bubRel = null, sFlag = false;
   var shown = false, flying = false, entering = false, parked = false, fly0 = 1, arcH = 0, AN = { x: 0, y: -1 };
   var K = 170, C = 20, ATTACH = 0.85;
   function wake() { if (!raf && !off) raf = W.requestAnimationFrame(frame); }
+  function barNow() { return !!(spot && spot.mode === 'bar'); }
   function target() {
     var sy = W.pageYOffset, x, un;
+    if (barNow()) { T.x = spot.x; T.y = spot.y; return T.y; }   /* шапка: место на экране, не на странице */
     if (spot) { x = spot.x; un = spot.y - sy; } else { x = vw - EDGE - SZ; un = vh * 0.62; }
     T.x = clamp(x, EDGE, vw - EDGE - SZ); T.y = clamp(un, TOP, vh - BOT - SZ);
     return un;
@@ -416,12 +404,13 @@
   function render(x, y, t) {
     HX = x; HY = y;
     rg.style.transform = 'translate3d(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px,0)';
-    var tr = Math.round(t * 10) / 10;
-    if (tr !== lastTilt) { lastTilt = tr; hd.style.transform = tr ? 'rotate(' + tr + 'deg)' : ''; }
+    var tr = Math.round(t * 10) / 10, kr = Math.round(KS * 1000) / 1000;
+    if (tr !== lastTilt || kr !== lastK) { lastTilt = tr; lastK = kr; hd.style.transform = (kr !== 1 ? 'scale(' + kr + ')' : '') + (tr ? ' rotate(' + tr + 'deg)' : ''); }
+    if (bubbleOn && bubRel) bub.style.transform = 'translate3d(' + (x + bubRel.x).toFixed(1) + 'px,' + (y + bubRel.y).toFixed(1) + 'px,0)';
   }
   function lookScreen(x, y) {
     if (!face) return;
-    var c = SZ * 0.78 * 2.2;
+    var c = SZ * KS * 0.78 * 2.2;
     face.look(clamp((x - HX - SZ / 2) / c, -1, 1), clamp((y - HY - SZ / 2) / c, -1, 1));
   }
   function lookSpot() { if (lookPt) lookScreen(lookPt.x, lookPt.y - W.pageYOffset); }
@@ -436,23 +425,27 @@
     var dt = lastT ? Math.min(0.04, (ts - lastT) / 1000) : 1 / 60; lastT = ts;
     var morphing = false;
     if (!shown) { morphing = morphTick(dt); if (morphing) { if (!raf) raf = W.requestAnimationFrame(frame); } else lastT = 0; return; }
-    var sy = W.pageYOffset, dsy = sy - lastSY; lastSY = sy;
-    var un = target(), clampedY = Math.abs(un - T.y) > 0.5;
-    if (!entering) setPark(Math.abs(un - T.y) > SZ * 0.45);
+    if (sFlag) { sFlag = false; scrollWork(); }
+    var sy = W.pageYOffset, dsy = sy - lastSY, bar = barNow(); lastSY = sy;
+    var un = target(), clampedY = !bar && Math.abs(un - T.y) > 0.5;
+    if (!entering) setPark(!bar && Math.abs(un - T.y) > SZ * 0.45);
+    var kt = bar ? KD : 1;
+    rg.classList.toggle('dock', bar);
     if (RM) {
-      P.x = T.x; P.y = T.y; P.vx = P.vy = 0; render(P.x, P.y, 0);
+      KS = kt; P.x = T.x; P.y = T.y; P.vx = P.vy = 0; render(P.x, P.y, 0);
       morphing = morphTick(dt);
       if (morphing) { if (!raf) raf = W.requestAnimationFrame(frame); } else lastT = 0;
       return;
     }
-    if (!entering && !clampedY) P.y -= dsy * ATTACH;   /* пришита к странице на 85 %: остаток догоняет пружина */
+    if (!entering && !clampedY && !bar) P.y -= dsy * ATTACH;   /* в поле пришита к странице на 85 %: остаток догоняет пружина */
+    KS += (kt - KS) * Math.min(1, dt * 9); if (Math.abs(kt - KS) < 0.002) KS = kt;
     var k = K, c = C, n = Math.max(1, Math.ceil(dt / 0.008)), h = dt / n, i;
     for (i = 0; i < n; i++) {
       P.vx += (k * (T.x - P.x) - c * P.vx) * h; P.vy += (k * (T.y - P.y) - c * P.vy) * h;
       P.x += P.vx * h; P.y += P.vy * h;
     }
     if (entering && P.x <= vw - EDGE - SZ && P.y >= TOP) entering = false;
-    if (!entering) {
+    if (!entering && !bar && !flying) {
       if (P.x < EDGE) { P.x = EDGE; if (P.vx < 0) P.vx = 0; } else if (P.x > vw - EDGE - SZ) { P.x = vw - EDGE - SZ; if (P.vx > 0) P.vx = 0; }
       if (P.y < TOP) { P.y = TOP; if (P.vy < 0) P.vy = 0; } else if (P.y > vh - BOT - SZ) { P.y = vh - BOT - SZ; if (P.vy > 0) P.vy = 0; }
     }
@@ -465,9 +458,9 @@
     var tg = clamp(P.vx * 0.011, -11, 11);
     tilt += (tg - tilt) * Math.min(1, dt * 12);
     if (flying || entering) lookSpot();
-    render(P.x + ox, P.y + oy, tilt);
+    render(clamp(P.x + ox, 4, vw - SZ - 4), P.y + oy, tilt);
     morphing = morphTick(dt);
-    if (flying || entering || morphing || dist > 0.4 || spd > 3 || Math.abs(tilt) > 0.05) { if (!raf) raf = W.requestAnimationFrame(frame); }
+    if (flying || entering || morphing || dist > 0.4 || spd > 3 || Math.abs(tilt) > 0.05 || KS !== kt) { if (!raf) raf = W.requestAnimationFrame(frame); }
     else { P.x = T.x; P.y = T.y; P.vx = P.vy = 0; tilt = 0; render(P.x, P.y, 0); lastT = 0; }
   }
   function fly() {
@@ -478,10 +471,10 @@
     if (d < 6) { if (cur && cur.want) setTimeout(function () { tryReact(cur); }, 120); wake(); return; }
     flying = true; fly0 = d;
     /* дуга: поперёк полёта; вертикальный перелёт выгибается к середине экрана, остальные — вверх */
-    var nx = -dy / d, ny = dx / d;
-    if (Math.abs(dy) > Math.abs(dx) * 1.5) { var toC = vw / 2 - (P.x + SZ / 2) >= 0 ? 1 : -1; if (nx * toC < 0) { nx = -nx; ny = -ny; } }
-    else if (ny > 0) { nx = -nx; ny = -ny; }
-    AN = { x: nx, y: ny }; arcH = Math.min(SZ * 1.1, d * 0.16);
+    /* дуга выгибается к ближнему краю экрана — через содержимое голова не летит */
+    var nx = -dy / d, ny = dx / d, out = (P.x + T.x) / 2 + SZ / 2 > vw / 2 ? 1 : -1;
+    if (nx * out < 0) { nx = -nx; ny = -ny; }
+    AN = { x: nx, y: ny }; arcH = Math.min(SZ * 0.6, d * 0.1);
     wake();
   }
   var tpT = 0;
@@ -492,12 +485,6 @@
     rg.classList.add('fade'); tpT = setTimeout(go, 200);
   }
   function landed() {
-    if (cur && !cur.refined && cur.spot) {
-      /* одна сверка после посадки: блоки страницы могли доезжать своим появлением */
-      cur.refined = true;
-      var s2 = spotFor(cur);
-      if (Math.abs(s2.x - cur.spot.x) + Math.abs(s2.y - cur.spot.y) > 8) { cur.spot = s2; spot = s2; lookPt = { x: s2.lx, y: s2.ly }; fly(); return; }
-    }
     if (cur && cur.want) setTimeout(function () { tryReact(cur); }, 100);
     wake();
   }
@@ -548,13 +535,22 @@
     calmT = setTimeout(calm, long ? 12000 : 2400);
   }
   function calm() { clearTimeout(calmT); if (face && !bubbleOn && !rebooting) { baseE = 'idle'; face.set('idle'); } }
+  /* пузырь: в поле — под головой и едет за ней (в контактах — у фото); в шапке — слева от головы, в тёмной полосе */
   function placeBubble(str) {
-    var V = { l: EDGE, r: vw - EDGE, t: TOP, b: vh - BOT }, av = avoid(cur && cur.el, 0), im = E === 1 && avaBot ? q('img', avaBot) : null, b;
-    if (im) { var ir = im.getBoundingClientRect(); b = bubbleFor(ir.left, ir.top, str, V, av, ir.width); }
-    else b = bubbleFor(HX, HY, str, V, av);
-    bub.style.maxWidth = b.mw + 'px';
-    bub.style.left = (b.x - HX).toFixed(1) + 'px'; bub.style.top = (b.y - HY).toFixed(1) + 'px';
-    bub.className = 'rg-b c-' + b.c + (bubbleOn ? ' on' : '');
+    var x, y, bw, bs, c = '', im = E === 1 && avaBot ? q('img', avaBot) : null;
+    if (spot && spot.mode === 'gut') {
+      bw = spot.bw; bs = bubbleSize(str, bw); x = spot.bx;
+      if (im) { var ir = im.getBoundingClientRect(); y = (ir.top + ir.bottom) / 2 - bs.h / 2; c = spot.side === 'r' ? 'tl' : 'tr'; }
+      else y = HY + SZ + 10;
+      y = clamp(y, TOP, vh - BOT - bs.h);
+      bubRel = { x: x - HX, y: y - HY };
+    } else {
+      var l = BAR ? BAR.l : 16, r = BAR ? BAR.hx - 10 : vw - 100;
+      bw = Math.max(160, Math.min(560, Math.floor(r - l))); bs = bubbleSize(str, bw);
+      x = r - bs.w; y = Math.max(6, (BAR ? BAR.cy : 30) - bs.h / 2); c = 'tr'; bubRel = null;
+    }
+    bIn.style.maxWidth = bw + 'px'; bIn.className = 'rg-bi' + (c ? ' c-' + c : '');
+    bub.style.transform = 'translate3d(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px,0)';
   }
   function say(str, key, after) {
     if (!face || off) return;
@@ -645,15 +641,18 @@
     var r = tip.getBoundingClientRect();
     if (!r.width || r.top < TOP || r.bottom > vh - 4 || r.left < 0 || r.right > vw) { st.hintWait = true; return; }
     st.hintWait = false; ssAdd(K_HINT, st.hk);
-    finger(tip, st);
+    var ric = W.requestIdleCallback || function (fn) { return setTimeout(fn, 60); };
+    ric(function () { if (cur === st && !off && !parked) finger(tip, st); }, { timeout: 400 });   /* поза руки — замер вёрстки, в простое */
   }
   function finger(tip, st) {
     var act = closestAct(tip) || tip, pl = fingerPlace(tip, act, st.el);
     fo.style.transform = 'scale(' + pl.mx + ',' + pl.my + ')';
     fEl.className = 'rg-f';
     fx.style.transition = fy.style.transition = 'none';
-    fx.style.transform = 'translate3d(' + (HX + SZ / 2).toFixed(1) + 'px,0,0)';
-    fy.style.transform = 'translate3d(0,' + (HY + SZ * (E === 1 ? 0.5 : 0.45)).toFixed(1) + 'px,0)';
+    var fsx = HX + SZ / 2, fsy = HY + SZ / 2, pim = E === 1 && avaBot ? q('img', avaBot) : null;
+    if (pim) { var pr = pim.getBoundingClientRect(); fsx = (pr.left + pr.right) / 2; fsy = (pr.top + pr.bottom) / 2; }
+    fx.style.transform = 'translate3d(' + fsx.toFixed(1) + 'px,0,0)';
+    fy.style.transform = 'translate3d(0,' + fsy.toFixed(1) + 'px,0)';
     void fEl.offsetWidth;
     fx.style.transition = fy.style.transition = '';
     fEl.className = 'rg-f on';
@@ -681,20 +680,14 @@
   }
 
   /* ================= события ================= */
-  /* на быстрой прокрутке лицо замирает (на него в этот миг не смотрят, а 4× медленный процессор теряет кадры
-     на отрисовке светодиодов) и оживает через 200 мс после того, как прокрутка улеглась */
-  var sfT = 0, sfOn = false, sLastY = 0, sLastT = 0;
-  function scrollFreeze() {
-    var t = now(), y = W.pageYOffset, v = sLastT ? Math.abs(y - sLastY) / Math.max(1, t - sLastT) : 0;
-    sLastY = y; sLastT = t;
-    if (!face || RM) return;
-    if (v > 0.6 && !sfOn && !bubbleOn && !rebooting && !lbOpen) { sfOn = true; face.freeze(true); }
-    clearTimeout(sfT);
-    if (sfOn) sfT = setTimeout(function () { sfOn = false; sLastT = 0; if (face && !lbOpen) face.freeze(false); }, 200);
-  }
-  function onScroll() {
-    if (!shown || off) return;
-    scrollFreeze();
+  /* прокрутка: в обработчике события — только флаг; вся работа — раз в кадр. Лицо на прокрутке замирает (его в этот
+     миг не разглядывают, а слабый процессор теряет кадры на светодиодах) и оживает через 150 мс после остановки */
+  var sfT = 0, sfOn = false;
+  function unfreeze() { sfOn = false; if (face && !lbOpen) face.freeze(false); }
+  function onScroll() { if (!shown || off) return; if (!sFlag) { sFlag = true; wake(); } }
+  function scrollWork() {
+    if (face && !RM && !sfOn && !rebooting && !lbOpen) { sfOn = true; face.freeze(true); }
+    clearTimeout(sfT); if (sfOn) sfT = setTimeout(unfreeze, 150);
     var st = activeStop();
     if (st !== pend) {
       pend = st; clearTimeout(actT);
@@ -704,7 +697,6 @@
     if (fingerOn && Math.abs(W.pageYOffset - fSY) > 24) hideFinger();
     ET = wantE();
     if (cur && cur.hintWait) { clearTimeout(idleT); idleT = setTimeout(function () { if (cur && cur.hintWait && !bubbleOn) hintFor(cur); }, 500); }
-    wake();
   }
   var rzT = 0, lastW = 0;
   function onResize() {
@@ -747,7 +739,7 @@
     return (Math.round((u + v) * 7) & 1) ? 1 : 0;
   }
   function sample(w0) {
-    var gw = Math.max(8, Math.round(w0 / 4.4)), key = w0 + '|' + gw, st, c, g, d, out = [], i, j, R = w0 / 2;
+    var gw = Math.max(8, Math.round(w0 / (LOW ? 6.2 : 4.4))), key = w0 + '|' + gw, st, c, g, d, out = [], i, j, R = w0 / 2;
     if (sampCache[key]) return sampCache[key];
     if (!photoOk) return null;
     st = w0 / gw; c = D.createElement('canvas'); c.width = c.height = gw; g = c.getContext('2d');
@@ -790,6 +782,7 @@
   function drawMorph(alpha) {
     var m = mph, sy = W.pageYOffset, p = clamp(E - m.lo, 0, 1), pcx = m.cx, pcy = m.cy - sy;
     var hcx = m.cloud ? pcx : HX + SZ / 2, hcy = m.cloud ? pcy : HY + SZ / 2, aP = m.lo < 0, L, i, j, key, pt, n = m.parts.length;
+    var ks = m.cloud ? 1 : KS, hs = Math.max(1.2, m.hsz * ks);
     var x0 = 1e9, y0 = 1e9, x1 = -1e9, y1 = -1e9;
     og.setTransform(odpr, 0, 0, odpr, 0, 0);
     /* чистим только прямоугольник прошлого кадра: холст на весь экран, а частицы занимают его малую часть */
@@ -806,7 +799,7 @@
     /* 2 — на круге головы, цветом светодиодов */
     for (i = 0; i < m.lb.length; i++) {
       L = m.lb[i].p; og.fillStyle = m.lb[i].c;
-      for (j = 0; j < L.length; j++) { pt = L[j]; if (aP ? pt.t < 0.9 : pt.t > 0.1) continue; og.fillRect(hcx + pt.hx - m.hsz / 2, hcy + pt.hy - m.hsz / 2, m.hsz, m.hsz); }
+      for (j = 0; j < L.length; j++) { pt = L[j]; if (aP ? pt.t < 0.9 : pt.t > 0.1) continue; og.fillRect(hcx + pt.hx * ks - hs / 2, hcy + pt.hy * ks - hs / 2, hs, hs); }
     }
     var hr = m.cloud ? m.sz * 40 : SZ;
     if (hcx - hr < x0) x0 = hcx - hr; if (hcx + hr > x1) x1 = hcx + hr; if (hcy - hr < y0) y0 = hcy - hr; if (hcy + hr > y1) y1 = hcy + hr;
@@ -815,7 +808,7 @@
     for (i = 0; i < n; i++) {
       pt = m.parts[i]; if (pt.t <= 0.1 || pt.t >= 0.9) continue;
       var u = (pt.t - 0.1) / 0.8; u = u < 0.5 ? 4 * u * u * u : 1 - Math.pow(-2 * u + 2, 3) / 2;
-      var ax = pcx + pt.px, ay = pcy + pt.py, bx = hcx + pt.hx, by = hcy + pt.hy, tq;
+      var ax = pcx + pt.px, ay = pcy + pt.py, bx = hcx + pt.hx * ks, by = hcy + pt.hy * ks, tq;
       if (!aP) { tq = ax; ax = bx; bx = tq; tq = ay; ay = by; by = tq; }
       var ddx = bx - ax, ddy = by - ay, mx = (ax + bx) / 2 - ddy * pt.kk, my = (ay + by) / 2 + ddx * pt.kk, iu = 1 - u;
       var x = iu * iu * ax + 2 * iu * u * mx + u * u * bx, y = iu * iu * ay + 2 * iu * u * my + u * u * by;
@@ -841,7 +834,7 @@
   function nearAva() {
     if (!alive) return true;
     if (!cur || cur.k !== 'contact' || parked) return false;
-    return (!flying && Math.abs(HX - T.x) + Math.abs(HY - T.y) < SZ * 0.6) || now() - (cur.at || 0) > 1800;
+    return (!flying && !entering) || now() - (cur.at || 0) > 1800;   /* голова тает там, где стоит, — к фото летят частицы */
   }
   function applyE() {
     if (rg) rg.classList.toggle('emb', E !== 0);
@@ -1046,7 +1039,10 @@
     var stopLp = function () { clearTimeout(lpT); };
     hd.addEventListener('pointerup', stopLp); hd.addEventListener('pointercancel', stopLp); hd.addEventListener('pointerleave', stopLp);
     hd.addEventListener('contextmenu', function (e) { e.preventDefault(); });
-    xb.addEventListener('click', function (e) { e.stopPropagation(); goodbye(); });
+    xb.addEventListener('click', function (e) { e.stopPropagation(); goodbye(true); });
+    /* окно сузили до планшета/телефона — гид уходит (не навсегда), фото возвращаются */
+    var onMQ = function (e) { if (!e.matches && !off) goodbye(false); };
+    if (MQD.addEventListener) MQD.addEventListener('change', onMQ); else if (MQD.addListener) MQD.addListener(onMQ);
     /* язык страницы: <html lang> меняет переключатель RU/EN */
     mo1 = new MutationObserver(function () {
       var l = lang(); if (l === LNG) return;
@@ -1084,8 +1080,8 @@
     if (W.ResizeObserver) { ro = new ResizeObserver(function () { dirty = true; }); ro.observe(D.body); }
     D.addEventListener('visibilitychange', function () { if (!D.hidden && cur && cur.want) setTimeout(function () { tryReact(cur); }, 300); });
   }
-  function goodbye() {
-    off = true; lsSet(K_OFF, '1');
+  function goodbye(forever) {
+    off = true; if (forever !== false) lsSet(K_OFF, '1');
     hush(); hideFinger();
     while (rbT.length) clearTimeout(rbT.pop());
     if (face) face.play('shutdown');
@@ -1099,6 +1095,8 @@
       if (avaTop) avaTop.classList.remove('rg-gone');
       if (avaBot) avaBot.classList.remove('rg-gone');
       if (rg.parentNode) rg.parentNode.removeChild(rg);
+      if (bub.parentNode) bub.parentNode.removeChild(bub);
+      if (ms.parentNode) ms.parentNode.removeChild(ms);
       if (fEl.parentNode) fEl.parentNode.removeChild(fEl);
       shown = false;
     }, 1300);
