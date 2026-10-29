@@ -59,7 +59,8 @@
 html{background:#050706;overflow-x:clip;width:100%}
 @media (prefers-reduced-motion:no-preference){ html{scroll-behavior:smooth} }
 /* лёгкая доводка до слайда только на телефоне и только «рядом»: прокрутку не держит */
-@media (max-width:899px){ html{scroll-snap-type:y proximity} }
+/* без привязки слайдов (Роч 29.10: «скроллинг не работает, отбрасывает назад»): блоки выше экрана и меняющие высоту
+   при загрузке заставляли Safari тянуть страницу к началу блока. Прокрутка — свободная */
 html.lb-lock{overflow:hidden}
 body{background:#050706;color:var(--text);font-family:var(--font);font-size:16px;line-height:1.5;
   -webkit-font-smoothing:antialiased;min-height:100vh;width:100%;overflow-x:clip;position:relative}
@@ -189,7 +190,7 @@ img,video,iframe{display:block;max-width:100%}
 
 /* ============ слайды ============ */
 .slide{position:relative;z-index:2;min-height:100vh;min-height:100svh;display:flex;align-items:center;
-  padding:var(--top) 20px 44px;scroll-snap-align:start}
+  padding:var(--top) 20px 44px}
 @media (max-width:359px){ .slide{padding-left:16px;padding-right:16px} .top{padding-left:16px;padding-right:16px} }
 .w{width:100%;max-width:1220px;margin:0 auto}
 
