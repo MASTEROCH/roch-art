@@ -2070,6 +2070,10 @@ img,video,iframe{display:block;max-width:100%}
   var f = function(){ tk = 0; var v = (window.pageYOffset || document.documentElement.scrollTop) > 12; if(v !== on){ on = v; t.classList.toggle('sc', v); } };
   window.addEventListener('scroll', function(){ if(!tk) tk = requestAnimationFrame(f); }, { passive: true }); f(); })();
 </script>
-<script src="/assets/js/guide.js?v=1" defer></script>
+<script>
+/* маскот-гид — только на компьютере с мышью (Роч 29.10: «на мобайле убери маскота вообще, на десктопе оставим») */
+(function(){ try{ if(!window.matchMedia || !matchMedia('(min-width:900px) and (hover:hover) and (pointer:fine)').matches) return; }catch(e){ return; }
+  var s = document.createElement('script'); s.src = '/assets/js/guide.js?v=1'; s.defer = true; document.body.appendChild(s); })();
+</script>
 </body>
 </html>
