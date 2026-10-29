@@ -138,8 +138,12 @@ p.lead b{color:var(--text);font-weight:700}
 
 /* ============ EDGE SCRIM (низ) — контент не просвечивает под home-индикатором ============ */
 .edge-scrim{position:fixed;left:0;right:0;z-index:49;pointer-events:none}
-.edge-scrim.bot{bottom:0;height:calc(env(safe-area-inset-bottom,0px) + 40px);
-  background:linear-gradient(0deg, rgba(5,7,6,.96) 34%, rgba(5,7,6,.55) 72%, transparent)}
+/* мягкое затухание (Роч 29.10: «тень криво наложена полоской»): было 40 px с обрывом .96→.55→0 — читалось
+   полосой с краем. Теперь выше и по кривой ease-out в десять точек: края не видно, глаз видит только, что низ темнеет. */
+.edge-scrim.bot{bottom:0;height:calc(env(safe-area-inset-bottom,0px) + 110px);
+  background:linear-gradient(0deg,
+    rgba(5,7,6,.9) 0%, rgba(5,7,6,.86) 10%, rgba(5,7,6,.78) 20%, rgba(5,7,6,.66) 30%, rgba(5,7,6,.52) 40%,
+    rgba(5,7,6,.38) 50%, rgba(5,7,6,.25) 60%, rgba(5,7,6,.14) 70%, rgba(5,7,6,.06) 82%, rgba(5,7,6,0) 100%)}
 
 /* ============ HEADER ============ */
 .nav-right{display:flex;align-items:center;gap:8px;flex:0 0 auto}
@@ -151,7 +155,7 @@ p.lead b{color:var(--text);font-weight:700}
 /* выбранный язык — тонировка, не заливка: в подвале «RU» был самым ярким пятном экрана (прищур 21.10, #1236) */
 .lang-tog .lt-o.on{background:rgba(212,255,79,.16);color:var(--lime);box-shadow:inset 0 0 0 1px rgba(212,255,79,.45)}
 .lang-tog:active{transform:scale(.95)}
-header{padding:16px 0 0;position:sticky;top:8px;z-index:50;transition:top .35s var(--ease)}
+header{padding:16px 0 0;position:sticky;top:8px;z-index:50;transition:top .35s var(--ease), transform .45s var(--ease)}
 header.hide{top:2px}
 /* unified blur scrim behind both HUD panels — kills UI-layer clutter */
 header::before{content:'';position:absolute;left:50%;width:100vw;margin-left:-50vw;top:-10px;bottom:-8px;z-index:-1;
@@ -170,11 +174,14 @@ header.scrolled::after{opacity:1}
 .nav{display:flex;justify-content:space-between;align-items:center;
   padding:10px 10px 10px 18px;border-radius:99px;
   background:rgba(9,13,11,.9);overflow:hidden;max-height:72px;
-  transition:opacity .35s var(--ease), transform .35s var(--ease),
-    max-height .4s var(--ease), padding .4s var(--ease), margin .4s var(--ease), border-width .4s var(--ease)}
-/* при скролле строка лого+слоты схлопывается — HUD поднимается в самый верх */
-header.hide .nav{opacity:0;transform:translateY(-10px);pointer-events:none;
-  max-height:0;padding-top:0;padding-bottom:0;border-width:0}
+  transition:opacity .3s var(--ease)}
+/* при скролле строка лого уходит, HUD поднимается в самый верх. Раньше строка схлопывалась через max-height:
+   шапка — sticky в потоке, высота страницы над контентом падала на ~80 px, браузер подтягивал прокрутку,
+   позиция падала ниже порога, строка раскрывалась обратно — на медленной прокрутке шапку «колбасило» (Роч 29.10).
+   Теперь шапка целиком едет transform'ом на высоту строки (--nh меряет JS): вёрстка не меняется, петли нет. */
+header{will-change:transform}
+header.hide{transform:translateY(calc(-1 * var(--nh, 66px)))}
+header.hide .nav{opacity:0;pointer-events:none}
 .hud-nav{margin-top:8px;border-radius:22px;padding:6px;display:flex;gap:2px;
   background:rgba(9,13,11,.94);-webkit-backdrop-filter:blur(20px) saturate(150%);backdrop-filter:blur(20px) saturate(150%);
   border:1px solid rgba(255,255,255,.14);
@@ -4855,6 +4862,10 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
 
   /* ===== Scroll: параллакс, шапка, cta-bar, XP-бар ===== */
   var hdr = document.getElementById('hdr');
+  /* высота строки лого + зазор до HUD: на столько шапка уезжает вверх (offsetTop не зависит от transform) */
+  (function(){ var nv = hdr && hdr.querySelector('.nav'), hn = document.getElementById('hudNav'); if(!nv || !hn) return;
+    var m = function(){ hdr.style.setProperty('--nh', (hn.offsetTop - nv.offsetTop) + 'px'); };
+    m(); window.addEventListener('resize', m, { passive: true }); if(document.fonts && document.fonts.ready) document.fonts.ready.then(m); })();
   var ctaBar = document.getElementById('ctaBar');
   var orbsC = document.getElementById('orbs');
   var sxp = document.getElementById('sxp');
@@ -4909,7 +4920,9 @@ footer .eco-h{margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.
     if(!reduced && orbsC) orbsC.style.transform = 'translate3d(0,' + (y * -0.08).toFixed(1) + 'px,0)';
     /* классы — только при смене состояния: add/remove каждый кадр переписывали атрибут class у шапки и панели */
     if(hdr){
-      if((y > 60) !== st.hide){ st.hide = y > 60; hdr.classList.toggle('hide', st.hide); }
+      /* порог с запасом: спрятать после 72 px, показать выше 32 px — медленная прокрутка у порога не мигает */
+      var hd = st.hide ? y > 32 : y > 72;
+      if(hd !== st.hide){ st.hide = hd; hdr.classList.toggle('hide', hd); }
       if((y > 24) !== st.scr){ st.scr = y > 24; hdr.classList.toggle('scrolled', st.scr); }
     }
     /* плашка — когда hero-CTA ушли из кадра; прячется у финального CTA */
