@@ -9,7 +9,7 @@ its own speed; beats are hard cuts. Every frame is composed in PIL and piped to 
 → reels/out/<slug>-<lang>-master.mp4 (1080×1920, crf 18) · <slug>-<lang>-site.mp4 (720×1280, two-pass ≤ 3 MB, no audio)
 → reels/out/<slug>-poster.webp (720×1280, a frame from beat 1) · reels/out/<slug>-<lang>.edl.json
 """
-import json, math, os, random, subprocess, sys
+import json, math, os, random, re, subprocess, sys
 from PIL import Image, ImageChops, ImageDraw, ImageFilter
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -35,7 +35,7 @@ random.seed(7)
 def T(k): return SPEC.get(k + '_' + LANG, SPEC.get(k + '_ru', ''))
 TXT = os.path.join(OUTD, '%s-%s.captions.txt' % (SPEC['slug'], LANG))
 open(TXT, 'w').write('\n\n'.join([T('idea')] + [B.get('cap_' + LANG, B.get('cap_ru', '')).replace('*', '') for B in SPEC['beats']] + [SPEC['name'], T('niche'),
-    'Упаковано ROCH 0→1 · roch-art.com' if LANG == 'ru' else 'Packaged by ROCH 0→1 · roch-art.com']) + '\n')
+    re.sub(r'<[^>]+>', '', SPEC.get('credit_' + LANG, '')) or ('Упаковано ROCH 0→1 · roch-art.com' if LANG == 'ru' else 'Packaged by ROCH 0→1 · roch-art.com')]) + '\n')
 TC = os.path.expanduser('~/.claude/skills/ТЕКСТ/templates/textcheck.py')
 if LANG == 'ru' and os.path.exists(TC):
     r = subprocess.run(['python3', TC, TXT], capture_output=True, text=True)

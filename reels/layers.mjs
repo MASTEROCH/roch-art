@@ -121,7 +121,8 @@ for (let i = 0; i < SPEC.beats.length; i++) {
   await wordShots('#h', meta.hook.words, 'hook');
 }
 // end card: logo · name · niche · ROCH credit (separate layers so compose can bring them in one by one)
-const credit = LANG === 'ru' ? 'Упаковано <b>ROCH 0→1</b> · roch-art.com' : 'Packaged by <b>ROCH 0→1</b> · roch-art.com';
+// credit_ru / credit_en in the beat file replace it for Roch's own products (ROCH Motion is not a client package)
+const credit = SPEC['credit_' + LANG] || (LANG === 'ru' ? 'Упаковано <b>ROCH 0→1</b> · roch-art.com' : 'Packaged by <b>ROCH 0→1</b> · roch-art.com');
 const end = {
   'end-logo': SPEC.logo ? `<div class="f"><div style="position:absolute;left:${W / 2 - 92}px;top:520px;width:184px;height:184px;border-radius:50%;background:#0B0B0E;box-shadow:0 0 0 2px ${rgba(C, .55)},0 0 90px ${rgba(C, .45)},0 30px 60px -20px rgba(0,0,0,.8);overflow:hidden;display:grid;place-items:center">
      <img src="${SPEC.logo}" style="width:150px;height:150px;object-fit:contain"></div></div>` : '<div class="f"></div>',

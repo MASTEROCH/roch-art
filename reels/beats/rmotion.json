@@ -1,0 +1,192 @@
+{
+  "slug": "rmotion",
+  "name": "ROCH Motion",
+  "niche_ru": "Мой собственный продукт: магазин живых механик для приложений в Telegram и в браузере",
+  "niche_en": "My own product: a store of live mechanics for apps, in Telegram and on the web",
+  "credit_ru": "Сделано <b>ROCH</b> · roch-art.com/motion",
+  "credit_en": "Made by <b>ROCH</b> · roch-art.com/motion",
+  "color": "#8B5CFF",
+  "url": "https://roch-art.com/motion/",
+  "logo": "file:///Users/roch/code/roch-art-business/assets/logos/rmotion.webp",
+  "viewport": {
+    "w": 390,
+    "h": 844,
+    "dsf": 2
+  },
+  "prep": {
+    "localStorage": {
+      "rm-store-gift-seen": "1",
+      "rm-store-brand-hint": "1",
+      "rm-store-last": "swarm"
+    },
+    "query": "lang=ru&evnow=2026-11-10",
+    "waitFor": "typeof RM==='object' && !!document.querySelector('#btnView') && !!document.getElementById('mname') && document.getElementById('mname').textContent.length>0",
+    "css": "",
+    "eval": "document.documentElement.spellcheck=false;if(document.fonts&&document.fonts.ready)await document.fonts.ready;return 1",
+    "settle_ms": 1500
+  },
+  "prep_en": {
+    "query": "lang=en&evnow=2026-11-10"
+  },
+  "idea_ru": "Хочу, чтобы приложение ожило",
+  "idea_en": "I want my app to come alive",
+  "hook": {
+    "land": {
+      "x": 200,
+      "y": 188
+    }
+  },
+  "poster": {
+    "beat": 2,
+    "at": -0.8
+  },
+  "beats": [
+    {
+      "id": "catalog",
+      "pre": [
+        {
+          "do": "tap",
+          "target": "#btnView",
+          "hold_ms": 1400
+        },
+        {
+          "do": "eval",
+          "value": "var g=document.getElementById('grid');for(var y=0;y<=2700;y+=300){g.scrollTop=y;await new Promise(function(r){setTimeout(r,500);});}g.scrollTop=0;await new Promise(function(r){setTimeout(r,1800);});return 1",
+          "hold_ms": 200
+        }
+      ],
+      "steps": [
+        {
+          "do": "wait",
+          "hold_ms": 350
+        },
+        {
+          "do": "scroll",
+          "target": "#grid",
+          "value": 1150,
+          "ms": 1050,
+          "hold_ms": 180
+        },
+        {
+          "do": "scroll",
+          "target": "#grid",
+          "value": 1150,
+          "ms": 1050,
+          "hold_ms": 550
+        }
+      ],
+      "cap_ru": "Больше трёхсот механик, и каждая *живёт прямо в каталоге*",
+      "cap_en": "Over three hundred mechanics, each one *alive right in the catalog*",
+      "cam": {
+        "x": 195,
+        "y": 470,
+        "s": 1.06
+      }
+    },
+    {
+      "id": "play",
+      "pre": [
+        {
+          "do": "eval",
+          "value": "var g=document.getElementById('grid'),c=document.querySelector('#list .card[data-id=\"swarm\"]');g.scrollTop+=c.getBoundingClientRect().top-330;await new Promise(function(r){setTimeout(r,1800);});return 1",
+          "hold_ms": 200
+        }
+      ],
+      "steps": [
+        {
+          "do": "wait",
+          "hold_ms": 200
+        },
+        {
+          "do": "tap",
+          "target": "#list .card[data-id=\"swarm\"]",
+          "hold_ms": 950,
+          "speed": 1.15
+        },
+        {
+          "do": "tap",
+          "target": "#fxbar button",
+          "hold_ms": 1550
+        },
+        {
+          "do": "tap",
+          "target": "#fxbar button",
+          "hold_ms": 1750
+        }
+      ],
+      "cap_ru": "Вы касаетесь любой, и она играет *как в настоящем приложении*",
+      "cap_en": "Tap any of them, and it plays *like in a real app*",
+      "cam": {
+        "x": 195,
+        "y": 330,
+        "s": 1.1
+      }
+    },
+    {
+      "id": "brand",
+      "pre": [
+        {
+          "do": "tap",
+          "target": "#btnView",
+          "hold_ms": 900
+        },
+        {
+          "do": "eval",
+          "value": "var g=document.getElementById('grid');g.scrollTop=0;await new Promise(function(r){setTimeout(r,500);});return 1",
+          "hold_ms": 100
+        },
+        {
+          "do": "tap",
+          "target": "#list .card[data-id=\"brand-fireworks\"]",
+          "hold_ms": 2600
+        }
+      ],
+      "steps": [
+        {
+          "do": "wait",
+          "hold_ms": 200
+        },
+        {
+          "do": "tap",
+          "target": "#btnAccent",
+          "hold_ms": 650
+        },
+        {
+          "do": "type",
+          "target": "#brN",
+          "value": "Луна",
+          "value_en": "Luna",
+          "ms": 80,
+          "hold_ms": 220,
+          "speed": 1.6
+        },
+        {
+          "do": "type",
+          "target": "#brI",
+          "value": "Капучино",
+          "value_en": "Cappuccino",
+          "ms": 50,
+          "hold_ms": 260,
+          "speed": 1.6
+        },
+        {
+          "do": "tap",
+          "target": "[data-brand=\"try\"]",
+          "hold_ms": 3000,
+          "speed": 1.9
+        },
+        {
+          "do": "wait",
+          "hold_ms": 2250
+        }
+      ],
+      "cap_ru": "Вписываете своё название, и механики *примеряют ваш бренд*",
+      "cap_en": "Type in your name, and the mechanics *try on your brand*",
+      "cam": {
+        "x": 195,
+        "y": 320,
+        "s": 1.08
+      }
+    }
+  ]
+}

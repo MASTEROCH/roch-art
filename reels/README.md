@@ -71,6 +71,8 @@ Before the first take, explore the app at 390×844 with the Telegram stub (see `
 - A target is `text:Start of the label` (the deepest visible element on top whose text starts with it) or a CSS selector, plus optional `nth`, `ox`/`oy` and `at`. The recorder waits up to 2 s for a target and scrolls it into view inside its own container.
 - `speed` belongs to a step: compose plays that window of the source clock faster. Speed up the waiting, never the payoff. An optional beat `dur` scales a beat down to that length, and only ever speeds it up. `trim_in`/`trim_out` cut seconds from the beat's edges.
 - A single-action beat `{do, target, value, hold_ms, cap_ru, cam}` also works.
+- `credit_ru` / `credit_en` replace the end-card credit «Упаковано ROCH 0→1» for Roch's own products (ROCH Motion, 29.10: «Сделано <b>ROCH</b> · roch-art.com/motion»). `logo` may be a `file://` path to a local file.
+- **Apps with their own popups for a first visit** (ROCH Motion: a gift sheet that opens only when `navigator.webdriver` is false, so Playwright never sees it, but the recorder's raw Chrome does): set the app's "seen" keys in `prep.localStorage`, and start from a light screen (`rm-store-last`), otherwise a heavy first screen can push `waitFor` past 30 s on a slow network.
 - A real state change that comes from somewhere else (for example, a florist moving the order in the admin) goes in as an `eval` through the app's own path. In PEONIA that is `localStorage` + `StorageEvent`, exactly what a second tab does.
 
 ## Files

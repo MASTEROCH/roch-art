@@ -387,6 +387,140 @@ img,video,iframe{display:block;max-width:100%}
 .fin .rv:nth-child(2){--d:.06s}.fin .rv:nth-child(3){--d:.12s}.fin .rv:nth-child(4){--d:.18s}.fin .rv:nth-child(5){--d:.24s}
 .foot{display:block;margin-top:28px;text-align:center;font-size:13px;color:var(--text3)}
 
+/* ============ ROCH Motion: блок-витрина перед контактами ============
+   Мой продукт отдельным блоком, не слайдом работ: ролик в телефоне и вокруг него настоящие механики коллекции на одном
+   общем кадре. Цвет блока — фиолетовый знака ROCH Motion (#7C3AFF), лайм остаётся за действием и цифрой.
+   Размеры механик — доли высоты телефона (--ph): блок одинаково собран на 360 и на 1440 */
+.rmx{--c:#8B5CFF;--ph:clamp(300px, 47svh, 420px);overflow-x:clip;isolation:isolate}
+.rmx-bg{position:absolute;inset:0;z-index:-1;pointer-events:none;overflow:hidden;
+  background:radial-gradient(64% 42% at 50% 56%, rgba(124,58,255,.30), transparent 72%),
+    radial-gradient(46% 30% at 12% 92%, rgba(212,255,79,.06), transparent 70%),
+    linear-gradient(180deg, transparent, rgba(40,18,92,.22) 30%, rgba(40,18,92,.22) 70%, transparent)}
+.rmx-bg::after{content:'';position:absolute;inset:0;opacity:.55;
+  background-image:radial-gradient(rgba(196,180,255,.16) 1px, transparent 1.3px);background-size:22px 22px;
+  -webkit-mask:radial-gradient(52% 40% at 50% 56%, #000, transparent 78%);mask:radial-gradient(52% 40% at 50% 56%, #000, transparent 78%)}
+.rmx-w{display:grid;grid-template-columns:minmax(0,1fr);grid-template-areas:"hd" "s" "bd";justify-items:center;text-align:center;row-gap:20px}
+.rmx-hd{grid-area:hd;display:flex;flex-direction:column;align-items:center;max-width:620px}
+.rmx-bd{grid-area:bd;display:flex;flex-direction:column;align-items:center;max-width:560px}
+.rmx-eb{display:inline-flex;align-items:center;gap:10px;padding:5px 14px 5px 5px;border-radius:99px;font-size:13px;font-weight:700;letter-spacing:.01em;
+  color:var(--text2);background:rgba(124,58,255,.13);box-shadow:inset 0 0 0 1px rgba(167,139,255,.3)}
+.rmx-eb img{width:28px;height:28px;border-radius:9px;background:#07060B}
+.rmx-eb b{color:#fff;font-weight:800}
+.rmx h2{margin-top:16px;font-size:clamp(36px,6vw,80px);font-weight:900;letter-spacing:-.045em;line-height:.98;text-wrap:balance}
+.rmx h2 em{font-style:normal;background:linear-gradient(100deg,#C9B8FF,#8B5CFF 55%,#D4FF4F);-webkit-background-clip:text;background-clip:text;color:transparent}
+.rmx-n{display:flex;align-items:center;justify-content:center;gap:14px}
+.rmx-num{font-size:clamp(52px,6.6vw,96px);font-weight:900;letter-spacing:-.05em;line-height:1;color:var(--lime);font-variant-numeric:tabular-nums;
+  filter:drop-shadow(0 0 30px rgba(212,255,79,.32))}
+.rmx-n > span{max-width:12.5em;text-align:left;font-size:clamp(15px,1.5vw,18px);line-height:1.3;font-weight:700;color:var(--text)}
+.rmx-p{margin-top:14px;max-width:30em;font-size:clamp(16px,1.6vw,19px);line-height:1.55;color:var(--text2);text-wrap:balance}
+.rmx-cta{display:flex;flex-direction:column;align-items:center;gap:4px;margin-top:24px;width:100%}
+@media (max-width:479px){ .rmx-cta .btn{width:100%} }
+.rmx-cta .lnk{margin-top:10px;background:none;border-color:transparent;color:var(--text2)}
+.rmx-hd .rv + .rv{--d:.08s}
+.rmx-bd .rv:nth-child(2){--d:.08s}.rmx-bd .rv:nth-child(3){--d:.16s}
+/* сцена — коробка телефона; механики висят вокруг неё, заходя на поля ролика, но не на его кадр */
+.rmx-s{grid-area:s;position:relative;display:flex;justify-content:center;width:100%;padding:6px 0}
+.rmx-st{position:relative;height:var(--ph);width:calc(var(--ph) * .5625)}
+.rmx-st .glow{width:calc(var(--ph) * 1.5)}
+.rmx-pw{position:absolute;inset:0;z-index:2}
+.js .rmx-pw{opacity:0;transform:translateY(34px) scale(.95);transition:opacity 1s var(--out) .05s, transform 1.2s var(--out) .05s}
+.js .rmx.in .rmx-pw{opacity:1;transform:none}
+.rmx-ph{position:absolute;inset:0;transform-origin:50% 55%}
+.rmx .scr{border-radius:calc(var(--ph) * .05);box-shadow:0 50px 100px -36px rgba(0,0,0,.95), 0 0 0 1px rgba(196,180,255,.22), 0 0 70px -10px rgba(124,58,255,.35), inset 0 1px 0 rgba(255,255,255,.12)}
+.rmx .scr .tl{background:#A78BFF}
+/* механика: тёмное стекло без размытия (дёшево на слабом телефоне), шрифт — от высоты телефона */
+.rmx-tl{--o:.1;--y:.5;--tw:.25;--th:.25;--r:0deg;position:absolute;z-index:3;
+  top:calc(var(--y) * var(--ph) - var(--th) * var(--ph) / 2);width:calc(var(--tw) * var(--ph));height:calc(var(--th) * var(--ph));
+  border-radius:calc(var(--ph) * .044);overflow:hidden;font-size:calc(var(--ph) * .027);color:#fff;pointer-events:none;
+  background:linear-gradient(155deg, rgba(255,255,255,.10), rgba(255,255,255,.015) 55%, rgba(255,255,255,.04)), rgba(15,12,26,.9);
+  box-shadow:0 26px 50px -20px rgba(0,0,0,.9), inset 0 0 0 1px rgba(214,204,255,.16), inset 0 1px 0 rgba(255,255,255,.2);
+  transform:rotate(var(--r));will-change:transform}
+.rmx-tl.l{left:calc(var(--o) * var(--ph) - var(--tw) * var(--ph))}
+.rmx-tl.r{left:calc(var(--ph) * .5625 - var(--o) * var(--ph))}
+.js .rmx-tl{opacity:0}
+.rmx-tl.dk{display:none}
+.rmx-lb{position:absolute;left:.75em;bottom:.6em;z-index:4;font-style:normal;font-size:.62em;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:rgba(226,218,255,.66);text-shadow:0 1px 6px rgba(0,0,0,.85)}
+.rmx-cv{position:absolute;inset:0;width:100%;height:100%;display:block}
+.t-sw{--o:.1;--y:.43;--tw:.25;--th:.25;--r:-4deg}
+.t-od{--o:.12;--y:.27;--tw:.29;--th:.16;--r:3deg}
+.t-gl{--o:.12;--y:.6;--tw:.29;--th:.15;--r:-3deg}
+.t-px{--o:.1;--y:.77;--tw:.27;--th:.2;--r:3deg}
+.t-cn{--o:.05;--y:.9;--tw:.17;--th:.17;--r:-6deg}
+.t-bm{--o:.08;--y:.82;--tw:.3;--th:.14;--r:3deg}
+/* табло: монета, число одометром, «+2 500» всплывает */
+.t-od{display:flex;align-items:center;gap:.55em;padding:0 .8em .45em}
+.cn-ic{flex:0 0 auto;width:1.7em;height:1.7em;border-radius:50%;background:radial-gradient(circle at 35% 30%, #FFF3B0, #F5C542 45%, #B07A12);
+  box-shadow:inset 0 0 0 .14em rgba(255,236,160,.55), 0 .2em .6em -.1em rgba(245,197,66,.6)}
+.od-v{display:flex;flex-direction:column;min-width:0}
+.od-v b{font-size:1.32em;font-weight:900;letter-spacing:-.03em;line-height:1.1;font-variant-numeric:tabular-nums}
+.od-v small{font-size:.66em;font-weight:700;color:rgba(226,218,255,.6);letter-spacing:.02em}
+.rmx-plus{position:absolute;right:.7em;top:.45em;font-style:normal;font-size:.72em;font-weight:900;color:var(--lime);opacity:0}
+.rmx-plus.go{animation:rmxPlus 1.15s cubic-bezier(.22,1,.36,1) both}
+@keyframes rmxPlus{0%{opacity:0;transform:translateY(.6em) scale(.9)}18%{opacity:1;transform:none}70%{opacity:1}100%{opacity:0;transform:translateY(-.5em)}}
+.t-od .rmx-lb{display:none}
+/* пиксели: под мозаикой — подарок со знаком */
+.px-u{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.3em;text-align:center;
+  background:radial-gradient(90% 80% at 50% 40%, rgba(212,255,79,.22), transparent 70%), #0E0B18}
+.px-u svg{width:1.9em;height:1.9em;fill:#E9E4FA;filter:drop-shadow(0 0 .6em rgba(212,255,79,.6))}
+.px-u b{font-size:.8em;font-weight:900;letter-spacing:-.01em;line-height:1.1}
+/* стекло: капля едет по ряду значков и увеличивает то, что под ней */
+.gl-row{position:absolute;left:.75em;right:.75em;top:calc(50% - .95em);height:1.9em;display:flex;align-items:center;justify-content:space-between}
+.gi{display:block;width:1.65em;height:1.65em;border-radius:.5em;font-style:normal;box-shadow:inset 0 1px 0 rgba(255,255,255,.45), inset 0 -2px 4px rgba(0,0,0,.25)}
+.gi::after{content:'';display:block;width:42%;height:42%;margin:29%;border-radius:50%;background:rgba(255,255,255,.85)}
+.g1{background:linear-gradient(150deg,#B49CFF,#6D3BFF)}.g2{background:linear-gradient(150deg,#ECFF9A,#9BD21F)}
+.g3{background:linear-gradient(150deg,#FF9EC0,#FF3E7F)}.g4{background:linear-gradient(150deg,#9BE3FF,#1E9BE0)}
+.gi.g2::after{border-radius:.15em}.gi.g3::after{border-radius:.15em .15em 50% 50%}
+.gl-lens{position:absolute;left:0;top:0;width:2.6em;height:2.6em;border-radius:99px;overflow:hidden;will-change:transform;
+  background:rgba(255,255,255,.07);box-shadow:inset 0 1px 0 rgba(255,255,255,.6), inset 0 -1px 0 rgba(255,255,255,.2), inset 0 0 0 1px rgba(255,255,255,.22), 0 .5em 1.2em -.4em rgba(0,0,0,.7)}
+.gl-lens::after{content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  background:radial-gradient(60% 40% at 30% 18%, rgba(255,255,255,.4), transparent 70%), radial-gradient(50% 30% at 70% 90%, rgba(167,139,255,.35), transparent 70%)}
+.gl-in{position:absolute;left:0;top:0;transform-origin:0 0;will-change:transform}
+.gl-in .gl-row{position:absolute}
+.t-gl .rmx-lb{bottom:.35em}
+/* монета: переворот в 3D с подскоком */
+.cn-w{position:absolute;left:50%;top:44%;width:2.6em;height:2.6em;margin:-1.3em 0 0 -1.3em;perspective:12em}
+.cn{position:absolute;inset:0;transform-style:preserve-3d;will-change:transform}
+.cn-f,.cn-b{position:absolute;inset:0;border-radius:50%;-webkit-backface-visibility:hidden;backface-visibility:hidden;display:grid;place-items:center}
+.cn-f{background:radial-gradient(circle at 35% 30%, #FFF6C4, #F5C542 46%, #A8700C);box-shadow:inset 0 0 0 .16em rgba(255,236,160,.6)}
+.cn-b{transform:rotateY(180deg);background:radial-gradient(circle at 35% 30%, #CDBDFF, #7C3AFF 50%, #3A1590);box-shadow:inset 0 0 0 .16em rgba(214,204,255,.55)}
+.cn-f svg,.cn-b svg{width:52%;height:52%}
+.cn-f svg{fill:#FFF8D6}.cn-b svg{fill:#F3F0FF}
+.cn-sh{position:absolute;left:50%;top:76%;width:2.2em;height:.42em;margin-left:-1.1em;border-radius:50%;background:radial-gradient(closest-side, rgba(0,0,0,.65), transparent)}
+/* луч по рамке: конус света крутится под картой, видна только кромка */
+.t-bm{background:#0F0C1A}
+.bm-r{position:absolute;left:50%;top:50%;width:180%;aspect-ratio:1;translate:-50% -50%;will-change:transform;
+  background:conic-gradient(from 0deg, transparent 0 58%, rgba(139,92,255,.75) 78%, #D4FF4F 91%, #fff 95%, transparent 97%)}
+.bm-in{position:absolute;inset:1.5px;border-radius:calc(var(--ph) * .044 - 1.5px);display:flex;align-items:center;gap:.6em;padding:0 .85em .4em;
+  background:linear-gradient(155deg, rgba(255,255,255,.08), rgba(255,255,255,.01) 60%), #120E20}
+.bm-ck{flex:0 0 auto;width:1.7em;height:1.7em;border-radius:50%;display:grid;place-items:center;background:rgba(212,255,79,.14);box-shadow:inset 0 0 0 1px rgba(212,255,79,.45)}
+.bm-ck svg{width:62%;height:62%;fill:none;stroke:var(--lime);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.bm-in span{display:flex;flex-direction:column;min-width:0}
+.bm-in b{font-size:.92em;font-weight:900;letter-spacing:-.01em;line-height:1.15;white-space:nowrap}
+.bm-in small{font-size:.66em;font-weight:700;color:rgba(226,218,255,.6)}
+.t-bm .rmx-lb{display:none}
+/* телефон: первый элемент блока не прячется под затемнением шапки */
+@media (max-width:1099px){ .rmx{padding-top:calc(var(--top) + 26px)} }
+@media (min-width:640px) and (max-width:1099px){ .rmx{--ph:clamp(380px, 52svh, 540px)} }
+@media (min-width:1100px){
+  .rmx{--ph:min(76svh, 660px, calc((100vw - 80px) * .56))}
+  .rmx-w{grid-template-columns:minmax(0,5fr) minmax(0,6fr);grid-template-rows:1fr auto auto 1fr;grid-template-areas:". s" "hd s" "bd s" ". s";
+    justify-items:start;text-align:left;column-gap:40px;row-gap:0}
+  .rmx-hd,.rmx-bd{align-items:flex-start}
+  .rmx h2{font-size:clamp(44px,4.4vw,64px)}
+  .rmx-bd{margin-top:26px}
+  .rmx-n{justify-content:flex-start}
+  .rmx-cta{flex-direction:row;flex-wrap:wrap;align-items:center;gap:8px 18px}
+  .rmx-cta .lnk{margin-top:0}
+  .rmx-s{justify-self:center;padding:0}
+  .rmx-tl.dk{display:block}
+  .t-sw{--o:.07;--y:.33;--tw:.25;--th:.25;--r:-5deg}
+  .t-od{--o:.08;--y:.26;--tw:.29;--th:.14;--r:4deg}
+  .t-gl{--o:.07;--y:.53;--tw:.28;--th:.15;--r:-3deg}
+  .t-px{--o:.06;--y:.63;--tw:.26;--th:.19;--r:4deg}
+  .t-cn{--o:.05;--y:.89;--tw:.17;--th:.17;--r:-6deg}
+  .t-bm{--o:.08;--y:.81;--tw:.29;--th:.14;--r:3deg}
+}
+
 /* ============ экраны: лента с пролистыванием ============ */
 .lb{position:fixed;inset:0;z-index:50;display:flex;flex-direction:column;background:#040605;
   opacity:0;visibility:hidden;transition:opacity .2s var(--ease), visibility 0s .2s}
@@ -505,6 +639,9 @@ img,video,iframe{display:block;max-width:100%}
   .cv,.ava::before,.btn::before,.btn-sh::after,.hint .ico{animation:none}
   .glow{transition:none}
   .prog-h,.glr,.mc-lit,.mc-rim,.sr-sh{display:none}
+  .js .rmx-pw{opacity:1;transform:none;transition:none}
+  .js .rmx-tl{opacity:1}
+  .rmx-plus.go{animation:none}
 }
 </style>
 </head>
@@ -575,7 +712,43 @@ img,video,iframe{display:block;max-width:100%}
     </div>
   </section>
 
-
+  <!-- ROCH Motion: мой продукт отдельным блоком перед контактами. Механики вокруг ролика собираются скриптом, когда блок
+       в экране от кадра, и играют, только пока он виден -->
+  <section class="slide rmx" id="motion" aria-labelledby="rmxH">
+    <div class="rmx-bg" aria-hidden="true"></div>
+    <div class="w rmx-w">
+      <div class="rmx-hd">
+        <div class="rmx-eb rv"><img src="/assets/logos/rmotion.webp" width="256" height="256" alt="" loading="lazy" decoding="async"><span>Мой продукт · <b>ROCH Motion</b></span></div>
+        <h2 class="rv hd" id="rmxH">Движение, которое можно <em>потрогать</em></h2>
+      </div>
+      <div class="rmx-s">
+        <div class="rmx-st" id="rmxSt">
+          <i class="glow" aria-hidden="true"></i>
+          <div class="rmx-pw"><div class="rmx-ph" id="rmxPh" data-dyn>
+            <div class="scr" id="rmxScr" role="button" tabindex="0" aria-label="Ролик ROCH Motion: пауза и воспроизведение">
+              <img class="poster" src="/assets/reels/rmotion-poster.webp" width="720" height="1280" alt="" loading="lazy" decoding="async">
+              <i class="tl"></i><i class="glr" aria-hidden="true"></i><span class="pb" aria-hidden="true"><i class="ico i-tri"></i><i class="ico i-pause"></i></span>
+              <span class="msg">Ролик не загрузился. Нажмите, чтобы попробовать ещё раз.</span>
+            </div>
+          </div></div>
+          <div class="rmx-tl l t-sw" data-fx="swarm" aria-hidden="true"><i class="rmx-lb">Рой</i></div>
+          <div class="rmx-tl r t-od" data-fx="odo" aria-hidden="true"><span class="cn-ic"></span><span class="od-v"><b class="ov">12 480</b><small>Баланс</small></span><i class="rmx-plus">+2 500</i><i class="rmx-lb">Табло</i></div>
+          <div class="rmx-tl r t-gl" data-fx="glass" aria-hidden="true"><div class="gl-row"><i class="gi g1"></i><i class="gi g2"></i><i class="gi g3"></i><i class="gi g4"></i></div><div class="gl-lens"><div class="gl-in"></div></div><i class="rmx-lb">Стекло</i></div>
+          <div class="rmx-tl l t-px" data-fx="pixel" aria-hidden="true"><div class="px-u"><svg viewBox="0 0 128 128"><path fill-rule="evenodd" d="M64 6L122 64 64 122 6 64zM64 28Q57 57 28 64Q57 71 64 100Q71 71 100 64Q71 57 64 28z"/></svg><b>Подарок открыт</b></div><i class="rmx-lb">Пиксели</i></div>
+          <div class="rmx-tl l t-cn dk" data-fx="coin" aria-hidden="true"><div class="cn-w"><div class="cn"><i class="cn-f"><svg viewBox="0 0 24 24"><path d="M12 2.6l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.4l-5.9 3.3 1.3-6.6-4.9-4.6 6.6-.8z"/></svg></i><i class="cn-b"><svg viewBox="0 0 128 128"><path fill-rule="evenodd" d="M64 6L122 64 64 122 6 64zM64 28Q57 57 28 64Q57 71 64 100Q71 71 100 64Q71 57 64 28z"/></svg></i></div></div><i class="cn-sh"></i><i class="rmx-lb">Монета</i></div>
+          <div class="rmx-tl r t-bm dk" data-fx="beam" aria-hidden="true"><i class="bm-r"></i><div class="bm-in"><i class="bm-ck"><svg viewBox="0 0 24 24"><path d="M6 12.5l4 4 8-9"/></svg></i><span><b>Заказ оплачен</b><small>Спасибо!</small></span></div><i class="rmx-lb">Луч</i></div>
+        </div>
+      </div>
+      <div class="rmx-bd">
+        <div class="rmx-n rv"><b class="rmx-num" id="rmxNum">300+</b><span>живых механик для приложений и сайтов</span></div>
+        <p class="rmx-p rv">Каждая играет прямо в каталоге и примеряет ваш бренд, а код нужных вы забираете к себе в приложение.</p>
+        <div class="rmx-cta rv">
+          <a class="btn rmx-go" id="rmxGo" href="https://t.me/ROCH_Motion_Bot?startapp=w" target="_blank" rel="noopener"><span class="btn-sh"></span><span class="btn-lb"><i class="ico i-tg"></i>Открыть ROCH Motion в Telegram</span></a>
+          <a class="lnk" href="https://roch-art.com/motion/" target="_blank" rel="noopener">Витрина в браузере<i class="ico i-out"></i></a>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <section class="slide ct" id="contact" aria-labelledby="finH">
     <div class="w">
@@ -681,7 +854,16 @@ img,video,iframe{display:block;max-width:100%}
     'Мебельный салон, где кухню видно в своей комнате ещё до замера': 'A furniture store where you see the kitchen in your own room before the measuring visit',
     'Премиальная аренда автомобилей с неоновой витриной': 'Premium car rental with a neon showroom',
     'Турагентство, где тур подбирают за четыре вопроса вместо переписки': 'A travel agency that picks a tour in four questions instead of a long chat',
-    'Ресторанное приложение с меню, баллами и лигами гостей': 'A restaurant app with a menu, points and guest leagues'
+    'Ресторанное приложение с меню, баллами и лигами гостей': 'A restaurant app with a menu, points and guest leagues',
+    'Мой продукт ·': 'My product ·',
+    'Движение, которое можно': 'Motion you can',
+    'потрогать': 'touch',
+    'живых механик для приложений и сайтов': 'live mechanics for apps and websites',
+    'Каждая играет прямо в каталоге и примеряет ваш бренд, а код нужных вы забираете к себе в приложение.': 'Each one plays right in the catalog and tries on your brand, and you take the code for the ones you need into your app.',
+    'Открыть ROCH Motion в Telegram': 'Open ROCH Motion in Telegram',
+    'Витрина в браузере': 'Web showcase',
+    'Рой': 'Swarm', 'Табло': 'Odometer', 'Стекло': 'Glass', 'Пиксели': 'Pixels', 'Монета': 'Coin', 'Луч': 'Beam',
+    'Баланс': 'Balance', 'Подарок открыт': 'Gift unlocked', 'Заказ оплачен': 'Order paid', 'Спасибо!': 'Thank you!'
   };
 
   var LANG = 'ru';
@@ -1258,6 +1440,7 @@ img,video,iframe{display:block;max-width:100%}
       stages.push({ sec: sec, ph: sec.querySelector('.phone'), gl: sec.querySelector('.glow') });
       prodMotion(stages[stages.length - 1], stages.length - 1);
     });
+    rmxPlayer();
     spotInit();
     frame();
   }
@@ -1326,7 +1509,8 @@ img,video,iframe{display:block;max-width:100%}
     var best = null, live = !lbOpen && !D.hidden;
     if (live) players.forEach(function (p) { if (p.r >= 0.55 && (!best || p.r > best.r)) best = p; });
     /* следующий ролик качается в фоне, пока смотрят текущий: к прокрутке он уже готов */
-    if (best) { var nx = players[players.indexOf(best) + 1]; if (nx && !RM) load(nx); }
+    /* ролик ROCH Motion в фон не качается: он ждёт, пока его блок подойдёт на экран (rmxNear) */
+    if (best) { var nx = players[players.indexOf(best) + 1]; if (nx && !RM && !nx.lazy) load(nx); }
     players.forEach(function (p) {
       if (p === best) {
         if (p.manual) { if (!p.want && !p.userPaused) play(p); return; }
@@ -1476,6 +1660,357 @@ img,video,iframe{display:block;max-width:100%}
     if (w) openLB(w);
   });
 
+  /* ===================== ROCH Motion: блок-витрина =====================
+     Телефон с роликом, вокруг — шесть механик коллекции, перенесённых на ES5 с её числами: «Рой» (swarm: знак из точек →
+     взрыв → сфера → снова знак), «Полосы цифр» (stats-band: одометр баланса), «Стекло» (tabbar-капля liquid glass: линза
+     тянется от скорости и увеличивает значок под собой), «Секретное предложение» (pixel-reveal: клетки вспыхивают и
+     разлетаются кольцами, ~2,8 мс на пиксель расстояния, 420 мс на клетку), «Монетка» (coin-flip на пружине с откатом)
+     и «Луч по рамке» (border-beam). На телефоне — первые четыре.
+     Цена кадра: один общий tick страницы, только transform/opacity и два маленьких canvas (DPR ≤ 2, ≤ 210 точек);
+     всё собирается, когда блок в экране от кадра (rmxNear), и крутится, только пока блок виден (rmxVis).
+     Меньше движения — каждая механика стоит в своём итоговом кадре, ролик — по касанию. */
+  var RMX = { n: 'ROCH Motion', c: '#8B5CFF', reel: 'rmotion' };
+  var rmxSec = $('motion'), rmxSt = $('rmxSt'), rmxPh = $('rmxPh'), rmxScr = $('rmxScr');
+  var rmxFx = [], rmxTiles = [], rmxBuilt = false, rmxVisOn = false, rmxRun = null, rmxT = 0, rmxNearDone = false, rmxW = 0;
+  var rmxMx = null, rmxMy = null, rmxTilt = '';
+  var MARK = 'M64 6L122 64 64 122 6 64zM64 28Q57 57 28 64Q57 71 64 100Q71 71 100 64Q71 57 64 28z';
+
+  function rmxPlayer() {
+    if (!rmxScr) return;
+    each(rmxScr.querySelectorAll('video'), function (v) { v.removeAttribute('src'); try { v.load(); } catch (e) {} v.parentNode.removeChild(v); });
+    rmxScr.classList.remove('playing', 'loading', 'err');
+    var po = rmxScr.querySelector('.poster'), ps = posterSrc(RMX);
+    if (po.getAttribute('src') !== ps) po.setAttribute('src', ps);
+    rmxScr.setAttribute('aria-label', t('Ролик') + ' ROCH Motion: ' + t('пауза и воспроизведение'));
+    rmxScr.querySelector('.msg').textContent = t('Ролик не загрузился. Нажмите, чтобы попробовать ещё раз.');
+    var pl = { el: rmxScr, w: RMX, v: null, r: 0, want: false, userPaused: false, manual: false, blocked: false, lazy: true };
+    rmxScr.__pl = pl; players.push(pl);
+    if (plIO) plIO.observe(rmxScr);
+    if (rmxNearDone && !RM) load(pl);
+  }
+  if (rmxScr) {
+    rmxScr.addEventListener('click', function () { if (rmxScr.__pl) tap(rmxScr.__pl); });
+    rmxScr.addEventListener('keydown', function (e) { if ((e.key === 'Enter' || e.key === ' ') && rmxScr.__pl) { e.preventDefault(); tap(rmxScr.__pl); } });
+  }
+
+  function fxCanvas(host, under) {
+    var cv = D.createElement('canvas'), w = host.clientWidth, h = host.clientHeight, dpr = Math.min(2, window.devicePixelRatio || 1);
+    cv.width = Math.max(1, Math.round(w * dpr)); cv.height = Math.max(1, Math.round(h * dpr)); cv.className = 'rmx-cv';
+    if (under) host.insertBefore(cv, host.firstChild); else host.insertBefore(cv, host.querySelector('.rmx-lb'));
+    var g = cv.getContext ? cv.getContext('2d') : null;
+    if (g) g.setTransform(dpr, 0, 0, dpr, 0, 0);
+    return { cv: cv, g: g, w: w, h: h, dpr: dpr };
+  }
+  /* точки знака ROCH Motion в квадрате 128: 60 % — по ромбу, 40 % — по звезде (те же квадратичные дуги, что в знаке) */
+  function markPts(n) {
+    var pts = [], i, nd = Math.round(n * 0.6), ns = n - nd, D4 = [[64, 6], [122, 64], [64, 122], [6, 64]];
+    var Q = [[[64, 28], [57, 57], [28, 64]], [[28, 64], [57, 71], [64, 100]], [[64, 100], [71, 71], [100, 64]], [[100, 64], [71, 57], [64, 28]]];
+    for (i = 0; i < nd; i++) { var u = i / nd * 4, k = Math.floor(u), f = u - k, a = D4[k], b = D4[(k + 1) % 4]; pts.push([a[0] + (b[0] - a[0]) * f, a[1] + (b[1] - a[1]) * f, 0]); }
+    for (i = 0; i < ns; i++) {
+      var v = i / ns * 4, q = Q[Math.floor(v)], s = v - Math.floor(v), m = 1 - s;
+      pts.push([m * m * q[0][0] + 2 * m * s * q[1][0] + s * s * q[2][0], m * m * q[0][1] + 2 * m * s * q[1][1] + s * s * q[2][1], 1]);
+    }
+    return pts;
+  }
+
+  /* «Рой»: знак держится 2,5 с, взрыв с разлётом 0,6 с, сфера крутится 1,6 с, знак собирается обратно; цикл 5,8 с */
+  function fxSwarm(host) {
+    var c = fxCanvas(host), g = c.g;
+    if (!g) return null;
+    var W = c.w, H = c.h, N = W < 140 ? 120 : 210, S = Math.min(W, H) * 0.68 / 128, cx = W / 2, cy = H * 0.46, R = Math.min(W, H) * 0.31;
+    var M = markPts(N), P = [], G = [[], [], []], i, PER = 5.8, last = 0, sz = W < 140 ? 1.8 : 2.1;
+    var COL = ['rgb(238,234,252)', 'rgb(167,139,255)', 'rgb(212,255,79)'];
+    for (i = 0; i < N; i++) {
+      var m = M[i], tx = cx + (m[0] - 64) * S, ty = cy + (m[1] - 64) * S, z = Math.random() * 2 - 1, j = Math.random();
+      var p = { x: tx, y: ty, vx: 0, vy: 0, tx: tx, ty: ty, th: Math.random() * 6.283, z: z, rr: Math.sqrt(1 - z * z), j: j, a: 1, s: 1 };
+      P.push(p); G[j < 0.12 ? 2 : m[2]].push(p);
+    }
+    function draw(T) {
+      g.clearRect(0, 0, W, H);
+      g.globalCompositeOperation = 'lighter';
+      for (var k = 0; k < 3; k++) {
+        g.fillStyle = COL[k];
+        for (var q = 0; q < G[k].length; q++) {
+          var p = G[k][q], s = sz * p.s;
+          g.globalAlpha = p.a * (0.82 + 0.18 * Math.sin(T * 5 + p.j * 40));
+          g.fillRect(p.x - s / 2, p.y - s / 2, s, s);
+        }
+      }
+      g.globalAlpha = 1; g.globalCompositeOperation = 'source-over';
+    }
+    return {
+      step: function (dt, T) {
+        var t = T % PER, K, C, rot = T * 1.6, n = dt > 0.02 ? 2 : 1, h = dt / n, ph = t < 2.5 ? 0 : t < 3.1 ? 1 : t < 4.7 ? 2 : 0;
+        if (t >= 2.5 && last < 2.5) for (i = 0; i < N; i++) {
+          var p0 = P[i], dx = p0.x - cx, dy = p0.y - cy, d = Math.sqrt(dx * dx + dy * dy) || 1, f = (150 + p0.j * 190) * (W / 160);
+          p0.vx += dx / d * f + (Math.random() - 0.5) * 60; p0.vy += dy / d * f + (Math.random() - 0.5) * 60;
+        }
+        last = t;
+        for (i = 0; i < N; i++) {
+          var p = P[i], tx = p.tx, ty = p.ty, a = 1, s = 1;
+          if (ph === 2) {
+            var X = p.rr * Math.cos(p.th + rot), Z = p.rr * Math.sin(p.th + rot);
+            tx = cx + X * R; ty = cy + p.z * R * 0.94; a = 0.35 + 0.65 * (Z + 1) / 2; s = 0.75 + 0.6 * (Z + 1) / 2; K = 34; C = 8;
+          } else { K = t < 1 ? 46 : 60; C = 10; }
+          for (var k = 0; k < n; k++) {
+            if (ph === 1) { var dr = Math.exp(-2.8 * h); p.vx *= dr; p.vy *= dr; }
+            else { p.vx += ((tx - p.x) * K - p.vx * C) * h; p.vy += ((ty - p.y) * K - p.vy * C) * h; }
+            p.x += p.vx * h; p.y += p.vy * h;
+          }
+          p.a += (a - p.a) * Math.min(1, dt * 8); p.s += (s - p.s) * Math.min(1, dt * 8);
+        }
+        draw(T);
+      },
+      still: function () { draw(0); },
+      cv: c.cv
+    };
+  }
+
+  /* «Полосы цифр»: баланс растёт на 2 500 каждые 2,6 с, разряды катятся каскадом справа налево */
+  function fxOdo(host) {
+    var b = host.querySelector('.ov'), plus = host.querySelector('.rmx-plus'), vals = ['12 480', '14 980', '17 480', '19 980'], k = 0, acc = 1.2;
+    if (!b.__odo) { b.innerHTML = '<span class="od"></span>'; b.__odo = odo(b.firstChild, vals[0]); }
+    var o = b.__odo;
+    return {
+      step: function (dt) {
+        acc += dt;
+        if (acc < 2.6) return;
+        acc = 0; k = (k + 1) % vals.length;
+        o.set(vals[k], { stagger: 45, cfg: { k: 90, c: 17, m: 1 } });
+        plus.classList.remove('go'); void plus.offsetWidth; plus.classList.add('go');
+      },
+      still: function () {}
+    };
+  }
+
+  /* «Стекло»: капля переезжает к следующему значку раз в 1,5 с на пружине k190 c18, тянется по скорости до 30 %,
+     под ней — тот же ряд ×1,3 */
+  function fxGlass(host) {
+    var row = host.querySelector('.gl-row'), lens = host.querySelector('.gl-lens'), inn = host.querySelector('.gl-in');
+    if (!inn.firstChild) inn.appendChild(row.cloneNode(true));
+    var hr = host.getBoundingClientRect(), rr = row.getBoundingClientRect(), MAG = 1.3, cl = inn.firstChild;
+    cl.style.left = (rr.left - hr.left) + 'px'; cl.style.top = (rr.top - hr.top) + 'px'; cl.style.width = rr.width + 'px'; cl.style.right = 'auto';
+    var xs = Array.prototype.map.call(row.children, function (e) { var r = e.getBoundingClientRect(); return r.left - hr.left + r.width / 2; });
+    var y = rr.top - hr.top + rr.height / 2, L = lens.offsetWidth, Lh = lens.offsetHeight, idx = 0, x = xs[0], vx = 0, acc = 0.6;
+    function draw() {
+      var st = Math.min(0.3, Math.abs(vx) / 900);
+      lens.style.transform = 'translate3d(' + (x - L / 2).toFixed(2) + 'px,' + (y - Lh / 2).toFixed(2) + 'px,0) scale(' + (1 + st).toFixed(3) + ',' + (1 - st * 0.4).toFixed(3) + ')';
+      inn.style.transform = 'translate3d(' + (L / 2 - x * MAG).toFixed(2) + 'px,' + (Lh / 2 - y * MAG).toFixed(2) + 'px,0) scale(' + MAG + ')';
+    }
+    draw();
+    return {
+      step: function (dt) {
+        acc += dt;
+        if (acc > 1.5) { acc = 0; idx = (idx + 1) % xs.length; }
+        var n = dt > 0.02 ? 3 : 2, h = dt / n;
+        for (var k = 0; k < n; k++) { vx += ((xs[idx] - x) * 190 - vx * 18) * h; x += vx * h; }
+        draw();
+      },
+      still: draw
+    };
+  }
+
+  /* «Секретное предложение»: мозаика бренда → волна от точки (2,8 мс на пиксель, клетка 420 мс: вспышка 20 %, разлёт 80 %) →
+     подарок 1,7 с → мозаика садится обратно; в покое по мозаике идёт полоса света */
+  function fxPixel(host) {
+    var c = fxCanvas(host), g = c.g, under = host.querySelector('.px-u');
+    if (!g) return null;
+    var W = c.w, H = c.h, dpr = c.dpr, CS = W < 140 ? 8 : 10, cols = Math.ceil(W / CS), rows = Math.ceil(H / CS), cells = [], x, y;
+    var PAL = [[30, 20, 66], [46, 30, 108], [70, 46, 168], [104, 72, 230], [150, 124, 255]];
+    for (y = 0; y < rows; y++) for (x = 0; x < cols; x++) {
+      var n = (Math.sin(x * 0.55 + y * 0.32) + Math.sin(y * 0.47 - x * 0.21 + 1.3) + 2) / 4, hs = (Math.sin(x * 12.9898 + y * 78.233) * 43758.5453) % 1;
+      hs = hs < 0 ? hs + 1 : hs;
+      var col = hs < 0.035 ? [212, 255, 79] : PAL[Math.min(4, Math.floor(n * 4.2 + hs * 0.9))];
+      cells.push({ x: x * CS, y: y * CS, cx: x * CS + CS / 2, cy: y * CS + CS / 2, c: col, j: hs, rot: (hs - 0.5) * 60, t0: -1 });
+    }
+    var state = 'hid', st = 0, maxT = 0, dir = 1, DUR = 0.42, u = 0;
+    function cascade(d) {
+      var ox = W * (0.2 + Math.random() * 0.6), oy = H * (0.25 + Math.random() * 0.5), mx = 0;
+      cells.forEach(function (k) { k.d = Math.sqrt((k.cx - ox) * (k.cx - ox) + (k.cy - oy) * (k.cy - oy)); k.dx = (k.cx - ox) / (k.d || 1); k.dy = (k.cy - oy) / (k.d || 1); if (k.d > mx) mx = k.d; });
+      maxT = 0; dir = d;
+      cells.forEach(function (k) { k.t0 = (d > 0 ? k.d : mx - k.d) * 0.0028 + k.j * 0.05; if (k.t0 > maxT) maxT = k.t0; });
+    }
+    function shade(cl, l) { return 'rgb(' + Math.round(cl[0] + (255 - cl[0]) * l) + ',' + Math.round(cl[1] + (255 - cl[1]) * l) + ',' + Math.round(cl[2] + (255 - cl[2]) * l) + ')'; }
+    function draw(t, T) {
+      g.setTransform(dpr, 0, 0, dpr, 0, 0);
+      g.clearRect(0, 0, W, H);
+      if (state === 'shown') return;
+      var sw = state === 'hid' ? ((T * 90) % (W + H + 160)) - 80 : -999;
+      for (var i = 0; i < cells.length; i++) {
+        var k = cells[i], s = 1, a = 1, r = 0, ox = 0, oy = 0, lit = 0;
+        if (state === 'open' || state === 'close') {
+          var p = clamp((t - k.t0) / DUR, 0, 1);
+          if (dir > 0) {
+            if (p >= 1) continue;
+            if (p < 0.2) { s = 1 + 0.12 * (p / 0.2); lit = p / 0.2; }
+            else { var e = (p - 0.2) / 0.8; s = 1.12 * (1 - e * e); r = k.rot * e; ox = k.dx * 10 * e; oy = k.dy * 10 * e - 6 * e; a = 1 - e * e; lit = 1 - e; }
+          } else {
+            if (p <= 0) continue;
+            var e2 = 1 - Math.pow(1 - p, 3); s = e2 * (1 + 0.1 * Math.sin(Math.PI * p)); a = clamp(p * 2, 0, 1); r = k.rot * (1 - e2);
+          }
+        }
+        var band = sw > -900 ? Math.exp(-Math.pow((k.cx + k.cy) * 0.7 - sw, 2) / 900) * 0.45 : 0;
+        g.globalAlpha = a; g.fillStyle = shade(k.c, clamp(band + lit * 0.4, 0, 0.85));
+        var z = CS * s - 2;
+        if (r || s !== 1 || ox || oy) {
+          var cs = Math.cos(r * 0.01745), sn = Math.sin(r * 0.01745);
+          g.setTransform(dpr * cs, dpr * sn, -dpr * sn, dpr * cs, dpr * (k.cx + ox), dpr * (k.cy + oy));
+          g.fillRect(-z / 2, -z / 2, z, z);
+          g.setTransform(dpr, 0, 0, dpr, 0, 0);
+        } else g.fillRect(k.x + 1, k.y + 1, CS - 2, CS - 2);
+      }
+      g.globalAlpha = 1;
+    }
+    var wait = 1.1, drawn = false;
+    return {
+      step: function (dt, T) {
+        st += dt;
+        if (state === 'hid' && st > wait) { state = 'open'; st = 0; cascade(1); }
+        else if (state === 'open' && st > maxT + DUR) { state = 'shown'; st = 0; drawn = false; }
+        else if (state === 'shown' && st > 1.7) { state = 'close'; st = 0; cascade(-1); }
+        else if (state === 'close' && st > maxT + DUR) { state = 'hid'; st = 0; wait = 1.6; }
+        var tu = state === 'shown' || (state === 'open' && st > maxT * 0.55) ? 1 : 0;
+        u += (tu - u) * Math.min(1, dt * 7);
+        under.style.transform = 'scale(' + (0.9 + 0.1 * u).toFixed(4) + ')';
+        if (state === 'shown') { if (!drawn) { draw(st, T); drawn = true; } return; }
+        draw(st, T);
+      },
+      still: function () { state = 'shown'; draw(0, 0); under.style.transform = ''; },
+      cv: c.cv
+    };
+  }
+
+  /* «Монетка»: раз в 2,4 с переворот на 180° пружиной k70 c9 (откат ~13 %, монета «садится»), подскок по ходу оборота */
+  function fxCoin(host) {
+    var cn = host.querySelector('.cn'), sh = host.querySelector('.cn-sh'), a = 0, va = 0, tgt = 0, from = 0, acc = 1.4, Hh = host.clientHeight * 0.2;
+    function draw() {
+      var pr = clamp((a - from) / 180, 0, 1), hop = Math.sin(pr * Math.PI) * Hh;
+      cn.style.transform = 'translate3d(0,' + (-hop).toFixed(2) + 'px,0) rotateY(' + a.toFixed(2) + 'deg)';
+      sh.style.transform = 'scale(' + (1 - hop / Hh * 0.45).toFixed(3) + ')'; sh.style.opacity = (1 - hop / Hh * 0.5).toFixed(3);
+    }
+    return {
+      step: function (dt) {
+        acc += dt;
+        if (acc > 2.4) { acc = 0; from = tgt; tgt += 180; }
+        var n = dt > 0.02 ? 2 : 1, h = dt / n;
+        for (var k = 0; k < n; k++) { va += ((tgt - a) * 70 - va * 9) * h; a += va * h; }
+        draw();
+      },
+      still: draw
+    };
+  }
+
+  /* «Луч по рамке»: конус света обходит карту за 2,4 с; на каждом обходе галочка дорисовывается заново за 450 мс */
+  function fxBeam(host) {
+    var rot = host.querySelector('.bm-r'), ck = host.querySelector('.bm-ck path'), a = 200, L = 20;
+    ck.style.strokeDasharray = L; ck.style.strokeDashoffset = 0;
+    return {
+      step: function (dt) {
+        a += dt * 150;
+        rot.style.transform = 'rotate(' + (a % 360).toFixed(2) + 'deg)';
+        var p = ((a % 360) - 200) / 67;
+        ck.style.strokeDashoffset = (p > 0 && p < 1 ? L * (1 - outCubic(p)) : 0).toFixed(2);
+      },
+      still: function () { rot.style.transform = 'rotate(200deg)'; }
+    };
+  }
+
+  var FX = { swarm: fxSwarm, odo: fxOdo, glass: fxGlass, pixel: fxPixel, coin: fxCoin, beam: fxBeam };
+  function rmxBuild() {
+    if (!rmxSt) return;
+    rmxFx.forEach(function (f) { if (f && f.cv && f.cv.parentNode) f.cv.parentNode.removeChild(f.cv); });
+    rmxFx = []; rmxTiles = [];
+    var sw = rmxSt.offsetWidth, sh = rmxSt.offsetHeight;
+    each(rmxSt.querySelectorAll('.rmx-tl'), function (el, i) {
+      if (!el.offsetWidth) return;
+      var mk = FX[el.getAttribute('data-fx')], f = mk ? mk(el) : null;
+      if (f) rmxFx.push(f);
+      var cx = el.offsetLeft + el.offsetWidth / 2, cy = el.offsetTop + el.offsetHeight / 2;
+      var tl = { el: el, dx: sw / 2 - cx, dy: sh / 2 - cy, r: parseFloat(getComputedStyle(el).getPropertyValue('--r')) || 0, ph: i * 1.7, d: el.classList.contains('l') ? -1 : 1, op: -1, tr: '' };
+      tl.e = sp(rmxBuilt || RM ? 1 : 0, { k: 170, c: 16, m: 1 });
+      rmxTiles.push(tl);
+    });
+    rmxW = window.innerWidth;
+    rmxBuilt = true;
+    if (RM) { rmxFx.forEach(function (f) { f.still(); }); rmxTiles.forEach(function (tl) { tl.el.style.opacity = '1'; }); }
+    else if (rmxVisOn) rmxGo();
+  }
+  /* механики вылетают из-за телефона по очереди: пружина k170 c16, шаг 90 мс, начало — когда телефон уже поднялся */
+  function rmxEnter() {
+    if (RM || !rmxBuilt) return;
+    rmxTiles.forEach(function (tl, i) { setTimeout(function () { tl.e.to(1); }, 380 + i * 90); });
+  }
+  function rmxFrame(dt) {
+    if (!rmxVisOn) { rmxRun = null; return false; }
+    rmxT += dt;
+    var mx = rmxMx ? rmxMx.v : 0, my = rmxMy ? rmxMy.v : 0, i;
+    for (i = 0; i < rmxTiles.length; i++) {
+      var tl = rmxTiles[i], e = tl.e.v, q = 1 - e, bob = Math.sin(rmxT * 1.1 + tl.ph) * 4, sway = Math.sin(rmxT * 0.8 + tl.ph) * 0.9;
+      var tr = 'translate3d(' + (tl.dx * q + mx * (8 + i * 2)).toFixed(1) + 'px,' + (tl.dy * q + bob * e + my * (6 + i)).toFixed(1) + 'px,0) rotate(' + (tl.r * e + sway * e + tl.d * 14 * q).toFixed(2) + 'deg) scale(' + (0.4 + 0.6 * e).toFixed(3) + ')';
+      if (tr !== tl.tr) { tl.el.style.transform = tr; tl.tr = tr; }
+      var op = Math.round(clamp(e * 1.6, 0, 1) * 100) / 100;
+      if (op !== tl.op) { tl.el.style.opacity = op; tl.op = op; }
+    }
+    if (FINE && rmxPh) {
+      var tt = 'perspective(1400px) rotateY(' + (mx * 5).toFixed(2) + 'deg) rotateX(' + (-my * 4).toFixed(2) + 'deg)';
+      if (tt !== rmxTilt) { rmxPh.style.transform = tt; rmxTilt = tt; }
+    }
+    for (i = 0; i < rmxFx.length; i++) rmxFx[i].step(dt, rmxT);
+  }
+  function rmxGo() { if (!rmxRun && !RM && rmxBuilt && rmxVisOn) rmxRun = tick(rmxFrame); }
+  if (rmxSec) {
+    rmxSec.__in = rmxEnter;
+    if (HAS_IO) {
+      /* за экран до блока: механики, ролик и обложка начинают собираться заранее */
+      var rmxNear = new IntersectionObserver(function (es) {
+        if (!es[es.length - 1].isIntersecting) return;
+        rmxNear.disconnect(); rmxNearDone = true;
+        rmxBuild();
+        if (rmxScr && rmxScr.__pl && !RM) load(rmxScr.__pl);
+        if (rmxSec.classList.contains('in')) rmxEnter();
+      }, { rootMargin: '100% 0px 100% 0px' });
+      rmxNear.observe(rmxSec);
+      new IntersectionObserver(function (es) {
+        var on = es[es.length - 1].isIntersecting;
+        rmxVisOn = on;
+        if (on) rmxGo();
+      }).observe(rmxSec);
+    } else { rmxNearDone = true; rmxVisOn = true; rmxBuild(); rmxEnter(); }
+    /* ширина сменилась (поворот, окно) — механики пересобираются под новый телефон; высоту адресной строки не ловим */
+    var rmxRz = 0;
+    window.addEventListener('resize', function () {
+      clearTimeout(rmxRz);
+      rmxRz = setTimeout(function () { if (rmxBuilt && Math.abs(window.innerWidth - rmxW) > 40) rmxBuild(); }, 180);
+    }, { passive: true });
+    if (FINE && !RM) {
+      rmxMx = sp(0, 'float'); rmxMy = sp(0, 'float');
+      rmxSec.addEventListener('pointermove', function (e) {
+        if (e.pointerType !== 'mouse' || !rmxSt) return;
+        var r = rmxSt.getBoundingClientRect();
+        rmxMx.to(clamp((e.clientX - (r.left + r.width / 2)) / (r.width * 1.6), -1, 1));
+        rmxMy.to(clamp((e.clientY - (r.top + r.height / 2)) / (r.height * 0.9), -1, 1));
+      }, { passive: true });
+      rmxSec.addEventListener('pointerleave', function () { rmxMx.to(0); rmxMy.to(0); });
+      var rmxGoBtn = $('rmxGo');
+      if (rmxGoBtn) magnet(rmxGoBtn, rmxSec.querySelector('.rmx-cta'));
+    }
+    /* «300+» — табло: при каждом входе целиком в кадр разряды делают оборот, как цифры геймдева */
+    var rmxNum = $('rmxNum');
+    if (rmxNum) {
+      var rv0 = norm(rmxNum.textContent);
+      rmxNum.innerHTML = '<span class="vh">' + esc(rv0) + '</span><span class="od" aria-hidden="true"></span>';
+      var rmxOdo = odo(rmxNum.lastChild, rv0), rmxNumArmed = true;
+      if (HAS_IO && !RM) new IntersectionObserver(function (es) {
+        var e = es[es.length - 1];
+        if (e.intersectionRatio >= 0.99) {
+          if (!rmxNumArmed) return;
+          rmxNumArmed = false;
+          setTimeout(function () { rmxOdo.set(rv0, { spin: 1, stagger: 60, cfg: { k: 64, c: 16, m: 1 } }); }, 200);
+        } else if (!e.isIntersecting) rmxNumArmed = true;
+      }, { rootMargin: '0px 0px -10% 0px', threshold: [0, 1] }).observe(rmxNum);
+    }
+  }
+
   /* ===== язык ===== */
   function applyLang(lang) {
     LANG = (lang === 'en') ? 'en' : 'ru';
@@ -1489,12 +2024,12 @@ img,video,iframe{display:block;max-width:100%}
   }
   $('langTog').addEventListener('click', function () { applyLang(LANG === 'en' ? 'ru' : 'en'); });
 
-  each(D.querySelectorAll('.more, .gd, .ct'), watchReveal);
+  each(D.querySelectorAll('.more, .gd, .rmx, .ct'), watchReveal);
   if (LANG === 'en') applyLang('en'); else { render(); refreshTg(); langUI(); }
 
   /* ROCH Motion: обложка один раз, слайды — по входу */
   coverIntro();
-  each(D.querySelectorAll('.cover, .more, .gd, .ct'), function (s) { if (actIO) actIO.observe(s); else s.classList.add('on'); });
+  each(D.querySelectorAll('.cover, .more, .gd, .rmx, .ct'), function (s) { if (actIO) actIO.observe(s); else s.classList.add('on'); });
   if (HAS_IO && !RM) {
     /* цифры геймдева: обе целиком в кадре — табло делает оборот; снова — после ухода из кадра */
     var stEl = D.querySelector('.gd .stats');
