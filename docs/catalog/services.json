@@ -1,0 +1,194 @@
+{
+  "about": "Единый каталог предложений экосистемы ROCH — источник истины для цен, условий и статусов. Пространство product_id совпадает с ProductId в roch-client-engine/packages/core/src/catalog.ts. Страж: node docs/catalog/check.mjs. Цены здесь не меняются без подтверждения Романа.",
+  "version": "2026-11-14",
+  "updated_at": "2026-11-14",
+  "canonical_rule": "Цены едины во всех продуктах, эталон — живой сайт roch-art.com (решение Романа 14.11.2026; записано в roch-client-engine catalog.ts).",
+  "currency_rule": "USD — денежная цена. XTR — номинал Telegram Stars; долларовая цена рядом с ним — заявленная (display_usd), курс и доход от вывода не предполагаются.",
+  "price_status": {
+    "confirmed": "Роман подтвердил; совпадает с живой страницей и кодом",
+    "owner_stated": "назвал Роман; публичной страницы с ценой нет или она не расходится",
+    "conflict": "источники расходятся — клиенту не называть до решения",
+    "individual": "фиксированной цены нет, только оценка",
+    "none": "сейчас не продаётся"
+  },
+
+  "products": [
+    {
+      "product_id": "roch_ai",
+      "name": "ROCH AI",
+      "brand": "ROCH",
+      "role": "AI-диагностика интерфейсов и продуктовых идей — самостоятельный продукт со своим биллингом",
+      "landing": "https://roch-art.com/rochai",
+      "status": "confirmed",
+      "skus": [
+        { "sku": "roch_ai.free", "name": "Бесплатный старт", "price": 0, "currency": "XTR", "terms": "3 разбора новому пользователю; +1 за приглашённого", "sources": ["roch-ai/lib/store.ts:15", "roch-ai/supabase/migrations/0001_roch_ai_quota.sql:10"] },
+        { "sku": "roch_ai.pack10", "name": "10 разборов", "price": 500, "currency": "XTR", "display_usd": 9.99, "terms": "пак не сгорает", "sources": ["roch-ai/lib/pricing.ts:10"] },
+        { "sku": "roch_ai.pack50", "name": "50 разборов", "price": 1500, "currency": "XTR", "display_usd": 29.99, "terms": "пак не сгорает", "sources": ["roch-ai/lib/pricing.ts:11"] },
+        { "sku": "roch_ai.pro", "name": "Pro", "price": 2500, "currency": "XTR", "display_usd": 49.99, "terms": "30 дней, до 20 разборов в сутки, разовая оплата без автопродления", "sources": ["roch-ai/lib/pricing.ts:17"], "copy_conflict": "в боте и словаре Pro назван «Безлимит» и «Отмена в один тап» (app/api/tma/webhook/route.ts:78, i18n 244–245) — решение D1" },
+        { "sku": "roch_ai.idea_draft", "name": "Черновик паспорта идеи", "price": 0, "currency": "XTR", "terms": "3 в сутки", "sources": ["roch-ai/app/api/idea/route.ts:13"], "note": "лимит хранится в памяти экземпляра и сбрасывается при холодном старте" }
+      ]
+    },
+    {
+      "product_id": "unpacking",
+      "name": "Распаковка идеи",
+      "brand": "ROCH",
+      "role": "персональная экспертиза: 2 часа с Романом",
+      "landing": "https://roch-art.com",
+      "status": "confirmed",
+      "price": 480, "currency": "USD",
+      "terms": "2 часа × $240; 100% до встречи; засчитывается в упаковку, если она заказана в течение 7 дней",
+      "sources": ["roch-art-business/index.html:1963", "roch-art-business/terms.html:77", "roch-art-business/pay.html:133"],
+      "aliases": ["$500 консультация (смета Folkville — не офер)", "Founder Reality Check $500 (бриф Client Engine)"]
+    },
+    {
+      "product_id": "packaging",
+      "name": "Упаковка продукта",
+      "brand": "ROCH",
+      "role": "персональная экспертиза: 3 дня",
+      "landing": "https://roch-art.com",
+      "status": "confirmed",
+      "price": 1560, "currency": "USD",
+      "terms": "3 дня × $520; 50/50 ($780 + $780, или $540 + $540 после зачёта распаковки); 2 круга правок",
+      "sources": ["roch-art-business/index.html:2355", "roch-art-business/terms.html:86"]
+    },
+    {
+      "product_id": "apphub_express",
+      "name": "Запуск под ключ",
+      "brand": "AppHUB",
+      "role": "упаковка + продукт AppHUB",
+      "landing": "https://roch-art.com",
+      "status": "confirmed",
+      "price": 5260, "currency": "USD",
+      "terms": "$5 260 = упаковка $1 560 + продукт AppHub $3 700; 50/50 ($2 630 × 2); 1–2 недели, точный срок — после распаковки",
+      "sources": ["roch-art-business/index.html:2370"],
+      "open_questions": [
+        "на сайте цена фиксированная ($5 260), в Client Engine — «from $5,260»",
+        "«продукт AppHub $3 700» не встречается на apphub.studio (там своя разработка «от $5 000»)",
+        "зачёт распаковки в запуск не описан ни на сайте, ни в pay.html"
+      ]
+    },
+    {
+      "product_id": "branding",
+      "name": "Полный брендинг",
+      "brand": "ROCH",
+      "status": "owner_stated",
+      "price": 3000, "currency": "USD", "from": true,
+      "terms": "нет на публичных страницах",
+      "sources": ["roch-client-engine/packages/core/src/catalog.ts:144", "Documents/💎 WORK/👾 WEB Coding/folkville.top/BRIEF.md:46"]
+    },
+    {
+      "product_id": "apphub_custom",
+      "name": "Разработка AppHUB",
+      "brand": "AppHUB",
+      "landing": "https://apphub.studio",
+      "status": "individual",
+      "price": 5000, "currency": "USD", "from": true,
+      "terms": "оценка командой; сроки и объём после оценки",
+      "sources": ["apphub/messages/ru.json:1305", "apphub Constructor.tsx:604"]
+    },
+    {
+      "product_id": "apphub_platform",
+      "name": "Тарифы платформы AppHUB",
+      "brand": "AppHUB",
+      "landing": "https://apphub.studio",
+      "status": "confirmed",
+      "proposed_id": true,
+      "note": "в Client Engine такого product_id нет — предлагаю добавить, чтобы тарифы платформы не путались с разработкой",
+      "skus": [
+        { "sku": "apphub_platform.free", "price": 0, "currency": "USD", "terms": "в месяц" },
+        { "sku": "apphub_platform.49", "price": 49, "currency": "USD", "terms": "в месяц" },
+        { "sku": "apphub_platform.99", "price": 99, "currency": "USD", "terms": "в месяц" },
+        { "sku": "apphub_platform.149", "price": 149, "currency": "USD", "terms": "в месяц" },
+        { "sku": "apphub_platform.enterprise", "price": 1500, "currency": "USD", "terms": "в год" }
+      ],
+      "sources": ["apphub/lib/modules.ts", "apphub/messages/ru.json:429"]
+    },
+    { "product_id": "ai_prototype_rescue", "name": "AI Prototype Rescue", "brand": "AppHUB", "status": "individual", "availability": "hypothesis", "sources": ["roch-client-engine/packages/core/src/catalog.ts:206"] },
+    { "product_id": "white_label", "name": "White-label партнёрство", "brand": "AppHUB", "status": "individual", "sources": ["roch-client-engine/packages/core/src/catalog.ts:225"] },
+    {
+      "product_id": "roch_motion",
+      "name": "ROCH Motion",
+      "brand": "ROCH",
+      "role": "готовые интерфейсные механики за Stars",
+      "landing": "https://roch-art.com/motion",
+      "status": "confirmed",
+      "catalog_size_source": "agents/04_ROCH/движение/skill/fx/passports.json",
+      "skus": [
+        { "sku": "roch_motion.single.base", "price": 25, "currency": "XTR" },
+        { "sku": "roch_motion.single.rare", "price": 50, "currency": "XTR" },
+        { "sku": "roch_motion.single.epic", "price": 100, "currency": "XTR" },
+        { "sku": "roch_motion.single.legend", "price": 250, "currency": "XTR" },
+        { "sku": "roch_motion.single.new", "price": 50, "currency": "XTR", "note": "запасная цена для механики без уровня; все 385 сейчас с уровнем, поэтому новинки продаются по цене уровня" },
+        { "sku": "roch_motion.pack10", "price": 250, "currency": "XTR", "terms": "10 механик на выбор, 30 дней" },
+        { "sku": "roch_motion.pack30", "price": 590, "currency": "XTR", "terms": "30 механик, 90 дней", "copy_conflict": "витрина обещает «новый пакет складывается с остатком», а store/api/invoice.js:42 не даёт купить второй пакет на 30 при действующем — решение D5" },
+        { "sku": "roch_motion.pack100", "price": 1490, "currency": "XTR", "terms": "100 механик, 365 дней" },
+        { "sku": "roch_motion.lifetime", "price": 13900, "currency": "XTR", "terms": "весь каталог навсегда + новинки 12 месяцев" },
+        { "sku": "roch_motion.updates_year", "price": 2900, "currency": "XTR", "terms": "новинки ещё на 365 дней для «Навсегда»" }
+      ],
+      "sources": ["agents/04_ROCH/движение/данные/магазин.js:14", "agents/04_ROCH/движение/данные/магазин.js:23-27"]
+    },
+    {
+      "product_id": "roch_audit",
+      "name": "ROCH Audit",
+      "brand": "ROCH",
+      "landing": "https://roch-audit.com",
+      "status": "none",
+      "availability": "paused",
+      "note": "разработка на паузе с июля 2026; на своих страницах держит четыре несогласованных набора цен — клиентам не предлагать (так же решено в Client Engine)",
+      "sources": ["roch-audit/src/app/data/translations.ts:1135", "roch-audit/src/app/components/LossCalculator.tsx:279", "roch-audit/public/hire.html:483", "roch-audit/api/crypto-verify.ts:69"]
+    }
+  ],
+
+  "promotions": [
+    {
+      "promo_id": "motion_pro_bonus",
+      "name": "ROCH Motion Pro в подарок к упаковке",
+      "value": "590 XTR → 0",
+      "condition": "упаковка заказана в течение 48 часов после распаковки",
+      "sources": ["roch-art-business/index.html:2403"],
+      "copy_conflict": "окно зачёта распаковки — 7 дней, окно бонуса — 48 часов; на странице оба рядом"
+    }
+  ],
+
+  "pins": [
+    { "id": "roch_ai.pack10.stars", "repo": "roch-ai", "file": "lib/pricing.ts", "regex": "id: \"pack10\"[^}]*stars: (\\d+)", "expect": "500" },
+    { "id": "roch_ai.pack10.usd", "repo": "roch-ai", "file": "lib/pricing.ts", "regex": "id: \"pack10\"[^}]*priceUsd: ([\\d.]+)", "expect": "9.99" },
+    { "id": "roch_ai.pack50.stars", "repo": "roch-ai", "file": "lib/pricing.ts", "regex": "id: \"pack50\"[^}]*stars: (\\d+)", "expect": "1500" },
+    { "id": "roch_ai.pack50.usd", "repo": "roch-ai", "file": "lib/pricing.ts", "regex": "id: \"pack50\"[^}]*priceUsd: ([\\d.]+)", "expect": "29.99" },
+    { "id": "roch_ai.pro.stars", "repo": "roch-ai", "file": "lib/pricing.ts", "regex": "SUB = \\{[^}]*stars: (\\d+)", "expect": "2500" },
+    { "id": "roch_ai.pro.days", "repo": "roch-ai", "file": "lib/pricing.ts", "regex": "SUB = \\{[^}]*days: (\\d+)", "expect": "30" },
+    { "id": "roch_ai.pro.daily", "repo": "roch-ai", "file": "lib/pricing.ts", "regex": "SUB = \\{[^}]*dailyLimit: (\\d+)", "expect": "20" },
+    { "id": "roch_ai.free.client", "repo": "roch-ai", "file": "lib/store.ts", "regex": "FREE_START = (\\d+)", "expect": "3" },
+    { "id": "roch_ai.free.db", "repo": "roch-ai", "file": "supabase/migrations/0001_roch_ai_quota.sql", "regex": "balance\\s+int\\s+not null default (\\d+)", "expect": "3" },
+    { "id": "roch_motion.legend", "repo": "motion", "file": "данные/магазин.js", "regex": "price: \\{ legend: (\\d+)", "expect": "250" },
+    { "id": "roch_motion.epic", "repo": "motion", "file": "данные/магазин.js", "regex": "price: \\{[^}]*epic: (\\d+)", "expect": "100" },
+    { "id": "roch_motion.rare", "repo": "motion", "file": "данные/магазин.js", "regex": "price: \\{[^}]*rare: (\\d+)", "expect": "50" },
+    { "id": "roch_motion.base", "repo": "motion", "file": "данные/магазин.js", "regex": "price: \\{[^}]*base: (\\d+)", "expect": "25" },
+    { "id": "roch_motion.pack10", "repo": "motion", "file": "данные/магазин.js", "regex": "week:\\s*\\{ stars: (\\d+)", "expect": "250" },
+    { "id": "roch_motion.pack30", "repo": "motion", "file": "данные/магазин.js", "regex": "month:\\s*\\{ stars: (\\d+)", "expect": "590" },
+    { "id": "roch_motion.pack100", "repo": "motion", "file": "данные/магазин.js", "regex": "year:\\s*\\{ stars: (\\d+)", "expect": "1490" },
+    { "id": "roch_motion.lifetime", "repo": "motion", "file": "данные/магазин.js", "regex": "life:\\s*\\{ stars: (\\d+)", "expect": "13900" },
+    { "id": "roch_motion.updates_year", "repo": "motion", "file": "данные/магазин.js", "regex": "upd:\\s*\\{ stars: (\\d+)", "expect": "2900" },
+    { "id": "unpacking.site", "repo": "roch-art", "file": "index.html", "contains": "$480" },
+    { "id": "packaging.site", "repo": "roch-art", "file": "index.html", "contains": "$1 560" },
+    { "id": "apphub_express.site", "repo": "roch-art", "file": "index.html", "contains": "$5 260" }
+  ],
+
+  "retired": [
+    { "id": "old-packaging-1490", "severity": "error", "repos": ["roch-ai", "roch-art"], "regex": "\\$\\s?1[ ,]?490", "reason": "упаковка стоит $1 560", "decision": "D2" },
+    { "id": "old-ai-upsell", "severity": "error", "repos": ["roch-ai"], "regex": "\\$\\s?2[ ,]?499|\\$\\s?999\\b|\\b2499\\b", "reason": "Full Build $2499 / Level 4 $999 — офферов больше нет; эталон — $480 / $1 560 / $5 260", "decision": "D2" },
+    { "id": "old-ai-proposal-499", "severity": "error", "repos": ["roch-ai"], "regex": "\\$\\s?499\\b|\\b4999\\b", "reason": "«от $499/2499/4999» в CTA после аудита сайта — старая лестница", "decision": "D2" },
+    { "id": "tlprice-nojs-1500", "severity": "error", "repos": ["roch-art"], "regex": "id=\"tlPrice\"[^>]*>\\s*\\$1 500", "reason": "без JS и для поисковиков бегунок показывает $1 500 вместо $1 560", "decision": "fix" },
+    { "id": "free-five", "severity": "error", "repos": ["roch-ai", "roch-art", "roch-audit-live"], "regex": "перв\\w* 5 разбор|first 5 (audits|analyses)|5 free (audits|analyses)", "reason": "бесплатных разборов 3 (lib/store.ts, миграция 0001)", "decision": "D3" },
+    { "id": "pro-unlimited", "severity": "error", "repos": ["roch-ai"], "regex": "[Бб]езлимит|[Uu]nlimited", "reason": "Pro — до 20 разборов в сутки", "decision": "D1", "allow": [{ "file": "app/page.tsx", "text": "Unlimited projects", "why": "учебный пример EXAMPLE_CODE, а не обещание ROCH AI" }] },
+    { "id": "pro-cancel", "severity": "error", "repos": ["roch-ai"], "regex": "[Оо]тмена в один тап|[Cc]ancel (in|with) one tap|[Cc]ancel anytime", "reason": "Pro — разовая оплата на 30 дней, отменять нечего", "decision": "D1" },
+    { "id": "en-unpacking-free", "severity": "error", "repos": ["roch-art"], "regex": "pay only once you decide to package", "reason": "английский текст обещает бесплатную распаковку, а она $480", "decision": "fix" },
+    { "id": "en-dead-ladder", "severity": "warn", "repos": ["roch-art"], "regex": "[Uu]npacking[^\"]{0,40}\\$100\\b|\\$2,500|\\(\\$500\\)", "reason": "мёртвые строки старой лестницы $100/$500/$2 500 в словаре I18N_EN", "decision": "fix" }
+  ],
+
+  "dynamic_checks": [
+    { "id": "motion-count", "severity": "error", "repos": ["roch-art"], "regex": "(\\d{3})\\s*(механик|mechanics)", "compare_with": "motion_catalog_size", "reason": "размер каталога на сайте должен совпадать с живым каталогом" },
+    { "id": "internal-docs-deployed", "severity": "error", "repos": ["roch-art"], "rule": "markdown_in_deploy", "reason": "внутренние .md уходят на roch-art.com — .vercelignore исключает только /docs и /reels", "decision": "D6" },
+    { "id": "site-events-allowlist", "severity": "error", "rule": "events_allowlist", "sender": "roch-art/index.html", "receiver": "roch-audit/api/vibe-track.ts", "reason": "события, которых нет в списке приёмника, отбрасываются (unknown_event) — воронка теряет шаги" }
+  ]
+}
