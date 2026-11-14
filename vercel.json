@@ -74,6 +74,14 @@
     {
       "source": "/motion/:path*",
       "destination": "https://roch-motion.vercel.app/:path*"
+    },
+    {
+      "source": "/ClientEngine",
+      "destination": "https://roch-client-engine.vercel.app/ClientEngine"
+    },
+    {
+      "source": "/ClientEngine/:path*",
+      "destination": "https://roch-client-engine.vercel.app/ClientEngine/:path*"
     }
   ],
   "headers": [
