@@ -4,6 +4,15 @@
   "updated_at": "2026-11-14",
   "canonical_rule": "Цены едины во всех продуктах, эталон — живой сайт roch-art.com (решение Романа 14.11.2026; записано в roch-client-engine catalog.ts).",
   "currency_rule": "USD — денежная цена. XTR — номинал Telegram Stars; долларовая цена рядом с ним — заявленная (display_usd), курс и доход от вывода не предполагаются.",
+  "decisions": {
+    "date": "2026-11-14", "doc": "docs/DECISIONS_D1-D6.md",
+    "D1": "ROCH AI Pro — «до 20 разборов в сутки, 30 дней, без автопродления»",
+    "D2": "в ROCH AI только лестница $480 / $1 560 / $5 260; цена предложения после разбора — из roch-ai/lib/pricing.ts REBUILD_FROM по объёму",
+    "D3": "бесплатных разборов 3",
+    "D4": "оплата ROCH AI: строгая сумма и валюта, честные сообщения, /paysupport, журнал (миграция 0004 — после восстановления базы)",
+    "D5": "Motion: MCP проверяет covers(), пакет без автопродления докупается",
+    "D6": "база ROCH AI недоступна (NXDOMAIN) — Роман восстанавливает проект в Supabase, затем применяется 0004"
+  },
   "price_status": {
     "confirmed": "Роман подтвердил; совпадает с живой страницей и кодом",
     "owner_stated": "назвал Роман; публичной страницы с ценой нет или она не расходится",
@@ -24,7 +33,7 @@
         { "sku": "roch_ai.free", "name": "Бесплатный старт", "price": 0, "currency": "XTR", "terms": "3 разбора новому пользователю; +1 за приглашённого", "sources": ["roch-ai/lib/store.ts:15", "roch-ai/supabase/migrations/0001_roch_ai_quota.sql:10"] },
         { "sku": "roch_ai.pack10", "name": "10 разборов", "price": 500, "currency": "XTR", "display_usd": 9.99, "terms": "пак не сгорает", "sources": ["roch-ai/lib/pricing.ts:10"] },
         { "sku": "roch_ai.pack50", "name": "50 разборов", "price": 1500, "currency": "XTR", "display_usd": 29.99, "terms": "пак не сгорает", "sources": ["roch-ai/lib/pricing.ts:11"] },
-        { "sku": "roch_ai.pro", "name": "Pro", "price": 2500, "currency": "XTR", "display_usd": 49.99, "terms": "30 дней, до 20 разборов в сутки, разовая оплата без автопродления", "sources": ["roch-ai/lib/pricing.ts:17"], "copy_conflict": "в боте и словаре Pro назван «Безлимит» и «Отмена в один тап» (app/api/tma/webhook/route.ts:78, i18n 244–245) — решение D1" },
+        { "sku": "roch_ai.pro", "name": "Pro", "price": 2500, "currency": "XTR", "display_usd": 49.99, "terms": "30 дней, до 20 разборов в сутки, разовая оплата без автопродления", "sources": ["roch-ai/lib/pricing.ts:17", "roch-ai/lib/i18n.tsx:243–245"], "resolved": "D1, 14.11.2026: «Безлимит» и «Отмена в один тап» убраны из витрины, счёта и чека — теперь «до 20 разборов в сутки, 30 дней, без автопродления»" },
         { "sku": "roch_ai.idea_draft", "name": "Черновик паспорта идеи", "price": 0, "currency": "XTR", "terms": "3 в сутки", "sources": ["roch-ai/app/api/idea/route.ts:13"], "note": "лимит хранится в памяти экземпляра и сбрасывается при холодном старте" }
       ]
     },
@@ -59,12 +68,12 @@
       "landing": "https://roch-art.com",
       "status": "confirmed",
       "price": 5260, "currency": "USD",
-      "terms": "$5 260 = упаковка $1 560 + продукт AppHub $3 700; 50/50 ($2 630 × 2); 1–2 недели, точный срок — после распаковки",
+      "terms": "$5 260 = упаковка $1 560 + приложение на готовой базе AppHub $3 700; цена фиксированная, меняется только срок; 50/50 ($2 630 × 2); 1–2 недели, точный срок — после распаковки; зачёт распаковки $480 действует (упаковка входит в запуск)",
       "sources": ["roch-art-business/index.html:2370"],
-      "open_questions": [
-        "на сайте цена фиксированная ($5 260), в Client Engine — «from $5,260»",
-        "«продукт AppHub $3 700» не встречается на apphub.studio (там своя разработка «от $5 000»)",
-        "зачёт распаковки в запуск не описан ни на сайте, ни в pay.html"
+      "resolved": [
+        "D2, 14.11.2026: цена фиксированная — $5 260, без «from»; Client Engine показывает так же (docs/DECISIONS_D1-D6.md)",
+        "D2: «$3 700» — приложение на готовой базе AppHub внутри запуска; «Разработка AppHUB от $5 000» (apphub_custom) — отдельный продукт, разработка с нуля по оценке. Противоречия нет",
+        "D2: зачёт распаковки ($480 в течение 7 дней) распространяется на запуск, потому что упаковка — его часть"
       ]
     },
     {
@@ -120,7 +129,7 @@
         { "sku": "roch_motion.single.legend", "price": 250, "currency": "XTR" },
         { "sku": "roch_motion.single.new", "price": 50, "currency": "XTR", "note": "запасная цена для механики без уровня; все 385 сейчас с уровнем, поэтому новинки продаются по цене уровня" },
         { "sku": "roch_motion.pack10", "price": 250, "currency": "XTR", "terms": "10 механик на выбор, 30 дней" },
-        { "sku": "roch_motion.pack30", "price": 590, "currency": "XTR", "terms": "30 механик, 90 дней", "copy_conflict": "витрина обещает «новый пакет складывается с остатком», а store/api/invoice.js:42 не даёт купить второй пакет на 30 при действующем — решение D5" },
+        { "sku": "roch_motion.pack30", "price": 590, "currency": "XTR", "terms": "30 механик, 90 дней; докупается при действующем — остаток складывается с новым", "resolved": "D5, 14.11.2026: запрет в store/api/invoice.js снят для пакетов без автопродления; тест «второй пакет при действующем — счёт выставляется»" },
         { "sku": "roch_motion.pack100", "price": 1490, "currency": "XTR", "terms": "100 механик, 365 дней" },
         { "sku": "roch_motion.lifetime", "price": 13900, "currency": "XTR", "terms": "весь каталог навсегда + новинки 12 месяцев" },
         { "sku": "roch_motion.updates_year", "price": 2900, "currency": "XTR", "terms": "новинки ещё на 365 дней для «Навсегда»" }
@@ -179,11 +188,12 @@
     { "id": "old-ai-upsell", "severity": "error", "repos": ["roch-ai"], "regex": "\\$\\s?2[ ,]?499|\\$\\s?999\\b|\\b2499\\b", "reason": "Full Build $2499 / Level 4 $999 — офферов больше нет; эталон — $480 / $1 560 / $5 260", "decision": "D2" },
     { "id": "old-ai-proposal-499", "severity": "error", "repos": ["roch-ai"], "regex": "\\$\\s?499\\b|\\b4999\\b", "reason": "«от $499/2499/4999» в CTA после аудита сайта — старая лестница", "decision": "D2" },
     { "id": "tlprice-nojs-1500", "severity": "error", "repos": ["roch-art"], "regex": "id=\"tlPrice\"[^>]*>\\s*\\$1 500", "reason": "без JS и для поисковиков бегунок показывает $1 500 вместо $1 560", "decision": "fix" },
-    { "id": "free-five", "severity": "error", "repos": ["roch-ai", "roch-art", "roch-audit-live"], "regex": "перв\\w* 5 разбор|first 5 (audits|analyses)|5 free (audits|analyses)", "reason": "бесплатных разборов 3 (lib/store.ts, миграция 0001)", "decision": "D3" },
+    { "id": "free-five", "severity": "error", "repos": ["roch-ai", "roch-art", "roch-audit-live"], "regex": "перв[а-яё]* 5 разбор|[Ff]irst 5 (audits|analyses|breakdowns)|FIRST 5 BREAKDOWNS|\\(first 5\\)|5 free (audits|analyses|breakdowns)", "reason": "бесплатных разборов 3 (lib/store.ts, миграция 0001)", "decision": "D3" },
     { "id": "pro-unlimited", "severity": "error", "repos": ["roch-ai"], "regex": "[Бб]езлимит|[Uu]nlimited", "reason": "Pro — до 20 разборов в сутки", "decision": "D1", "allow": [{ "file": "app/page.tsx", "text": "Unlimited projects", "why": "учебный пример EXAMPLE_CODE, а не обещание ROCH AI" }] },
     { "id": "pro-cancel", "severity": "error", "repos": ["roch-ai"], "regex": "[Оо]тмена в один тап|[Cc]ancel (in|with) one tap|[Cc]ancel anytime", "reason": "Pro — разовая оплата на 30 дней, отменять нечего", "decision": "D1" },
     { "id": "en-unpacking-free", "severity": "error", "repos": ["roch-art"], "regex": "pay only once you decide to package", "reason": "английский текст обещает бесплатную распаковку, а она $480", "decision": "fix" },
-    { "id": "en-dead-ladder", "severity": "warn", "repos": ["roch-art"], "regex": "[Uu]npacking[^\"]{0,40}\\$100\\b|\\$2,500|\\(\\$500\\)", "reason": "мёртвые строки старой лестницы $100/$500/$2 500 в словаре I18N_EN", "decision": "fix" }
+    { "id": "en-dead-ladder", "severity": "warn", "repos": ["roch-art"], "regex": "[Uu]npacking[^\"]{0,40}\\$100\\b|\\$2,500|\\(\\$500\\)", "reason": "мёртвые строки старой лестницы $100/$500/$2 500 в словаре I18N_EN", "decision": "fix" },
+    { "id": "audit-persona-prices", "severity": "error", "repos": ["roch-audit-live"], "regex": "(Style Core|Full Build|Game Layer) — \\$", "reason": "персона чата /vibe цен не называет — старые офферы Style Core $500 / Full Build $2 500 / Game Layer $5 000 сняты", "decision": "D2" }
   ],
 
   "dynamic_checks": [
